@@ -1,0 +1,2140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CS2-05 品牌管理組 · Toolkit</title>
+<style>
+  :root {
+    --turquoise:#26A7B0;
+    --turquoise-50:#ECF7F8;
+    --turquoise-100:#D0EDEF;
+    --turquoise-700:#1F8A92;
+    --copper-light:#CAC3D2;
+    --copper-deep:#6E5F7C;
+    --purple:#7086BA;
+    --green:#6BB57E;
+    --orange:#ED7442;
+    --warn:#E5993E;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a4a;
+    --ink-mute:#8a8580;
+    --paper:#fdfcfa;
+    --paper-soft:#f5f3ef;
+    --paper-warm:#faf7f0;
+    --line:#e5e2db;
+    --line-strong:#cfc9bf;
+    --tier-a:var(--turquoise);
+    --tier-b:var(--purple);
+    --tier-c:var(--copper-deep);
+    --bad:#c9624b;
+    --good:#5ba373;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.78;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    background:linear-gradient(135deg,var(--copper-deep) 0%,#574A63 100%);
+    color:#fff;
+    padding:56px 24px 44px;
+  }
+  .hero-inner { max-width:960px; margin:0 auto; }
+  .hero-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:12px;
+    opacity:0.85;
+    margin-bottom:12px;
+  }
+  .hero-code {
+    font-family:Georgia,serif;
+    font-size:13px;
+    background:rgba(255,255,255,0.18);
+    padding:4px 12px;
+    border-radius:4px;
+    letter-spacing:0.08em;
+    display:inline-block;
+    margin-bottom:14px;
+  }
+  .hero h1 {
+    font-size:34px;
+    font-weight:700;
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+    line-height:1.3;
+  }
+  .hero-tagline {
+    font-size:16px;
+    opacity:0.92;
+    margin:0 0 22px;
+    line-height:1.7;
+  }
+  .hero-rule {
+    background:rgba(255,255,255,0.10);
+    border-left:3px solid rgba(255,255,255,0.5);
+    padding:14px 18px;
+    border-radius:0 4px 4px 0;
+    font-size:14.5px;
+    line-height:1.75;
+    max-width:720px;
+    margin:0;
+  }
+  .hero-rule-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    opacity:0.8;
+    margin-bottom:4px;
+  }
+  .hero-update {
+    font-size:12px;
+    opacity:0.75;
+    margin-top:22px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    letter-spacing:0.08em;
+  }
+
+  /* Layout */
+  main { max-width:960px; margin:0 auto; padding:48px 24px 64px; }
+
+  /* Side index */
+  .side-index {
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    width:188px;
+    background:rgba(253,252,250,0.94);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 10px;
+    font-size:13px;
+    z-index:40;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+    display:none;
+    max-height:80vh;
+    overflow-y:auto;
+  }
+  .side-index-title {
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--ink-mute);
+    padding:2px 8px 8px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:6px;
+  }
+  .side-index ul { list-style:none; padding:0; margin:0; }
+  .side-index a {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 8px;
+    border-radius:5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background .15s,color .15s;
+    line-height:1.4;
+    font-size:12.5px;
+  }
+  .side-index a:hover { background:var(--paper-soft); color:var(--ink); }
+  .side-index a.active {
+    background:var(--turquoise-50);
+    color:var(--turquoise-700);
+    font-weight:600;
+  }
+  .side-index .code {
+    font-family:Georgia,serif;
+    font-size:11px;
+    color:var(--ink-mute);
+    flex:0 0 18px;
+  }
+  .side-index a.active .code { color:var(--turquoise-700); }
+  .side-index-divider {
+    height:1px;
+    background:var(--line);
+    margin:6px 8px 6px;
+  }
+  .side-index-tier-label {
+    font-size:10px;
+    color:var(--ink-mute);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:6px 8px 4px;
+    font-weight:600;
+  }
+  .side-index-tier-label[data-t="a"] { color:var(--tier-a); }
+  .side-index-tier-label[data-t="b"] { color:var(--tier-b); }
+  .side-index-tier-label[data-t="c"] { color:var(--tier-c); }
+
+  /* Top nav */
+  .top-nav {
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(253,252,250,0.96);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+    margin:0 -24px 32px;
+  }
+  .top-nav-inner {
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+  }
+  .top-nav a {
+    flex:0 0 auto;
+    padding:8px 12px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    border-radius:4px;
+    white-space:nowrap;
+    transition:all .15s;
+  }
+  .top-nav a:hover { background:var(--paper-soft); color:var(--ink); }
+
+  /* Intro */
+  .intro {
+    margin-bottom:48px;
+  }
+  .intro-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:11px;
+    color:var(--turquoise);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .intro h2 {
+    font-size:24px;
+    font-weight:700;
+    margin:0 0 12px;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .intro > p {
+    font-size:15px;
+    color:var(--ink-soft);
+    line-height:1.8;
+    margin:0 0 12px;
+    max-width:720px;
+  }
+
+  /* Four voices */
+  .voices {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:24px;
+  }
+  .voice {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:20px 22px;
+    border-left:4px solid var(--v-color);
+  }
+  .voice[data-v="1"] { --v-color:var(--turquoise); }
+  .voice[data-v="2"] { --v-color:var(--green); }
+  .voice[data-v="3"] { --v-color:var(--copper-deep); }
+  .voice[data-v="4"] { --v-color:var(--orange); }
+  .voice-header {
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .voice-num {
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.06em;
+  }
+  .voice h4 {
+    margin:0;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .voice-when {
+    margin:0 0 12px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .voice-when strong { color:var(--ink); }
+  .voice-example {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:12px 14px;
+    margin:0;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+    border-left:2px solid var(--v-color);
+  }
+  .voice-example-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .voice-example em {
+    display:block;
+    margin-top:6px;
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tier section */
+  .tier-section {
+    margin-bottom:64px;
+    scroll-margin-top:24px;
+  }
+  .tier-header {
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    padding-bottom:14px;
+    margin-bottom:24px;
+    border-bottom:2px solid var(--tier-color);
+  }
+  .tier-section[data-t="a"] { --tier-color:var(--tier-a); }
+  .tier-section[data-t="b"] { --tier-color:var(--tier-b); }
+  .tier-section[data-t="c"] { --tier-color:var(--tier-c); }
+  .tier-number {
+    font-family:Georgia,serif;
+    font-size:32px;
+    font-weight:600;
+    color:var(--tier-color);
+    line-height:1;
+  }
+  .tier-name-block { flex:1 1 auto; }
+  .tier-name {
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin:0;
+    line-height:1.3;
+  }
+  .tier-name-en {
+    font-size:11px;
+    color:var(--ink-mute);
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+  .tier-subtitle {
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0;
+    font-style:italic;
+  }
+
+  /* Project */
+  .project {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    margin-bottom:28px;
+    overflow:hidden;
+    scroll-margin-top:72px;
+  }
+  .project-header {
+    background:var(--paper-warm);
+    padding:20px 24px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .project-code {
+    flex:0 0 auto;
+    background:var(--tier-color);
+    color:#fff;
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    padding:6px 10px;
+    border-radius:4px;
+    letter-spacing:0.04em;
+  }
+  .project-title-block { flex:1 1 auto; }
+  .project-title-block h3 {
+    margin:0;
+    font-size:19px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .project-body { padding:26px 28px; }
+
+  /* Fields */
+  .field { margin-bottom:30px; }
+  .field:last-child { margin-bottom:0; }
+  .field-label {
+    font-size:11px;
+    font-weight:600;
+    color:var(--tier-color);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .field-direction {
+    font-size:15px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+  }
+
+  /* AI workflow sub-fields */
+  .workflow-sub {
+    margin-bottom:20px;
+  }
+  .workflow-sub:last-child { margin-bottom:0; }
+  .workflow-sub-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .workflow-sub-num {
+    background:var(--tier-color);
+    color:#fff;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+    flex:0 0 22px;
+  }
+
+  /* Prep list */
+  .prep-list {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .prep-list li {
+    position:relative;
+    padding:4px 0 4px 22px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .prep-list li::before {
+    content:"";
+    position:absolute;
+    left:6px;
+    top:14px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--tier-color);
+    opacity:0.7;
+  }
+  .prep-list strong { color:var(--ink); }
+
+  /* Prompt block */
+  .field-prompt {
+    background:var(--paper-soft);
+    border-left:3px solid var(--tier-color);
+    border-radius:0 4px 4px 0;
+    padding:16px 18px;
+    font-family:"SF Mono","Consolas","Menlo","Noto Sans TC",monospace;
+    font-size:13px;
+    color:var(--ink);
+    line-height:1.75;
+    margin:0;
+    white-space:pre-wrap;
+    overflow-x:auto;
+    position:relative;
+  }
+  .field-prompt::before {
+    content:"提示詞範本 · 完整複製";
+    display:block;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:10px;
+    font-weight:600;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    padding-bottom:8px;
+    border-bottom:1px dashed var(--line-strong);
+  }
+
+  /* Operation steps */
+  .op-steps {
+    counter-reset:opstep;
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .op-steps > li {
+    counter-increment:opstep;
+    position:relative;
+    padding:10px 0 10px 36px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+    border-bottom:1px solid var(--line);
+  }
+  .op-steps > li:last-child { border-bottom:none; padding-bottom:4px; }
+  .op-steps > li::before {
+    content:counter(opstep);
+    position:absolute;
+    left:0;
+    top:12px;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:transparent;
+    color:var(--tier-color);
+    border:1.5px solid var(--tier-color);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+  }
+  .op-steps em {
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tips */
+  .tips-list {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .tips-list li {
+    position:relative;
+    padding:5px 0 5px 0;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .tips-list li strong {
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+  .tips-list li::before {
+    content:"→";
+    color:var(--tier-color);
+    margin-right:8px;
+    font-weight:600;
+  }
+
+  /* Case study */
+  .case-scenario {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0 0 16px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+  .case-scenario strong {
+    display:block;
+    font-size:11px;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  .case-compare {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-bottom:16px;
+  }
+  .case-panel {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+    position:relative;
+  }
+  .case-panel.bad { border-left:4px solid var(--bad); }
+  .case-panel.good { border-left:4px solid var(--good); }
+  .case-panel-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+  }
+  .case-panel.bad .case-panel-label { color:var(--bad); }
+  .case-panel.good .case-panel-label { color:var(--good); }
+  .case-panel-label-icon {
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:11px;
+    font-weight:700;
+    color:#fff;
+  }
+  .case-panel.bad .case-panel-label-icon { background:var(--bad); }
+  .case-panel.good .case-panel-label-icon { background:var(--good); }
+  .case-content {
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.85;
+    margin:0;
+    font-style:italic;
+  }
+  .case-content::before { content:"「"; }
+  .case-content::after { content:"」"; }
+
+  .case-takeaway {
+    background:var(--turquoise-50);
+    border-radius:6px;
+    padding:14px 18px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+    border-left:3px solid var(--turquoise);
+  }
+  .case-takeaway strong {
+    display:block;
+    font-size:11px;
+    color:var(--turquoise-700);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  /* Footer */
+  footer {
+    background:var(--paper-soft);
+    border-top:1px solid var(--line);
+    padding:32px 24px;
+    text-align:center;
+  }
+  footer p {
+    margin:4px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  footer .brand-tagline {
+    font-size:14px;
+    color:var(--turquoise-700);
+    font-weight:500;
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+
+  /* Draft notice */
+  .draft-notice {
+    background:#fff7e8;
+    border:1px solid #f0d99f;
+    border-radius:6px;
+    padding:14px 18px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .draft-notice-icon {
+    flex:0 0 18px;
+    color:var(--warn);
+    margin-top:2px;
+  }
+  .draft-notice strong { color:#a86b14; }
+
+  /* Print */
+  @media print {
+    .top-nav, .side-index, .draft-notice { display:none !important; }
+    .hero { background:#fff; color:var(--ink); border-bottom:2px solid var(--turquoise); }
+    .hero h1, .hero-tagline, .hero-eyebrow, .hero-update, .hero-code, .hero-rule { color:var(--ink); opacity:1; }
+    .hero-code, .hero-rule { background:var(--paper-soft); }
+    .project, .tier-section { break-inside:avoid; page-break-inside:avoid; }
+  }
+
+  /* Responsive */
+  @media (min-width: 1320px) {
+    .side-index { display:block; }
+    .top-nav { display:none; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding:42px 20px 32px; }
+    .hero h1 { font-size:26px; }
+    .hero-tagline { font-size:15px; }
+    main { padding:32px 20px 48px; }
+    .top-nav { margin:0 -20px 24px; }
+    .top-nav-inner { padding:0 20px; }
+    .tier-header { flex-wrap:wrap; }
+    .tier-number { font-size:24px; }
+    .tier-name { font-size:19px; }
+    .project-header { padding:18px 20px; gap:12px; }
+    .project-body { padding:20px; }
+    .field-prompt { font-size:12px; padding:14px 16px; }
+  }
+
+  /* ============ v1.2 additions ============ */
+  /* Controls bar */
+  .controls-bar { display:flex; justify-content:flex-end; gap:8px; margin-bottom:28px; }
+  .control-btn {
+    background:transparent; border:1px solid var(--line-strong); color:var(--ink-soft);
+    padding:7px 14px; border-radius:5px; font-size:12px;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:6px; font-weight:500;
+  }
+  .control-btn:hover { background:var(--paper-soft); border-color:var(--ink-soft); color:var(--ink); }
+  .control-btn svg { width:12px; height:12px; }
+
+  /* Collapsible details/summary */
+  details summary { list-style:none; cursor:pointer; user-select:none; }
+  details summary::-webkit-details-marker { display:none; }
+  details summary::marker { display:none; }
+  .summary-chevron {
+    flex:0 0 16px; color:var(--tier-color, var(--ink-mute));
+    transition:transform .25s; margin-left:auto;
+  }
+  details[open] > summary .summary-chevron { transform:rotate(180deg); }
+
+  /* Voice section collapsible */
+  details.intro-collapse {
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    overflow:hidden; margin-bottom:32px;
+  }
+  details.intro-collapse > summary {
+    background:var(--paper-warm); padding:18px 22px;
+    display:flex; align-items:center; gap:14px;
+    font-size:15px; font-weight:700; color:var(--ink);
+  }
+  details.intro-collapse[open] > summary { border-bottom:1px solid var(--line); }
+  details.intro-collapse > summary .summary-chevron { color:var(--turquoise); }
+  details.intro-collapse > summary span:first-of-type {
+    display:flex; align-items:center; gap:10px;
+  }
+  details.intro-collapse > summary .intro-code {
+    font-family:Georgia,serif; font-size:12px; color:var(--turquoise-700);
+    background:var(--turquoise-50); padding:3px 9px; border-radius:3px;
+    letter-spacing:0.06em;
+  }
+  .intro-collapse-body { padding:26px 28px; }
+
+  /* Copy button */
+  .prompt-block { position:relative; }
+  .copy-btn {
+    position:absolute; top:10px; right:10px; z-index:5;
+    background:#fff; border:1px solid var(--tier-color); color:var(--tier-color);
+    padding:5px 12px; border-radius:4px;
+    font-size:11px; font-weight:600; letter-spacing:0.04em;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:5px;
+  }
+  .copy-btn:hover { background:var(--tier-color); color:#fff; }
+  .copy-btn.copied { background:var(--good); border-color:var(--good); color:#fff; }
+  .copy-btn svg { width:11px; height:11px; }
+
+  /* Old prompt label removed — outer label + copy btn replace it */
+  .field-prompt::before { display:none; }
+  .field-prompt { padding-top:38px; }
+
+  /* Print: expand all */
+  @media print {
+    details > summary .summary-chevron { display:none; }
+    details > *:not(summary) { display:block !important; }
+    .controls-bar, .copy-btn { display:none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">GPS 內容推廣 · 組別工具手冊</div>
+    <span class="hero-code">CS2-05</span>
+    <h1>品牌管理組 Toolkit</h1>
+    <p class="hero-tagline">品牌稽核、術語維護、決策紀錄、一致性治理、延伸評估——三級九專案，每案附完整提示詞、操作步驟與正反案例對照。</p>
+    <div class="hero-rule">
+      <span class="hero-rule-label">本組權力邊界</span>
+      本組是 canon 的下游實作者，永不重新定義 canon——做到頂也只是最好的提案人。治理方式是紅線守門與系統稽核，不是逐件審查：維護好用的檢核清單、抽樣稽核、回饋系統性問題。禁用清單每個詞都有退役理由；決策紀錄是 canon 的司法判例，未來爭議靠它免於重吵。
+    </div>
+    <div class="hero-update">資訊更新 2026-06 · v1.0</div>
+  </div>
+</header>
+
+<aside class="side-index" aria-label="快速索引">
+  <div class="side-index-title">CS2-05 索引</div>
+  <ul>
+    <li><a href="#intro"><span class="code">§ 0</span>三道閘門</a></li>
+    <li class="side-index-divider"></li>
+    <li class="side-index-tier-label" data-t="a">基礎 · Foundational</li>
+    <li><a href="#a1"><span class="code">A1</span>自我認證清單維護與抽樣稽核</a></li>
+    <li><a href="#a2"><span class="code">A2</span>品牌素材歸檔與資產登錄</a></li>
+    <li><a href="#a3"><span class="code">A3</span>品牌知識問答支援</a></li>
+    <li class="side-index-tier-label" data-t="b">進階 · Intermediate</li>
+    <li><a href="#b1"><span class="code">B1</span>內容品牌審計（去漂移）</a></li>
+    <li><a href="#b2"><span class="code">B2</span>雙語術語表維護</a></li>
+    <li><a href="#b3"><span class="code">B3</span>品牌教育素材製作</a></li>
+    <li class="side-index-tier-label" data-t="c">高階 · Advanced</li>
+    <li><a href="#c1"><span class="code">C1</span>治理決策紀錄與版本管理</a></li>
+    <li><a href="#c2"><span class="code">C2</span>品牌一致性年度報告</a></li>
+    <li><a href="#c3"><span class="code">C3</span>品牌延伸提案評估</a></li>
+  </ul>
+</aside>
+
+<nav class="top-nav" aria-label="導覽">
+  <div class="top-nav-inner">
+    <a href="#intro">三道閘門</a>
+    <a href="#tier-a">基礎層級 A</a>
+    <a href="#tier-b">進階層級 B</a>
+    <a href="#tier-c">高階層級 C</a>
+  </div>
+</nav>
+
+<main>
+
+<div class="draft-notice">
+  <div class="draft-notice-icon" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="9" cy="9" r="7.5"/>
+      <path d="M9 5 L9 10" stroke-linecap="round"/>
+      <circle cx="9" cy="12.5" r="0.8" fill="currentColor"/>
+    </svg>
+  </div>
+  <div>
+    <strong>v1.0 草稿 · 待組長校稿</strong>——案例皆為自帶情境的劣稿／佳稿對照，
+    不假設讀者看過任何過往作品；提示詞拆為「準備 → 範本 → 操作步驟 → 常見調整」四段。
+    待 CS2-05 組長就位後將進入正式校稿與案例庫迭代。
+  </div>
+</div>
+
+<div class="controls-bar">
+  <button class="control-btn" type="button" id="expand-all" aria-label="展開所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 L6 10 M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部展開
+  </button>
+  <button class="control-btn" type="button" id="collapse-all" aria-label="收合所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部收合
+  </button>
+</div>
+
+<!-- ============= INTRO ============= -->
+<details class="intro-collapse" id="intro">
+  <summary>
+    <span><span class="intro-code">§ 0</span>治理的三道閘門</span>
+    <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </summary>
+  <div class="intro-collapse-body">
+  <div class="intro-eyebrow">§ 0 · 裁定前的判斷</div>
+  <h2>治理的三道閘門</h2>
+  <p>做任何品牌裁定前先過三道閘門——品牌治理的危險不是「管太鬆」，是「以為自己有權改 canon」。每次治理動作都要回答：是否守住 canon 的下游身份、是否抽樣而非逐件、是否留下判例。三題都對才動作。</p>
+  <div class="voices">
+  <div class="voice" data-v="1">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 01</span>
+        <h4>下游身份閘門 · Downstream Identity</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何涉及「這個能不能改」「該用哪個版本」的品牌裁定時。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼謙抑</span>
+        品牌憲章（canon）是單一真相源。本組的角色是「忠實實作 canon」，不是「定義 canon」——做到高階層級的頂點，也只是「最好的提案人」，最終裁決權在品牌治理流程，不在本組。
+        <em>常見破口：「這樣改比較好所以我改了」、「反正我最懂品牌」——這是品牌治理最危險的滑坡。一旦本組開始自行改 canon，單一真相源就崩解了。</em>
+        <em>對的做法：遇到 canon 需要改變時，本組的動作是「提案」而非「修改」。寫建議書、附理由、送品牌治理流程裁決。謙抑不是無能，是保護品牌十年尺度的完整性。</em>
+      </div>
+    </div>
+  <div class="voice" data-v="2">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 02</span>
+        <h4>抽樣治理閘門 · Sampling Governance</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>面對大量待治理素材時。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼抽樣</span>
+        分散式治理下，各組產出者交付前自查三道閘門，本組不逐件把關。本組的價值是（一）維護好用的檢核清單、（二）抽樣稽核、（三）回饋系統性問題——逐件審查會變成瓶頸，且養成各組「反正有人會審」的依賴。
+        <em>常見破口：「全部都要我看過才放心」、「逐件把關才嚴謹」——逐件審查讓本組變成瓶頸，也剝奪了各組的自查責任。系統性問題反而在逐件中被淹沒。</em>
+        <em>對的做法：維護好用的自查清單讓各組能自己把關、抽樣稽核抓系統性問題、回饋跨件重複出現的模式。治理的槓桿在系統，不在逐件。</em>
+      </div>
+    </div>
+  <div class="voice" data-v="3">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 03</span>
+        <h4>判例留痕閘門 · Precedent Record</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何品牌裁定做出後（為何退役某詞、為何鎖定某句、某次稽核的處置）。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼留痕</span>
+        每筆品牌裁定都是 canon 的「司法判例」——未來遇到類似爭議，靠判例免於重新吵一次。沒有判例，同樣的爭論會每年重來，且不同時期可能做出矛盾的裁定。
+        <em>常見破口：「這次決定了就好，記不記錄無所謂」、「大家都知道為什麼」——口頭共識會隨人員流動消失，三年後沒人記得當初為何這樣決定，爭論重啟。</em>
+        <em>對的做法：每筆裁定以固定格式入冊：爭點、選項、理由、影響範圍。決策紀錄是活的判例庫，後續類似問題引用它而非重新辯論。</em>
+      </div>
+    </div>
+  </div>
+  </div>
+</details>
+
+<!-- ============= TIER A: 基礎 ============= -->
+<section class="tier-section" data-t="a" id="tier-a">
+  <div class="tier-header">
+    <div class="tier-number">01</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">基礎 · Foundational</h2>
+      <p class="tier-subtitle">治理的基本功——抽樣稽核、資產登錄、問答支援</p>
+    </div>
+  </div>
+
+  <!-- A1 -->
+  <details class="project" id="a1">
+    <summary class="project-header">
+      <div class="project-code">A1</div>
+      <div class="project-title-block">
+        <h3>自我認證清單維護與抽樣稽核</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">在分散式治理下，各組產出者交付前自查三道閘門；本組不逐件把關，而是（一）維護那份檢核清單使其好用、（二）每週抽樣稽核交付件、（三）回饋跨件重複出現的系統性問題。這是全組最快累積品牌語感的崗位——讀大量別人的稿，比自己寫更快看出品牌的形狀。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：檢核清單（Notion 或共用文件）；抽樣稽核紀錄（試算表）；tGenie 做稽核輔助與系統性問題歸納。</li>
+            <li><strong>準備素材</strong>：現行的交付前自查清單、本週各組交付件清單（用於抽樣）、禁用詞清單與其退役理由、品牌憲章相關章節。</li>
+            <li><strong>先讀退役理由</strong>：每個禁用詞為什麼退役？（如某詞帶監控聯想、某稱呼把人去人格化）——能說出理由才攔得住變形的違規。</li>
+            <li><strong>定抽樣比例</strong>：本週交付件多少、抽樣多少比例（建議 15-20%）、如何隨機抽（避免只抽容易的）。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 品牌管理組的稽核顧問，遵守「抽樣而非逐件、回饋系統性問題、不重新定義 canon」原則。
+
+我要對本週交付件做抽樣稽核，需要您協助。
+
+【交付件】（抽樣後的件數）
+（將抽樣到的交付件內容貼入，每件標明來源組別與類型）
+
+【交付前自查清單】（現行版本）
+（貼入各組產出者應自查的三道閘門清單）
+
+【禁用詞清單與退役理由】
+（貼入禁用詞及其退役理由，例如：「如影隨形」→帶監控聯想已退役）
+
+【品牌語言標準】
+（貼入相關標準：台積同仁不用台積人、他們所在意的人不用所愛之人、您不用你 等）
+
+請給我四件事:
+（一）逐件稽核結果——每件標明：是否通過、若未通過違反哪一條、嚴重程度（通過/警示/阻擋）；
+（二）系統性問題歸納——若多件出現同類違規，歸納為系統性問題（共同特徵、出現頻率、可能成因）；
+（三）檢核清單改進建議——若某類違規反覆出現，是否代表自查清單某項不夠清楚、需要改進；
+（四）需上報的待釐清案例——若有自查清單未涵蓋的新狀況，標記為待釐清，供決策紀錄參考。
+
+請遵守：稽核只判定不修改——本組不替各組改稿，回饋問題讓各組自己修；
+不評論個別產出者，問題對事不對人；
+系統性問題（3 件以上同類）才值得提，單一違規記錄即可；
+發現 canon 本身需要調整時，標記為待釐清上報，不自行改 canon。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>從本週交付件中隨機抽樣（15-20%），確保涵蓋不同組別與類型。</li>
+            <li>開啟 tGenie，貼入提示詞範本與抽樣到的交付件。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）逐件稽核結果。對照原件確認判定正確。<em>有誤判</em>：回覆「[某件] 我認為符合標準（理由：[您的觀察]），請從問題清單移除」。</li>
+            <li>讀（二）系統性問題。確認每個系統性問題有 3 件以上佐證。<em>樣本不足</em>：回覆「[某問題] 只有 1-2 件，請降為個別記錄，不列為系統性」。</li>
+            <li>讀（三）檢核清單改進。判斷哪些反覆違規源於自查清單不夠清楚——這是本崗位的核心價值（改進系統而非逐件糾正）。</li>
+            <li>讀（四）待釐清案例。把自查清單未涵蓋的新狀況記下，供 C1 決策紀錄參考。</li>
+            <li>把稽核結果回饋給對應組別（對事不對人、不替對方改稿）。系統性問題另外整理，提供改進方向。</li>
+            <li>若發現檢核清單需改進，更新清單（這是 A1 的維護職責），讓下次各組自查更準確。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 想替交付件改稿</strong>：回覆「本組不改稿——請只指出問題與違反的標準，讓產出組自己修改」。</li>
+            <li><strong>AI 把單一違規當系統性問題</strong>：回覆「系統性問題需要 3 件以上同類違規。單一違規請記錄即可，不上升為系統性」。</li>
+            <li><strong>發現 canon 本身有問題想直接改</strong>：停。本組不改 canon。把問題標記為待釐清案例上報，走品牌治理流程。這是下游身份閘門的核心。</li>
+            <li><strong>稽核變成逐件審查</strong>：退回抽樣模式。逐件審查讓本組變瓶頸、各組失去自查責任。抓系統性問題的槓桿遠大於逐件糾正。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          本週各組交付 40 件對外素材，抽樣 8 件稽核。發現其中 3 件都把「台積同仁」寫成了「台積人」（來自不同組別）、1 件用了已退役的「如影隨形」。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">把 8 件全部自己改好（「台積人」改回「台積同仁」、刪掉「如影隨形」），改完發回各組說「已幫你們修正」。對那 3 件「台積人」的違規，分別私下提醒 3 位產出者「下次注意」。問題：（1）本組替各組改稿，越權且養成依賴——各組會覺得「反正品牌組會幫我改」；（2）3 件同類違規（台積人）是系統性問題，卻當成 3 個個別失誤分別提醒，沒看出這是自查清單或教育的系統缺口；（3）逐件改稿耗時，且本組變成品質的最後一道而非系統的維護者。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">稽核只判定不改稿：逐件結果——3 件「台積人」標為警示（違反品牌語言標準）、1 件「如影隨形」標為阻擋（使用已退役詞，對外素材）。回饋給各組讓他們自己修，附違反的標準條目。系統性問題歸納——3 件「台積人」來自不同組別，是系統性問題。共同特徵：產出者不知道「台積人」已被「台積同仁」取代。可能成因：自查清單只列了禁用詞，但沒清楚標示「台積人→台積同仁」這組對應。檢核清單改進——在自查清單的品牌語言區，把「台積人→台積同仁」這類常見替換做成醒目對照表（不只列禁用詞，還列正確替代），讓各組自查時一眼看到。結果：3 件由各組自己修正（保留各組責任）、自查清單改進後下週同類違規預期下降、本組的價值體現在「改進系統」而非「逐件補漏」。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          品牌稽核的核心紀律是「抽樣治理＋改進系統」，不是「逐件審查＋替人改稿」。劣稿犯了兩個錯：替各組改稿（越權且養成依賴）、把系統性問題（3 件台積人）當個別失誤處理（沒看出自查清單的缺口）。這讓本組變成瓶頸，各組失去自查責任。佳稿做了三件事：只判定不改稿（保留各組責任）、歸納系統性問題（3 件同類 = 自查清單缺口）、改進檢核清單（讓系統下次自動防錯）。「讀大量別人的稿比自己寫更快看出品牌的形狀」——這個崗位的價值在於從大量稿件中讀出系統性模式，然後改進系統，而非逐件補漏。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A2 -->
+  <details class="project" id="a2">
+    <summary class="project-header">
+      <div class="project-code">A2</div>
+      <div class="project-title-block">
+        <h3>品牌素材歸檔與資產登錄</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">維護素材庫的秩序：每件定稿登錄（名稱、版本、用途、有效期、檔案位置），過期與被取代素材移入封存而非刪除——保留組織記憶是登錄制度的一半價值。登錄的紀律是「封存不刪除」——刪掉的素材帶走的是組織記憶，未來想知道「當初為何這樣做」就無從查起。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：資產登錄表（Notion 資料庫或試算表）；檔案儲存系統；tGenie 做登錄資訊整理。</li>
+            <li><strong>準備素材</strong>：待登錄的定稿素材、現行登錄表結構、被取代或過期的素材清單（待移入封存）。</li>
+            <li><strong>確認三態</strong>：活躍（現行使用）、封存（過期或被取代但保留）、除役（確認永不再用）——每件素材都有明確的狀態。</li>
+            <li><strong>登錄欄位</strong>：名稱、版本、用途、有效期、檔案位置、狀態、取代關係（被誰取代或取代了誰）。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 品牌管理組的資產登錄顧問，遵守「封存不刪除、保留組織記憶」原則。
+
+我要登錄品牌素材並維護素材庫秩序，需要您協助整理登錄資訊。
+
+【待登錄素材】
+（描述每件素材：名稱、類型、用途、製作日期、檔案格式）
+
+【現行登錄表結構】
+（貼入登錄表的欄位：名稱、版本、用途、有效期、位置、狀態 等）
+
+【被取代/過期素材】
+（列出需要移入封存的素材，及其被什麼取代或為何過期）
+
+請給我四件事:
+（一）登錄資訊整理——為每件待登錄素材整理完整的登錄欄位（名稱、版本、用途、有效期、狀態、取代關係）；
+（二）三態判定——每件素材應屬活躍/封存/除役哪一態，附判斷理由；
+（三）取代關係梳理——被取代的素材與取代它的新素材之間的關係如何記錄，保留版本演進軌跡；
+（四）封存而非刪除的提醒——哪些素材該封存（保留組織記憶）而非刪除，為什麼這些記憶值得保留。
+
+請遵守：過期或被取代的素材移入封存，不刪除——組織記憶是登錄制度的一半價值；
+每件素材都要有明確的三態判定（活躍/封存/除役）；
+取代關係要記錄（新素材取代了誰、舊素材被誰取代），保留版本演進；
+除役（永不再用）的判定要謹慎，多數情況封存即可。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>盤點待登錄素材與待移入封存的素材。</li>
+            <li>開啟 tGenie，貼入提示詞範本與素材資訊。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）登錄資訊。確認每件的欄位完整。<em>某件資訊缺漏</em>：補充後回覆「[某件] 補上 [缺漏欄位]，請重新整理」。</li>
+            <li>讀（二）三態判定。確認判定合理。<em>判定有疑慮</em>：回覆「[某件] 我認為應該是 [其他態]（理由：[您的觀察]）」。</li>
+            <li>讀（三）取代關係。確認版本演進軌跡清楚——這是未來追溯的依據。</li>
+            <li>讀（四）封存提醒。確認該封存的沒被誤判為除役。<em>有素材被判除役但您覺得該封存</em>：保留它，封存而非刪除。</li>
+            <li>把整理好的登錄資訊輸入登錄表。被取代/過期素材移入封存區（不刪除原檔）。</li>
+            <li>定期檢視登錄表的完整性——確認每件活躍素材都有正確的有效期、每件封存素材都保留可追溯的記錄。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 建議刪除過期素材</strong>：回覆「過期素材請移入封存而非刪除——保留組織記憶，未來可能需要追溯當初的做法」。</li>
+            <li><strong>某件素材狀態判定不清</strong>：用三態的定義判斷：還在用=活躍、不用但保留=封存、確認永不再用=除役。多數過期素材是封存不是除役。</li>
+            <li><strong>取代關係沒記清楚</strong>：回覆「請明確記錄 [新素材] 取代了 [舊素材]，並在舊素材的登錄標明被取代——版本演進軌跡是追溯的關鍵」。</li>
+            <li><strong>登錄欄位想簡化省事</strong>：保留完整欄位。少記一個欄位（如有效期、取代關係），未來追溯時就少一條線索。登錄的價值在完整。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          品牌簡報模板出了新版 v3.0，取代舊版 v2.1。同時有一份 2024 年的活動主視覺已過期不再使用。要登錄新模板、處理舊模板與過期主視覺。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">登錄新模板 v3.0 時，直接把舊模板 v2.1 的檔案刪除（「反正有新版了」），登錄表裡也把 v2.1 的紀錄刪掉。2024 活動主視覺過期，也直接刪除檔案與紀錄（「過期的留著占空間」）。問題：（1）刪除 v2.1 帶走了版本演進記憶——半年後有人問「v3.0 跟 v2.1 差在哪、為什麼改」，無從查起；（2）刪除過期主視覺帶走了組織記憶——明年若要辦類似活動想參考去年的視覺方向，找不到了；（3）登錄表只剩活躍素材，失去了「組織做過什麼」的完整記錄。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">登錄新模板 v3.0（狀態：活躍、用途：品牌簡報、有效期：至下次改版、取代關係：取代 v2.1）。舊模板 v2.1 不刪除——移入封存（狀態：封存、被 v3.0 取代、保留檔案）。登錄表標明 v2.1→v3.0 的演進關係。2024 活動主視覺移入封存（狀態：封存、過期但保留、用途：2024 年某活動）。結果：（1）版本演進軌跡完整——未來問「v3.0 跟 v2.1 差在哪」可調出 v2.1 對照；（2）組織記憶保留——明年辦類似活動可參考 2024 主視覺；（3）登錄表完整記錄組織做過的所有素材，活躍的好找、封存的可追溯。封存區雖然占一些空間，但保留的是無法重建的組織記憶。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          資產登錄的核心紀律是「封存不刪除」——保留組織記憶是登錄制度的一半價值。劣稿的失敗是把「過期/被取代」等同於「該刪除」——刪掉 v2.1 帶走了版本演進記憶、刪掉舊主視覺帶走了組織記憶。省下的空間遠不及失去的追溯能力。佳稿做了三件事：被取代的舊版移入封存（保留演進軌跡）、過期素材移入封存（保留組織記憶）、登錄表記錄完整的取代關係。「組織記憶」是登錄的隱性價值——刪除很容易，但刪掉的東西無法重建。封存占的是空間，保的是未來追溯「當初為何這樣做」的能力。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A3 -->
+  <details class="project" id="a3">
+    <summary class="project-header">
+      <div class="project-code">A3</div>
+      <div class="project-title-block">
+        <h3>品牌知識問答支援</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">擔任同仁品牌疑問的第一線回覆（這句話可以用嗎、這個場合用哪個版本的標誌、雙語怎麼寫）。基礎層級回答時必附出處——答案來自憲章第幾節、術語表哪一條，讓提問者下次能自己查。問答的紀律是「必附出處」——附出處不只是嚴謹，是教提問者下次自己查的能力，讓品牌知識擴散而非集中在你身上。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：品牌憲章與術語表（查詢來源）；待釐清案例紀錄（試算表）；tGenie 做答案查找輔助。</li>
+            <li><strong>準備素材</strong>：提問內容、品牌憲章、雙語術語表、禁用詞清單、既有的待釐清案例。</li>
+            <li><strong>先查再答</strong>：回答前先查憲章與術語表確認出處——憑印象回答會傳播錯誤，且無法教提問者自己查。</li>
+            <li><strong>認清查不到的價值</strong>：如果查不到答案，這是待釐清案例——你的「我查不到」是品牌治理的貢獻（暴露了 canon 的空白）。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 品牌管理組的品牌知識問答顧問，遵守「必附出處、查不到即上報」原則。
+
+我要回答一個同仁的品牌疑問，需要您協助查找答案與出處。
+
+【提問內容】
+（將同仁的問題完整貼入）
+
+【品牌憲章相關章節】
+（貼入可能相關的憲章內容）
+
+【術語表相關條目】
+（貼入可能相關的術語表條目）
+
+【禁用詞清單】
+（貼入相關的禁用詞與退役理由）
+
+請給我四件事:
+（一）答案——直接回答提問者的問題；
+（二）出處——這個答案來自憲章第幾節、術語表哪一條、或禁用詞清單哪一項，讓提問者下次能自己查；
+（三）若查不到——明確說明現有 canon 未涵蓋這個問題，應標記為待釐清案例上報；
+（四）回覆草稿——一段可以直接回給提問者的話，包含答案與出處，語氣是品牌的溫暖同理或清楚不囉嗦。
+
+請遵守：答案必附出處（憲章節次/術語表條目/禁用詞清單），不憑印象回答；
+查不到答案時誠實說「現有 canon 未涵蓋」，標記為待釐清，不編造答案；
+回覆語氣符合品牌四種語氣；
+出處要讓提問者下次能自己查到，培養自助能力。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>收到提問後，先自己查憲章與術語表，初步定位可能的出處。</li>
+            <li>開啟 tGenie，貼入提示詞範本與相關的憲章/術語表內容。</li>
+            <li>送出。等待約 30 秒。</li>
+            <li>讀（一）答案。對照憲章原文確認答案正確。<em>答案與您查的不符</em>：回覆「我在憲章 [某節] 看到 [內容]，請據此重新確認答案」。</li>
+            <li>讀（二）出處。確認出處精確（具體到第幾節、哪一條）。<em>出處模糊</em>：回覆「請指出確切的章節或條目編號，讓提問者能自己查到」。</li>
+            <li>讀（三）若查不到。<em>AI 表示 canon 未涵蓋</em>：把這題標記為待釐清案例，記錄下來供 C1 決策紀錄處理。這是制度的貢獻。</li>
+            <li>讀（四）回覆草稿。確認語氣與出處都合適。</li>
+            <li>把含答案與出處的回覆發給提問者。重點是讓對方知道「這個答案來自哪裡」，下次能自己查。</li>
+            <li>若是待釐清案例，記錄到待釐清清單——累積的待釐清案例是未來品牌裁定的源頭。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 憑印象給答案沒有出處</strong>：回覆「請明確指出答案來自憲章哪一節或術語表哪一條，沒有出處的答案不能用」。</li>
+            <li><strong>查不到但 AI 編了一個答案</strong>：回覆「如果現有 canon 沒有涵蓋這個問題，請誠實說明，標記為待釐清案例——不要編造答案」。</li>
+            <li><strong>出處只說「在憲章裡」</strong>：回覆「請指出確切位置（第幾節、哪一條），讓提問者下次能自己查到，培養自助能力」。</li>
+            <li><strong>提問是 canon 沒涵蓋的新狀況</strong>：別硬答。標記為待釐清案例上報——你的『查不到』暴露了 canon 的空白，是品牌治理的毛細血管。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          一位同仁問：「我在寫給供應鏈合作夥伴的信，可以用『台積同仁』來稱呼對方公司的員工嗎？還是有別的說法？」
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">憑印象快速回覆：「『台積同仁』應該是指台積的員工吧，對方是供應商員工，你就寫『供應商夥伴』或『合作夥伴』就好，這樣比較通順。」沒查術語表、沒給出處。問題：（1）憑印象回答——「台積同仁」的確切定義與適用範圍沒查證；（2）給的替代說法（供應商夥伴）是自己想的，不確定是否符合品牌術語；（3）沒有出處，提問者下次遇到類似問題還是只能再問，無法自己查；（4）如果這其實是 canon 未明確涵蓋的狀況，應該上報而非自行給答案。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">先查術語表與憲章，發現「台積同仁」明確定義為 TSMC 員工，而「他們所在意的人」涵蓋供應鏈夥伴員工的相關表述。回覆草稿：「好問題。依術語表，『台積同仁』專指 TSMC 的員工，不適用於合作夥伴的員工。對供應鏈夥伴員工，品牌語言用『供應鏈合作夥伴』或『夥伴同仁』（出處：雙語術語表「人員稱謂」條目）。如果是泛指所有受我們守護的人——包含夥伴員工與訪客——可以用『他們所在意的人』這個涵蓋性表述（出處：品牌憲章五大支柱之旅程守護）。下次遇到稱謂問題，可以直接查術語表的『人員稱謂』區。」若術語表其實沒有「夥伴員工」的明確稱謂——則標記為待釐清案例：「術語表目前未明確定義合作夥伴員工的稱謂，已記錄為待釐清案例，會提交品牌治理流程補充。暫時建議用『供應鏈合作夥伴』。」提問者得到答案＋出處，下次能自己查；若是 canon 空白，則上報補充。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          品牌問答的核心紀律是「必附出處」——附出處不只是嚴謹，是教提問者自助的能力，讓品牌知識擴散而非集中在回答者身上。劣稿的失敗是憑印象回答、自創替代說法、不給出處——這讓答案可能錯誤、提問者學不會自己查、且若是 canon 空白也沒被發現。佳稿做了三件事：先查證再回答（答案來自術語表與憲章）、明確標示出處（讓提問者下次自己查）、查不到時誠實上報（暴露 canon 空白）。「我查不到」是制度的貢獻——第一線回答不了的小問題，正是未來品牌裁定的源頭。誠實標記待釐清，比硬給一個答案更有價值。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER B: 進階 ============= -->
+<section class="tier-section" data-t="b" id="tier-b">
+  <div class="tier-header">
+    <div class="tier-number">02</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">進階 · Intermediate</h2>
+      <p class="tier-subtitle">守護的執行力——內容審計、術語維護、教育素材</p>
+    </div>
+  </div>
+
+  <!-- B1 -->
+  <details class="project" id="b1">
+    <summary class="project-header">
+      <div class="project-code">B1</div>
+      <div class="project-title-block">
+        <h3>內容品牌審計（去漂移）</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">對指定範圍的既有素材做系統性審計：舊版語句殘留、層級錯置（願景寫成行動、使命寫成方法）、版本敘事未代謝（成品裡殘留「上一版是 X」的痕跡）。產出三級判定報告與修復順序。去漂移的紀律是「只修被指認處」——順手修其他地方反而製造新的不可追溯，審計與修復必須可逐項對應。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：審計範圍的素材清單；品牌憲章（canon 對照基準）；tGenie 做漂移偵測；試算表做判定報告。</li>
+            <li><strong>準備素材</strong>：待審計素材範圍、品牌憲章現行版本、層級定義（願景/使命/方法的區別）、版本敘事代謝原則。</li>
+            <li><strong>先定漂移類型</strong>：舊版語句殘留、層級錯置、版本敘事未代謝——三類漂移各自的辨識特徵。</li>
+            <li><strong>確認只修被指認</strong>：審計列出問題後，修復只動被指認的地方，不順手改其他——順手改製造新的不可追溯。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 品牌管理組的內容審計顧問，遵守「指認、回對 canon、只修被指認處」原則。
+
+我要對指定範圍的素材做品牌審計（去漂移），需要您協助。
+
+【待審計素材】
+（將素材內容貼入，每件標明來源與類型）
+
+【品牌憲章現行版本】（canon 對照基準）
+（貼入相關的憲章內容作為對照基準）
+
+【層級定義】
+（貼入：願景=長期圖像、使命=存在理由、方法=具體做法 的區別定義）
+
+【漂移類型】
+- 舊版語句殘留：使用已被取代的舊版說法
+- 層級錯置：把願景寫成行動、使命寫成方法等層級混淆
+- 版本敘事未代謝：成品裡殘留「上一版是 X、這版改成 Y」的痕跡
+
+請給我四件事:
+（一）漂移偵測結果——逐件標明：發現的漂移類型、具體位置（哪句話）、應回對的 canon 標準；
+（二）三級判定——每處漂移判為通過/警示/阻擋，附判定理由；
+（三）修復順序——依嚴重程度與影響範圍排出修復優先序；
+（四）只修被指認處的提醒——明確標示「只修這些被指認的地方」，提醒不要順手改其他未被指認處。
+
+請遵守：審計只指認不順手修——只修被指認處，順手改其他地方製造新的不可追溯；
+每處漂移都要對應到具體的 canon 標準（回對 canon），不是憑感覺判定；
+版本敘事未代謝是重點檢查項——成品裡不該有「上一版/這一版」的比較痕跡；
+判定要可逐項追溯，修復與指認一一對應。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>確認審計範圍與 canon 對照基準（現行憲章版本）。</li>
+            <li>開啟 tGenie，貼入提示詞範本與待審計素材。</li>
+            <li>送出。等待約 90 秒。</li>
+            <li>讀（一）漂移偵測結果。逐件對照原素材確認漂移屬實。<em>有誤判</em>：回覆「[某處] 我認為符合現行 canon（理由：[您的觀察]），請從漂移清單移除」。</li>
+            <li>讀（二）三級判定。確認每處漂移都回對了具體 canon 標準。<em>判定憑感覺</em>：回覆「[某處] 請指出對應的 canon 標準，不要憑感覺判定」。</li>
+            <li>讀（三）修復順序。確認阻擋級優先、影響大的優先。</li>
+            <li>讀（四）只修被指認處的提醒。把被指認的清單列清楚——這是修復時的唯一範圍。</li>
+            <li>產出三級判定報告（通過/警示/阻擋＋修復順序）。</li>
+            <li>執行修復——嚴格只動被指認處，不順手改其他。每修一處對應一個被指認項，保持可追溯。</li>
+            <li>修復後驗證——確認被指認處都已回對 canon、且沒有順手改動其他地方。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 在修復時順手改了未指認的地方</strong>：回覆「請只修被指認處——順手改其他地方會製造新的不可追溯。未被指認的部分即使您覺得可以更好也不動」。</li>
+            <li><strong>漂移判定沒對應 canon 標準</strong>：回覆「每處漂移請對應到具體的憲章節次或術語表條目——回對 canon 是判定的依據，不能憑感覺」。</li>
+            <li><strong>版本敘事痕跡沒被偵測到</strong>：回覆「請特別檢查有沒有『上一版是 X、現在改成 Y』這類比較痕跡——成品應該只呈現現狀，不留版本演進的敘事」。</li>
+            <li><strong>修復範圍擴大成全面改寫</strong>：退回。審計修復不是改寫——只動被指認的漂移處。全面改寫會失去可追溯性，且可能引入新問題。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          審計一份去年的品牌介紹文件。發現：（1）兩處用了已退役的「如影隨形」；（2）一段把「成為最值得信賴的安全夥伴」（願景）寫成了「每天巡檢三次」（這是方法，層級錯置）；（3）有一句「相較於舊版的被動防守，新版強調主動設計」（版本敘事未代謝）。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">發現問題後，不只修這三處，還「順手」把整份文件重新潤色了一遍——改了十幾處用詞（覺得可以更通順）、重組了兩個段落（覺得邏輯更好）、還更新了一些數據（覺得順便更新）。問題：（1）只有 3 處是被指認的漂移，卻改了十幾處——其他改動沒有 canon 依據，是個人偏好；（2）順手重組段落、改數據，引入了未經審核的新內容；（3）修復後無法追溯「哪些是去漂移、哪些是順手改」，下次有人問「為什麼改這裡」答不出來；（4）可能在順手改的過程中引入新的漂移或錯誤。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">審計報告指認三處漂移，三級判定：（1）兩處「如影隨形」→阻擋（使用已退役詞），回對 canon：禁用詞清單。（2）願景寫成方法→警示（層級錯置），回對 canon：憲章願景定義（願景是長期圖像，不是具體做法）。（3）版本敘事痕跡→警示（未代謝），回對 canon：版本敘事代謝原則（成品只呈現現狀）。修復順序：阻擋級（如影隨形）優先，其次兩處警示。執行修復——嚴格只動這三處：「如影隨形」改為符合現行 canon 的表述；願景句改回願景層級的表述；刪除「相較於舊版」的比較，只留現狀表述。其他地方即使覺得可以更好也不動。修復後每一處都對應一個被指認項，完全可追溯——若有人問「為什麼改這裡」，答案是「審計指認的第 N 項漂移，回對 canon 的某標準」。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          內容審計的核心紀律是「只修被指認處」——順手改其他地方製造新的不可追溯。劣稿的失敗是把「審計修復」做成「全面潤色」——改了十幾處但只有 3 處有依據，其他是個人偏好，且順手改數據引入未審核內容。修復後無法追溯哪些是去漂移、哪些是順手改。佳稿做了三件事：每處漂移回對具體 canon 標準（不憑感覺）、三級判定排修復順序、嚴格只動被指認處（完全可追溯）。「指認、回對 canon、只修被指認處」是去漂移的完整紀律——審計與修復一一對應，才能保持品牌素材的可追溯性，這比『順手讓它更好』重要得多。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B2 -->
+  <details class="project" id="b2">
+    <summary class="project-header">
+      <div class="project-code">B2</div>
+      <div class="project-title-block">
+        <h3>雙語術語表維護</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">持有術語表的編輯權：收錄各組回寫的新固定譯法、裁決同一概念的多譯並存（同一英文術語全文必須對應同一中文譯法，零容忍）、為易混淆條目補充語域標註。術語維護的紀律是「同一術語零容忍多譯」——同一個英文術語在全文必須對應同一個中文譯法，分歧會稀釋品牌語言的一致性。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：雙語術語表（Notion 資料庫或專業術語工具）；tGenie 做譯法分析與一致性檢查；各組回寫的新譯法清單。</li>
+            <li><strong>準備素材</strong>：現行術語表、各組回寫的新固定譯法、發現的多譯並存案例、三級信心分級制度。</li>
+            <li><strong>確認零容忍</strong>：同一英文術語全文必須對應同一中文譯法——這是零容忍項，發現多譯必須裁決統一。</li>
+            <li><strong>確認信心分級</strong>：新譯法先以低信心收錄、經多次使用驗證後升級——術語表是活的，但變動必須留痕。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 品牌管理組的術語表維護顧問，遵守「同一術語零容忍多譯、變動留痕」原則。
+
+我要維護雙語術語表，需要您協助處理新譯法與多譯並存問題。
+
+【現行術語表相關條目】
+（貼入相關的現行術語條目：英文、中文、信心級別、語域標註）
+
+【各組回寫的新譯法】
+（列出各組提交的新固定譯法：英文術語、建議中文、提交組別、使用情境）
+
+【發現的多譯並存案例】
+（列出同一英文術語出現多個中文譯法的案例）
+
+請給我四件事:
+（一）新譯法處理——對每個新譯法，建議收錄信心級別（低/中/高）、語域標註，附理由；
+（二）多譯並存裁決——對每個多譯案例，裁決應統一為哪個譯法（同一術語零容忍多譯），附裁決理由；
+（三）語域標註建議——對易混淆條目，補充使用情境標註（正式/口語、對內/對外、特定場合）；
+（四）變動留痕記錄——這次術語表的變動（新增、裁決、升級）如何記錄，保留變動軌跡。
+
+請遵守：同一英文術語全文必須對應同一中文譯法，發現多譯必須裁決統一（零容忍）；
+新譯法先以低信心收錄，經驗證後再升級——不一步到位給高信心；
+易混淆條目補語域標註（什麼情境用哪個）；
+所有變動留痕（誰提交、何時收錄、為何裁決），術語表是活的但變動可追溯。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>彙整現行術語表、各組新譯法、發現的多譯案例。</li>
+            <li>開啟 tGenie，貼入提示詞範本與術語資料。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）新譯法處理。確認信心級別合理（新譯法應低信心起）。<em>新譯法給了高信心</em>：回覆「新譯法請先以低信心收錄，經多次使用驗證後再升級」。</li>
+            <li>讀（二）多譯並存裁決。確認每個多譯都被裁決統一。<em>裁決理由不足</em>：回覆「[某術語] 的裁決請補充理由——為何選這個譯法而非另一個」。</li>
+            <li>讀（三）語域標註。確認易混淆條目有清楚的使用情境標註。</li>
+            <li>讀（四）變動留痕。確認每筆變動都有記錄（誰提交、何時、為何）。</li>
+            <li>更新術語表：收錄新譯法（標信心級別）、統一多譯（記錄裁決）、補語域標註。</li>
+            <li>記錄這次的所有變動到變動軌跡——術語表是活的，但每次變動都要可追溯（這也是 C1 決策紀錄的輸入）。</li>
+            <li>把裁決結果通知相關組別——讓提交新譯法或使用了非統一譯法的組別知道最新標準。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 給新譯法高信心級別</strong>：回覆「新收錄的譯法一律從低信心開始，經多次實際使用驗證無誤後才升級——不一步到位」。</li>
+            <li><strong>多譯並存沒有裁決就並列</strong>：回覆「同一術語零容忍多譯——請明確裁決統一為一個譯法，不能兩個並列讓各組自選」。</li>
+            <li><strong>易混淆條目沒有語域標註</strong>：回覆「[某術語] 容易混淆，請補語域標註——什麼情境用這個、什麼情境用那個」。</li>
+            <li><strong>變動沒有留痕</strong>：回覆「請記錄這次變動的軌跡——誰提交、何時收錄、為何這樣裁決。術語表是活的，但變動必須可追溯」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          維護術語表時發現，「resilience」這個英文術語在不同素材中出現了三個中文譯法：「韌性」「彈性」「復原力」。同時某組回寫了一個新譯法「stakeholder」建議譯為「利害關係人」。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">對「resilience」的三譯，覺得「都對啊，看情況用」，就在術語表裡把三個都列上，標註「可依語境選用」。對新譯法「stakeholder→利害關係人」，直接以高信心收錄（覺得這譯法很標準）。沒有記錄變動軌跡。問題：（1）「resilience」三譯並列違反零容忍——各組會繼續各譯各的，品牌語言不一致；（2）「看語境選用」是逃避裁決，把判斷成本丟給各組；（3）新譯法直接給高信心，跳過驗證；（4）沒留痕，未來無法追溯為何這樣處理。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">對「resilience」三譯做裁決：分析三個譯法——「韌性」（強調受衝擊後維持與恢復的能力，最貼近品牌語境的 resilience）、「彈性」（偏向 flexibility，語義有偏差）、「復原力」（偏向 recovery，只涵蓋部分語義）。裁決統一為「韌性」（零容忍多譯），記錄裁決理由：「韌性最完整涵蓋 resilience 的『受衝擊後維持與恢復』語義，彈性偏 flexibility、復原力偏 recovery，均有偏差」。為這條補語域標註：「品牌語境中 resilience 一律譯韌性；若特定技術文件需區分 flexibility，另立 flexibility=彈性條目」。對新譯法「stakeholder→利害關係人」：以低信心收錄（新譯法起始級別），標註「待多次使用驗證後升級」。記錄變動軌跡：resilience 三譯裁決統一為韌性（日期、理由）、stakeholder 新增低信心（提交組別、日期）。通知相關組別最新標準。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          術語表維護的核心紀律是「同一術語零容忍多譯」——同一英文術語全文對應同一中文譯法，分歧稀釋品牌語言一致性。劣稿的失敗是「三譯並列、看語境選用」——這是逃避裁決，把判斷成本丟給各組，結果各譯各的。新譯法直接高信心又跳過驗證。佳稿做了三件事：裁決統一多譯（分析語義差異選最貼切的）、新譯法低信心起（經驗證再升級）、所有變動留痕（可追溯）。「零容忍多譯」不是僵化——它是品牌語言一致性的基礎。術語表可以是活的（新增、升級、調整），但同一時間同一術語只能有一個標準譯法，且每次變動都要可追溯。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B3 -->
+  <details class="project" id="b3">
+    <summary class="project-header">
+      <div class="project-code">B3</div>
+      <div class="project-title-block">
+        <h3>品牌教育素材製作</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">把 canon 轉譯成新成員 30 分鐘能上手的教材：品牌一頁紙、常見錯誤對照卡、入門測驗。教育素材的標準不是「完整」而是「記得住」——新人記住五件事，比看過五十頁更有用。教材的紀律是「記得住優於完整」——不是把 canon 變淺，是把結構變得可導航，讓新人快速建立可用的品牌語感。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：教材製作（依形式：一頁紙用設計工具、測驗用問答系統）；tGenie 做教材結構設計；品牌憲章作為內容來源。</li>
+            <li><strong>準備素材</strong>：品牌憲章、最常見的品牌錯誤清單、新成員需要最先掌握的核心要點、憲章的閱讀地圖（導航邏輯參照）。</li>
+            <li><strong>先選五件事</strong>：如果新人只能記住五件事，是哪五件？（不是最完整的五件，是最常用、最容易錯的五件）</li>
+            <li><strong>學導航不學篇幅</strong>：參考憲章閱讀地圖的導航邏輯（每節因上層而生、為下層而存），教材抄它的導航不抄它的篇幅。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 品牌管理組的教育素材設計顧問，遵守「記得住優於完整、把結構變可導航」原則。
+
+我要把品牌 canon 轉譯成新成員 30 分鐘能上手的教材，需要您協助。
+
+【品牌憲章核心內容】
+（貼入憲章的核心章節）
+
+【最常見的品牌錯誤】
+（列出新成員最常犯的品牌錯誤，例如：台積人 vs 台積同仁、用了禁用詞等）
+
+【教材形式】
+（填入：品牌一頁紙／常見錯誤對照卡／入門測驗，或三者組合）
+
+【目標學習者】
+（填入：例如 剛加入的新成員，30 分鐘要能上手）
+
+請給我四件事:
+（一）核心五要點——新成員最該先記住的五件事（不是最完整的，是最常用、最易錯的），附選擇理由；
+（二）教材結構——如何組織這些內容讓人「記得住」而非「看完就忘」，用可導航的結構而非堆砌篇幅；
+（三）常見錯誤對照卡——把最常見的品牌錯誤做成「錯誤 vs 正確」的對照，讓新人一眼看出差別；
+（四）入門測驗設計——3-5 題測驗驗證新人是否掌握核心要點，題目情境化（不考死記）。
+
+請遵守：教材標準是「記得住」不是「完整」——寧可少而精，不要多而雜；
+核心五要點選「最常用、最易錯」的，不選「最全面」的；
+常見錯誤對照卡要讓人一眼看出差別（錯誤 vs 正確並列）；
+測驗題情境化，考「會不會用」不考「背不背得出」。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>從憲章中選出新成員最該先記住的五件事（最常用、最易錯，非最完整）。</li>
+            <li>開啟 tGenie，貼入提示詞範本與憲章核心內容、常見錯誤清單。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）核心五要點。判斷是否選對了（最常用最易錯）。<em>選了太全面的</em>：回覆「請改選『新人最常用、最容易出錯』的五件事，不要選最全面但少用的」。</li>
+            <li>讀（二）教材結構。確認結構可導航、易記。<em>結構是堆砌</em>：回覆「請用可導航的結構（如分類、流程、因果），不要堆砌條目」。</li>
+            <li>讀（三）常見錯誤對照卡。確認錯誤 vs 正確並列、一眼看出差別。</li>
+            <li>讀（四）入門測驗。確認題目情境化（考會不會用）。<em>題目考死記</em>：回覆「請把題目改為情境題，考新人會不會在實際情況用對，不考背誦」。</li>
+            <li>製作教材（一頁紙、對照卡、測驗）。重點是「30 分鐘能上手」，不是「涵蓋所有 canon」。</li>
+            <li>找一位新成員試用——30 分鐘後測驗，看是否真的記住五件事。記不住代表教材還不夠『記得住』，回頭精簡。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 給的要點太多太全面</strong>：回覆「請聚焦五件最常用、最易錯的事——新人記住五件能用的，比看過五十頁更有用」。</li>
+            <li><strong>教材結構是長條目堆砌</strong>：回覆「請用可導航的結構——分類、流程或因果鏈，讓新人能在腦中建立地圖，而非記憶一串條目」。</li>
+            <li><strong>對照卡的錯誤和正確分開列</strong>：回覆「請把錯誤與正確並列對照（左錯右對），讓新人一眼看出差別，而非分兩處」。</li>
+            <li><strong>測驗題在考背誦</strong>：回覆「請改為情境題——給一個實際場景問新人會怎麼做，考『會不會用』而非『背不背得出定義』」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要為新加入 GPS 內容推廣的成員做一份 30 分鐘上手的品牌教材。新人最常犯的錯：把「台積同仁」寫成「台積人」、用「你」而非「您」、用了已退役的詞、把願景和方法搞混、不知道對外素材要過三道閘門。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">做了一份 30 頁的「完整品牌教材」，把整本憲章濃縮進去——五大支柱各 3 頁、所有禁用詞列表、完整術語表、品牌歷史沿革、視覺規範全集⋯⋯每一項都「講到」但每一項都只是淺淺帶過。測驗出了 20 題，多數是「請問品牌的第三支柱是什麼」這類背誦題。問題：（1）追求「完整」塞了 30 頁，新人 30 分鐘根本看不完、看完也記不住；（2）每項淺淺帶過，新人對最常用的東西（台積同仁、您）沒有特別印象；（3）測驗考背誦（第三支柱是什麼），測不出新人會不會在實際寫作時用對；（4）新人看完覺得「資訊好多」但不知道「最重要的是什麼」。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">做一份聚焦五件事的精簡教材：核心五要點（最常用最易錯）：① 台積同仁（不是台積人）② 您（不是你）③ 對外素材一定過三道閘門 ④ 不確定能不能用的詞先查術語表 ⑤ 願景是長期圖像、方法是具體做法（別搞混）。教材結構——一頁紙，五件事用「寫作時的順序」導航（下筆前：查術語表→寫作中：用台積同仁、您→交付前：過三道閘門），讓新人在腦中建立「寫作流程地圖」。常見錯誤對照卡——左右並列：「台積人 ✗ → 台積同仁 ✓」「你 ✗ → 您 ✓」「如影隨形 ✗ → [現行表述] ✓」，一眼看出差別。入門測驗——3 道情境題，例如「你要寫一封給全體同仁的信，開頭想稱呼大家，下列哪個寫法符合品牌？」（考實際運用，不考背誦）。新人 30 分鐘看完，記住五件最常用的事，下筆時就能用對。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          教育素材的核心紀律是「記得住優於完整」——新人記住五件能用的，比看過五十頁更有用。劣稿的失敗是追求「完整」——30 頁濃縮整本憲章，每項淺淺帶過，新人看不完也記不住，測驗還考背誦。資訊量大但可用性低。佳稿做了三件事：聚焦五件最常用最易錯的事（不貪全）、用可導航的結構（寫作流程地圖）、測驗情境化（考會不會用）。「把結構變可導航，不把內容變淺」是教材設計的關鍵——不是把 canon 簡化，是給新人一張能快速上手的地圖。完整的教材是參考書（需要時查），好用的教材是入門地圖（30 分鐘建立可用語感）。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER C: 高階 ============= -->
+<section class="tier-section" data-t="c" id="tier-c">
+  <div class="tier-header">
+    <div class="tier-number">03</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">高階 · Advanced</h2>
+      <p class="tier-subtitle">判例與延伸——決策紀錄、年度報告、延伸評估</p>
+    </div>
+  </div>
+
+  <!-- C1 -->
+  <details class="project" id="c1">
+    <summary class="project-header">
+      <div class="project-code">C1</div>
+      <div class="project-title-block">
+        <h3>治理決策紀錄與版本管理</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">持有決策紀錄的記錄權：每筆品牌裁定（為何退役某詞、為何鎖定某句、某次審計的處置）以固定格式入冊。決策紀錄是 canon 的司法判例——未來的爭議靠它免於重新吵一次。決策紀錄的紀律是「判例格式完整」——爭點、選項、理由、影響範圍俱全，後續類似問題引用它而非重新辯論。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：決策紀錄冊（Notion 資料庫，固定格式）；tGenie 做裁定整理；既有決策紀錄作為格式參照。</li>
+            <li><strong>準備素材</strong>：待入冊的品牌裁定、固定的紀錄格式（爭點/選項/理由/影響範圍）、既有的標準判例。</li>
+            <li><strong>確認判例格式</strong>：每筆裁定要有：爭點（在爭什麼）、選項（有哪些選擇）、理由（為何選這個）、影響範圍（影響哪些）。</li>
+            <li><strong>學標準判例</strong>：參考既有的標準判例（如三檔分工裁定）——爭點、選項、理由、影響範圍俱全，後續問題引用它不再辯論。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 品牌管理組的決策紀錄顧問，遵守「判例格式完整、未來引用免於重吵」原則。
+
+我要把一筆品牌裁定入冊為決策紀錄，需要您協助整理成標準判例格式。
+
+【待入冊的裁定】
+（描述這次的品牌裁定：決定了什麼、背景是什麼）
+
+【固定紀錄格式】
+- 爭點：在爭論/決定什麼
+- 選項：有哪些可能的選擇
+- 理由：為何選擇這個而非其他
+- 影響範圍：這個裁定影響哪些素材/流程/未來決策
+
+【既有標準判例】（格式參照）
+（貼入一筆既有的標準判例作為格式參照）
+
+請給我四件事:
+（一）爭點梳理——這次裁定在爭/決定的核心問題是什麼，一句話講清；
+（二）選項與理由——當時有哪些選項、為何選擇了這個（理由要足夠讓未來的人理解，不只是結論）；
+（三）影響範圍——這個裁定影響哪些現有素材、哪些流程、哪些未來可能的決策；
+（四）判例完整性檢查——這筆紀錄是否完整到「未來遇到類似爭議能直接引用而不必重吵」，缺什麼補什麼。
+
+請遵守：判例格式四項俱全（爭點/選項/理由/影響範圍），缺一不可；
+理由要足夠讓未來的人理解，不只寫結論（為何這樣決定，不只是決定了什麼）；
+影響範圍要具體（影響哪些素材/流程），不是泛泛而談；
+判例的標準是「未來能引用免於重吵」，達不到這個標準就補完。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>確認待入冊的裁定內容與背景。</li>
+            <li>開啟 tGenie，貼入提示詞範本與裁定資訊、既有判例格式參照。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）爭點梳理。確認核心問題一句話講清。<em>爭點模糊</em>：回覆「請把爭點聚焦成一句話——這次到底在決定什麼」。</li>
+            <li>讀（二）選項與理由。確認理由足夠讓未來的人理解。<em>理由只有結論</em>：回覆「請補充『為何選這個而非其他選項』的理由，不只寫最終決定」。</li>
+            <li>讀（三）影響範圍。確認具體（哪些素材/流程）。<em>影響範圍泛泛</em>：回覆「請具體列出影響的素材、流程、未來決策，不要只說『影響品牌一致性』」。</li>
+            <li>讀（四）判例完整性檢查。確認達到「未來能引用免於重吵」的標準。<em>不完整</em>：補完缺漏項。</li>
+            <li>把裁定以標準判例格式（爭點/選項/理由/影響範圍）入冊到決策紀錄。</li>
+            <li>確認這筆判例可被未來引用——下次遇到類似問題，能直接調出這筆紀錄，而非重新辯論。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>判例只記了結論沒記理由</strong>：回覆「請補充理由——未來的人需要知道『為何這樣決定』，不只是『決定了什麼』。沒有理由的判例無法防止重吵」。</li>
+            <li><strong>影響範圍寫得很泛</strong>：回覆「請具體列出——影響哪些現有素材、哪些流程、哪些未來決策。『影響品牌一致性』太泛，無法指導未來」。</li>
+            <li><strong>爭點不清楚</strong>：回覆「請用一句話講清這次的爭點——到底在決定什麼。爭點模糊的判例未來無法被準確引用」。</li>
+            <li><strong>判例不完整就入冊</strong>：退回補完。決策紀錄是 canon 的司法判例——不完整的判例無法防止未來重吵，等於沒記。四項俱全才入冊。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          品牌治理流程剛裁定退役「如影隨形」這個詞（因為它帶有監控、跟蹤的負面聯想，與品牌『體貼的夥伴』形象衝突）。要把這筆裁定入冊為決策紀錄。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">決策紀錄寫：「2026/06 決議：『如影隨形』列為禁用詞。」就這一句。問題：（1）只有結論（禁用），沒有理由（為何禁用）——未來有人問「如影隨形為什麼不能用」，這筆紀錄答不出來；（2）沒有爭點（當時在爭什麼）、沒有選項（有沒有考慮其他處理方式）、沒有影響範圍（哪些素材要改）；（3）三年後新成員看到這筆紀錄，只知道「不能用」但不理解原因，可能會質疑或無意間用了類似的詞；（4）等於沒有防止未來重吵——下次有人提議用「如影隨形」，還是要重新討論一次。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">以標準判例格式入冊：爭點：「如影隨形」是否適合作為描述 GPS 守護方式的品牌用語。選項：(A) 保留使用（強調守護的全面性）(B) 限定情境使用 (C) 完全退役。理由：選擇 (C) 完全退役。「如影隨形」雖然字面有『全面守護』的正面意涵，但同時帶有監控、跟蹤、無所遁形的負面聯想，與品牌『體貼的夥伴』『在您需要之前』的形象衝突——體貼的夥伴是讓人安心的存在，不是讓人感覺被監視的存在。限定情境使用 (B) 仍有誤用風險，故完全退役。影響範圍：所有對外素材需移除「如影隨形」；禁用詞清單新增此條；未來描述守護的全面性改用 [現行替代表述]；影像、文案、簡報的既有素材需審計排查。判例完整性：四項俱全，未來若有人再提議使用「如影隨形」或類似帶監控聯想的詞，可直接引用這筆判例的理由，不必重新討論。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          決策紀錄的核心紀律是「判例格式完整」——爭點、選項、理由、影響範圍俱全，未來引用免於重吵。劣稿的失敗是只記結論（禁用如影隨形）不記理由——未來的人不理解為何禁用，可能質疑或重蹈，等於沒有防止重吵。一句話的紀錄無法當判例。佳稿做了一件根本的事：完整記錄爭點（在決定什麼）、選項（考慮過哪些）、理由（為何選這個，這是關鍵）、影響範圍（影響哪些）。「決策紀錄是 canon 的司法判例」——判例的價值在於『理由』。記住結論很容易，但只有完整的理由才能讓未來遇到類似爭議時直接引用，免於每年重吵一次。這是品牌治理在時間尺度上的記憶。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C2 -->
+  <details class="project" id="c2">
+    <summary class="project-header">
+      <div class="project-code">C2</div>
+      <div class="project-title-block">
+        <h3>品牌一致性年度報告</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">每年向處長級匯整品牌健康度：審計通過率趨勢、最常見違規類型、術語表成長、各組品牌成熟度。報告同時是成績單與處方箋——結論先行、每個發現對應一個下年度行動。年度報告的紀律是「誠實呈現攔截分布」——閘門攔截率持續為零要懷疑是沒在執行，而非慶祝品質完美。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：全年的稽核數據、術語表變動紀錄、各組品牌表現數據；tGenie 做數據分析與報告結構；簡報工具做最終報告。</li>
+            <li><strong>準備素材</strong>：全年審計通過率數據、違規類型統計、術語表成長數據、各組品牌成熟度評估、去年的年度報告（對照趨勢）。</li>
+            <li><strong>先想反指標</strong>：閘門攔截率如果持續為零，不是慶祝品質好，是懷疑沒在執行——年度報告要誠實呈現攔截分布。</li>
+            <li><strong>結論先行</strong>：報告是成績單也是處方箋——每個發現要對應一個下年度行動，不只呈現數據。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 品牌管理組的年度報告顧問，遵守「誠實呈現攔截分布、每個發現對應行動」原則。
+
+我要向處長級匯整品牌一致性年度報告，需要您協助。
+
+【全年審計數據】
+（貼入：審計通過率趨勢、各季變化、違規類型統計）
+
+【術語表成長數據】
+（貼入：術語表的條目成長、信心升級、多譯裁決數）
+
+【各組品牌成熟度】
+（貼入：各組的品牌表現數據、進步或退步情況）
+
+【去年年度報告】（對照趨勢）
+（貼入去年報告的關鍵數據，以便對照）
+
+請給我四件事:
+（一）品牌健康度總覽——審計通過率趨勢、最常見違規類型、術語表成長、各組成熟度的整體圖像，結論先行；
+（二）反指標誠實檢查——攔截率的分布是否健康？如果某環節攔截率持續為零，是品質真的完美還是沒在執行？誠實呈現；
+（三）發現對應行動——每個重要發現對應一個具體的下年度行動（不只呈現問題，給處方）；
+（四）向處長級的呈現建議——如何讓非品牌專業的處長級快速理解重點，結論先行、數據支撐。
+
+請遵守：誠實呈現攔截分布——攔截率持續為零要標記為「疑似未執行」而非「品質完美」；
+報告是成績單也是處方箋——每個發現對應一個下年度具體行動；
+結論先行，數據支撐——處長級要先看到結論，再看數據佐證；
+不為了好看而隱藏問題——年度報告的價值在誠實，不在證明一切完美。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>彙整全年的審計數據、術語表數據、各組成熟度數據。</li>
+            <li>開啟 tGenie，貼入提示詞範本與全年數據、去年報告對照。</li>
+            <li>送出。等待約 90 秒。</li>
+            <li>讀（一）品牌健康度總覽。確認結論先行、圖像清楚。</li>
+            <li>讀（二）反指標誠實檢查。<em>有環節攔截率為零</em>：認真看 AI 的判斷——是品質真好還是沒在執行。誠實呈現，不粉飾。這是年度報告的良心。</li>
+            <li>讀（三）發現對應行動。確認每個發現都有對應的下年度行動。<em>有發現沒對應行動</em>：回覆「[某發現] 請補上對應的下年度具體行動」。</li>
+            <li>讀（四）呈現建議。確認處長級能快速理解。</li>
+            <li>製作年度報告（結論先行＋數據支撐＋每個發現對應行動）。</li>
+            <li>報告中誠實呈現攔截分布——包括可能「不好看」的數據（如某環節攔截率為零的疑慮）。年度報告的價值在誠實。</li>
+            <li>向處長級呈現時結論先行，讓非品牌專業者也能快速掌握品牌健康度與下年度重點。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 把攔截率為零當成品質完美</strong>：回覆「攔截率持續為零更可能是『沒在執行』而非『品質完美』——請標記為疑似未執行，誠實檢視該環節是否真的有在稽核」。</li>
+            <li><strong>報告只呈現數據沒有行動</strong>：回覆「每個發現請對應一個下年度具體行動——報告是處方箋不只是成績單，要告訴處長級『接下來要做什麼』」。</li>
+            <li><strong>報告想隱藏不好看的數據</strong>：別隱藏。年度報告的價值在誠實——隱藏問題短期好看，但問題不會消失，且失去報告的可信度。誠實呈現才能爭取資源解決。</li>
+            <li><strong>數據太多處長級看不懂</strong>：回覆「請結論先行——用一頁講清品牌健康度的整體狀況與三個重點，數據放後面支撐。處長級要先看到結論」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          製作年度品牌一致性報告。數據顯示：對外素材的三道閘門中，「文字檢核」攔截率全年穩定在 8%（有在抓問題），但「視覺檢核」攔截率全年為 0%（一件都沒攔下）。要向處長級報告。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">報告寫：「本年度品牌一致性表現優異！視覺檢核閘門攔截率為 0%，代表各組視覺產出品質完美，無任何違規。文字檢核攔截率 8%，已在持續改善中。整體品牌健康度良好，團隊表現值得肯定。」把視覺攔截率 0% 當成「品質完美」來慶祝。問題：（1）視覺攔截率 0% 更可能是「視覺檢核根本沒在執行」而非「視覺品質完美」——沒有任何稽核機制會一整年零攔截；（2）把疑似未執行當成品質完美來慶祝，掩蓋了真正的問題（視覺檢核形同虛設）；（3）報告失去誠實性，處長級被誤導以為視覺治理良好，不會撥資源改善；（4）違反反指標思維——攔截率為零是警訊不是成就。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">報告誠實呈現攔截分布：品牌健康度總覽（結論先行）：「本年度品牌一致性整體穩定，但發現一個治理盲區——視覺檢核閘門全年攔截率為 0%，與文字檢核的 8% 形成異常對比。」反指標誠實檢查：「視覺檢核攔截率 0% 不應解讀為『視覺品質完美』。任何有效運作的稽核機制都會有一定攔截率——文字檢核的 8% 是健康的攔截分布。視覺檢核全年零攔截，最可能的解釋是『視覺檢核未確實執行』，而非視覺產出完美無瑕。這是需要立即正視的治理盲區。」發現對應行動：「下年度行動——(1) 釐清視覺檢核為何零攔截：是流程未落實、還是稽核者不知如何執行視覺稽核 (2) 補強視覺稽核的可操作標準與訓練 (3) 設定視覺檢核的最低抽樣比例，確保確實執行。」向處長級呈現：一頁講清「整體穩定，但視覺檢核存在治理盲區，已有改善計畫」，數據佐證在後。誠實呈現問題，反而爭取到處長級對視覺治理的資源支持。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          年度報告的核心紀律是「誠實呈現攔截分布」——攔截率持續為零要懷疑是沒在執行，而非慶祝品質完美。劣稿的失敗是把反指標（視覺攔截率 0%）當成成就來慶祝——掩蓋了「視覺檢核形同虛設」的真問題，誤導處長級，失去報告的誠實性與可信度。佳稿做了三件事：誠實標記攔截率為零是治理盲區（不是品質完美）、分析可能成因（檢核未執行）、對應具體行動（釐清＋補強＋設最低抽樣）。「閘門攔截率持續為零要懷疑沒在執行」是這個專案的核心反指標思維——年度報告的價值不在證明一切完美，在誠實呈現真實狀況。誠實的問題呈現反而能爭取資源解決，粉飾的完美只會讓問題持續潛伏。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C3 -->
+  <details class="project" id="c3">
+    <summary class="project-header">
+      <div class="project-code">C3</div>
+      <div class="project-title-block">
+        <h3>品牌延伸提案評估</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">當組織出現新應用需求（新產品線要不要進品牌體系、新場景的標準說法、子品牌關係），高階層級主持評估：是 canon 的自然延伸、需新增的條目、還是應該拒絕的稀釋。產出建議書供品牌治理流程裁決。延伸評估的紀律是「做到頂也只是最好的提案人」——本組永不重新定義 canon，最終裁決權在品牌治理流程，這個謙抑保護品牌十年尺度的完整性。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：品牌憲章（評估基準）；tGenie 做延伸評估分析；建議書範本。</li>
+            <li><strong>準備素材</strong>：新應用需求的描述、品牌憲章現行範圍、類似延伸的既有判例、「下游實作者」的治理鐵則。</li>
+            <li><strong>先分三類</strong>：新需求是：canon 的自然延伸（已隱含）、需新增的條目（canon 沒有但相容）、還是應拒絕的稀釋（與 canon 衝突）？</li>
+            <li><strong>認清提案人角色</strong>：本組做的是『評估與提案』，不是『裁決』——再有道理的提案，最終仍送品牌治理流程裁決。謙抑保護品牌完整性。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 品牌管理組的延伸評估顧問，遵守「本組是提案人非裁決者、永不重新定義 canon」原則。
+
+我要評估一個品牌延伸需求，需要您協助分析並產出建議書。
+
+【新應用需求】
+（描述：新產品線/新場景/子品牌關係等需求的具體內容）
+
+【品牌憲章現行範圍】
+（貼入憲章中與此需求相關的現行範圍與原則）
+
+【類似延伸的既有判例】
+（貼入過去類似的延伸評估判例，若有）
+
+請給我四件事:
+（一）三類判定——這個需求是 canon 的自然延伸（已隱含）、需新增的條目（canon 沒有但相容）、還是應拒絕的稀釋（與 canon 衝突）？附判斷理由；
+（二）對品牌完整性的影響——若接受這個延伸，對品牌的長期完整性（十年尺度）有何影響，是強化還是稀釋；
+（三）建議書內容——整理成可供品牌治理流程裁決的建議書（需求描述、三類判定、理由、建議的處理方式）；
+（四）提案人定位提醒——明確標示這是「本組的評估建議」，最終裁決權在品牌治理流程，本組不自行定案。
+
+請遵守：本組是提案人不是裁決者——產出建議書供品牌治理流程裁決，不自行定案；
+三類判定要清楚（自然延伸/需新增/應拒絕），不模稜兩可；
+評估要從品牌十年尺度的完整性出發，不只看當下方便；
+「應拒絕的稀釋」也要敢於提出——保護 canon 完整性有時需要說不，但仍以建議書形式提交裁決。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>確認新需求的內容與相關的 canon 範圍。</li>
+            <li>開啟 tGenie，貼入提示詞範本與需求描述、相關憲章範圍。</li>
+            <li>送出。等待約 90 秒。</li>
+            <li>讀（一）三類判定。確認判定清楚（自然延伸/需新增/應拒絕）。<em>判定模稜兩可</em>：回覆「請明確歸入三類之一，並說明為何不是其他兩類」。</li>
+            <li>讀（二）對品牌完整性的影響。確認從十年尺度評估，不只看當下。</li>
+            <li>讀（三）建議書內容。確認完整到可供品牌治理流程裁決。</li>
+            <li>讀（四）提案人定位。確認建議書明確標示「這是評估建議、最終裁決在治理流程」。<em>建議書口吻像定案</em>：回覆「請調整為建議口吻，明確這是供裁決的提案，本組不自行定案」。</li>
+            <li>產出建議書（需求/三類判定/理由/建議處理方式），明確標示提案人定位。</li>
+            <li>把建議書提交品牌治理流程裁決——本組做到評估與建議為止，不自行定案。即使評估再充分，最終裁決權在治理流程。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 的建議書口吻像在定案</strong>：回覆「請調整為建議口吻——這是供品牌治理流程裁決的提案，不是本組的最終決定。本組是提案人不是裁決者」。</li>
+            <li><strong>三類判定模稜兩可</strong>：回覆「請明確歸入『自然延伸/需新增/應拒絕』之一，說明為何是這類而非其他——模稜兩可的評估無法供裁決」。</li>
+            <li><strong>評估只看當下方便</strong>：回覆「請從品牌十年尺度的完整性評估——這個延伸長期會強化還是稀釋品牌，不只看當下是否方便」。</li>
+            <li><strong>該拒絕的稀釋不敢提出</strong>：敢於提出。保護 canon 完整性有時需要說不。但以建議書形式提交，最終仍由治理流程裁決——提案人的責任是誠實評估，不是討好需求方。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          組織有個新需求：某內部創新專案做了一個「員工心理健康支持平台」，想掛在 GPS 品牌下、用 GPS 的『體貼的夥伴』形象來推廣。要評估這個品牌延伸是否該接受。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">高階層級自己評估後直接定案：「這個平台跟我們『體貼的夥伴』形象很搭，而且能擴大 GPS 的影響力，我決定讓它掛在 GPS 品牌下，已經通知對方可以開始用 GPS 的視覺識別了。」問題：（1）本組自行定案——越權，本組是提案人不是裁決者，品牌延伸的裁決權在治理流程；（2）「能擴大影響力」是看當下方便，沒從十年尺度評估品牌完整性；（3）沒做三類判定（這是自然延伸、需新增、還是稀釋？）；（4）心理健康支持與『實體安全』是不同領域，掛在 GPS 品牌下可能稀釋 GPS 的核心定位（實體安全夥伴），但這個風險沒被評估；（5）已通知對方開始用——既成事實，繞過了治理流程。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">高階層級做評估、產出建議書、提交裁決：三類判定：傾向「應審慎評估是否為稀釋」。GPS 的核心定位是『體貼的實體安全夥伴』，五大支柱圍繞實體安全展開。員工心理健康支持雖然也是『體貼』，但屬於不同的專業領域（員工福祉/心理健康），與 GPS 的實體安全核心有距離。對品牌完整性的影響：「短期看，掛 GPS 品牌能借用既有的『體貼』形象快速推廣；但長期（十年尺度）看，若 GPS 品牌延伸到心理健康領域，會模糊 GPS『實體安全夥伴』的核心定位——當品牌什麼都是，就什麼都不是。這可能稀釋十年來建立的實體安全專業形象。」建議書內容：「需求——心理健康平台欲掛 GPS 品牌。評估——傾向不建議直接掛 GPS 品牌，因可能稀釋實體安全的核心定位。替代建議：(A) 平台獨立品牌，但可借鏡 GPS 的『體貼』理念與設計語言 (B) 若組織策略確實要擴展 GPS 範圍，需先在 canon 層級重新定義 GPS 的範疇（這超出本組權限，需治理流程決定）。」提案人定位：「以上為本組的評估建議，品牌範疇的延伸涉及 canon 核心定義，最終裁決權在品牌治理流程。本組不自行定案，謹提交建議供裁決。」</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          延伸評估的核心紀律是「做到頂也只是最好的提案人」——本組永不重新定義 canon，最終裁決權在品牌治理流程。劣稿的失敗是自行定案（越權）、看當下方便（沒從十年尺度評估）、繞過治理流程（既成事實）。把『擴大影響力』當理由，忽略了可能稀釋核心定位的長期風險。佳稿做了三件事：做三類判定（傾向審慎評估稀釋風險）、從十年尺度評估完整性（當品牌什麼都是就什麼都不是）、以建議書提交裁決（明確提案人定位，不自行定案）。「Studio 是 canon 的下游實作者，永不重新定義 canon」是這個專案的天花板，也是品牌治理的最高智慧——高階層級做到頂只是最好的提案人。這個謙抑設計保護的不是流程，是品牌本身在十年尺度上的完整性。敢於提出『這可能是稀釋』，但仍把裁決權留給治理流程，這才是成熟的品牌守護者。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+</main>
+
+<footer>
+  <p>CS2-05 品牌管理組 · Toolkit v1.0 · 資訊更新 2026-06 · 由現任主理人擬定</p>
+  <p>上游 · GPS 內容推廣制度導讀 · 工作公約 · 共通底座</p>
+  <p class="brand-tagline">Before you need it. · 在您需要之前。</p>
+</footer>
+
+<script>
+  (function() {
+    // ===== Copy buttons =====
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();  // prevent parent summary toggle
+        e.preventDefault();
+        const pre = btn.parentElement.querySelector('pre');
+        if (!pre) return;
+        const text = pre.textContent;
+        const showCopied = () => {
+          const labelSpan = btn.querySelector('span');
+          if (labelSpan) labelSpan.textContent = '已複製';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            if (labelSpan) labelSpan.textContent = '複製';
+            btn.classList.remove('copied');
+          }, 2000);
+        };
+        const fallbackCopy = () => {
+          const ta = document.createElement('textarea');
+          ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          try { document.execCommand('copy'); showCopied(); }
+          catch (e) { console.error('Copy failed:', e); }
+          document.body.removeChild(ta);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(showCopied).catch(fallbackCopy);
+        } else { fallbackCopy(); }
+      });
+    });
+
+    // ===== Expand / Collapse all =====
+    const expandAllBtn = document.getElementById('expand-all');
+    const collapseAllBtn = document.getElementById('collapse-all');
+    if (expandAllBtn) {
+      expandAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = true);
+      });
+    }
+    if (collapseAllBtn) {
+      collapseAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = false);
+      });
+    }
+
+    // ===== Side index / top nav clicks → expand target =====
+    document.querySelectorAll('.side-index a, .top-nav a').forEach(a => {
+      a.addEventListener('click', () => {
+        const href = a.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        const target = document.getElementById(href.slice(1));
+        if (target && target.tagName === 'DETAILS') {
+          target.open = true;
+        }
+      });
+    });
+
+    // ===== Auto-expand on hash change / initial hash =====
+    function expandFromHash() {
+      const hash = window.location.hash;
+      if (!hash) return;
+      const target = document.getElementById(hash.slice(1));
+      if (target && target.tagName === 'DETAILS') {
+        target.open = true;
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      }
+    }
+    window.addEventListener('hashchange', expandFromHash);
+    if (window.location.hash) setTimeout(expandFromHash, 100);
+
+    // ===== Print: expand all temporarily =====
+    let printStates = [];
+    window.addEventListener('beforeprint', () => {
+      printStates = Array.from(document.querySelectorAll('details')).map(d => ({ el: d, was: d.open }));
+      printStates.forEach(s => s.el.open = true);
+    });
+    window.addEventListener('afterprint', () => {
+      printStates.forEach(s => s.el.open = s.was);
+      printStates = [];
+    });
+
+    // ===== Side index active state =====
+    const links = document.querySelectorAll('.side-index a');
+    if (!links.length) return;
+    const linkMap = {};
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      linkMap[id] = a;
+    });
+    const sections = document.querySelectorAll('section[id], article[id], details[id]');
+    let activeId = null;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activeId = entry.target.id;
+        }
+      });
+      if (activeId && linkMap[activeId]) {
+        links.forEach(a => a.classList.remove('active'));
+        linkMap[activeId].classList.add('active');
+      }
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  })();
+</script>
+
+</body>
+</html>

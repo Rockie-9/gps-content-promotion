@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GPS 內容推廣 · 工作公約與口袋卡</title>
+<style>
+  :root {
+    --turquoise:#26A7B0;
+    --turquoise-50:#ECF7F8;
+    --turquoise-100:#D0EDEF;
+    --turquoise-700:#1F8A92;
+    --copper-light:#CAC3D2;
+    --copper-deep:#6E5F7C;
+    --purple:#7086BA;
+    --green:#6BB57E;
+    --orange:#ED7442;
+    --warn:#E5993E;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a4a;
+    --ink-mute:#8a8580;
+    --paper:#fdfcfa;
+    --paper-soft:#f5f3ef;
+    --paper-warm:#faf7f0;
+    --line:#e5e2db;
+    --line-strong:#cfc9bf;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.75;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    background:linear-gradient(135deg,var(--turquoise) 0%,var(--turquoise-700) 100%);
+    color:#fff;
+    padding:60px 24px 48px;
+  }
+  .hero-inner { max-width:960px; margin:0 auto; }
+  .hero-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:12px;
+    opacity:0.85;
+    margin-bottom:14px;
+  }
+  .hero h1 {
+    font-size:34px;
+    font-weight:700;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+    line-height:1.3;
+  }
+  .hero-sub {
+    font-size:17px;
+    opacity:0.95;
+    margin:0 0 24px;
+    max-width:680px;
+    line-height:1.7;
+  }
+  .hero-update {
+    font-size:12px;
+    opacity:0.75;
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    letter-spacing:0.08em;
+  }
+
+  /* Operating priority banner */
+  .priority {
+    background:var(--paper-warm);
+    border-bottom:1px solid var(--line);
+    padding:28px 24px;
+  }
+  .priority-inner {
+    max-width:960px;
+    margin:0 auto;
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+  }
+  .priority-icon {
+    flex:0 0 32px;
+    color:var(--copper-deep);
+    margin-top:4px;
+  }
+  .priority-body h2 {
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    margin:0 0 6px;
+    color:var(--copper-deep);
+    font-weight:600;
+  }
+  .priority-body p {
+    margin:0;
+    font-size:15px;
+    color:var(--ink-soft);
+    line-height:1.75;
+  }
+
+  /* Layout */
+  main { max-width:960px; margin:0 auto; padding:48px 24px 64px; }
+
+  /* Section */
+  .section { margin-bottom:64px; }
+  .section-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:11px;
+    color:var(--turquoise);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .section h2 {
+    font-size:26px;
+    font-weight:700;
+    margin:0 0 8px;
+    color:var(--ink);
+    letter-spacing:-0.005em;
+  }
+  .section-lede {
+    font-size:15px;
+    color:var(--ink-soft);
+    margin:0 0 28px;
+    max-width:680px;
+    line-height:1.7;
+  }
+
+  /* Covenant grid */
+  .covenant-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+  .practice {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:18px 18px 16px;
+    position:relative;
+    transition:border-color .15s,transform .15s;
+  }
+  .practice:hover {
+    border-color:var(--turquoise);
+    transform:translateY(-1px);
+  }
+  .practice-num {
+    position:absolute;
+    top:-10px;
+    left:14px;
+    background:var(--turquoise);
+    color:#fff;
+    font-size:11px;
+    font-weight:600;
+    padding:2px 8px;
+    border-radius:3px;
+    letter-spacing:0.04em;
+  }
+  .practice h3 {
+    margin:6px 0 6px;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .practice p {
+    margin:0;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.65;
+  }
+
+  /* Two bottom lines */
+  .bottomlines {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:32px;
+  }
+  .bottomline {
+    background:var(--turquoise-50);
+    border-left:3px solid var(--turquoise);
+    padding:20px 22px;
+    border-radius:0 6px 6px 0;
+  }
+  .bottomline h4 {
+    margin:0 0 8px;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--turquoise-700);
+    font-weight:600;
+  }
+  .bottomline p {
+    margin:0;
+    font-size:14.5px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+
+  /* Card nav (top sticky — mobile/tablet only) */
+  .card-nav {
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(253,252,250,0.96);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+    margin:0 -24px 36px;
+  }
+  .card-nav-inner {
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .card-nav a {
+    flex:0 0 auto;
+    padding:8px 14px;
+    background:transparent;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    border-radius:4px;
+    white-space:nowrap;
+    transition:background .15s,color .15s;
+  }
+  .card-nav a:hover { background:var(--paper-soft); color:var(--ink); }
+  .card-nav a .nav-num {
+    display:inline-block;
+    margin-right:6px;
+    color:var(--ink-mute);
+    font-weight:600;
+  }
+
+  /* Floating side index (desktop only) */
+  .side-index {
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    width:172px;
+    background:rgba(253,252,250,0.94);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 10px;
+    font-size:13px;
+    z-index:40;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+    display:none;
+  }
+  .side-index-title {
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--ink-mute);
+    padding:2px 8px 8px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:6px;
+  }
+  .side-index ul { list-style:none; padding:0; margin:0; }
+  .side-index li { padding:0; }
+  .side-index a {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:7px 8px;
+    border-radius:5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background .15s,color .15s;
+    line-height:1.4;
+  }
+  .side-index a:hover {
+    background:var(--paper-soft);
+    color:var(--ink);
+  }
+  .side-index a.active {
+    background:var(--turquoise-50);
+    color:var(--turquoise-700);
+    font-weight:600;
+  }
+  .side-index .dot {
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--line-strong);
+    flex:0 0 6px;
+    transition:background .15s,transform .15s;
+  }
+  .side-index a:hover .dot { background:var(--ink-mute); }
+  .side-index a.active .dot {
+    background:var(--turquoise);
+    transform:scale(1.3);
+  }
+  .side-index .sep {
+    height:1px;
+    background:var(--line);
+    margin:6px 8px;
+  }
+
+  /* Pocket cards */
+  .pocket-card {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    margin-bottom:32px;
+    overflow:hidden;
+    border-top:4px solid var(--card-accent,var(--turquoise));
+    scroll-margin-top:72px;
+  }
+  .pocket-card[data-color="purple"]      { --card-accent:var(--purple); }
+  .pocket-card[data-color="orange"]      { --card-accent:var(--orange); }
+  .pocket-card[data-color="green"]       { --card-accent:var(--green); }
+  .pocket-card[data-color="turquoise"]   { --card-accent:var(--turquoise); }
+  .pocket-card[data-color="copper-deep"] { --card-accent:var(--copper-deep); }
+  .pocket-card[data-color="copper-light"]{ --card-accent:var(--copper-light); }
+
+  .card-header {
+    padding:24px 28px 20px;
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    border-bottom:1px solid var(--line);
+    background:var(--paper-warm);
+  }
+  .card-num-large {
+    flex:0 0 auto;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:var(--card-accent);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    font-weight:600;
+    font-family:Georgia,serif;
+  }
+  .card-title-block { flex:1 1 auto; }
+  .card-title-block h3 {
+    margin:0 0 4px;
+    font-size:20px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .card-title-block .card-when {
+    margin:0;
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.55;
+  }
+  .card-icon {
+    flex:0 0 32px;
+    color:var(--card-accent);
+    opacity:0.8;
+  }
+
+  .card-body { padding:24px 28px 28px; }
+  .card-quote {
+    background:var(--paper-soft);
+    border-left:3px solid var(--card-accent);
+    padding:14px 18px;
+    margin:0 0 22px;
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.75;
+    border-radius:0 4px 4px 0;
+  }
+  .info-block { margin-bottom:20px; }
+  .info-block:last-child { margin-bottom:0; }
+  .info-block h4 {
+    margin:0 0 6px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--card-accent);
+    letter-spacing:0.02em;
+  }
+  .info-block p, .info-block ul {
+    margin:0;
+    font-size:14.5px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+  .info-block ul {
+    padding-left:0;
+    list-style:none;
+  }
+  .info-block ul li {
+    position:relative;
+    padding-left:18px;
+    margin-bottom:4px;
+  }
+  .info-block ul li::before {
+    content:"";
+    position:absolute;
+    left:4px;
+    top:11px;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--card-accent);
+    opacity:0.7;
+  }
+
+  /* Stepped flow */
+  .steps {
+    counter-reset:step;
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+  .steps > li {
+    counter-increment:step;
+    position:relative;
+    padding:12px 16px 12px 50px;
+    margin-bottom:8px;
+    background:var(--paper-soft);
+    border-radius:6px;
+    font-size:14.5px;
+    line-height:1.75;
+  }
+  .steps > li::before {
+    content:counter(step);
+    position:absolute;
+    left:14px;
+    top:13px;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:var(--card-accent);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:600;
+    font-family:Georgia,serif;
+  }
+  .steps > li strong {
+    display:block;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+  .step-sub {
+    margin:4px 0 0;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+
+  /* Table */
+  table.handover {
+    width:100%;
+    border-collapse:collapse;
+    margin:8px 0 0;
+    font-size:13.5px;
+  }
+  table.handover th, table.handover td {
+    padding:10px 12px;
+    border:1px solid var(--line);
+    vertical-align:top;
+    text-align:left;
+  }
+  table.handover th {
+    background:var(--paper-soft);
+    font-weight:600;
+    color:var(--ink);
+    font-size:13px;
+    width:30%;
+  }
+  table.handover td { color:var(--ink-soft); }
+
+  /* Phases */
+  .phases {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:8px 0 0;
+  }
+  .phase {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:14px 16px;
+    border-top:3px solid var(--card-accent);
+  }
+  .phase-name {
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+  .phase-time {
+    font-size:11.5px;
+    color:var(--ink-mute);
+    margin-bottom:6px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .phase-desc {
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  /* Choice boxes */
+  .choices {
+    display:grid;
+    gap:8px;
+    margin:8px 0 0;
+  }
+  .choice {
+    background:var(--paper-soft);
+    border-left:3px solid var(--card-accent);
+    padding:10px 14px;
+    border-radius:0 4px 4px 0;
+    font-size:14px;
+    line-height:1.65;
+  }
+  .choice-tag {
+    display:inline-block;
+    background:var(--card-accent);
+    color:#fff;
+    font-size:11px;
+    font-weight:600;
+    padding:1px 7px;
+    border-radius:3px;
+    margin-right:8px;
+    vertical-align:middle;
+  }
+
+  /* Highlight callout */
+  .callout {
+    background:#fff7e8;
+    border:1px solid #f0d99f;
+    border-radius:6px;
+    padding:14px 18px;
+    margin:14px 0 0;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.75;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .callout-icon {
+    flex:0 0 18px;
+    color:var(--warn);
+    margin-top:2px;
+  }
+  .callout strong { color:#a86b14; }
+
+  /* Footer */
+  footer {
+    background:var(--paper-soft);
+    border-top:1px solid var(--line);
+    padding:32px 24px;
+    text-align:center;
+  }
+  footer p {
+    margin:4px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  footer .brand-tagline {
+    font-size:14px;
+    color:var(--turquoise-700);
+    font-weight:500;
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+
+  /* Print */
+  @media print {
+    .card-nav, .side-index { display:none !important; }
+    .hero { background:#fff; color:var(--ink); border-bottom:2px solid var(--turquoise); }
+    .hero h1, .hero-sub, .hero-eyebrow, .hero-update { color:var(--ink); opacity:1; }
+    .pocket-card { break-inside:avoid; page-break-inside:avoid; }
+    .practice { break-inside:avoid; }
+  }
+
+  /* Responsive */
+  @media (min-width: 1240px) {
+    .side-index { display:block; }
+    .card-nav { display:none; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding:44px 20px 36px; }
+    .hero h1 { font-size:26px; }
+    .hero-sub { font-size:15px; }
+    main { padding:32px 20px 48px; }
+    .section h2 { font-size:22px; }
+    .covenant-grid { grid-template-columns:repeat(2,1fr); }
+    .bottomlines { grid-template-columns:1fr; }
+    .card-nav { margin:0 -20px 28px; }
+    .card-nav-inner { padding:0 20px; }
+    .card-header { padding:20px 20px 16px; gap:14px; }
+    .card-num-large { width:38px; height:38px; font-size:16px; }
+    .card-title-block h3 { font-size:18px; }
+    .card-body { padding:20px; }
+    .phases { grid-template-columns:1fr; }
+  }
+  @media (max-width: 480px) {
+    .covenant-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">GPS 內容推廣 · 工作公約與口袋卡</div>
+    <h1>六個內容小組的共同做事方式</h1>
+    <p class="hero-sub">
+      這是我們一起決定的做事方式。
+      將這份釘在電腦桌面、瀏覽器或手機桌面——需要做某件事的時候，隨時翻一翻就好。
+    </p>
+    <div class="hero-update">資訊更新 2026-06</div>
+  </div>
+</header>
+
+<section class="priority">
+  <div class="priority-inner">
+    <div class="priority-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="16" cy="16" r="11"/>
+        <path d="M16 5 L18 14 L27 16 L18 18 L16 27 L14 18 L5 16 L14 14 Z" fill="currentColor" opacity="0.15"/>
+        <path d="M16 5 L18 14 L27 16 L18 18 L16 27 L14 18 L5 16 L14 14 Z"/>
+      </svg>
+    </div>
+    <div class="priority-body">
+      <h2>運作前提</h2>
+      <p>
+        我們的做事方式以<strong style="color:var(--copper-deep)">穩定的產出與運作</strong>為前提。
+        可以喘息、可以離開——但請提早告訴大家、把事情交接清楚，
+        讓接手的人準備好，這樣才能照顧到您，也照顧到整個團隊。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Floating side index (desktop only) -->
+<aside class="side-index" aria-label="快速索引">
+  <div class="side-index-title">快速索引</div>
+  <ul>
+    <li><a href="#covenant"><span class="dot"></span>工作公約</a></li>
+    <li class="sep"></li>
+    <li><a href="#card-pod"><span class="dot"></span>Pod 成立</a></li>
+    <li><a href="#card-redline"><span class="dot"></span>紅線即時攔</a></li>
+    <li><a href="#card-sabbatical"><span class="dot"></span>喘息一下</a></li>
+    <li><a href="#card-memo"><span class="dot"></span>貢獻 Memo</a></li>
+    <li><a href="#card-standup"><span class="dot"></span>每週站會</a></li>
+    <li><a href="#card-exit"><span class="dot"></span>退出與轉籍</a></li>
+    <li><a href="#card-join"><span class="dot"></span>加入與評估</a></li>
+  </ul>
+</aside>
+
+<main>
+
+<!-- COVENANT -->
+<section class="section" id="covenant">
+  <div class="section-eyebrow">PART I · 工作公約</div>
+  <h2>十二條做事方式</h2>
+  <p class="section-lede">
+    這不是規章，是我們六個小組（CS2-01 到 06）一起決定的做事方式。
+    加入內容推廣，就照這份走。
+  </p>
+
+  <div class="covenant-grid">
+    <div class="practice">
+      <span class="practice-num">01</span>
+      <h3>承諾自己訂，訂了就算數</h3>
+      <p>每季初您自己填一張承諾卡，公開貼在組內作品牆。承諾期間原則上不調整。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">02</span>
+      <h3>一件事一個 DRI</h3>
+      <p>每件交付物指定一位直接當責人，掛名到人，不寫「團隊製作」。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">03</span>
+      <h3>對外作品要 Pod</h3>
+      <p>對外發布的內容由跨組任務小組（Pod）執行，至少跨兩組組成。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">04</span>
+      <h3>交付前自查三道閘門</h3>
+      <p>您交付前自行勾選檢核清單並署名，等於以個人名義承諾無紅線違規。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">05</span>
+      <h3>紅線即時攔</h3>
+      <p>看到對外署名素材有禁用詞或鎖定語句變動，立即通知品牌管理組。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">06</span>
+      <h3>機密不出公司工具</h3>
+      <p>Token、密碼、未公開營運資訊只進公司內部工具；誤貼即視同外洩。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">07</span>
+      <h3>每週站會十五分鐘</h3>
+      <p>組長主持，只同步不討論；週五前更新作品牆。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">08</span>
+      <h3>每月巡訪日</h3>
+      <p>月初公布通路行事曆；月中作品、手藝、交流三段，線上參與同等發言。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">09</span>
+      <h3>每季貢獻 Memo</h3>
+      <p>主理人具名向您的直屬主管寄出本季貢獻摘要，發出前您先看過。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">10</span>
+      <h3>隱形貢獻要登錄</h3>
+      <p>攔下違規、改善動線、術語裁定——記入貢獻登錄簿，他人也能為您登錄。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">11</span>
+      <h3>年度 Showcase 與貢獻獎</h3>
+      <p>年底發表會＋投入與貢獻獎；晉級在此宣告，靠作品不靠年資。</p>
+    </div>
+    <div class="practice">
+      <span class="practice-num">12</span>
+      <h3>喘息與退出皆走流程</h3>
+      <p>至少提前一季提議，協調替補、填好交接卡、確認上手後逐步退場。</p>
+    </div>
+  </div>
+
+  <div class="bottomlines">
+    <div class="bottomline">
+      <h4>當責</h4>
+      <p>
+        沒達成承諾的時候，跟組長聊一下就好——可以重新校準下季的承諾、改換支援角色、或先放下重大事項聚焦。
+        喘息和退出走另外的流程（卡 3、卡 6），不是失約時的快速出口。
+        <strong>沒做到不是問題，沒講才是。</strong>
+      </p>
+    </div>
+    <div class="bottomline">
+      <h4>獎勵不變形</h4>
+      <p>
+        登錄簿、精選次數、Memo 都是肯認您的方式，不是用來考核或排名的工具。
+        如果有人這樣使用，您可以直接告訴主理人。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TOP NAV (mobile only) -->
+<nav class="card-nav" aria-label="口袋卡導覽">
+  <div class="card-nav-inner">
+    <a href="#card-pod"><span class="nav-num">1</span>Pod 成立</a>
+    <a href="#card-redline"><span class="nav-num">2</span>紅線即時攔</a>
+    <a href="#card-sabbatical"><span class="nav-num">3</span>喘息一下</a>
+    <a href="#card-memo"><span class="nav-num">4</span>貢獻 Memo</a>
+    <a href="#card-standup"><span class="nav-num">5</span>每週站會</a>
+    <a href="#card-exit"><span class="nav-num">6</span>退出與轉籍</a>
+    <a href="#card-join"><span class="nav-num">7</span>加入與評估</a>
+  </div>
+</nav>
+
+<section class="section" id="cards">
+  <div class="section-eyebrow">PART II · 口袋卡七張</div>
+  <h2>需要做什麼，翻哪一張</h2>
+  <p class="section-lede">
+    七張卡彼此獨立，可以單張拿出來分享給需要的人。
+  </p>
+
+  <!-- CARD 1 · POD -->
+  <article class="pocket-card" data-color="purple" id="card-pod">
+    <header class="card-header">
+      <div class="card-num-large">1</div>
+      <div class="card-title-block">
+        <h3>跨組任務小組（Pod）成立</h3>
+        <p class="card-when">對外作品的合作機制</p>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="12" cy="13" r="6"/>
+          <circle cx="20" cy="13" r="6"/>
+          <circle cx="16" cy="20" r="6"/>
+        </svg>
+      </div>
+    </header>
+    <div class="card-body">
+      <div class="info-block">
+        <h4>什麼時候要 Pod</h4>
+        <p>對外發布的內容——會掛全球實體安全團隊的名字、給內容推廣以外的受眾看。內部小產出單組或單人即可。</p>
+      </div>
+      <div class="info-block">
+        <h4>誰可以發起</h4>
+        <p>任何成員。不用申請、不用核准。</p>
+      </div>
+      <div class="info-block">
+        <h4>怎麼成立（四步）</h4>
+        <ol class="steps">
+          <li><strong>選定議題與 Pod 組長</strong>Pod 組長須為進階層級以上</li>
+          <li><strong>邀至少跨兩組的成員加入</strong></li>
+          <li><strong>在週站會宣告</strong>Pod 成立、預計交付物、時程</li>
+          <li><strong>指定 DRI</strong>通常為 Pod 組長</li>
+        </ol>
+      </div>
+      <div class="info-block">
+        <h4>掛名規則</h4>
+        <p>具體掛名到人，不寫「團隊製作」。順序由 Pod 組長依實際貢獻擬定，全 Pod 確認；爭議升級至主理人。</p>
+      </div>
+      <div class="info-block">
+        <h4>什麼時候解散</h4>
+        <p>作品發布並完成歸檔後自動解散。Pod 組長以三句話寫入作品牆：做對什麼、踩了什麼、下次怎樣。</p>
+      </div>
+      <div class="info-block">
+        <h4>承諾穩定性</h4>
+        <p>Pod 組長與 DRI 一旦掛名，請完成至作品發布；急迫情況需轉移時，依卡 3 或卡 6 處理。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- CARD 2 · RED LINE -->
+  <article class="pocket-card" data-color="orange" id="card-redline">
+    <header class="card-header">
+      <div class="card-num-large">2</div>
+      <div class="card-title-block">
+        <h3>紅線即時攔</h3>
+        <p class="card-when">看到不對勁的對外作品時</p>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M16 5 L28 26 L4 26 Z"/>
+          <path d="M16 13 L16 19" stroke-linecap="round"/>
+          <circle cx="16" cy="22.5" r="1" fill="currentColor"/>
+        </svg>
+      </div>
+    </header>
+    <div class="card-body">
+      <div class="info-block">
+        <h4>什麼算是紅線</h4>
+        <ul>
+          <li>鎖定語句被擅改</li>
+          <li>出現禁用詞（黑名單見 SKILL.md）</li>
+          <li>五大支柱名稱誤譯</li>
+          <li>2028 才能用的「Safety, by design.」提前出現</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>誰可以攔</h4>
+        <p>任何成員。不限品牌管理組。</p>
+      </div>
+      <div class="info-block">
+        <h4>怎麼攔（兩步）</h4>
+        <ol class="steps">
+          <li><strong>立即通知品牌管理組與該件 DRI</strong>同步訊息，不要等下次會議</li>
+          <li><strong>品牌管理組於 24 小時內回覆</strong>確認攔截＋書面理由＋修正建議</li>
+        </ol>
+      </div>
+      <div class="info-block">
+        <h4>攔截之後</h4>
+        <p>DRI 把該件下架或暫停發布；原組執行修復後送品牌管理組複檢；複檢通過才重新發布。</p>
+      </div>
+      <div class="info-block">
+        <h4>攔截者的記名</h4>
+        <p>攔下一次違規與產出一件作品同等可貴。品牌管理組會將攔截事件記入貢獻登錄簿，作為季度 Memo 與年度獎項的證據。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- CARD 3 · 喘息一下 -->
+  <article class="pocket-card" data-color="green" id="card-sabbatical">
+    <header class="card-header">
+      <div class="card-num-large">3</div>
+      <div class="card-title-block">
+        <h3>喘息一下</h3>
+        <p class="card-when">需要充電的時候，提早一季提議</p>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M22 5 a13 13 0 1 0 5 23 a10 10 0 1 1 -5 -23 Z" fill="currentColor" opacity="0.15"/>
+          <path d="M22 5 a13 13 0 1 0 5 23 a10 10 0 1 1 -5 -23 Z"/>
+        </svg>
+      </div>
+    </header>
+    <div class="card-body">
+      <p class="card-quote">
+        休息是允許的，但要可預測。提前一季提議、找到替補、確認替補上手後逐步退場——這是對自己也對團隊的尊重。
+      </p>
+
+      <div class="info-block">
+        <h4>誰可以申請</h4>
+        <p>任何成員，任何時候皆可提議，依下列條件審視。</p>
+      </div>
+
+      <div class="info-block">
+        <h4>什麼時候提議</h4>
+        <ul>
+          <li><strong>至少提前一季</strong>——例如想在 Q3 啟動，請於 Q2 期初提議</li>
+          <li>期間以<strong>一季為基準</strong>，原則上不延長</li>
+          <li><strong>兩年內以一次為原則</strong>，超出者由組長與主理人共同審視</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h4>什麼時候不適合啟動</h4>
+        <ul>
+          <li>在 Pod 組長任內（須完成或將角色轉移後）</li>
+          <li>持有重大 DRI 進行中（須完成或交接後）</li>
+          <li>替補人尚未確認、或替補人尚未上手</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h4>五步流程</h4>
+        <ol class="steps">
+          <li>
+            <strong>提議</strong>
+            向組長提出：起訖時段、原因簡述（兩三句即可）。
+          </li>
+          <li>
+            <strong>協調</strong>
+            盤點手上 DRI、Pod 角色、預計交付時程，列出需要替補的事項。
+          </li>
+          <li>
+            <strong>替補</strong>
+            針對每件在飛行中的事，三選一：
+            <div class="choices" style="margin-top:8px;">
+              <div class="choice"><span class="choice-tag">A</span>替補人接手——指定一位進階層級以上成員，進入逐步退場流程</div>
+              <div class="choice"><span class="choice-tag">B</span>延後至復工後處理——取得相關方同意，更新時程</div>
+              <div class="choice"><span class="choice-tag">C</span>退回需求方或專案發起人——不適合替補的情境</div>
+            </div>
+            <p class="step-sub">三選一皆不可行時，組長會延後到下一個合適時點——這不是否決，是排程。</p>
+          </li>
+          <li>
+            <strong>確認與逐步退場（A 案專用）</strong>
+            替補人確認後，啟動三階段交接：
+            <div class="phases" style="margin-top:10px;">
+              <div class="phase">
+                <div class="phase-name">影子期</div>
+                <div class="phase-time">約 4 週</div>
+                <div class="phase-desc">替補在旁觀察與旁聽，您主導</div>
+              </div>
+              <div class="phase">
+                <div class="phase-name">引導期</div>
+                <div class="phase-time">約 4 週</div>
+                <div class="phase-desc">替補主導執行，您從旁指導</div>
+              </div>
+              <div class="phase">
+                <div class="phase-name">獨立期</div>
+                <div class="phase-time">約 4 週</div>
+                <div class="phase-desc">替補完全獨立，您僅在被請教時回應</div>
+              </div>
+            </div>
+            <p class="step-sub">獨立期結束、組長確認替補上手後，喘息正式啟動。組長更新承諾卡狀態，同步知會主理人（僅為周知，不需審批）。</p>
+          </li>
+          <li>
+            <strong>復工</strong>
+            回來後更新下季承諾卡、回原階級。與組長有一次 30 分鐘的對話，把代管的事收回。
+          </li>
+        </ol>
+      </div>
+
+      <div class="info-block">
+        <h4>急迫情況的加速通道</h4>
+        <p>傷病、家庭重大事件、突發個人需要——可不待一季預告期，於提議當週啟動。組長與主理人於 48 小時內完成替補安排；逐步退場壓縮為<strong>一週重疊期</strong>。頻次與期間原則仍適用。</p>
+      </div>
+
+      <div class="info-block">
+        <h4>交接卡（啟動前完成，依工作狀態填寫）</h4>
+        <table class="handover">
+          <tr><th>手上的事</th><td>DRI 案件、Pod 角色、進行中提示詞或自動化、固定週期任務</td></tr>
+          <tr><th>目前狀態</th><td>剛起手／撰寫中／待審／待發布／已歸檔</td></tr>
+          <tr><th>下一步</th><td>下一個動作是什麼、何時要做、需要誰配合</td></tr>
+          <tr><th>替補安排</th><td>替補人姓名（A 案）／延後時程（B 案）／退回對象（C 案）</td></tr>
+          <tr><th>期間聯絡</th><td>是否可在重大紅線事件聯絡（建議：可，僅限紅線），聯絡上限頻次</td></tr>
+        </table>
+        <p class="step-sub" style="margin-top:10px;">交接卡存於組內作品牆喘息區，組長與替補人共同可見。復工時用同一張卡反向交接。</p>
+      </div>
+
+      <div class="info-block">
+        <h4>保障</h4>
+        <p>不降階、不除名、組籍與作品牆紀錄完整保留。回來不需要重新證明自己、不需要試用期。</p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="9" cy="9" r="7.5"/>
+            <path d="M9 5 L9 10" stroke-linecap="round"/>
+            <circle cx="9" cy="12.5" r="0.8" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          本職忙的時候請休息，不要硬撐——但記得提前一季講、交接清楚。
+          <strong>沒做到不是問題，沒講才是。</strong>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- CARD 4 · MEMO -->
+  <article class="pocket-card" data-color="turquoise" id="card-memo">
+    <header class="card-header">
+      <div class="card-num-large">4</div>
+      <div class="card-title-block">
+        <h3>季度貢獻 Memo</h3>
+        <p class="card-when">您的本季貢獻會被這樣看見</p>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+          <rect x="5" y="8" width="22" height="16" rx="1.5"/>
+          <path d="M5 10 L16 18 L27 10"/>
+          <path d="M19 21 L21 23 L25 19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </header>
+    <div class="card-body">
+      <div class="info-block">
+        <h4>什麼時候寄</h4>
+        <p>每季評議會後一週內。</p>
+      </div>
+      <div class="info-block">
+        <h4>誰寄誰收</h4>
+        <p>主理人具名 → 您的直屬主管。副本：您本人、組長。</p>
+      </div>
+      <div class="info-block">
+        <h4>寄出前</h4>
+        <p>會先請您看過內容，您可以要求增刪。確認後才正式寄出。</p>
+      </div>
+      <div class="info-block">
+        <h4>四個固定欄位</h4>
+        <ol class="steps">
+          <li><strong>本季作品</strong>對外掛名作品清單與連結</li>
+          <li><strong>擔任角色</strong>DRI 件數、Pod 組長次數、帶人狀況</li>
+          <li><strong>隱形貢獻</strong>取自登錄簿（紅線攔截、術語裁定、流程改善、自動化省時）</li>
+          <li><strong>能力範圍</strong>目前主要承擔的任務難度（基礎／進階／高階），本季有無拓展</li>
+        </ol>
+      </div>
+      <div class="info-block">
+        <h4>附給主管的閱讀指引（隨 Memo 一句話）</h4>
+        <p class="card-quote" style="margin-top:0;">
+          以下為您同仁在 GPS 內容推廣的本季貢獻摘要。此摘要不評等、不排名，供您在績效對話中參考其廠外的投入面向。
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- CARD 5 · STANDUP -->
+  <article class="pocket-card" data-color="copper-deep" id="card-standup">
+    <header class="card-header">
+      <div class="card-num-large">5</div>
+      <div class="card-title-block">
+        <h3>每週站會清單</h3>
+        <p class="card-when">一週一次，十五分鐘</p>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="16" cy="16" r="11"/>
+          <path d="M16 9 L16 16 L21 19" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </header>
+    <div class="card-body">
+      <div class="info-block">
+        <h4>時間長度</h4>
+        <p>15 分鐘，不延長。</p>
+      </div>
+      <div class="info-block">
+        <h4>誰主持</h4>
+        <p>組長。組長不在時由高階層級成員代行。</p>
+      </div>
+      <div class="info-block">
+        <h4>固定三項議程</h4>
+        <ol class="steps">
+          <li><strong>本週交付</strong>每人一句：上週做完什麼、本週要做什麼</li>
+          <li><strong>卡住的事</strong>需要他組支援或主理人裁定的，現場登錄</li>
+          <li><strong>紅燈</strong>紅線攔截、喘息或退出進度宣告（流程詳見卡 3、卡 6）、新成員加入</li>
+        </ol>
+      </div>
+      <div class="info-block">
+        <h4>不要做什麼</h4>
+        <ul>
+          <li>不討論方案細節——留到非同步或專案會議</li>
+          <li>不過案——自我認證即可，不在站會上逐件審</li>
+          <li>不點名問進度——進度看作品牆</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>產出物</h4>
+        <p>週五前更新作品牆即可。站會本身不留書面紀錄。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- CARD 6 · EXIT -->
+  <article class="pocket-card" data-color="copper-deep" id="card-exit">
+    <header class="card-header">
+      <div class="card-num-large">6</div>
+      <div class="card-title-block">
+        <h3>退出與轉籍</h3>
+        <p class="card-when">想離開或換組時，提早一季講</p>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M14 5 a11 11 0 1 0 0 22"/>
+          <path d="M19 11 L26 16 L19 21" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 16 L26 16" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </header>
+    <div class="card-body">
+      <p class="card-quote">
+        退出不是壞事，但不能斷然。一季預告、完整交接、確認替補上手後再離開——這是對團隊的最後一份貢獻。
+      </p>
+
+      <div class="info-block">
+        <h4>三件事的差別</h4>
+        <ul>
+          <li><strong>喘息</strong>暫停一季，原階級回歸（見卡 3）</li>
+          <li><strong>退出</strong>永久離開內容推廣，組籍取消</li>
+          <li><strong>轉籍</strong>主組變更（如 CS2-01 轉到 CS2-04），不算退出</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h4>什麼時候不適合啟動</h4>
+        <ul>
+          <li>在 Pod 組長任內（須完成或角色轉移後）</li>
+          <li>持有重大 DRI 進行中（須完成或交接後）</li>
+          <li>承諾期間內（須完成本季承諾後，或於季度轉換點處理）</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h4>五步流程</h4>
+        <ol class="steps">
+          <li>
+            <strong>提議</strong>
+            向組長提出退出意願，<strong>至少提前一季</strong>。形式不限，建議書面。
+          </li>
+          <li>
+            <strong>對談</strong>
+            與組長進行 30 分鐘對談：理解原因、<strong>試探留任貢獻的可能性</strong>、確認時程。
+            <p class="step-sub">留任探討涵蓋——轉籍、調整角色、降低投入量、改以高階層級顧問身分留下、或先喘息觀察。探討不是說服，是讓您看到所有可能性；若您決心已定，組長協助規劃時程而非挽留。談話內容保密，不寫入任何紀錄。</p>
+          </li>
+          <li>
+            <strong>交接</strong>
+            完成交接卡（同卡 3 格式，工作狀態為主）。手上所有 DRI 與 Pod 角色全數轉出。帳號權限、共用資源、素材歸檔同步處理。
+          </li>
+          <li>
+            <strong>逐步退場</strong>
+            替補人確認後，啟動三階段交接：影子期（約 4 週）→ 引導期（約 4 週）→ 獨立期（約 4 週）。獨立期結束、組長確認替補上手後，您方正式退出。
+            <p class="step-sub">這道流程確保替補人不只是「拿到清單」，而是「真的能跑」。</p>
+          </li>
+          <li>
+            <strong>完成</strong>
+            組長宣告退出生效日，更新承諾卡為「已退出」，於週站會知會全組。組長記入本組組史；作品牆紀錄永久保留。
+          </li>
+        </ol>
+      </div>
+
+      <div class="info-block">
+        <h4>急迫退出</h4>
+        <p>個人健康、家庭重大變故、職涯急轉——可不待一季預告期，於提議當週啟動。逐步退場壓縮為<strong>兩週重疊期</strong>，盡可能於兩週內完成。</p>
+      </div>
+
+      <div class="info-block">
+        <h4>回歸機制</h4>
+        <ul>
+          <li><strong>一年內回歸</strong>自原階級重新提交承諾卡即可，作品集仍承認</li>
+          <li><strong>超過一年回歸</strong>基礎層級重新開始，但既往作品集永久承認</li>
+          <li><strong>作品集紀錄永久保留</strong>，無論離開多久</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h4>轉籍（主組變更）</h4>
+        <p>與兩位組長三方對談即可，不算退出。轉籍生效於下季初；本季承諾卡內事項由原組長繼續對接。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- CARD 7 · JOIN -->
+  <article class="pocket-card" data-color="turquoise" id="card-join">
+    <header class="card-header">
+      <div class="card-num-large">7</div>
+      <div class="card-title-block">
+        <h3>加入與新血評估</h3>
+        <p class="card-when">想加入內容推廣的同仁這樣開始</p>
+      </div>
+      <div class="card-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M18 5 a11 11 0 1 1 0 22"/>
+          <path d="M6 11 L13 16 L6 21" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 16 L18 16" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </header>
+    <div class="card-body">
+      <p class="card-quote">
+        內容推廣不公開招募，靠口碑與主動表達意願。
+        兩道門是為了確保新血與「賦能不是表演」的核心信念契合，
+        也讓主理人能掌握整體節奏與容量。
+      </p>
+
+      <div class="info-block">
+        <h4>誰可以表達意願</h4>
+        <p>GPS 全體成員（含台灣總部與全球子公司），任何時候皆可。</p>
+      </div>
+
+      <div class="info-block">
+        <h4>怎麼進場（四步）</h4>
+        <ol class="steps">
+          <li>
+            <strong>表達意願</strong>
+            透過任一現任組員轉介，或直接以訊息／郵件聯繫主理人。
+            <p class="step-sub">建議帶上三項：想加入的主組（CS2-01 至 06）、可投入時數估計、為什麼想加入（兩三句即可）。</p>
+          </li>
+          <li>
+            <strong>主理人評估（30 分鐘對談）</strong>
+            主理人會在兩週內與您約一次對談，看四件事：
+            <ul style="margin-top:6px;">
+              <li>您的動機與「賦能不是表演」核心信念的契合度</li>
+              <li>您可投入的程度是否達基礎層級基準</li>
+              <li>您期望的主組目前是否有空間（容量飽和時主理人會建議延後或換組）</li>
+              <li>與您本職的時間配置是否合理</li>
+            </ul>
+            <p class="step-sub">評估不是技術門檻——基礎層級從零開始，動機與態度為主。</p>
+          </li>
+          <li>
+            <strong>組長對談（30 分鐘）</strong>
+            主理人確認後，由主組組長進行對談：手藝適配、引路人指派、首件作品方向。組長保留是否接納的最終判斷權。
+          </li>
+          <li>
+            <strong>入會啟動</strong>
+            完成品牌入門教材與測驗後，正式進入基礎層級。由引路人陪跑首件作品，第一季承諾卡與引路人共同擬定。
+          </li>
+        </ol>
+      </div>
+
+      <div class="info-block">
+        <h4>兩道門任一不通過時</h4>
+        <p>主理人會提供具體回饋與下次表達意願的時機建議。不通過不留紀錄，不影響日後再表達意願。</p>
+      </div>
+
+      <div class="info-block">
+        <h4>雙籍申請</h4>
+        <p>已是某組成員、想加第二組籍——直接向主理人提議即可，不需走全流程；由主理人與兩位組長確認資源與承諾配置。</p>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+</main>
+
+<footer>
+  <p>GPS 內容推廣 · 資訊更新 2026-06 · 由現任主理人擬定</p>
+  <p class="brand-tagline">Before you need it. · 在您需要之前。</p>
+</footer>
+
+<script>
+  // Highlight active section in floating side index
+  (function() {
+    const links = document.querySelectorAll('.side-index a');
+    if (!links.length) return;
+    const linkMap = {};
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      linkMap[id] = a;
+    });
+    const sections = document.querySelectorAll('section[id], article[id]');
+    let activeId = null;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activeId = entry.target.id;
+        }
+      });
+      if (activeId && linkMap[activeId]) {
+        links.forEach(a => a.classList.remove('active'));
+        linkMap[activeId].classList.add('active');
+      }
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CS2-04 社群互動組 · Toolkit</title>
+<style>
+  :root {
+    --turquoise:#26A7B0;
+    --turquoise-50:#ECF7F8;
+    --turquoise-100:#D0EDEF;
+    --turquoise-700:#1F8A92;
+    --copper-light:#CAC3D2;
+    --copper-deep:#6E5F7C;
+    --purple:#7086BA;
+    --green:#6BB57E;
+    --orange:#ED7442;
+    --warn:#E5993E;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a4a;
+    --ink-mute:#8a8580;
+    --paper:#fdfcfa;
+    --paper-soft:#f5f3ef;
+    --paper-warm:#faf7f0;
+    --line:#e5e2db;
+    --line-strong:#cfc9bf;
+    --tier-a:var(--turquoise);
+    --tier-b:var(--purple);
+    --tier-c:var(--copper-deep);
+    --bad:#c9624b;
+    --good:#5ba373;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.78;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    background:linear-gradient(135deg,var(--green) 0%,#54A267 100%);
+    color:#fff;
+    padding:56px 24px 44px;
+  }
+  .hero-inner { max-width:960px; margin:0 auto; }
+  .hero-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:12px;
+    opacity:0.85;
+    margin-bottom:12px;
+  }
+  .hero-code {
+    font-family:Georgia,serif;
+    font-size:13px;
+    background:rgba(255,255,255,0.18);
+    padding:4px 12px;
+    border-radius:4px;
+    letter-spacing:0.08em;
+    display:inline-block;
+    margin-bottom:14px;
+  }
+  .hero h1 {
+    font-size:34px;
+    font-weight:700;
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+    line-height:1.3;
+  }
+  .hero-tagline {
+    font-size:16px;
+    opacity:0.92;
+    margin:0 0 22px;
+    line-height:1.7;
+  }
+  .hero-rule {
+    background:rgba(255,255,255,0.10);
+    border-left:3px solid rgba(255,255,255,0.5);
+    padding:14px 18px;
+    border-radius:0 4px 4px 0;
+    font-size:14.5px;
+    line-height:1.75;
+    max-width:720px;
+    margin:0;
+  }
+  .hero-rule-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    opacity:0.8;
+    margin-bottom:4px;
+  }
+  .hero-update {
+    font-size:12px;
+    opacity:0.75;
+    margin-top:22px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    letter-spacing:0.08em;
+  }
+
+  /* Layout */
+  main { max-width:960px; margin:0 auto; padding:48px 24px 64px; }
+
+  /* Side index */
+  .side-index {
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    width:188px;
+    background:rgba(253,252,250,0.94);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 10px;
+    font-size:13px;
+    z-index:40;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+    display:none;
+    max-height:80vh;
+    overflow-y:auto;
+  }
+  .side-index-title {
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--ink-mute);
+    padding:2px 8px 8px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:6px;
+  }
+  .side-index ul { list-style:none; padding:0; margin:0; }
+  .side-index a {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 8px;
+    border-radius:5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background .15s,color .15s;
+    line-height:1.4;
+    font-size:12.5px;
+  }
+  .side-index a:hover { background:var(--paper-soft); color:var(--ink); }
+  .side-index a.active {
+    background:var(--turquoise-50);
+    color:var(--turquoise-700);
+    font-weight:600;
+  }
+  .side-index .code {
+    font-family:Georgia,serif;
+    font-size:11px;
+    color:var(--ink-mute);
+    flex:0 0 18px;
+  }
+  .side-index a.active .code { color:var(--turquoise-700); }
+  .side-index-divider {
+    height:1px;
+    background:var(--line);
+    margin:6px 8px 6px;
+  }
+  .side-index-tier-label {
+    font-size:10px;
+    color:var(--ink-mute);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:6px 8px 4px;
+    font-weight:600;
+  }
+  .side-index-tier-label[data-t="a"] { color:var(--tier-a); }
+  .side-index-tier-label[data-t="b"] { color:var(--tier-b); }
+  .side-index-tier-label[data-t="c"] { color:var(--tier-c); }
+
+  /* Top nav */
+  .top-nav {
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(253,252,250,0.96);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+    margin:0 -24px 32px;
+  }
+  .top-nav-inner {
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+  }
+  .top-nav a {
+    flex:0 0 auto;
+    padding:8px 12px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    border-radius:4px;
+    white-space:nowrap;
+    transition:all .15s;
+  }
+  .top-nav a:hover { background:var(--paper-soft); color:var(--ink); }
+
+  /* Intro */
+  .intro {
+    margin-bottom:48px;
+  }
+  .intro-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:11px;
+    color:var(--turquoise);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .intro h2 {
+    font-size:24px;
+    font-weight:700;
+    margin:0 0 12px;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .intro > p {
+    font-size:15px;
+    color:var(--ink-soft);
+    line-height:1.8;
+    margin:0 0 12px;
+    max-width:720px;
+  }
+
+  /* Four voices */
+  .voices {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:24px;
+  }
+  .voice {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:20px 22px;
+    border-left:4px solid var(--v-color);
+  }
+  .voice[data-v="1"] { --v-color:var(--turquoise); }
+  .voice[data-v="2"] { --v-color:var(--green); }
+  .voice[data-v="3"] { --v-color:var(--copper-deep); }
+  .voice[data-v="4"] { --v-color:var(--orange); }
+  .voice-header {
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .voice-num {
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.06em;
+  }
+  .voice h4 {
+    margin:0;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .voice-when {
+    margin:0 0 12px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .voice-when strong { color:var(--ink); }
+  .voice-example {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:12px 14px;
+    margin:0;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+    border-left:2px solid var(--v-color);
+  }
+  .voice-example-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .voice-example em {
+    display:block;
+    margin-top:6px;
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tier section */
+  .tier-section {
+    margin-bottom:64px;
+    scroll-margin-top:24px;
+  }
+  .tier-header {
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    padding-bottom:14px;
+    margin-bottom:24px;
+    border-bottom:2px solid var(--tier-color);
+  }
+  .tier-section[data-t="a"] { --tier-color:var(--tier-a); }
+  .tier-section[data-t="b"] { --tier-color:var(--tier-b); }
+  .tier-section[data-t="c"] { --tier-color:var(--tier-c); }
+  .tier-number {
+    font-family:Georgia,serif;
+    font-size:32px;
+    font-weight:600;
+    color:var(--tier-color);
+    line-height:1;
+  }
+  .tier-name-block { flex:1 1 auto; }
+  .tier-name {
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin:0;
+    line-height:1.3;
+  }
+  .tier-name-en {
+    font-size:11px;
+    color:var(--ink-mute);
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+  .tier-subtitle {
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0;
+    font-style:italic;
+  }
+
+  /* Project */
+  .project {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    margin-bottom:28px;
+    overflow:hidden;
+    scroll-margin-top:72px;
+  }
+  .project-header {
+    background:var(--paper-warm);
+    padding:20px 24px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .project-code {
+    flex:0 0 auto;
+    background:var(--tier-color);
+    color:#fff;
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    padding:6px 10px;
+    border-radius:4px;
+    letter-spacing:0.04em;
+  }
+  .project-title-block { flex:1 1 auto; }
+  .project-title-block h3 {
+    margin:0;
+    font-size:19px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .project-body { padding:26px 28px; }
+
+  /* Fields */
+  .field { margin-bottom:30px; }
+  .field:last-child { margin-bottom:0; }
+  .field-label {
+    font-size:11px;
+    font-weight:600;
+    color:var(--tier-color);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .field-direction {
+    font-size:15px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+  }
+
+  /* AI workflow sub-fields */
+  .workflow-sub {
+    margin-bottom:20px;
+  }
+  .workflow-sub:last-child { margin-bottom:0; }
+  .workflow-sub-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .workflow-sub-num {
+    background:var(--tier-color);
+    color:#fff;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+    flex:0 0 22px;
+  }
+
+  /* Prep list */
+  .prep-list {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .prep-list li {
+    position:relative;
+    padding:4px 0 4px 22px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .prep-list li::before {
+    content:"";
+    position:absolute;
+    left:6px;
+    top:14px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--tier-color);
+    opacity:0.7;
+  }
+  .prep-list strong { color:var(--ink); }
+
+  /* Prompt block */
+  .field-prompt {
+    background:var(--paper-soft);
+    border-left:3px solid var(--tier-color);
+    border-radius:0 4px 4px 0;
+    padding:16px 18px;
+    font-family:"SF Mono","Consolas","Menlo","Noto Sans TC",monospace;
+    font-size:13px;
+    color:var(--ink);
+    line-height:1.75;
+    margin:0;
+    white-space:pre-wrap;
+    overflow-x:auto;
+    position:relative;
+  }
+  .field-prompt::before {
+    content:"提示詞範本 · 完整複製";
+    display:block;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:10px;
+    font-weight:600;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    padding-bottom:8px;
+    border-bottom:1px dashed var(--line-strong);
+  }
+
+  /* Operation steps */
+  .op-steps {
+    counter-reset:opstep;
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .op-steps > li {
+    counter-increment:opstep;
+    position:relative;
+    padding:10px 0 10px 36px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+    border-bottom:1px solid var(--line);
+  }
+  .op-steps > li:last-child { border-bottom:none; padding-bottom:4px; }
+  .op-steps > li::before {
+    content:counter(opstep);
+    position:absolute;
+    left:0;
+    top:12px;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:transparent;
+    color:var(--tier-color);
+    border:1.5px solid var(--tier-color);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+  }
+  .op-steps em {
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tips */
+  .tips-list {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .tips-list li {
+    position:relative;
+    padding:5px 0 5px 0;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .tips-list li strong {
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+  .tips-list li::before {
+    content:"→";
+    color:var(--tier-color);
+    margin-right:8px;
+    font-weight:600;
+  }
+
+  /* Case study */
+  .case-scenario {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0 0 16px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+  .case-scenario strong {
+    display:block;
+    font-size:11px;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  .case-compare {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-bottom:16px;
+  }
+  .case-panel {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+    position:relative;
+  }
+  .case-panel.bad { border-left:4px solid var(--bad); }
+  .case-panel.good { border-left:4px solid var(--good); }
+  .case-panel-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+  }
+  .case-panel.bad .case-panel-label { color:var(--bad); }
+  .case-panel.good .case-panel-label { color:var(--good); }
+  .case-panel-label-icon {
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:11px;
+    font-weight:700;
+    color:#fff;
+  }
+  .case-panel.bad .case-panel-label-icon { background:var(--bad); }
+  .case-panel.good .case-panel-label-icon { background:var(--good); }
+  .case-content {
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.85;
+    margin:0;
+    font-style:italic;
+  }
+  .case-content::before { content:"「"; }
+  .case-content::after { content:"」"; }
+
+  .case-takeaway {
+    background:var(--turquoise-50);
+    border-radius:6px;
+    padding:14px 18px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+    border-left:3px solid var(--turquoise);
+  }
+  .case-takeaway strong {
+    display:block;
+    font-size:11px;
+    color:var(--turquoise-700);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  /* Footer */
+  footer {
+    background:var(--paper-soft);
+    border-top:1px solid var(--line);
+    padding:32px 24px;
+    text-align:center;
+  }
+  footer p {
+    margin:4px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  footer .brand-tagline {
+    font-size:14px;
+    color:var(--turquoise-700);
+    font-weight:500;
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+
+  /* Draft notice */
+  .draft-notice {
+    background:#fff7e8;
+    border:1px solid #f0d99f;
+    border-radius:6px;
+    padding:14px 18px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .draft-notice-icon {
+    flex:0 0 18px;
+    color:var(--warn);
+    margin-top:2px;
+  }
+  .draft-notice strong { color:#a86b14; }
+
+  /* Print */
+  @media print {
+    .top-nav, .side-index, .draft-notice { display:none !important; }
+    .hero { background:#fff; color:var(--ink); border-bottom:2px solid var(--turquoise); }
+    .hero h1, .hero-tagline, .hero-eyebrow, .hero-update, .hero-code, .hero-rule { color:var(--ink); opacity:1; }
+    .hero-code, .hero-rule { background:var(--paper-soft); }
+    .project, .tier-section { break-inside:avoid; page-break-inside:avoid; }
+  }
+
+  /* Responsive */
+  @media (min-width: 1320px) {
+    .side-index { display:block; }
+    .top-nav { display:none; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding:42px 20px 32px; }
+    .hero h1 { font-size:26px; }
+    .hero-tagline { font-size:15px; }
+    main { padding:32px 20px 48px; }
+    .top-nav { margin:0 -20px 24px; }
+    .top-nav-inner { padding:0 20px; }
+    .tier-header { flex-wrap:wrap; }
+    .tier-number { font-size:24px; }
+    .tier-name { font-size:19px; }
+    .project-header { padding:18px 20px; gap:12px; }
+    .project-body { padding:20px; }
+    .field-prompt { font-size:12px; padding:14px 16px; }
+  }
+
+  /* ============ v1.2 additions ============ */
+  /* Controls bar */
+  .controls-bar { display:flex; justify-content:flex-end; gap:8px; margin-bottom:28px; }
+  .control-btn {
+    background:transparent; border:1px solid var(--line-strong); color:var(--ink-soft);
+    padding:7px 14px; border-radius:5px; font-size:12px;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:6px; font-weight:500;
+  }
+  .control-btn:hover { background:var(--paper-soft); border-color:var(--ink-soft); color:var(--ink); }
+  .control-btn svg { width:12px; height:12px; }
+
+  /* Collapsible details/summary */
+  details summary { list-style:none; cursor:pointer; user-select:none; }
+  details summary::-webkit-details-marker { display:none; }
+  details summary::marker { display:none; }
+  .summary-chevron {
+    flex:0 0 16px; color:var(--tier-color, var(--ink-mute));
+    transition:transform .25s; margin-left:auto;
+  }
+  details[open] > summary .summary-chevron { transform:rotate(180deg); }
+
+  /* Voice section collapsible */
+  details.intro-collapse {
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    overflow:hidden; margin-bottom:32px;
+  }
+  details.intro-collapse > summary {
+    background:var(--paper-warm); padding:18px 22px;
+    display:flex; align-items:center; gap:14px;
+    font-size:15px; font-weight:700; color:var(--ink);
+  }
+  details.intro-collapse[open] > summary { border-bottom:1px solid var(--line); }
+  details.intro-collapse > summary .summary-chevron { color:var(--turquoise); }
+  details.intro-collapse > summary span:first-of-type {
+    display:flex; align-items:center; gap:10px;
+  }
+  details.intro-collapse > summary .intro-code {
+    font-family:Georgia,serif; font-size:12px; color:var(--turquoise-700);
+    background:var(--turquoise-50); padding:3px 9px; border-radius:3px;
+    letter-spacing:0.06em;
+  }
+  .intro-collapse-body { padding:26px 28px; }
+
+  /* Copy button */
+  .prompt-block { position:relative; }
+  .copy-btn {
+    position:absolute; top:10px; right:10px; z-index:5;
+    background:#fff; border:1px solid var(--tier-color); color:var(--tier-color);
+    padding:5px 12px; border-radius:4px;
+    font-size:11px; font-weight:600; letter-spacing:0.04em;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:5px;
+  }
+  .copy-btn:hover { background:var(--tier-color); color:#fff; }
+  .copy-btn.copied { background:var(--good); border-color:var(--good); color:#fff; }
+  .copy-btn svg { width:11px; height:11px; }
+
+  /* Old prompt label removed — outer label + copy btn replace it */
+  .field-prompt::before { display:none; }
+  .field-prompt { padding-top:38px; }
+
+  /* Print: expand all */
+  @media print {
+    details > summary .summary-chevron { display:none; }
+    details > *:not(summary) { display:block !important; }
+    .controls-bar, .copy-btn { display:none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">GPS 內容推廣 · 組別工具手冊</div>
+    <span class="hero-code">CS2-04</span>
+    <h1>社群互動組 Toolkit</h1>
+    <p class="hero-tagline">推播營運、互動學習、活動場控、自動化流程、社群數據——三級九專案，每案附完整提示詞、操作步驟與正反案例對照。</p>
+    <div class="hero-rule">
+      <span class="hero-rule-label">全組鐵則</span>
+      推播寧少勿擾——「在您需要之前」不等於「隨時打擾您」。自動化啟用前必經測試帳號完整演練；憑證與 token 永不寫入對話、檔案或工作流註解。組長兼任通路節奏守門人——一週推播的總量上限由組長把關，不由個別專案累加。
+    </div>
+    <div class="hero-update">資訊更新 2026-06 · v1.0</div>
+  </div>
+</header>
+
+<aside class="side-index" aria-label="快速索引">
+  <div class="side-index-title">CS2-04 索引</div>
+  <ul>
+    <li><a href="#intro"><span class="code">§ 0</span>三道閘門</a></li>
+    <li class="side-index-divider"></li>
+    <li class="side-index-tier-label" data-t="a">基礎 · Foundational</li>
+    <li><a href="#a1"><span class="code">A1</span>LINE 推播文案與排程</a></li>
+    <li><a href="#a2"><span class="code">A2</span>互動問答內容擴充</a></li>
+    <li><a href="#a3"><span class="code">A3</span>活動報名與提醒流程</a></li>
+    <li class="side-index-tier-label" data-t="b">進階 · Intermediate</li>
+    <li><a href="#b1"><span class="code">B1</span>遊戲化學習活動設計</a></li>
+    <li><a href="#b2"><span class="code">B2</span>互動工具企劃</a></li>
+    <li><a href="#b3"><span class="code">B3</span>混合式活動場控</a></li>
+    <li class="side-index-tier-label" data-t="c">高階 · Advanced</li>
+    <li><a href="#c1"><span class="code">C1</span>自動化互動流程建置</a></li>
+    <li><a href="#c2"><span class="code">C2</span>互動數據洞察與迭代</a></li>
+    <li><a href="#c3"><span class="code">C3</span>跨區社群營運計畫</a></li>
+  </ul>
+</aside>
+
+<nav class="top-nav" aria-label="導覽">
+  <div class="top-nav-inner">
+    <a href="#intro">三道閘門</a>
+    <a href="#tier-a">基礎層級 A</a>
+    <a href="#tier-b">進階層級 B</a>
+    <a href="#tier-c">高階層級 C</a>
+  </div>
+</nav>
+
+<main>
+
+<div class="draft-notice">
+  <div class="draft-notice-icon" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="9" cy="9" r="7.5"/>
+      <path d="M9 5 L9 10" stroke-linecap="round"/>
+      <circle cx="9" cy="12.5" r="0.8" fill="currentColor"/>
+    </svg>
+  </div>
+  <div>
+    <strong>v1.0 草稿 · 待組長校稿</strong>——案例皆為自帶情境的劣稿／佳稿對照，
+    不假設讀者看過任何過往作品；提示詞拆為「準備 → 範本 → 操作步驟 → 常見調整」四段。
+    待 CS2-04 組長就位後將進入正式校稿與案例庫迭代。
+  </div>
+</div>
+
+<div class="controls-bar">
+  <button class="control-btn" type="button" id="expand-all" aria-label="展開所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 L6 10 M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部展開
+  </button>
+  <button class="control-btn" type="button" id="collapse-all" aria-label="收合所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部收合
+  </button>
+</div>
+
+<!-- ============= INTRO ============= -->
+<details class="intro-collapse" id="intro">
+  <summary>
+    <span><span class="intro-code">§ 0</span>營運的三道閘門</span>
+    <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </summary>
+  <div class="intro-collapse-body">
+  <div class="intro-eyebrow">§ 0 · 送出前的判斷</div>
+  <h2>營運的三道閘門</h2>
+  <p>發送或自動化前先過三道閘門——社群營運的傷害不是「做錯一件事」，是「持續打擾」累積的疲勞。每次推播或流程都要回答：節奏是否節制、自動化是否驗證、憑證是否安全。三題都 Yes 才送出。</p>
+  <div class="voices">
+  <div class="voice" data-v="1">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 01</span>
+        <h4>節奏節制閘門 · Rhythm Restraint</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何要發送推播、通知、提醒的場合。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼節制</span>
+        「在您需要之前」是體貼的提前準備，不是「隨時提醒您」。推播疲勞是緩慢累積的——單則訊息看似無害，一週七則就讓人想關通知。一旦同仁靜音了通路，真正重要的訊息也送不到。
+        <em>常見破口：「這則很重要所以要發」、「多發幾次確保看到」——每則發送者都覺得自己的訊息重要，但收件者承受的是所有人的總和。</em>
+        <em>對的做法：發送前先問：這則是否真的需要打擾？能否併入既有的固定推播（如每日簡報）？一週推播總量由組長把關，不由個別專案各自累加。</em>
+      </div>
+    </div>
+  <div class="voice" data-v="2">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 02</span>
+        <h4>自動化驗證閘門 · Automation Verification</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何自動化流程接上正式通道前。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼先驗證</span>
+        自動化的風險是規模化——手動發錯一則影響一次，自動化發錯會持續發、發給所有人、在您睡覺時發。一個沒測好的流程可能在凌晨三點對全體推送 50 則重複訊息。
+        <em>常見破口：「邏輯看起來對就上線」、「先接正式通道邊跑邊修」——自動化的錯誤不會「邊跑邊修」，會「邊跑邊擴大」。</em>
+        <em>對的做法：任何流程先在測試帳號完整演練——跑過所有分支、觸發所有條件、確認錯誤通知會發到你這裡。測試帳號全綠才接正式通道。</em>
+      </div>
+    </div>
+  <div class="voice" data-v="3">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 03</span>
+        <h4>憑證安全閘門 · Credential Security</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何涉及 API token、密碼、access key 的工作。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼零容忍</span>
+        憑證一旦外洩，攻擊者能以你的身份對全體發送、讀取資料、刪除內容。憑證寫進對話、檔案、工作流註解，等於把鑰匙貼在門上——任何能看到那段文字的人都拿到了鑰匙。
+        <em>常見破口：「先貼上來測試之後再刪」、「寫在註解裡方便記」——貼上來的瞬間就已外洩，事後刪除不能收回已經被看到的。</em>
+        <em>對的做法：憑證一律以環境變數或密鑰管理工具注入，永不寫入對話、檔案、工作流註解或截圖。誤貼即視為外洩，立即撤換。</em>
+      </div>
+    </div>
+  </div>
+  </div>
+</details>
+
+<!-- ============= TIER A: 基礎 ============= -->
+<section class="tier-section" data-t="a" id="tier-a">
+  <div class="tier-header">
+    <div class="tier-number">01</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">基礎 · Foundational</h2>
+      <p class="tier-subtitle">營運的基本功——推播文案、互動出題、訊息旅程</p>
+    </div>
+  </div>
+
+  <!-- A1 -->
+  <details class="project" id="a1">
+    <summary class="project-header">
+      <div class="project-code">A1</div>
+      <div class="project-title-block">
+        <h3>LINE 推播文案與排程</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">為每日或每週推播撰寫訊息並安排排程。行動裝置閱讀邏輯：第一行決定開不開、整則不超過一個畫面、一則只有一個行動連結。推播的紀律是「節奏即訊息」——固定時間、固定結構讓受眾形成習慣，比內容本身更早建立信任。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：LINE Official Account 管理後台或 n8n 排程；tGenie 做文案撰寫；試算表管理推播行事曆。</li>
+            <li><strong>準備素材</strong>：推播主題與素材、目標受眾、發送時間、希望讀者完成的單一行動、本週已排定的其他推播（確認不重疊轟炸）。</li>
+            <li><strong>確認第一行</strong>：第一行 15 字內要讓人決定開不開——這 15 字是什麼？寫不出來代表訊息還沒聚焦。</li>
+            <li><strong>查本週節奏</strong>：本週這個受眾已收到幾則推播？加上這則會不會過量？過量則考慮併入既有推播或延後。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 社群互動組的推播文案編輯，熟悉「節奏即訊息、寧少勿擾」原則。
+
+我要撰寫一則 LINE 推播並規劃發送，需要您協助。
+
+【推播主題】
+（填入：例如 本週微學習新單元上線）
+
+【素材】
+（將推播的原始資訊完整貼入）
+
+【目標受眾】
+（填入：例如 全體安全管理人員、特定區域同仁）
+
+【希望讀者完成的單一行動】
+（填入：例如 點連結答題、記下時間、純粹知會）
+
+【發送時間】
+（填入：例如 週三上午 9:00）
+
+【本週此受眾已收到的推播數】
+（填入：例如 2 則，幫助判斷是否過量）
+
+請給我四件事:
+（一）第一行（15 字內，三個版本供選擇，每版附理由）；
+（二）完整推播文案（一個畫面內，使用選定的第一行）；
+（三）發送時機建議——這個時間是否恰當、是否該併入既有推播避免過量；
+（四）兩個替代版本——一個更輕、一個更正式，依當下氛圍選用。
+
+請遵守：不用「緊急」「必看」「最後機會」等促迫詞；
+一則只有一個行動連結；
+emoji 一則最多一個；
+若本週推播已過量，建議併入既有推播或延後，不堅持單獨發送。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟試算表查本週推播行事曆，確認此受眾已收到幾則。</li>
+            <li>開啟 tGenie，貼入提示詞範本，據實填寫「本週已收到推播數」（這欄影響第三項建議）。</li>
+            <li>送出。等待約 30 秒。</li>
+            <li>讀（一）三個第一行，挑一個。<em>都不滿意</em>：回覆「請從 [您的角度，例如『具體數字切入』『讀者的疑問切入』] 再給三個版本」。</li>
+            <li>讀（二）完整文案。確認整則在手機一個畫面內、只有一個行動連結。</li>
+            <li>讀（三）發送時機建議。<em>AI 建議併入或延後</em>：認真考慮——這正是節奏節制閘門的作用。不要因為「想發」就忽略過量警示。</li>
+            <li>讀（四）兩個替代版本，依當天氛圍選用。</li>
+            <li>在 LINE OA 後台或 n8n 排程設定發送時間。發送前自己念一遍：第一行有沒有勾住、整則是否一個畫面、行動是否單一明確。</li>
+            <li>發送後記錄到推播行事曆——讓下一則推播能看到累積量。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 給的第一行像新聞標題</strong>：回覆「請改為直接對讀者說話的口吻，不要用標題式陳述」。</li>
+            <li><strong>整則塞了兩個以上行動</strong>：回覆「請只保留最重要的一個行動連結，其餘移到內文或下一則推播」。</li>
+            <li><strong>AI 沒提醒過量但您覺得這週推播太多</strong>：主動回覆「本週此受眾已收 3 則，請評估這則是否該併入週五的固定推播」。</li>
+            <li><strong>想多發一次確保看到</strong>：忍住。多發是推播疲勞的主因。相信固定節奏的力量——習慣養成後同仁會主動查看。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          週三要推播「本週微學習新單元（居家安全篇）上線」。受眾是全體安全管理人員。本週此受眾已收到 2 則推播（週一的值班表更新、週二的系統維護通知）。希望讀者點連結開始答題。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">不查本週節奏直接發。文案：「📢【本週必看】微學習新單元正式上線！🎉 居家安全篇來囉～內含 5 道情境題，完成可累積積分！快點下方連結開始挑戰吧！記得本週內完成喔，錯過要等下週！另外也別忘了昨天的系統維護通知，以及週一發布的值班表更新，都很重要請務必查看！連結 1：答題 連結 2：值班表 連結 3：維護說明」問題：（1）本週第 3 則推播，未評估過量；（2）三個行動連結；（3）「必看」「務必」促迫詞；（4）兩個 emoji 在中段；（5）把舊訊息塞進新推播。同仁這週被推播第三次，看到又是一長串，直接滑掉——下次乾脆關通知。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">先查行事曆發現本週已 2 則。判斷這則不急（微學習可整週完成），決定併入週五的固定「週末學習提醒」推播，而非單獨發第 3 則。週五推播文案：「週末有空時，新的微學習單元等您——居家安全篇，5 道情境題，約 10 分鐘。不趕，整週都開放。→ 開始答題」整則一個畫面、一個行動連結、無促迫詞、語氣輕鬆。因為併入固定推播，同仁本週推播總量維持在舒適範圍，週五看到時心情放鬆地點開答題。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          推播的核心紀律是「節奏節制」——傷害不是單則訊息的內容，是累積的打擾疲勞。劣稿的失敗是「每則發送者都覺得自己重要」——但收件者承受的是所有人的總和。第三則推播再精彩，也踩在疲勞的臨界點上。佳稿做了一件根本的事：查本週節奏，判斷此訊息不急，併入既有固定推播而非新增一則。「寧少勿擾」不是消極，是對同仁注意力的尊重——省下的每一次打擾，都是在保護真正緊急時訊息能送達的能力。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A2 -->
+  <details class="project" id="a2">
+    <summary class="project-header">
+      <div class="project-code">A2</div>
+      <div class="project-title-block">
+        <h3>互動問答內容擴充</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">為微學習題庫撰寫新題。一題的構成：情境化題幹（真實工作場景，不是教科書句）、一個正解、兩三個「合理但有缺陷」的誘答項、答後解說（答錯的人從解說學到東西）。好題目的標準不是「難」，是「答錯的人看完解說會說『原來如此』」。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：微學習系統後台或題庫試算表；tGenie 做出題；既有題庫作為水準對照。</li>
+            <li><strong>準備素材</strong>：題目主題（要教什麼知識點）、真實工作場景素材（讓題幹情境化）、難度層級、既有同主題題目（避免重複）。</li>
+            <li><strong>先想知識點</strong>：這題要讓答題者學到的「一件事」是什麼？一題只教一個知識點，貪多會稀釋學習效果。</li>
+            <li><strong>查既有水準</strong>：翻 3-5 題既有題庫，看情境化程度與解說深度——新題要對齊或超越這個水準才入庫。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 社群互動組的微學習出題顧問，熟悉「情境化題幹、誘答項合理、解說讓人學到東西」原則。
+
+我要為微學習題庫出新題，需要您協助。
+
+【知識點】（一句話，這題要教的一件事）
+（例如：訪客證件未配戴時，正確的處理順序是先確認身份再引導補辦，而非直接驅離）
+
+【真實工作場景】
+（描述一個會用到這個知識點的真實場景，讓題幹情境化）
+
+【難度層級】
+（填入：基礎／進階）
+
+【目標答題者】
+（填入：例如 新進安全管理人員）
+
+【既有同主題題目】（避免重複）
+（貼入 1-2 題既有的同主題題目，若有）
+
+請給我四件事:
+（一）情境化題幹——用真實場景包裝知識點，不寫成「下列何者正確」的教科書句；
+（二）一個正解＋兩三個誘答項——誘答項要「合理但有缺陷」（看起來都對，但有一個最對），不要明顯的錯誤選項；
+（三）答後解說——答錯的人看完能學到知識點、答對的人能加深理解，解說不只說「正解是 X」還說「為什麼其他選項不夠好」；
+（四）難度自評——這題對目標答題者是否難度恰當，太簡單或太難給出調整建議。
+
+請遵守：題幹必須情境化（真實場景），不寫教科書句；
+誘答項要合理（看似都對），不放明顯錯誤選項；
+解說要讓答錯者學到東西，不只公布答案；
+一題只教一個知識點，不貪多。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>翻 3-5 題既有題庫，記下情境化程度與解說深度的水準。</li>
+            <li>開啟 tGenie，貼入提示詞範本，把「知識點」寫成一句清楚的話（這欄模糊則整題模糊）。</li>
+            <li>送出。等待約 30 秒。</li>
+            <li>讀（一）情境化題幹。<em>題幹仍像教科書句</em>：回覆「題幹請改為描述一個具體場景，讓答題者像在面對真實情況，不要用『下列何者』句式」。</li>
+            <li>讀（二）正解與誘答項。檢查誘答項是否「合理但有缺陷」。<em>有明顯錯誤選項</em>：回覆「[選項 X] 太明顯是錯的，請改為一個『看似合理但有缺陷』的誘答項」。</li>
+            <li>讀（三）答後解說。確認解說能讓答錯者學到知識點。<em>解說只公布答案</em>：回覆「請補充『為什麼其他選項不夠好』，讓答錯的人從解說學到東西」。</li>
+            <li>讀（四）難度自評。判斷是否符合目標答題者程度。</li>
+            <li>把新題與既有題庫對照——情境化程度與解說深度是否達標。達標才入庫，低於水準回頭修。</li>
+            <li>入庫後，找 1-2 位同事試答——若多數人答對得太容易或全錯，回頭調整難度。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 給的題幹是「下列何者正確」</strong>：回覆「請把題幹改寫成一個具體工作場景的描述，答題者讀完像在面對真實狀況需要做決定」。</li>
+            <li><strong>誘答項一看就知道是錯的</strong>：回覆「誘答項要『合理但有缺陷』——讓答題者需要思考才能排除，不是一眼看出錯誤」。</li>
+            <li><strong>解說只說「正解是 B」</strong>：回覆「解說請加上『為什麼 A、C、D 不夠好』，讓答錯的人理解每個選項的問題」。</li>
+            <li><strong>一題塞了多個知識點</strong>：回覆「請聚焦一個知識點，其餘知識點拆成另外的題目」。一題多知識點會讓答題者抓不到重點。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要為微學習題庫出一題，知識點是「發現訪客證件未配戴時，正確順序是先確認身份再引導補辦，而非直接請對方離開」。目標答題者是新進安全管理人員。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">題幹：「下列關於訪客證件管理的敘述，何者正確？」選項：A 訪客必須全程配戴證件（正確但與知識點無關的常識）、B 發現未配戴應立即請其離開（明顯偏激的錯誤）、C 證件由訪客自行保管（無關選項）、D 先確認身份再引導補辦（正解）。解說：「正解是 D。訪客證件管理很重要，請大家注意。」問題：（1）題幹是教科書句不是場景；（2）選項 B 明顯偏激、A 和 C 與知識點無關，答題者用刪去法就選到 D，沒真正思考；（3）解說只公布答案，答錯的人學不到為什麼。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">題幹：「您在大廳值班時，注意到一位訪客胸前沒有配戴訪客證。對方說剛才在會議室拿了資料、證件可能落在裡面。這時您應該優先做什麼？」選項：A 請對方立刻離開大廳，補辦證件後再進入（看似謹慎，但對已入內的訪客不合理）、B 先透過系統或聯絡接待人確認對方身份，再引導補辦證件（正解）、C 相信對方說法，提醒下次記得配戴即可（看似友善，但跳過身份確認）、D 先陪同對方回會議室找證件（看似熱心，但離開了崗位且未先確認身份）。解說：「正解是 B。關鍵在『先確認身份』——A 對已入內的訪客直接驅離不合理且可能引發衝突；C 跳過確認直接相信有安全風險；D 雖然熱心但離開崗位且順序顛倒（應先確認再處理證件）。正確順序永遠是：確認身份 → 引導補辦，安全與禮貌兼顧。」四個選項都「看似合理」，答題者需要真正思考順序才能選對；解說讓每個答錯的人都理解自己的選項問題在哪。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          出題的核心紀律是「答錯的人看完解說會說『原來如此』」。劣稿的失敗在三處：題幹是教科書句（不情境化）、誘答項有明顯錯誤（能用刪去法）、解說只公布答案（答錯學不到東西）。這種題目測的是「會不會刪去法」，不是「懂不懂知識點」。佳稿做了三件事：題幹包裝成真實場景、四個選項都「看似合理但有缺陷」、解說逐一說明每個選項的問題。好題目不是「難倒人」，是「讓答錯的人學到東西」——這才是微學習的目的。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A3 -->
+  <details class="project" id="a3">
+    <summary class="project-header">
+      <div class="project-code">A3</div>
+      <div class="project-title-block">
+        <h3>活動報名與提醒流程</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">為一場活動設計完整的訊息旅程：預告、開放報名、報名確認、前一日提醒、會後回饋。每個節點一則訊息，練的是「在對的時間說對的話」，而非把所有資訊塞進每一則。訊息旅程的紀律是「資訊隨旅程遞減、行動隨旅程聚焦」——越接近活動，訊息越短、行動越明確。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：LINE OA 或 n8n 排程；活動報名表單（Google Forms 或內部系統）；tGenie 做旅程設計。</li>
+            <li><strong>準備素材</strong>：活動完整資訊、活動日期與報名截止日、目標參與者、報名連結、各節點的發送時間規劃。</li>
+            <li><strong>先畫旅程</strong>：預告→報名→確認→前一日提醒→會後回饋，五個節點各在什麼時間發、各要達成什麼目的？</li>
+            <li><strong>確認遞減</strong>：提醒自己：每則訊息不是「活動介紹的複製」，而是「該節點唯一需要的資訊」。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 社群互動組的活動訊息旅程設計顧問，遵守「資訊隨旅程遞減、行動隨旅程聚焦」原則。
+
+我要為一場活動設計完整的訊息旅程，需要您協助。
+
+【活動完整資訊】
+（將活動的所有資訊貼入：名稱、目的、時間、地點、形式、講者等）
+
+【關鍵日期】
+- 活動日期：（填入）
+- 報名開放日：（填入）
+- 報名截止日：（填入）
+
+【目標參與者】
+（填入：例如 全體安全管理人員、自由報名）
+
+【報名連結】
+（填入或標明「報名表單連結」）
+
+請給我四件事:
+（一）五則訊息旅程——預告、開放報名、報名確認、前一日提醒、會後回饋，每則標明發送時機、核心資訊、單一行動；
+（二）資訊遞減設計——說明每則訊息保留哪些資訊、捨棄哪些（越接近活動資訊越精簡）；
+（三）行動聚焦設計——每則的單一行動是什麼（預告階段「記下日期」、報名階段「點連結報名」、提醒階段「確認出席」）；
+（四）會後回饋設計——回饋訊息如何簡短有效地收集意見，不讓參與者覺得負擔。
+
+請遵守：每則訊息只承載該節點需要的資訊，不複製完整活動介紹；
+越接近活動，訊息越短、行動越聚焦；
+每則只有一個行動；
+會後回饋要簡短（3 題以內），不增加參與者負擔。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>在試算表畫出五個節點的時間軸（預告何時、報名何時、確認、前一日、會後各何時）。</li>
+            <li>開啟 tGenie，貼入提示詞範本與活動完整資訊。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）五則訊息旅程。逐則檢查是否符合該節點的目的。<em>某則塞太多資訊</em>：回覆「[第 N 則] 資訊過多，請只保留該節點必要的資訊，其餘在前面的訊息已說過或可放連結」。</li>
+            <li>讀（二）資訊遞減設計。確認越接近活動的訊息越精簡——前一日提醒不該再附完整活動介紹。</li>
+            <li>讀（三）行動聚焦設計。確認每則只有一個行動，且行動隨旅程推進（記日期→報名→確認出席）。</li>
+            <li>讀（四）會後回饋。確認回饋簡短（3 題以內）。</li>
+            <li>在排程工具設定五則訊息的發送時間。確認時間間隔合理（預告與報名隔幾天、前一日提醒準時）。</li>
+            <li>發送前把五則並排檢視——資訊是否遞減、行動是否聚焦。一眼看出「越往後越精簡」就對了。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>每則訊息都附完整活動介紹</strong>：回覆「請讓資訊遞減——只有預告和開放報名需要完整資訊，確認與提醒只需『時間地點＋單一行動』」。</li>
+            <li><strong>前一日提醒還很長</strong>：回覆「前一日提醒請壓到兩行內：『明天 X 點 Y 地點，期待見到您』＋出席確認。其他資訊參與者已知道」。</li>
+            <li><strong>會後回饋表單太長</strong>：回覆「回饋請壓到 3 題以內：一題評分、一題最有收穫、一題建議。長表單回收率低」。</li>
+            <li><strong>想在每則都放報名連結</strong>：報名截止後的訊息（確認、提醒、回饋）不需要報名連結。每則的行動應對應該節點——硬塞報名連結會混淆。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          為「安全文化季開幕講座」設計訊息旅程。活動 6/1，報名 5/20 開放、5/28 截止。受眾全體安全管理人員自由報名。需要預告、開放報名、報名確認、前一日提醒、會後回饋五則。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">五則訊息每則都是完整活動介紹的複製：預告（5/15）：完整介紹 200 字＋報名連結（但還沒開放）。開放報名（5/20）：同樣 200 字介紹＋報名連結。報名確認（5/28）：再貼一次 200 字介紹＋「您已報名」＋報名連結（已截止還放）。前一日提醒（5/31）：又貼 200 字介紹＋地點＋報名連結（早就截止）。會後回饋（6/1）：200 字介紹＋10 題問卷＋報名連結。問題：五則一模一樣的長度與資訊、行動連結放錯節點（截止後還放報名）、回饋問卷過長。參與者每次收到都是同一坨，第三則之後不再細看。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">五則訊息資訊遞減、行動聚焦：預告（5/15）：「6/1 安全文化季開幕講座，主題是『安全是一種支持力量』。5/20 開放報名，先記下這個日子。」核心資訊完整，行動是「記下日期」。開放報名（5/20）：「報名開始了。6/1 下午 2 點，廠區大會議室。約 90 分鐘。→ 點此報名（5/28 截止）」資訊精簡為關鍵項，行動是「報名」。報名確認（報名當下自動）：「已收到您的報名，6/1 見。會前一天會再提醒您。」最短，行動是「無，純確認」。前一日提醒（5/31）：「明天下午 2 點，大會議室，期待見到您。→ 確認出席」兩行，行動是「確認出席」。會後回饋（6/1 活動後）：「謝謝您今天的參與。三個問題想聽聽您的想法（約 1 分鐘）→ 填回饋」簡短，行動是「3 題回饋」。五則並排，明顯越往後越短、行動隨旅程推進。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          訊息旅程的核心紀律是「在對的時間說對的話」——不是「每則都說完整的話」。劣稿的失敗是把每則都當成「活動介紹的複製」——五則一樣長、一樣的資訊、行動連結還放錯節點。參與者收到的是五次重複，自然不再細看。佳稿做了兩件事：資訊隨旅程遞減（預告完整、提醒只剩時間地點）、行動隨旅程聚焦（記日期→報名→確認出席→回饋）。「資訊遞減」尊重參與者的記憶——他們不需要在前一日提醒裡再讀一次完整介紹；「行動聚焦」讓每則訊息的目的清晰，參與者知道這則要他做什麼。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER B: 進階 ============= -->
+<section class="tier-section" data-t="b" id="tier-b">
+  <div class="tier-header">
+    <div class="tier-number">02</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">進階 · Intermediate</h2>
+      <p class="tier-subtitle">體驗的設計力——遊戲化活動、互動工具、混合場控</p>
+    </div>
+  </div>
+
+  <!-- B1 -->
+  <details class="project" id="b1">
+    <summary class="project-header">
+      <div class="project-code">B1</div>
+      <div class="project-title-block">
+        <h3>遊戲化學習活動設計</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">設計一檔為期數週的問答活動：進度機制、難度曲線、榮譽回饋。核心原則沿用靠作品與能見度肯認的精神——用身份與能見度驅動參與，不用獎品堆疊。遊戲化的紀律是「用成長感而非獎品驅動」——獎品帶來一次性參與，身份與能見度帶來持續投入。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：微學習系統後台；n8n 做進度追蹤自動化；tGenie 做活動機制設計。</li>
+            <li><strong>準備素材</strong>：活動主題與目標、活動週期（建議 4-8 週）、目標參與者規模、可用的榮譽機制（徽章、排行、能見度）、既有遊戲化先例。</li>
+            <li><strong>先定驅動力</strong>：這個活動靠什麼讓人持續參與？如果答案是「獎品」，重新想——獎品停了參與就停。靠成長感與能見度才持久。</li>
+            <li><strong>查在地先例</strong>：微學習系統既有的層級晉升機制如何設計門檻？參考它「行為組合而非單一指標」的原則。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 社群互動組的遊戲化學習設計顧問，遵守「用身份與能見度驅動、不用獎品堆疊」原則。
+
+我要設計一檔為期數週的遊戲化問答活動，需要您協助。
+
+【活動主題】
+（填入：例如 安全知識挑戰季）
+
+【活動目標】（一句話）
+（例如「讓 70% 同仁完成至少 5 個微學習單元，並養成持續學習習慣」）
+
+【活動週期】
+（填入：例如 6 週）
+
+【目標參與者規模】
+（填入：例如 約 450 人）
+
+【可用榮譽機制】
+（描述：例如 微學習系統的層級徽章、月度活躍榜、能見度展示）
+
+請給我四件事:
+（一）進度機制——參與者如何看到自己的進展（進度條、里程碑、階段解鎖），讓「再前進一點」變得有吸引力；
+（二）難度曲線——前期門檻低（建立成功經驗）、中期遞增（保持挑戰）、後期高峰（成就感），描述各階段的設計；
+（三）榮譽回饋設計——用什麼身份與能見度機制獎勵投入（不是實體獎品），如何讓投入被看見；
+（四）防刷機制——如何避免「刷題式參與」（只為衝數字不為學習），用行為組合門檻而非單一指標。
+
+請遵守：榮譽機制用身份與能見度（徽章、排行、展示），不用實體獎品堆疊；
+門檻是行為組合（答題量＋正確率＋持續性），不是單一指標；
+難度曲線要讓前期容易成功（建立信心）、後期有挑戰（成就感）；
+活動結束後機制仍能延續（不是辦完就結束的一次性活動）。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>查微學習系統既有的層級機制設計，理解「行為組合門檻」的在地做法。</li>
+            <li>開啟 tGenie，貼入提示詞範本。「活動目標一句話」要可衡量（含數字），模糊目標設計不出好機制。</li>
+            <li>送出。等待約 90 秒。</li>
+            <li>讀（一）進度機制。判斷參與者能否清楚看到進展。<em>進度太抽象</em>：回覆「請讓進度更具體可見——例如明確的里程碑或階段解鎖，不要只是百分比」。</li>
+            <li>讀（二）難度曲線。確認前期容易（建立信心）、後期有挑戰。<em>曲線不對</em>：回覆「前期門檻請再降低讓多數人能成功，後期再拉高給成就感」。</li>
+            <li>讀（三）榮譽回饋。<em>AI 建議實體獎品</em>：回覆「請改用身份與能見度機制（徽章、排行、公開展示），不用實體獎品——獎品帶來一次性參與，身份帶來持續投入」。</li>
+            <li>讀（四）防刷機制。確認門檻是行為組合。<em>門檻是單一指標</em>：回覆「請改為行為組合門檻——例如答題量＋正確率＋連續活躍，避免只衝數字的刷題」。</li>
+            <li>把機制設計成一頁活動規則，與微學習系統後台確認技術可行性（進度追蹤、徽章發放是否能自動化）。</li>
+            <li>小規模試跑（找一個區域先試 1-2 週），觀察參與行為，據此調整難度曲線與機制，再全面推出。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 建議用實體獎品（禮券、小禮物）</strong>：回覆「請移除所有實體獎品，改用身份與能見度——獎品停了參與就停，成長感與被看見才持久」。</li>
+            <li><strong>難度曲線一開始就太難</strong>：回覆「前期請設計『幾乎人人能完成』的低門檻任務，先讓參與者嘗到成功，再逐步加難」。</li>
+            <li><strong>防刷機制只看答題數量</strong>：回覆「請加入正確率與持續性門檻——只看數量會鼓勵刷題，要的是真正學習」。</li>
+            <li><strong>活動辦完就結束沒有延續</strong>：回覆「請設計讓核心機制（徽章、層級）在活動後仍能延續，成為常態的成長路徑，而非一次性活動」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          設計「安全知識挑戰季」，6 週，目標讓全體 450 位安全管理人員完成至少 5 個微學習單元並養成持續習慣。可用微學習系統的層級徽章與月度活躍榜。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">設計成「答題抽獎」模式：每答對一題抽一次獎，獎品是便利商店禮券（第一名 500 元、前十名 100 元）。難度設計：所有題目同一難度。防刷：只看答題總數，答越多抽越多次。結果：（1）為了多抽獎，同仁狂刷簡單題（不為學習）；（2）少數人衝高答題數霸佔排行，多數人覺得「反正抽不到」不參與；（3）6 週活動結束、禮券發完，參與數立刻歸零——沒有人為了學習而來，都為了禮券。活動沒達成「養成持續習慣」的目標，反而強化了「有獎才做」的心態。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">設計成「層級成長」模式：進度機制——5 個學習階段（入門→熟悉→進階→精通→大師），每完成一階段解鎖一枚徽章並在個人頁顯示，進度條讓人想「再前進一階」。難度曲線——入門階段門檻極低（完成 1 個單元即解鎖，幾乎人人做得到，建立成功經驗）；中期遞增（需正確率達標）；大師階段需完成全部單元＋高正確率＋連續 4 週活躍（高成就感）。榮譽回饋——徽章在個人頁與團隊頁展示（能見度）、月度活躍榜表彰持續學習者（不是答題最多者，是連續活躍者）、達到大師者在季度會議上被點名肯定（身份）。防刷——層級門檻是「答題量＋正確率＋連續活躍週數」的組合，單純刷題量無法晉級。6 週後 72% 同仁完成至少 5 單元，且因徽章與層級延續，活動結束後仍有同仁持續學習衝大師徽章。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          遊戲化的核心紀律是「用成長感與能見度驅動，不用獎品堆疊」。劣稿的失敗是用獎品（禮券）當驅動力——結果是刷題、霸榜、活動一結束參與歸零，且強化了「有獎才做」的心態，與「養成持續習慣」的目標背道而馳。佳稿做了三件事：用層級徽章給成長感（看得到進展）、用展示與表彰給能見度（投入被看見）、用行為組合門檻防刷（真學習才能晉級）。「身份與能見度」比「獎品」持久的原因很簡單——獎品是外在的、會用完的；成長感與被看見是內在的、會累積的。靠作品與能見度肯認的精神正在於此。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B2 -->
+  <details class="project" id="b2">
+    <summary class="project-header">
+      <div class="project-code">B2</div>
+      <div class="project-title-block">
+        <h3>互動工具企劃</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">當內容適合做成互動工具（自評表、查找器、檢核器）而非靜態文章時，進階層級負責寫企劃書：使用者是誰、解決什麼查找成本、互動流程、內容結構。實作交工具開發協作，但企劃決定成敗——工具的價值不在做得炫，在解決一個真實的查找或判斷負擔。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：企劃文件：Notion 或 Google Docs；tGenie 做企劃規劃；與工具開發協作者對接。</li>
+            <li><strong>準備素材</strong>：要解決的問題、目標使用者、現況痛點（現在他們怎麼做、有多麻煩）、內容素材、類似工具先例。</li>
+            <li><strong>先判工具類型</strong>：這個需求是「查找成本」（資訊太多找不到）還是「判斷負擔」（不知道該怎麼選）？兩種工具設計邏輯不同。</li>
+            <li><strong>先問該不該做</strong>：這個內容真的需要互動工具嗎？還是一篇好文章就夠？工具的開發成本高，沒有明確的查找或判斷負擔就不該做。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 社群互動組的互動工具企劃顧問，遵守「企劃決定成敗、工具解決真實負擔」原則。
+
+我要為一個內容需求企劃互動工具，需要您協助判斷與規劃。
+
+【要解決的問題】
+（描述：使用者目前面對什麼困難）
+
+【目標使用者】
+（填入：誰會用這個工具、在什麼情境用）
+
+【現況痛點】
+（描述：現在他們怎麼處理這件事、麻煩在哪、花多少時間）
+
+【內容素材】
+（描述：工具會用到的內容、資料、判斷邏輯）
+
+請給我四件事:
+（一）工具類型判定——這個需求屬「查找成本」（資訊太多找不到，需查找器）還是「判斷負擔」（不知道怎麼選，需檢核器或自評表），附判斷理由；
+（二）「該不該做工具」評估——這個需求是否真的需要互動工具，還是一篇好文章/一張對照表就足夠？誠實評估；
+（三）若該做：互動流程設計——使用者從進入到得到結果的步驟、每步的輸入與輸出、結果如何呈現；
+（四）內容結構——工具背後的內容如何組織（分類邏輯、判斷規則、結果對應），這是工具的骨架。
+
+請遵守：先誠實評估「該不該做工具」——若一篇文章就夠，建議不做工具；
+工具要解決明確的查找成本或判斷負擔，不為「做得炫」而做；
+互動流程要簡（使用者 3-5 步內得到結果），步驟過多的工具沒人用；
+內容結構是工具成敗關鍵，企劃階段就要把分類與判斷邏輯想清楚。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本。「現況痛點」要寫具體（花多少時間、多麻煩）——這決定工具是否值得做。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）工具類型判定。確認「查找成本」vs「判斷負擔」的判斷正確——這決定工具設計方向。</li>
+            <li>讀（二）該不該做評估。<em>AI 建議不做（一篇文章就夠）</em>：認真接受。工具開發成本高，能用文章解決就別做工具。這是企劃最重要的判斷。</li>
+            <li>讀（三）若該做，讀互動流程。確認使用者 3-5 步內能得到結果。<em>流程太長</em>：回覆「請簡化流程到 5 步內，步驟過多的工具沒人用」。</li>
+            <li>讀（四）內容結構。這是工具骨架，仔細檢查分類邏輯與判斷規則是否周全。<em>結構有漏洞</em>：回覆「[某情況] 在現有結構中沒有對應，請補完」。</li>
+            <li>把企劃寫成完整文件：問題、使用者、工具類型、互動流程、內容結構、預期效益。</li>
+            <li>與工具開發協作者對焦企劃——確認技術可行性、開發成本、時程。企劃通過後才進開發。</li>
+            <li>開發完成後做使用者測試——找 3-5 位目標使用者試用，觀察是否真的 3-5 步得到結果、是否解決了原本的痛點。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 沒評估該不該做就直接設計工具</strong>：回覆「請先誠實評估：這個需求用一篇文章或一張對照表是否就能解決？如果可以，建議不做工具」。</li>
+            <li><strong>互動流程超過 5 步</strong>：回覆「請簡化到 5 步內。每多一步就流失一批使用者，工具越簡單越有人用」。</li>
+            <li><strong>內容結構有未涵蓋的情況</strong>：回覆「請檢查邊界情況——[某狀況] 在現有分類中如何處理？工具的結構漏洞會讓使用者卡住」。</li>
+            <li><strong>工具做得很炫但解決的問題很小</strong>：回頭問「這個問題值得一個工具嗎？」。炫的工具若解決的是小問題，開發成本不划算，不如把資源放在真正的痛點。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          收到需求：同仁常問「我這個角色需要完成哪些必修訓練？」現況是要翻一份 50 項訓練的清單、自己對照角色找出相關項目，很花時間。考慮做一個互動工具。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">不評估該不該做，直接設計一個複雜工具：使用者進入後要填 8 個欄位（姓名、部門、角色、年資、過去訓練紀錄、語言偏好、學習目標、時間偏好），然後系統用複雜演算法推薦「個人化學習路徑」，結果頁有 12 個區塊（必修、選修、推薦、進度、徽章、排行⋯⋯）。問題：（1）8 步輸入太長，多數人填到一半放棄；（2）使用者只想知道「我要修哪些」，卻被迫提供一堆無關資訊；（3）12 區塊結果頁資訊過載，找不到原本要的答案；（4）這個需求其實是「查找成本」（資訊太多找不到），做成複雜的個人化推薦反而更難用。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">先評估該不該做：這需求是「查找成本」（50 項訓練裡找出與角色相關的），且現況確實麻煩（要逐項對照）。一篇文章無法解決（角色多、組合多），確實適合做查找器。設計極簡查找器：步驟 1：使用者從下拉選單選「角色」（一個輸入）。步驟 2：系統立即顯示該角色的必修訓練清單（依優先序排列、標明哪些已過期需重修）。結束——兩步得到答案。結果頁只有一件事：這個角色要修的訓練清單，每項附連結。內容結構：角色 × 訓練項目的對應表（哪個角色對應哪些必修），這是工具骨架，企劃階段就把 6 個角色 × 51 項訓練的對應關係列清楚。使用者選一次角色就得到答案，解決了原本逐項對照的麻煩。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          互動工具企劃的核心紀律是「企劃決定成敗，工具解決真實負擔」——以及最重要的「先評估該不該做」。劣稿犯了兩個錯：沒評估就做（其實是查找成本卻做成複雜推薦）、流程過長（8 步輸入嚇跑使用者）。工具做得越複雜，離「解決原本的查找麻煩」越遠。佳稿做了三件事：先判定需求類型（查找成本）、確認值得做工具（文章無法解決）、設計極簡流程（兩步得答案）。工具的價值不在功能多，在「解決一個明確的負擔」——使用者要的是答案，不是一個炫的系統。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B3 -->
+  <details class="project" id="b3">
+    <summary class="project-header">
+      <div class="project-code">B3</div>
+      <div class="project-title-block">
+        <h3>混合式活動場控</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">主持實體＋線上並行活動。進階層級的腳本是場控表：每段的負責人、線上端的參與設計（線上不是旁聽席，每 20 分鐘一個線上可參與的互動點）、技術備援。混合式活動的紀律是「線上不是旁聽席」——線上參與者要能真的參與，不是看實體活動的直播。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：視訊平台（Teams 或內部會議系統）；場控表：試算表；互動工具（即時投票、Q&A）；tGenie 做場控規劃。</li>
+            <li><strong>準備素材</strong>：活動議程、實體與線上參與人數預估、各段負責人、技術設備清單、活動總時長。</li>
+            <li><strong>先設計線上參與</strong>：線上參與者每 20 分鐘要有一個能「真的參與」的點（投票、提問、分組）——不是讓他們看直播。先列出這些互動點。</li>
+            <li><strong>先想技術備援</strong>：如果線上斷線、投票工具掛掉、收音出問題，備案是什麼？技術故障是混合活動最常見的崩潰點。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 社群互動組的混合式活動場控顧問，遵守「線上不是旁聽席」原則。
+
+我要主持一場實體＋線上並行的活動，需要您協助設計場控表。
+
+【活動議程】
+（將活動流程貼入：各時段的主題與內容）
+
+【參與規模】
+- 實體：（填入，例如 50 人）
+- 線上：（填入，例如 80 人）
+
+【活動總時長】
+（填入：例如 180 分鐘）
+
+【各段負責人】
+（列出：哪一段由誰主講或主持）
+
+【可用技術設備】
+（描述：視訊平台、麥克風、攝影機、即時互動工具）
+
+請給我四件事:
+（一）場控表——逐段列出：時段、負責人、內容、線上端的參與設計、技術注意事項；
+（二）線上參與點設計——每 20 分鐘一個線上可參與的互動點（投票、提問、分組討論），讓線上不是旁聽；
+（三）技術備援方案——針對可能的故障（線上斷線、收音問題、互動工具掛掉）的備案；
+（四）實體與線上的平衡——如何讓主持人同時照顧兩端，不讓線上參與者感覺被冷落。
+
+請遵守：線上端每 20 分鐘至少一個可參與的互動點，不讓線上淪為旁聽席；
+每個技術環節都要有備援方案；
+場控表要細到「誰在第幾分鐘做什麼」，不留模糊；
+主持人的注意力要兼顧兩端，設計上避免「實體熱鬧、線上冷清」。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本與活動議程。</li>
+            <li>送出。等待約 60-90 秒。</li>
+            <li>讀（一）場控表。對照活動議程確認每段都有明確負責人與時間。<em>某段模糊</em>：回覆「[某時段] 的線上參與設計與負責人請寫具體，不要留『視情況』」。</li>
+            <li>讀（二）線上參與點。確認每 20 分鐘有一個。<em>線上參與點不足</em>：回覆「請增加線上互動點，目標每 20 分鐘一個，避免線上參與者淪為旁聽」。</li>
+            <li>讀（三）技術備援。逐項確認備案可執行。<em>某故障無備案</em>：回覆「如果 [某技術環節] 故障，目前沒有備案，請補上」。</li>
+            <li>讀（四）兩端平衡。確認主持人能同時照顧實體與線上。</li>
+            <li>把場控表細化到分鐘級，分發給所有負責人，確認每人清楚自己的時段與任務。</li>
+            <li>活動前一天做技術彩排——測試視訊、收音、互動工具、所有線上參與點，確認都能運作。</li>
+            <li>活動當天設一位專責「線上端照顧者」——盯著線上的提問與技術狀況，讓主持人能專注內容。</li>
+            <li>活動後檢討場控表——哪些環節順、哪些卡，更新母版供下次微調（場控表是迭代的，不每次重寫）。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>線上參與點太少（整場只有開頭結尾）</strong>：回覆「請在中段每 20 分鐘插入一個線上互動點——即時投票、線上提問、分組討論都可以，讓線上參與者持續有事做」。</li>
+            <li><strong>技術備援只寫「請 IT 支援」</strong>：回覆「請給具體備案——例如線上斷線時，主持人先繼續、線上端切換到備用連結、5 分鐘內未恢復則錄影補發」。</li>
+            <li><strong>場控表有「視情況調整」字眼</strong>：回覆「請把所有『視情況』改為明確的判斷標準與動作——場控表的價值在於不用臨場決定」。</li>
+            <li><strong>線上參與者反映被冷落</strong>：下次設專責的線上端照顧者，主持人講話時刻意提及線上（「線上的同仁，這題也想聽聽你們的看法」），讓兩端都有存在感。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          主持「月度廠區巡訪分享會」，180 分鐘，實體 50 人＋線上 80 人。議程：開場、三段巡訪心得分享、Q&A、總結。需要場控表確保線上參與者不是旁聽席。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">場控表只列實體流程：開場 10 分、分享三段各 40 分、Q&A 30 分、總結 20 分。線上端的設計只寫「線上同步直播，可在聊天室留言」。技術備援只寫一句「IT 待命」。活動當天：線上參與者從頭到尾只能看直播、在聊天室留言（沒人回應），三段分享中途有人線上斷線（沒有備案，等 IT 來救花了 15 分鐘），Q&A 時主持人只看實體舉手、忽略線上聊天室的問題。結果：80 位線上參與者多數中途離開，留下的也只是掛著沒在看。會後線上參與者反映「感覺自己是局外人」。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">場控表細到分鐘級，每段都設計線上參與點：開場（0-10 分）：實體與線上同時做即時投票「您最關心哪個廠區的安全議題」，結果即時顯示，線上參與者一開場就參與。分享一（10-50 分）：第 30 分鐘插入線上投票「這個做法在您的廠區可行嗎」。分享二（50-90 分）：第 70 分鐘開放線上文字提問，主講人即時回應 2 題。分享三（90-130 分）：第 110 分鐘做實體＋線上混合分組討論（線上участ者進入分組視訊室）。Q&A（130-160 分）：設專人輪流讀實體舉手與線上聊天室問題，兩端交替。總結（160-180 分）：線上與實體同時做活動回饋。技術備援：線上斷線→切備用連結＋主持人續行；投票工具掛掉→改口頭舉手＋聊天室；收音問題→備用麥克風。設一位專責線上照顧者全程盯線上狀況。活動後線上參與者反映「全程有參與感，不像在看直播」。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          混合式活動的核心紀律是「線上不是旁聽席」——線上參與者要能真的參與，不是看實體活動的直播。劣稿的失敗是只設計實體流程、把線上當成「同步直播＋聊天室」——結果線上參與者全程被動，自然中途離開。技術備援的缺失更讓一次斷線就崩潰 15 分鐘。佳稿做了三件事：每 20 分鐘設計一個線上參與點（投票、提問、分組）、每個技術環節都有具體備援、設專責線上照顧者。混合活動的成敗看一個指標——活動結束時線上參與者還剩多少。設計得好，線上與實體一樣投入；設計不好，線上淪為無人看的直播。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER C: 高階 ============= -->
+<section class="tier-section" data-t="c" id="tier-c">
+  <div class="tier-header">
+    <div class="tier-number">03</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">高階 · Advanced</h2>
+      <p class="tier-subtitle">自動化與洞察——自動化流程、數據迭代、跨區營運</p>
+    </div>
+  </div>
+
+  <!-- C1 -->
+  <details class="project" id="c1">
+    <summary class="project-header">
+      <div class="project-code">C1</div>
+      <div class="project-title-block">
+        <h3>自動化互動流程建置</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">把重複性營運（每日推播、回覆路由、報表彙整）建成自動化工作流。高階層級需掌握：事件路由邏輯、排程推送、錯誤通知；以及紀律——憑證命名規範、測試帳號完整演練後才接正式通道。自動化的紀律是「測試帳號全綠才接正式通道」——自動化的錯誤會規模化，必須在接正式前擋住。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：n8n（工作流引擎）；測試用 LINE OA 或測試帳號；密鑰管理工具；tGenie 做流程架構規劃。</li>
+            <li><strong>準備素材</strong>：要自動化的營運任務、觸發條件、處理邏輯、輸出目標、既有自動化先例（憑證命名與結構參照）。</li>
+            <li><strong>先畫流程圖</strong>：事件如何觸發→經過哪些處理→輸出到哪裡→出錯時通知誰？先把流程圖畫出來再建。</li>
+            <li><strong>確認憑證紀律</strong>：所有 token、密碼一律環境變數注入，永不寫進工作流節點或註解。誤貼即視為外洩立即撤換。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 社群互動組的自動化流程架構顧問，遵守「測試帳號全綠才接正式通道」與「憑證永不寫入」原則。
+
+我要建置一個自動化互動流程，需要您協助規劃架構。
+
+【要自動化的營運任務】
+（描述：例如 每日 08:00 自動推送當日簡報摘要到 LINE 群）
+
+【觸發條件】
+（填入：例如 每日 08:00 定時觸發、或某事件發生時觸發）
+
+【處理邏輯】
+（描述：從觸發到輸出之間需要的處理步驟）
+
+【輸出目標】
+（填入：例如 推送到特定 LINE 群、寫入某資料庫、發送通知）
+
+【既有自動化先例】
+（描述：是否有可參照的既有工作流，其憑證命名與結構）
+
+請給我四件事:
+（一）流程架構——觸發、處理、輸出的節點設計，含每個節點的功能與資料流向；
+（二）錯誤處理設計——每個可能失敗的環節（API 逾時、資料缺失、發送失敗）如何捕捉，錯誤通知如何發到負責人；
+（三）測試演練計畫——上線前在測試帳號要跑過哪些情境（正常流程、各種錯誤分支、邊界情況），測試全綠的標準；
+（四）憑證管理規範——這個流程需要哪些憑證、如何以環境變數注入、命名規範如何比照既有工作流。
+
+請遵守：所有憑證以環境變數注入，永不寫入工作流節點、註解或截圖；
+測試帳號完整演練（所有分支跑過）才接正式通道；
+每個可能失敗的環節都要有錯誤捕捉與通知；
+憑證命名比照既有工作流，不另創格式。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>查既有自動化工作流的憑證命名與結構，作為新流程的參照。</li>
+            <li>開啟 tGenie，貼入提示詞範本與營運任務描述。</li>
+            <li>送出。等待約 90 秒。</li>
+            <li>讀（一）流程架構。對照您畫的流程圖確認邏輯一致。<em>架構有缺</em>：回覆「[某環節] 的處理邏輯不完整，請補完資料流向」。</li>
+            <li>讀（二）錯誤處理。確認每個失敗點都有捕捉與通知。<em>某環節無錯誤處理</em>：回覆「如果 [某環節] 失敗，目前沒有捕捉，請補上錯誤處理與通知設計」。</li>
+            <li>讀（三）測試演練計畫。記下所有要測的情境——這是上線前的檢查清單。</li>
+            <li>讀（四）憑證規範。確認所有憑證都以環境變數注入。<em>有憑證硬寫的風險</em>：回覆「請確認所有 token 都用環境變數，並列出環境變數命名清單」。</li>
+            <li>在 n8n 建置流程。憑證一律設為環境變數（n8n 的 credential 功能），永不寫進節點參數或註解。</li>
+            <li>在測試帳號完整演練：跑正常流程、故意觸發各種錯誤（斷網、資料缺失、發送失敗）、測試邊界情況。逐項對照測試計畫，全綠才算通過。</li>
+            <li>測試全綠後才接正式通道。接上後先觀察一個完整週期（如每日推播觀察 3 天），確認運作正常。</li>
+            <li>上線後做憑證安全複查——確認工作流匯出檔、截圖、文件中都沒有明文憑證。提醒自己定期輪換憑證。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 在範例中把 token 寫進節點參數</strong>：回覆「請所有憑證改為環境變數引用（如 {{$env.LINE_TOKEN}}），絕不在節點參數寫明文 token」。</li>
+            <li><strong>測試計畫只測正常流程</strong>：回覆「請補上錯誤分支的測試——斷網、API 逾時、資料缺失、發送失敗各要有對應的測試情境」。</li>
+            <li><strong>某環節失敗會靜默（沒通知）</strong>：回覆「請為每個失敗點加上錯誤通知，讓我在出問題時立即知道，而非事後才發現流程掛了」。</li>
+            <li><strong>想跳過測試直接接正式通道趕進度</strong>：忍住。自動化的錯誤會規模化——一個沒測好的流程可能凌晨對全體狂發。測試帳號全綠是不可省的閘門。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要建一個自動化流程：每日 08:00 從 GPS Daily Brief 的資料源抓當日摘要，推送到安全管理人員的 LINE 群。需要 LINE 推播 token、資料源 API key。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">在 n8n 直接建流程，為了「方便測試」把 LINE token 和 API key 直接寫在節點參數裡，還在節點註解寫上「token: xxxxx 記得別刪」。沒在測試帳號演練，覺得「邏輯很簡單」直接接正式 LINE 群。上線第一天：資料源 API 偶發逾時（沒有錯誤處理），流程沒抓到資料卻仍觸發推送，對全體推送了一則空白訊息。更糟的是，因為 token 寫在節點和註解裡，這個工作流被匯出分享給同事參考時，token 跟著外洩——任何拿到這份匯出檔的人都能以 GPS 的身份發推播。事後要緊急撤換所有憑證、通知全體那則空白訊息是系統錯誤。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">先查既有工作流的憑證命名規範（如 LINE_PUSH_TOKEN、BRIEF_API_KEY），照同格式。在 n8n 建流程：所有憑證用環境變數注入（節點參數寫 {{$env.LINE_PUSH_TOKEN}}），節點與註解中零明文憑證。錯誤處理：資料源逾時→捕捉並通知負責人、不觸發空推送；發送失敗→重試一次後通知；資料缺失→中止流程並告警。在測試帳號完整演練：正常流程跑通、故意斷網測逾時處理、餵空資料測缺失處理、模擬發送失敗測重試——全部分支綠燈。測試全綠才接正式 LINE 群。接上後觀察 3 天確認穩定。複查匯出檔與文件，確認零明文憑證。上線後遇到一次真實的 API 逾時——錯誤處理正確捕捉、通知了負責人、沒有發出空白訊息，流程在下一個週期自動恢復。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          自動化建置的核心紀律有二：「測試帳號全綠才接正式」與「憑證永不寫入」。劣稿同時犯了兩個致命錯：憑證寫進節點與註解（匯出時外洩，等於把鑰匙交出去）、跳過測試直接上線（API 逾時導致對全體發空白訊息）。自動化的錯誤會規模化，這兩個錯都被放大成全體層級的事故。佳稿做了三件事：憑證一律環境變數注入（匯出檔零明文）、完整演練所有錯誤分支（測試全綠才上線）、每個失敗點都有捕捉與通知。「自動化的錯誤會規模化」是這個專案的核心認知——正因如此，接正式通道前的測試與憑證紀律，是絕對不能省的閘門。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C2 -->
+  <details class="project" id="c2">
+    <summary class="project-header">
+      <div class="project-code">C2</div>
+      <div class="project-title-block">
+        <h3>互動數據洞察與迭代</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">每季從推播開啟率、答題分布、工具使用留存中讀出行為訊號，轉成下一季的內容與機制調整。高階層級的產出是「三個發現、三個調整」的迭代備忘錄，不是數據儀表板本身。數據判讀的紀律是「留存比觸及重要」——單次觸及高但無人回訪的內容是假成功，留存才是真價值。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：數據來源（LINE OA 後台、微學習系統、工具使用紀錄）；試算表做分析；tGenie 做洞察提煉。</li>
+            <li><strong>準備素材</strong>：本季的推播數據、答題數據、工具使用數據（重點是留存與回訪，不只總量）、上季的迭代備忘錄（看上次調整是否見效）。</li>
+            <li><strong>先看留存曲線</strong>：拉數據時先看留存與回訪曲線，再看總量——這個習慣決定你讀出的是真訊號還是虛榮指標。</li>
+            <li><strong>定義北極星</strong>：本季要追的核心指標是什麼？「仍在運轉且使用者不只是建立者本人」——留存與回訪永遠優先於單次觸及。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 社群互動組的互動數據洞察顧問，遵守「留存比觸及重要、產出迭代備忘錄而非儀表板」原則。
+
+我要從本季互動數據讀出行為訊號並轉成下季調整，需要您協助。
+
+【推播數據】
+（貼入：開啟率、點擊率、各類推播的表現，重點附留存/回訪數據）
+
+【答題/學習數據】
+（貼入：答題量、正確率分布、持續活躍人數、完成率）
+
+【工具使用數據】
+（貼入：各工具的使用量，重點是回訪率與留存，不只總使用次數）
+
+【上季迭代備忘錄】
+（貼入上季做的調整，以便評估是否見效）
+
+請給我四件事:
+（一）三個發現——從數據中讀出的三個最重要的行為訊號（優先讀留存與回訪曲線，不被單次高觸及誤導）；
+（二）三個調整——對應三個發現，下季要做的三個具體調整（內容方向、機制設計、推播節奏等）；
+（三）反指標檢查——有沒有「看似好但其實有問題」的數據（如某推播開啟率高但無後續行動、某工具使用量大但全是一次性）；
+（四）上季調整評估——上季的迭代是否見效，數據如何佐證，未見效的調整原因可能是什麼。
+
+請遵守：優先讀留存與回訪曲線，再看總量——單次高觸及但無回訪是假成功；
+產出「三個發現、三個調整」的精簡備忘錄，不是數據儀表板的羅列；
+每個調整要具體可執行（不是「加強推廣」這類空話）；
+誠實面對反指標——閘門攔截率持續為零要懷疑沒在執行、推播開啟率高但無行動要懷疑是標題黨。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>拉本季數據，先看留存與回訪曲線（不是先看總量）——這個順序決定你讀出真訊號。</li>
+            <li>開啟 tGenie，貼入提示詞範本與各項數據（重點附留存/回訪，不只總量）。</li>
+            <li>送出。等待約 90 秒。</li>
+            <li>讀（一）三個發現。確認都是基於留存/回訪的真訊號。<em>發現偏向總量</em>：回覆「請優先從留存與回訪角度重讀，總量高但回訪低的不算正面發現」。</li>
+            <li>讀（二）三個調整。確認每個都具體可執行。<em>調整空泛</em>：回覆「[某調整] 太空泛，請改為具體可執行的動作——調整什麼、怎麼調、預期效果」。</li>
+            <li>讀（三）反指標檢查。這是最有價值的部分——認真看有沒有「假成功」的數據。</li>
+            <li>讀（四）上季調整評估。判斷上次的迭代是否見效，作為這次調整的依據。</li>
+            <li>把洞察寫成「三個發現、三個調整」的一頁迭代備忘錄（不是數據羅列，是行動導向的精簡結論）。</li>
+            <li>與相關專案負責人對焦調整方向，把三個調整排入下季的工作計畫。</li>
+            <li>下季底回頭評估這三個調整是否見效——形成「發現→調整→評估→再發現」的迭代循環。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 的發現都基於總量（觸及數、答題數）</strong>：回覆「請從留存與回訪角度重讀數據——例如『答題總量高』要看『多少人持續答題』，後者才是真訊號」。</li>
+            <li><strong>調整建議是「加強推廣」「提升參與」</strong>：回覆「請把調整具體化——要調整哪個內容、哪個機制、哪個推播節奏，附預期可衡量的效果」。</li>
+            <li><strong>AI 沒檢查反指標</strong>：回覆「請找出『看似好但有問題』的數據——例如開啟率高但無後續行動的推播、使用量大但全一次性的工具」。</li>
+            <li><strong>備忘錄變成數據羅列</strong>：回覆「請濃縮成『三個發現、三個調整』的行動導向結論，不要羅列所有數據——備忘錄是給人做決定的，不是數據報表」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          季末分析互動數據。發現：某則「安全小知識」推播開啟率高達 85%（全季最高），但點擊內含連結的只有 3%；微學習答題總量比上季成長 40%，但持續活躍（連續 4 週答題）人數只有 60 人。要寫迭代備忘錄。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">備忘錄寫：「本季表現亮眼！『安全小知識』推播開啟率達 85%，創全季新高，顯示內容受歡迎，建議多做這類推播。微學習答題量成長 40%，參與熱絡，建議持續推廣。整體互動數據成長，社群經營成效良好。」問題：（1）只看開啟率（觸及）不看點擊率（行動）——85% 開啟但 3% 點擊代表標題吸引人但內容沒讓人行動，是標題黨；（2）只看答題總量不看持續活躍——成長 40% 但只有 60 人持續，代表多數是一次性參與；（3）沒有反指標意識，把虛榮指標當成功。據此「多做這類推播」的建議會強化標題黨、「持續推廣」會繼續衝一次性參與——都不是真正的改善。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">先看留存與回訪，寫成「三個發現、三個調整」：發現一：「安全小知識」推播開啟率 85% 但點擊率僅 3%——標題吸引人但內容沒驅動行動，是典型標題黨。發現二：答題總量成長 40% 但持續活躍僅 60 人——成長來自一次性參與，未轉化為習慣。發現三：（從工具數據）某查找器回訪率達 45%（遠高於其他工具）——這是真正被需要、會回來用的工具。對應三個調整：調整一：「安全小知識」改版——標題維持吸引力，但內容後段加一個明確的下一步行動（不只是知識，給可做的事），目標把點擊率拉到 15%。調整二：微學習加入『連續活躍』的層級機制（B1 遊戲化設計）——把一次性參與導向持續習慣，目標下季持續活躍人數翻倍到 120 人。調整三：分析高回訪查找器的成功要素，複製到其他工具——找出『為什麼這個工具會被回訪』並應用。反指標檢查明確點出：開啟率與答題總量是虛榮指標，留存與回訪才是真訊號。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          數據洞察的核心紀律是「留存比觸及重要」——以及對「虛榮指標」的警覺。劣稿的失敗是把觸及指標（開啟率、答題總量）當成功——85% 開啟但 3% 點擊是標題黨、成長 40% 但只 60 人持續是一次性參與。據此的建議會強化錯誤方向。佳稿做了三件事：優先讀留存/回訪（點擊率、持續活躍、回訪率）、明確標出虛榮指標、產出行動導向的「三發現三調整」。「閘門攔截率持續為零要懷疑沒在執行」的反指標思維是關鍵——數據好看不一定是真的好，高階層級的價值在於讀出數字背後的真相，而非為漂亮數字慶祝。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C3 -->
+  <details class="project" id="c3">
+    <summary class="project-header">
+      <div class="project-code">C3</div>
+      <div class="project-title-block">
+        <h3>跨區社群營運計畫</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">把單一據點驗證過的互動模式延展到多區域：時區排程、語言版本、在地文化調適。高階層級統籌的是「同一骨架、在地血肉」的複製計畫。跨區營運的紀律是「區域窗口是在地判斷的擁有者，不是翻譯外包」——延展沿用同一信任結構。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：排程工具（支援多時區）；翻譯協作（與 CS2-01 雙語流程＋區域同仁終審）；tGenie 做延展計畫規劃。</li>
+            <li><strong>準備素材</strong>：已驗證的互動模式（在單一據點成功的）、目標延展區域、各區時區與語言、各區的在地窗口同仁、文化差異注意點。</li>
+            <li><strong>先拆骨架與血肉</strong>：哪些是「骨架」（核心機制、結構，跨區不變）、哪些是「血肉」（語言、時間、在地案例，需在地化）？先把這兩個清單分開。</li>
+            <li><strong>確認信任結構</strong>：區域窗口同仁是「在地判斷的擁有者」（決定什麼適合當地），不是「翻譯外包」（只負責轉語言）。延展計畫要尊重這個結構。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 社群互動組的跨區營運統籌顧問，遵守「同一骨架、在地血肉」與「區域窗口是在地判斷擁有者」原則。
+
+我要把一個已驗證的互動模式延展到多個區域，需要您協助規劃。
+
+【已驗證的互動模式】
+（描述：在單一據點成功的互動模式——機制、結構、為何有效）
+
+【目標延展區域】
+（列出：要延展到哪些區域，各區的時區、主要語言、規模）
+
+【各區在地窗口】
+（列出：各區負責在地判斷的同仁窗口，若已知）
+
+【文化差異注意點】
+（描述：已知的各區文化差異——溝通風格、節慶、敏感事項）
+
+請給我四件事:
+（一）骨架與血肉拆分——哪些是跨區不變的核心（機制、結構），哪些需要在地化（語言、時間、案例、文化調適）；
+（二）時區排程設計——多區域的推播與活動時間如何安排，兼顧各區的作息；
+（三）在地化協作流程——語言版本如何走 CS2-01 雙語流程＋區域同仁終審，在地案例與文化調適如何由區域窗口主導；
+（四）信任結構設計——如何讓區域窗口擁有在地判斷權（決定什麼適合當地），而非淪為翻譯執行者。
+
+請遵守：核心骨架跨區一致（機制不因區域而走樣），但血肉（語言、時間、案例）充分在地化；
+區域窗口是在地判斷的擁有者，有權決定什麼適合當地，不是被動的翻譯外包；
+語言版本走 CS2-01 雙語流程，第三語言經區域同仁終審；
+時區排程尊重各區作息，不用總部時間強加。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>把已驗證模式拆成「骨架」（核心機制）與「血肉」（可在地化部分）兩個清單。</li>
+            <li>開啟 tGenie，貼入提示詞範本與已驗證模式描述。</li>
+            <li>送出。等待約 90 秒。</li>
+            <li>讀（一）骨架與血肉拆分。確認核心機制被列為「不變骨架」、語言時間案例被列為「在地血肉」。<em>拆分有誤</em>：回覆「[某項] 應該屬於 [骨架/血肉]，請重新歸類」。</li>
+            <li>讀（二）時區排程。確認尊重各區作息。<em>用總部時間強加</em>：回覆「請以各區當地的合理時間排程，不要用總部時間強加給所有區域」。</li>
+            <li>讀（三）在地化協作流程。確認語言走 CS2-01 流程、在地判斷由區域窗口主導。</li>
+            <li>讀（四）信任結構。確認區域窗口有在地判斷權。<em>窗口被當成翻譯</em>：回覆「請讓區域窗口擁有『決定什麼適合當地』的判斷權，不只是翻譯執行——他們是在地判斷的擁有者」。</li>
+            <li>把計畫寫成完整文件：骨架（跨區一致部分）、各區在地化方案、時區排程、協作流程、信任結構。</li>
+            <li>與各區窗口同仁對焦——不是「交付翻譯任務」，是「邀請他們擁有各自區域的在地判斷」。聽他們對在地適配的意見。</li>
+            <li>先在一個區域試行，驗證「骨架不變、血肉在地」的模式可行，再延展到其他區域。</li>
+            <li>延展後定期與各區窗口同步——收集在地回饋，讓骨架在跨區實踐中也能迭代改善。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 把核心機制也列為「可在地化」</strong>：回覆「核心機制是跨區不變的骨架，不應因區域而改變——請只把語言、時間、案例、文化表達列為可在地化的血肉」。</li>
+            <li><strong>時區排程用總部時間</strong>：回覆「請以各區當地時間排程——例如推播時間應對應各區的上班時段，不是用總部的 09:00 強加給所有時區」。</li>
+            <li><strong>把區域窗口當成翻譯外包</strong>：回覆「請重新設計——區域窗口是『決定什麼適合當地』的判斷擁有者，他們能否決不適合當地的內容，不只是把總部內容翻成當地語言」。</li>
+            <li><strong>在地化只做了翻譯沒做文化調適</strong>：回覆「在地化不只是語言——請加入文化調適（節慶、溝通風格、敏感事項），由區域窗口主導判斷哪些需要調整」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          一個在台灣據點驗證成功的「每週安全微學習推播＋月度問答活動」模式，要延展到日本、德國、美國三個區域。三區時區、語言、文化各異，各有在地窗口同仁。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">把台灣的模式直接「翻譯複製」到三區：用 Google 翻譯把台灣的推播文案翻成日文、德文、英文，直接套用。推播時間沿用台灣的每週一上午 9 點（台灣時間），三區同步推送（結果德國收到時是凌晨、美國是半夜）。問答活動的題目直接翻譯（包含一道用了台灣本地法規情境的題目，在日德美完全不適用）。把三區窗口同仁當成「翻譯確認者」，只請他們「看看翻譯對不對」，不問他們在地適配意見。結果：（1）德美收到凌晨推播，開啟率極低；（2）那道台灣法規題讓三區同仁困惑；（3）翻譯腔的文案在地同仁讀來生硬；（4）區域窗口覺得自己只是橡皮圖章，不被尊重，參與意願低。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">拆分骨架與血肉，尊重區域窗口的在地判斷權：骨架（跨區一致）：每週微學習推播＋月度問答活動的機制、層級徽章結構、留存導向的設計理念。血肉（在地化）：語言——走 CS2-01 雙語流程，日德文經各區同仁終審（非機器翻譯直接用）。時間——各區以當地時間推播（日本週一 9:00 JST、德國週一 9:00 CET、美國週一 9:00 當地時區），不用台灣時間強加。案例——那道台灣法規題由各區窗口替換為當地適用的情境（區域窗口主導判斷什麼適合當地）。文化——各區窗口調整溝通風格（如德國偏好直接精確、日本偏好禮貌鋪陳）。信任結構——與各區窗口對焦時，邀請他們『擁有』各自區域的在地判斷：他們有權否決不適合當地的內容、有權建議在地化的調整。先在日本試行驗證模式，再延展德美。結果：三區的推播都在當地合理時間送達、案例在地適用、文案讀來自然、區域窗口因被賦予判斷權而積極投入。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          跨區營運的核心紀律是「同一骨架、在地血肉」——以及「區域窗口是在地判斷的擁有者，不是翻譯外包」。劣稿的失敗是「翻譯複製」——機器翻譯文案、總部時間強加、台灣案例硬套、把區域窗口當橡皮圖章。結果四處碰壁，且傷害了區域窗口的參與意願。佳稿做了三件事：明確拆分骨架（不變）與血肉（在地化）、各區用當地時間與在地案例、賦予區域窗口真正的在地判斷權。「區域窗口是在地判斷的擁有者」是這個專案的核心——延展不是把總部的東西複製到各地，是建立一個『核心一致、在地自主』的信任結構。尊重在地判斷，延展才能真正落地。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+</main>
+
+<footer>
+  <p>CS2-04 社群互動組 · Toolkit v1.0 · 資訊更新 2026-06 · 由現任主理人擬定</p>
+  <p>上游 · GPS 內容推廣制度導讀 · 工作公約 · 共通底座</p>
+  <p class="brand-tagline">Before you need it. · 在您需要之前。</p>
+</footer>
+
+<script>
+  (function() {
+    // ===== Copy buttons =====
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();  // prevent parent summary toggle
+        e.preventDefault();
+        const pre = btn.parentElement.querySelector('pre');
+        if (!pre) return;
+        const text = pre.textContent;
+        const showCopied = () => {
+          const labelSpan = btn.querySelector('span');
+          if (labelSpan) labelSpan.textContent = '已複製';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            if (labelSpan) labelSpan.textContent = '複製';
+            btn.classList.remove('copied');
+          }, 2000);
+        };
+        const fallbackCopy = () => {
+          const ta = document.createElement('textarea');
+          ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          try { document.execCommand('copy'); showCopied(); }
+          catch (e) { console.error('Copy failed:', e); }
+          document.body.removeChild(ta);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(showCopied).catch(fallbackCopy);
+        } else { fallbackCopy(); }
+      });
+    });
+
+    // ===== Expand / Collapse all =====
+    const expandAllBtn = document.getElementById('expand-all');
+    const collapseAllBtn = document.getElementById('collapse-all');
+    if (expandAllBtn) {
+      expandAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = true);
+      });
+    }
+    if (collapseAllBtn) {
+      collapseAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = false);
+      });
+    }
+
+    // ===== Side index / top nav clicks → expand target =====
+    document.querySelectorAll('.side-index a, .top-nav a').forEach(a => {
+      a.addEventListener('click', () => {
+        const href = a.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        const target = document.getElementById(href.slice(1));
+        if (target && target.tagName === 'DETAILS') {
+          target.open = true;
+        }
+      });
+    });
+
+    // ===== Auto-expand on hash change / initial hash =====
+    function expandFromHash() {
+      const hash = window.location.hash;
+      if (!hash) return;
+      const target = document.getElementById(hash.slice(1));
+      if (target && target.tagName === 'DETAILS') {
+        target.open = true;
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      }
+    }
+    window.addEventListener('hashchange', expandFromHash);
+    if (window.location.hash) setTimeout(expandFromHash, 100);
+
+    // ===== Print: expand all temporarily =====
+    let printStates = [];
+    window.addEventListener('beforeprint', () => {
+      printStates = Array.from(document.querySelectorAll('details')).map(d => ({ el: d, was: d.open }));
+      printStates.forEach(s => s.el.open = true);
+    });
+    window.addEventListener('afterprint', () => {
+      printStates.forEach(s => s.el.open = s.was);
+      printStates = [];
+    });
+
+    // ===== Side index active state =====
+    const links = document.querySelectorAll('.side-index a');
+    if (!links.length) return;
+    const linkMap = {};
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      linkMap[id] = a;
+    });
+    const sections = document.querySelectorAll('section[id], article[id], details[id]');
+    let activeId = null;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activeId = entry.target.id;
+        }
+      });
+      if (activeId && linkMap[activeId]) {
+        links.forEach(a => a.classList.remove('active'));
+        linkMap[activeId].classList.add('active');
+      }
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  })();
+</script>
+
+</body>
+</html>

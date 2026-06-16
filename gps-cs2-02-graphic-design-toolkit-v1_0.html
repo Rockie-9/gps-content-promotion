@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CS2-02 平面設計組 · Toolkit</title>
+<style>
+  :root {
+    --turquoise:#26A7B0;
+    --turquoise-50:#ECF7F8;
+    --turquoise-100:#D0EDEF;
+    --turquoise-700:#1F8A92;
+    --copper-light:#CAC3D2;
+    --copper-deep:#6E5F7C;
+    --purple:#7086BA;
+    --green:#6BB57E;
+    --orange:#ED7442;
+    --warn:#E5993E;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a4a;
+    --ink-mute:#8a8580;
+    --paper:#fdfcfa;
+    --paper-soft:#f5f3ef;
+    --paper-warm:#faf7f0;
+    --line:#e5e2db;
+    --line-strong:#cfc9bf;
+    --tier-a:var(--turquoise);
+    --tier-b:var(--purple);
+    --tier-c:var(--copper-deep);
+    --bad:#c9624b;
+    --good:#5ba373;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.78;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    background:linear-gradient(135deg,var(--purple) 0%,#5269A0 100%);
+    color:#fff;
+    padding:56px 24px 44px;
+  }
+  .hero-inner { max-width:960px; margin:0 auto; }
+  .hero-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:12px;
+    opacity:0.85;
+    margin-bottom:12px;
+  }
+  .hero-code {
+    font-family:Georgia,serif;
+    font-size:13px;
+    background:rgba(255,255,255,0.18);
+    padding:4px 12px;
+    border-radius:4px;
+    letter-spacing:0.08em;
+    display:inline-block;
+    margin-bottom:14px;
+  }
+  .hero h1 {
+    font-size:34px;
+    font-weight:700;
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+    line-height:1.3;
+  }
+  .hero-tagline {
+    font-size:16px;
+    opacity:0.92;
+    margin:0 0 22px;
+    line-height:1.7;
+  }
+  .hero-rule {
+    background:rgba(255,255,255,0.10);
+    border-left:3px solid rgba(255,255,255,0.5);
+    padding:14px 18px;
+    border-radius:0 4px 4px 0;
+    font-size:14.5px;
+    line-height:1.75;
+    max-width:720px;
+    margin:0;
+  }
+  .hero-rule-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    opacity:0.8;
+    margin-bottom:4px;
+  }
+  .hero-update {
+    font-size:12px;
+    opacity:0.75;
+    margin-top:22px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    letter-spacing:0.08em;
+  }
+
+  /* Layout */
+  main { max-width:960px; margin:0 auto; padding:48px 24px 64px; }
+
+  /* Side index */
+  .side-index {
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    width:188px;
+    background:rgba(253,252,250,0.94);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 10px;
+    font-size:13px;
+    z-index:40;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+    display:none;
+    max-height:80vh;
+    overflow-y:auto;
+  }
+  .side-index-title {
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--ink-mute);
+    padding:2px 8px 8px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:6px;
+  }
+  .side-index ul { list-style:none; padding:0; margin:0; }
+  .side-index a {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 8px;
+    border-radius:5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background .15s,color .15s;
+    line-height:1.4;
+    font-size:12.5px;
+  }
+  .side-index a:hover { background:var(--paper-soft); color:var(--ink); }
+  .side-index a.active {
+    background:var(--turquoise-50);
+    color:var(--turquoise-700);
+    font-weight:600;
+  }
+  .side-index .code {
+    font-family:Georgia,serif;
+    font-size:11px;
+    color:var(--ink-mute);
+    flex:0 0 18px;
+  }
+  .side-index a.active .code { color:var(--turquoise-700); }
+  .side-index-divider {
+    height:1px;
+    background:var(--line);
+    margin:6px 8px 6px;
+  }
+  .side-index-tier-label {
+    font-size:10px;
+    color:var(--ink-mute);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:6px 8px 4px;
+    font-weight:600;
+  }
+  .side-index-tier-label[data-t="a"] { color:var(--tier-a); }
+  .side-index-tier-label[data-t="b"] { color:var(--tier-b); }
+  .side-index-tier-label[data-t="c"] { color:var(--tier-c); }
+
+  /* Top nav */
+  .top-nav {
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(253,252,250,0.96);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+    margin:0 -24px 32px;
+  }
+  .top-nav-inner {
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+  }
+  .top-nav a {
+    flex:0 0 auto;
+    padding:8px 12px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    border-radius:4px;
+    white-space:nowrap;
+    transition:all .15s;
+  }
+  .top-nav a:hover { background:var(--paper-soft); color:var(--ink); }
+
+  /* Intro */
+  .intro {
+    margin-bottom:48px;
+  }
+  .intro-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:11px;
+    color:var(--turquoise);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .intro h2 {
+    font-size:24px;
+    font-weight:700;
+    margin:0 0 12px;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .intro > p {
+    font-size:15px;
+    color:var(--ink-soft);
+    line-height:1.8;
+    margin:0 0 12px;
+    max-width:720px;
+  }
+
+  /* Four voices */
+  .voices {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:24px;
+  }
+  .voice {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:20px 22px;
+    border-left:4px solid var(--v-color);
+  }
+  .voice[data-v="1"] { --v-color:var(--turquoise); }
+  .voice[data-v="2"] { --v-color:var(--green); }
+  .voice[data-v="3"] { --v-color:var(--copper-deep); }
+  .voice[data-v="4"] { --v-color:var(--orange); }
+  .voice-header {
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .voice-num {
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.06em;
+  }
+  .voice h4 {
+    margin:0;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .voice-when {
+    margin:0 0 12px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .voice-when strong { color:var(--ink); }
+  .voice-example {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:12px 14px;
+    margin:0;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+    border-left:2px solid var(--v-color);
+  }
+  .voice-example-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .voice-example em {
+    display:block;
+    margin-top:6px;
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tier section */
+  .tier-section {
+    margin-bottom:64px;
+    scroll-margin-top:24px;
+  }
+  .tier-header {
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    padding-bottom:14px;
+    margin-bottom:24px;
+    border-bottom:2px solid var(--tier-color);
+  }
+  .tier-section[data-t="a"] { --tier-color:var(--tier-a); }
+  .tier-section[data-t="b"] { --tier-color:var(--tier-b); }
+  .tier-section[data-t="c"] { --tier-color:var(--tier-c); }
+  .tier-number {
+    font-family:Georgia,serif;
+    font-size:32px;
+    font-weight:600;
+    color:var(--tier-color);
+    line-height:1;
+  }
+  .tier-name-block { flex:1 1 auto; }
+  .tier-name {
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin:0;
+    line-height:1.3;
+  }
+  .tier-name-en {
+    font-size:11px;
+    color:var(--ink-mute);
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+  .tier-subtitle {
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0;
+    font-style:italic;
+  }
+
+  /* Project */
+  .project {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    margin-bottom:28px;
+    overflow:hidden;
+    scroll-margin-top:72px;
+  }
+  .project-header {
+    background:var(--paper-warm);
+    padding:20px 24px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .project-code {
+    flex:0 0 auto;
+    background:var(--tier-color);
+    color:#fff;
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    padding:6px 10px;
+    border-radius:4px;
+    letter-spacing:0.04em;
+  }
+  .project-title-block { flex:1 1 auto; }
+  .project-title-block h3 {
+    margin:0;
+    font-size:19px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .project-body { padding:26px 28px; }
+
+  /* Fields */
+  .field { margin-bottom:30px; }
+  .field:last-child { margin-bottom:0; }
+  .field-label {
+    font-size:11px;
+    font-weight:600;
+    color:var(--tier-color);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .field-direction {
+    font-size:15px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+  }
+
+  /* AI workflow sub-fields */
+  .workflow-sub {
+    margin-bottom:20px;
+  }
+  .workflow-sub:last-child { margin-bottom:0; }
+  .workflow-sub-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .workflow-sub-num {
+    background:var(--tier-color);
+    color:#fff;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+    flex:0 0 22px;
+  }
+
+  /* Prep list */
+  .prep-list {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .prep-list li {
+    position:relative;
+    padding:4px 0 4px 22px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .prep-list li::before {
+    content:"";
+    position:absolute;
+    left:6px;
+    top:14px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--tier-color);
+    opacity:0.7;
+  }
+  .prep-list strong { color:var(--ink); }
+
+  /* Prompt block */
+  .field-prompt {
+    background:var(--paper-soft);
+    border-left:3px solid var(--tier-color);
+    border-radius:0 4px 4px 0;
+    padding:16px 18px;
+    font-family:"SF Mono","Consolas","Menlo","Noto Sans TC",monospace;
+    font-size:13px;
+    color:var(--ink);
+    line-height:1.75;
+    margin:0;
+    white-space:pre-wrap;
+    overflow-x:auto;
+    position:relative;
+  }
+  .field-prompt::before {
+    content:"提示詞範本 · 完整複製";
+    display:block;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:10px;
+    font-weight:600;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    padding-bottom:8px;
+    border-bottom:1px dashed var(--line-strong);
+  }
+
+  /* Operation steps */
+  .op-steps {
+    counter-reset:opstep;
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .op-steps > li {
+    counter-increment:opstep;
+    position:relative;
+    padding:10px 0 10px 36px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+    border-bottom:1px solid var(--line);
+  }
+  .op-steps > li:last-child { border-bottom:none; padding-bottom:4px; }
+  .op-steps > li::before {
+    content:counter(opstep);
+    position:absolute;
+    left:0;
+    top:12px;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:transparent;
+    color:var(--tier-color);
+    border:1.5px solid var(--tier-color);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+  }
+  .op-steps em {
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tips */
+  .tips-list {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .tips-list li {
+    position:relative;
+    padding:5px 0 5px 0;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .tips-list li strong {
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+  .tips-list li::before {
+    content:"→";
+    color:var(--tier-color);
+    margin-right:8px;
+    font-weight:600;
+  }
+
+  /* Case study */
+  .case-scenario {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0 0 16px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+  .case-scenario strong {
+    display:block;
+    font-size:11px;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  .case-compare {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-bottom:16px;
+  }
+  .case-panel {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+    position:relative;
+  }
+  .case-panel.bad { border-left:4px solid var(--bad); }
+  .case-panel.good { border-left:4px solid var(--good); }
+  .case-panel-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+  }
+  .case-panel.bad .case-panel-label { color:var(--bad); }
+  .case-panel.good .case-panel-label { color:var(--good); }
+  .case-panel-label-icon {
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:11px;
+    font-weight:700;
+    color:#fff;
+  }
+  .case-panel.bad .case-panel-label-icon { background:var(--bad); }
+  .case-panel.good .case-panel-label-icon { background:var(--good); }
+  .case-content {
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.85;
+    margin:0;
+    font-style:italic;
+  }
+  .case-content::before { content:"「"; }
+  .case-content::after { content:"」"; }
+
+  .case-takeaway {
+    background:var(--turquoise-50);
+    border-radius:6px;
+    padding:14px 18px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+    border-left:3px solid var(--turquoise);
+  }
+  .case-takeaway strong {
+    display:block;
+    font-size:11px;
+    color:var(--turquoise-700);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  /* Footer */
+  footer {
+    background:var(--paper-soft);
+    border-top:1px solid var(--line);
+    padding:32px 24px;
+    text-align:center;
+  }
+  footer p {
+    margin:4px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  footer .brand-tagline {
+    font-size:14px;
+    color:var(--turquoise-700);
+    font-weight:500;
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+
+  /* Draft notice */
+  .draft-notice {
+    background:#fff7e8;
+    border:1px solid #f0d99f;
+    border-radius:6px;
+    padding:14px 18px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .draft-notice-icon {
+    flex:0 0 18px;
+    color:var(--warn);
+    margin-top:2px;
+  }
+  .draft-notice strong { color:#a86b14; }
+
+  /* Print */
+  @media print {
+    .top-nav, .side-index, .draft-notice { display:none !important; }
+    .hero { background:#fff; color:var(--ink); border-bottom:2px solid var(--turquoise); }
+    .hero h1, .hero-tagline, .hero-eyebrow, .hero-update, .hero-code, .hero-rule { color:var(--ink); opacity:1; }
+    .hero-code, .hero-rule { background:var(--paper-soft); }
+    .project, .tier-section { break-inside:avoid; page-break-inside:avoid; }
+  }
+
+  /* Responsive */
+  @media (min-width: 1320px) {
+    .side-index { display:block; }
+    .top-nav { display:none; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding:42px 20px 32px; }
+    .hero h1 { font-size:26px; }
+    .hero-tagline { font-size:15px; }
+    main { padding:32px 20px 48px; }
+    .top-nav { margin:0 -20px 24px; }
+    .top-nav-inner { padding:0 20px; }
+    .tier-header { flex-wrap:wrap; }
+    .tier-number { font-size:24px; }
+    .tier-name { font-size:19px; }
+    .project-header { padding:18px 20px; gap:12px; }
+    .project-body { padding:20px; }
+    .field-prompt { font-size:12px; padding:14px 16px; }
+  }
+
+  /* ============ v1.2 additions ============ */
+  /* Controls bar */
+  .controls-bar { display:flex; justify-content:flex-end; gap:8px; margin-bottom:28px; }
+  .control-btn {
+    background:transparent; border:1px solid var(--line-strong); color:var(--ink-soft);
+    padding:7px 14px; border-radius:5px; font-size:12px;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:6px; font-weight:500;
+  }
+  .control-btn:hover { background:var(--paper-soft); border-color:var(--ink-soft); color:var(--ink); }
+  .control-btn svg { width:12px; height:12px; }
+
+  /* Collapsible details/summary */
+  details summary { list-style:none; cursor:pointer; user-select:none; }
+  details summary::-webkit-details-marker { display:none; }
+  details summary::marker { display:none; }
+  .summary-chevron {
+    flex:0 0 16px; color:var(--tier-color, var(--ink-mute));
+    transition:transform .25s; margin-left:auto;
+  }
+  details[open] > summary .summary-chevron { transform:rotate(180deg); }
+
+  /* Voice section collapsible */
+  details.intro-collapse {
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    overflow:hidden; margin-bottom:32px;
+  }
+  details.intro-collapse > summary {
+    background:var(--paper-warm); padding:18px 22px;
+    display:flex; align-items:center; gap:14px;
+    font-size:15px; font-weight:700; color:var(--ink);
+  }
+  details.intro-collapse[open] > summary { border-bottom:1px solid var(--line); }
+  details.intro-collapse > summary .summary-chevron { color:var(--turquoise); }
+  details.intro-collapse > summary span:first-of-type {
+    display:flex; align-items:center; gap:10px;
+  }
+  details.intro-collapse > summary .intro-code {
+    font-family:Georgia,serif; font-size:12px; color:var(--turquoise-700);
+    background:var(--turquoise-50); padding:3px 9px; border-radius:3px;
+    letter-spacing:0.06em;
+  }
+  .intro-collapse-body { padding:26px 28px; }
+
+  /* Copy button */
+  .prompt-block { position:relative; }
+  .copy-btn {
+    position:absolute; top:10px; right:10px; z-index:5;
+    background:#fff; border:1px solid var(--tier-color); color:var(--tier-color);
+    padding:5px 12px; border-radius:4px;
+    font-size:11px; font-weight:600; letter-spacing:0.04em;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:5px;
+  }
+  .copy-btn:hover { background:var(--tier-color); color:#fff; }
+  .copy-btn.copied { background:var(--good); border-color:var(--good); color:#fff; }
+  .copy-btn svg { width:11px; height:11px; }
+
+  /* Old prompt label removed — outer label + copy btn replace it */
+  .field-prompt::before { display:none; }
+  .field-prompt { padding-top:38px; }
+
+  /* Print: expand all */
+  @media print {
+    details > summary .summary-chevron { display:none; }
+    details > *:not(summary) { display:block !important; }
+    .controls-bar, .copy-btn { display:none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">GPS 內容推廣 · 組別工具手冊</div>
+    <span class="hero-code">CS2-02</span>
+    <h1>平面設計組 Toolkit</h1>
+    <p class="hero-tagline">平面、版型、品牌應用、圖示系統、實體物設計——三級九專案，每案附完整提示詞、操作步驟與正反案例對照。</p>
+    <div class="hero-rule">
+      <span class="hero-rule-label">全組鐵則</span>
+      視覺 canon 的單一真相源是色彩系統與 Brand Hub 模板。生成影像與 icon library 採條件式使用——對外署名素材一律禁止；定稿視覺走品牌色票與模板，圖示一律自製 SVG。判斷分界一句話：會否掛全球實體安全團隊的名字對外。
+    </div>
+    <div class="hero-update">資訊更新 2026-06 · v1.0</div>
+  </div>
+</header>
+
+<aside class="side-index" aria-label="快速索引">
+  <div class="side-index-title">CS2-02 索引</div>
+  <ul>
+    <li><a href="#intro"><span class="code">§ 0</span>三道閘門</a></li>
+    <li class="side-index-divider"></li>
+    <li class="side-index-tier-label" data-t="a">基礎 · Foundational</li>
+    <li><a href="#a1"><span class="code">A1</span>模板套用海報</a></li>
+    <li><a href="#a2"><span class="code">A2</span>多尺寸通路改製</a></li>
+    <li><a href="#a3"><span class="code">A3</span>簡報視覺整備</a></li>
+    <li class="side-index-tier-label" data-t="b">進階 · Intermediate</li>
+    <li><a href="#b1"><span class="code">B1</span>資訊圖表設計</a></li>
+    <li><a href="#b2"><span class="code">B2</span>自製 SVG 圖示集</a></li>
+    <li><a href="#b3"><span class="code">B3</span>活動主視覺（KV）開發</a></li>
+    <li class="side-index-tier-label" data-t="c">高階 · Advanced</li>
+    <li><a href="#c1"><span class="code">C1</span>新模板開發</a></li>
+    <li><a href="#c2"><span class="code">C2</span>實體物與禮品設計</a></li>
+    <li><a href="#c3"><span class="code">C3</span>視覺一致性審計</a></li>
+  </ul>
+</aside>
+
+<nav class="top-nav" aria-label="導覽">
+  <div class="top-nav-inner">
+    <a href="#intro">三道閘門</a>
+    <a href="#tier-a">基礎層級 A</a>
+    <a href="#tier-b">進階層級 B</a>
+    <a href="#tier-c">高階層級 C</a>
+  </div>
+</nav>
+
+<main>
+
+<div class="draft-notice">
+  <div class="draft-notice-icon" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="9" cy="9" r="7.5"/>
+      <path d="M9 5 L9 10" stroke-linecap="round"/>
+      <circle cx="9" cy="12.5" r="0.8" fill="currentColor"/>
+    </svg>
+  </div>
+  <div>
+    <strong>v1.0 草稿 · 待組長校稿</strong>——案例皆為自帶情境的劣稿／佳稿對照，
+    不假設讀者看過任何過往作品；提示詞拆為「準備 → 範本 → 操作步驟 → 常見調整」四段。
+    待 CS2-02 組長就位後將進入正式校稿與案例庫迭代。
+  </div>
+</div>
+
+<div class="controls-bar">
+  <button class="control-btn" type="button" id="expand-all" aria-label="展開所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 L6 10 M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部展開
+  </button>
+  <button class="control-btn" type="button" id="collapse-all" aria-label="收合所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部收合
+  </button>
+</div>
+
+<!-- ============= INTRO ============= -->
+<details class="intro-collapse" id="intro">
+  <summary>
+    <span><span class="intro-code">§ 0</span>判斷的三道閘門</span>
+    <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </summary>
+  <div class="intro-collapse-body">
+  <div class="intro-eyebrow">§ 0 · 動手前的判斷</div>
+  <h2>判斷的三道閘門</h2>
+  <p>動手前先過三道閘門——這是 CS2-02 的判斷依據，也是讓視覺品質下限不破的機制。每件視覺都要回答：canon 是否被尊重、模板是否被善用、圖示是否自製。三題都 Yes 才開工。</p>
+  <div class="voices">
+  <div class="voice" data-v="1">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 01</span>
+        <h4>Canon 閘門 · Canon Check</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何用到色票、字級、留白規則的視覺決策時。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">什麼是 canon</span>
+        色彩系統（11 階梯色票）、字級系統、留白規則、品牌色 token——這些是視覺的「不可變」基準。
+        <em>常見破口：用「相近色」代替品牌色（例如 #2BA8B0 而非 #26A7B0）、用「差不多的字級」（13pt 而非 14pt）。canon 的精確不是強迫症，是讓所有素材聚在一起時不雜訊。</em>
+        <em>對的做法：色票只引用 Brand Hub 提供的 token，不肉眼挑色；字級嚴格落入既定階梯，不自創中間值。</em>
+      </div>
+    </div>
+  <div class="voice" data-v="2">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 02</span>
+        <h4>模板閘門 · Template Fit</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何新視覺產出開始時。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼有模板</span>
+        Brand Hub 32 個模板對應 32 種典型場景。模板是視覺品質下限——選對模板，下限就守住。
+        <em>常見破口：先入為主選了一個模板，內容塞不下就壓字級、刪留白、改規則。模板被破壞後，後續所有套用都失去基準。</em>
+        <em>對的做法：先讀文案、判斷類型、選對模板。塞不下時回退到撰稿人請求縮短，不破壞模板。</em>
+      </div>
+    </div>
+  <div class="voice" data-v="3">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 03</span>
+        <h4>自製 SVG 閘門 · Custom SVG Only</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何需要圖示的場合。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼不用 icon library</span>
+        Lucide、Heroicons 等 icon library 在全球各家產品都看得到。引用它們的圖示等於說「我們的視覺等同於任何 SaaS 產品」。
+        <em>常見破口：「找不到時間自製」「先用 library 之後再換」。先用 library 的素材幾乎不會再換——它會留在那裡，稀釋品牌。</em>
+        <em>對的做法：所有圖示自製 SVG（CS2-02 B2 專案有完整流程）。沒時間自製寧可不用圖示。</em>
+      </div>
+    </div>
+  </div>
+  </div>
+</details>
+
+<!-- ============= TIER A: 基礎 ============= -->
+<section class="tier-section" data-t="a" id="tier-a">
+  <div class="tier-header">
+    <div class="tier-number">01</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">基礎 · Foundational</h2>
+      <p class="tier-subtitle">模板內的熟練——選對模板、按規執行、不破壞下限</p>
+    </div>
+  </div>
+
+  <!-- A1 -->
+  <details class="project" id="a1">
+    <summary class="project-header">
+      <div class="project-code">A1</div>
+      <div class="project-title-block">
+        <h3>模板套用海報</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">用 Brand Hub 既有模板完成一張活動或宣導海報。練的不是創意，是紀律——色票、字級層級、留白規則在模板內全部就位，基礎層級要學會「不破壞它」。選對模板比把模板「用得有創意」重要十倍。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：Brand Hub（vercel.app）查詢可用模板；tGenie 對話模式做模板選擇諮詢；Figma 或 Adobe Express 實際套版。</li>
+            <li><strong>準備素材</strong>：海報主題、文案定稿（從 CS2-01 取得，未定稿不開工）、發布通路（公告欄／螢幕／社群）、發布日期。</li>
+            <li><strong>確認分類</strong>：活動類型（內部宣導／對外活動／節慶提醒／緊急通知）——分類決定模板選擇。</li>
+            <li><strong>查 canon</strong>：色票 token 編號、預期字級階梯——避免到實作時才發現需要回查。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 平面設計組的模板選擇顧問，熟悉 Brand Hub 的 32 個模板與其適用情境。
+您不替我設計，您協助我選對模板與規劃文案在模板內的層級。
+
+我要製作一張海報，需要您協助選擇 Brand Hub 模板。
+
+【海報主題】
+（填入：例如 2026 安全文化季開跑公告）
+
+【文案定稿】
+（將定稿文案完整貼入。未定稿請先回到 CS2-01 完成定稿）
+
+【發布通路】
+（填入：例如 廠區公告欄、電梯口螢幕、社群分享）
+
+【發布日期】
+（填入）
+
+【活動類型】
+（填入四選一：內部宣導／對外活動／節慶提醒／緊急通知）
+
+請給我三件事:
+（一）建議的 Brand Hub 模板（名稱＋模板編號），附選擇理由；
+（二）文案在模板內的層級安排——哪句是主標、哪句是副標、哪段是內文、哪些是輔助資訊；
+（三）需要回退給 CS2-01 撰稿人的問題（例如某段文字超出模板字數上限）。
+
+請遵守：不建議模板外的版型；不建議新色票；不建議裝飾性元素；
+塞不下的內容不壓字級也不刪留白，回退請求縮短。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 Brand Hub 查詢可用模板總覽，瀏覽一遍各模板的適用情境（5 分鐘）。</li>
+            <li>開啟 tGenie，貼入提示詞範本，替換所有方括號內容。文案定稿一定要完整貼入——AI 從文案才能準確建議模板。</li>
+            <li>送出。等待約 30 秒。</li>
+            <li>讀（一）模板建議。對照 Brand Hub 確認該模板確實適合您的情境。<em>不確定時</em>：回覆「請就以下兩個模板給比較分析：[模板 A] vs [模板 B]」。</li>
+            <li>讀（二）層級安排。判斷主標／副標／內文的分配是否合理。<em>有疑慮時</em>：回覆「請改以 [其他句子] 為主標重試」。</li>
+            <li>讀（三）回退問題。如有需要回退的項目，立即聯繫 CS2-01 撰稿人，不自行修改文案。</li>
+            <li>在 Figma 或 Adobe Express 開啟所選模板，按（二）的層級安排輸入文案。色票直接引用 token，不肉眼挑色。</li>
+            <li>完成後與 Brand Hub 該模板的原始範例對照——所有結構元素（色帶、留白、字級階梯）是否與範例一致。一致才交付。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 推薦的模板與您直覺不同</strong>：請回覆「我直覺想用 [模板 X]，請說明它與您推薦的差別」——AI 的推薦通常基於文案密度判斷，您的直覺基於通路熟悉度，互相對照可避免誤判。</li>
+            <li><strong>文案塞不進建議的模板</strong>：不壓字級。直接聯繫 CS2-01 請求縮短，附上「第 N 段超出 M 字」的具體位置。</li>
+            <li><strong>AI 建議用裝飾性元素強化視覺</strong>：回覆「請從建議中移除所有裝飾性元素。本組不在模板外加裝飾」。</li>
+            <li><strong>不確定色票 token 編號</strong>：查 Brand Hub 的色彩系統頁面，或在 tGenie 補問「[色名] 對應的 token 編號是？」</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要為下個月的「2026 安全文化季開跑」做一張公告海報。文案定稿：「安全文化季 6/1-6/30　每週一支 5 分鐘短片　每週五一次 15 分鐘討論　全程線上　報名連結附下方。」發布通路是廠區公告欄與電梯口螢幕。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">選了「對外活動」模板（這款適合外部受眾、文字密度低、視覺重點是一個大標）。硬把 4 個欄位資訊塞進文字框，字級從預設 18pt 壓到 12pt，留白規則被踩破。看起來「資訊完整」但視線無從聚焦——廠區同仁站在公告欄前 3 秒掃過去，記不住任何一條。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">選了「內部教育型」模板（這款適合多點清單、有清楚的條列區）。主標「安全文化季 6/1-6/30」用模板預設字級 28pt，4 個資訊欄位以模板內的條列區呈現（每點 14pt，配自製 SVG 圖示）。視線從主標往下到條列、再到結尾的報名連結。同仁 3 秒掃過去能記住「6 月、每週短片、有討論、線上、有報名」五件事。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          基礎層級最常見的錯誤是「先選一個模板，內容塞不下就改模板規則」。模板的存在是為了確保品質下限——壓字級的瞬間，下限就破了。對的順序是：先讀文案、判斷類型、選對模板。模板的判斷依據是「文案結構」而非「視覺直覺」——4 個並列資訊欄位永遠對應「條列型」模板，不論主題多嚴肅。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A2 -->
+  <details class="project" id="a2">
+    <summary class="project-header">
+      <div class="project-code">A2</div>
+      <div class="project-title-block">
+        <h3>多尺寸通路改製</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">把一張定稿視覺改製為多通路尺寸（公告欄直式、螢幕橫式、LINE 圖卡方形）。練的是「重新構圖而非等比縮放」——每個尺寸重新決定裁切與層級，核心訊息不變。等比縮放是改製的最大陷阱：原本的閱讀順序會被毀掉。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：Figma 或 Adobe Express 做實際改製；tGenie 做構圖規劃。</li>
+            <li><strong>準備素材</strong>：母版視覺定稿檔（向量檔最佳）、目標通路清單與尺寸規格。</li>
+            <li><strong>辨識核心</strong>：母版視覺的「核心訊息」是哪一句、哪一個元素？這在所有尺寸都不能犧牲。</li>
+            <li><strong>辨識構圖</strong>：母版的視覺動線是什麼（左到右／上到下／中心擴散）？這個動線在不同尺寸需要重新設計。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 平面設計組的構圖顧問。您理解多尺寸改製不是縮放——是「同訊息不同構圖」。
+
+我要將一張定稿視覺改製為多種通路尺寸，需要您協助規劃。
+
+【母版視覺說明】
+（描述母版的構圖：主標位置、副資訊位置、視覺重點、視覺動線）
+
+【母版視覺核心訊息】（一句話）
+（描述：例如「6 月有安全文化季，週一短片、週五討論」）
+
+【目標通路與尺寸】
+- 通路 A：（填入，例如 廠區公告欄 A3 直）
+- 通路 B：（填入，例如 電梯口螢幕 16:9 橫）
+- 通路 C：（填入，例如 LINE 圖卡 1:1 方）
+
+請給我三件事:
+（一）每個尺寸的構圖建議——主標位置、副資訊取捨、視覺動線方向；
+（二）每個尺寸保留哪些元素、捨棄哪些元素、為什麼；
+（三）跨尺寸的一致性原則——什麼必須跨尺寸相同（例如核心訊息文字一字不易），什麼可以因尺寸變動。
+
+請遵守：每個尺寸的第一視線落點必須是核心訊息；
+不建議「等比縮放」這條路徑；
+文字若放不下，回報 CS2-01 裁字，不自行縮小字級至不可讀。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本，仔細描述母版的構圖（這是 AI 唯一能參考的）。</li>
+            <li>送出。等待約 30 秒。</li>
+            <li>讀（一）每尺寸構圖建議。逐個尺寸判斷建議是否合理。<em>建議過於激進</em>：回覆「[尺寸 X] 我希望保留更多母版元素，請給保留 80% 元素的版本」。</li>
+            <li>讀（二）保留與捨棄清單。確認核心訊息（您事先定義的那句）在每個尺寸都被保留。</li>
+            <li>讀（三）跨尺寸一致性原則。記下「必須相同」的元素清單——這是您後續實作時的不可動清單。</li>
+            <li>在 Figma 開新檔，為每個目標尺寸建立一個 frame（依規格設定畫布）。</li>
+            <li>依（一）的構圖建議，逐個尺寸重新排版——不要複製貼上後縮放。每個尺寸從空白畫布開始。</li>
+            <li>完成後，把三個尺寸並排檢視——核心訊息的閱讀體驗是否在每個尺寸都成立？不成立就回到對應尺寸重排。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 建議的構圖看起來太極端</strong>：回覆「請降低調整幅度——例如 [尺寸 X] 我希望保留母版的視覺動線方向，只調整資訊密度」。</li>
+            <li><strong>某個尺寸怎麼排都不好看</strong>：可能是核心訊息與該尺寸不相容（例如核心訊息有 30 字但 LINE 圖卡只能放 10 字）。回退到 CS2-01 與您一起決定該尺寸是否要簡化核心訊息，或該通路是否該放這則訊息。</li>
+            <li><strong>AI 沒提到跨尺寸一致性</strong>：回覆「請補充第（三）跨尺寸一致性原則——什麼必須跨尺寸相同、什麼可以變動，列至少 3 點」。</li>
+            <li><strong>實作時發現規格不對</strong>：暫停實作，先確認 Brand Hub 對該通路的標準規格。錯規格的視覺在通路上會被裁切，等於白做。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          已定稿的橫式螢幕視覺要改製為 LINE 圖卡（1:1）與公告欄直式（A3 直）。母版：16:9 橫式，左半「2026 安全文化季」大標 36pt，右半 4 個欄位資訊（每欄 14pt）。視覺動線是左到右。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">LINE 圖卡版：直接把母版等比例縮放至 1:1 比例。結果：左半的主標壓縮到 18pt 變小，右半的 4 個資訊欄位擠在一起每欄變 7pt 幾乎讀不到，上下留白變得多餘。公告欄直式版：同樣等比縮放至直式，整體更小，原本左右排的結構在直式畫布上顯得鬆散，看不出主從。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">LINE 圖卡版：完全重排。主標「2026 安全文化季」放大到 48pt 占上半，捨棄 4 個資訊欄位中的 3 個（保留最關鍵的「6/1-6/30」），加一個「詳情看連結」的小提示置底。視覺動線從上到下，3 秒能讀完。公告欄直式版：主標「2026 安全文化季」維持 36pt 但置上，4 個欄位資訊重排為直向 4 列（每列 16pt），底部加報名 QR Code。視覺動線從上到下，停 30 秒能讀完所有資訊。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          多尺寸改製不是縮放，是「同訊息不同構圖」。每個尺寸有自己的閱讀情境——LINE 圖卡是 3 秒掃讀、公告欄是 30 秒駐足。等比縮放假設「所有尺寸都是同一種閱讀」，這是錯的。改製的紀律是：先承認每個尺寸是新畫布，從空白開始排，只保留核心訊息不變。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A3 -->
+  <details class="project" id="a3">
+    <summary class="project-header">
+      <div class="project-code">A3</div>
+      <div class="project-title-block">
+        <h3>簡報視覺整備</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">接收已定稿的簡報文字，依模板目錄逐頁套版。鐵則：本組不改文字，發現文字問題退回原撰稿人。封面封底預設淺色紙感變體，章節編號一律阿拉伯數字。「順手改一個字」是平面設計組的最大紅線——順手改一次，下次別人改你的視覺你也說不出口。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：Keynote 或 PowerPoint 開啟品牌簡報模板；tGenie 做頁面對應規劃。</li>
+            <li><strong>準備素材</strong>：簡報文字定稿（從 CS2-01 取得，逐頁大綱完整版）、Brand Hub 簡報模板檔。</li>
+            <li><strong>確認紀律</strong>：重申一次：本組不改文字。發現問題（錯字、太長、語氣不一致）退回原撰稿人，不自行修。</li>
+            <li><strong>查模板版型</strong>：品牌簡報模板的各版型用途（章節分隔、單欄文字、雙欄對照、圖表、引言、結束頁）。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 平面設計組的簡報整備顧問。
+您協助規劃每頁套用哪個版型、哪些頁需要圖示或圖表、哪些段落需要回退給撰稿人。
+您不改動文字本身。
+
+我要為以下簡報整備視覺，需要您協助規劃頁面對應。
+
+【簡報主題與用途】
+（填入：例如 2026 Q2 安全文化季度報告，給高階主管會議使用）
+
+【簡報逐頁大綱】
+（將定稿大綱完整貼入。包含頁碼、頁標題、每頁文字內容摘要）
+
+【可用版型】
+- 章節分隔頁（用於主要段落開始）
+- 單欄文字頁（純文字、500 字以內）
+- 雙欄對照頁（並列比較）
+- 圖表頁（資料視覺化）
+- 引言頁（一句話強調，大字置中）
+- 結束頁（致謝或下一步）
+
+請給我四件事:
+（一）頁面對應表——每頁對應的版型編號、該頁視覺重點；
+（二）需要圖表的頁面——標記為「圖表需求」並描述資料類型；
+（三）需要圖示的頁面——標記為「自製 SVG 需求」並描述概念；
+（四）需要回退給 CS2-01 撰稿人的頁面——標記為「退回」並說明原因（文字太長／結構不適合任何版型／其他）。
+
+請遵守：不得建議模板外版型；
+圖示需求標記為「自製 SVG」，不得引用任何 icon library；
+不修改任何文字。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本，將定稿大綱完整貼入。</li>
+            <li>送出。長簡報（30 頁以上）等待 1-2 分鐘。</li>
+            <li>讀（一）頁面對應表。逐頁判斷版型是否合理。<em>有疑慮</em>：回覆「第 N 頁我認為更適合 [其他版型]，請給比較分析」。</li>
+            <li>讀（二）圖表需求。確認哪些頁需要 CS2-02 自己繪製、哪些可能需要與資料提供者（如 CS2-05）協作。</li>
+            <li>讀（三）圖示需求。把所有「自製 SVG」項目記到工作清單——這是後續實作的最大時間消耗。</li>
+            <li>讀（四）退回清單。<em>有退回項</em>：立即整理一份「退回清單」發給 CS2-01 撰稿人，附「第 N 頁因 X 原因退回」的具體說明。等對方回覆後再開始實作。</li>
+            <li>開啟品牌簡報模板，按（一）的頁面對應表逐頁套版。封面封底預設淺色紙感變體。章節編號用阿拉伯數字（01、02、03）。</li>
+            <li>套版完成後與大綱對照——每頁文字是否一字不易、版型是否符合對應表、章節編號是否一致。三項都過才交付。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 建議使用模板外版型</strong>：回覆「請只用 [列出可用版型] 中的版型，不要建議模板外版型」。</li>
+            <li><strong>AI 在「圖示需求」中提到具體 icon 名稱（如 Lucide-XX）</strong>：回覆「請將圖示需求改為描述概念，不要指涉任何 icon library 的名稱」。</li>
+            <li><strong>AI 沒標出退回項，但您看大綱覺得有問題</strong>：回覆「請就以下頁面 [編號] 再次評估是否需要退回給撰稿人」。</li>
+            <li><strong>實作中發現第 N 頁文字真的太長</strong>：停下來，不要壓字級。即刻發退回給 CS2-01，附「該頁超出版型 M 字」的具體數字。等對方縮減版本回來再繼續。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          收到「2026 Q2 安全文化季度報告」簡報，38 頁，文案已定稿。套版時發現第 14 頁「分散式治理推動回顧」單頁有 800 字，且結尾「謝謝聆聽」您覺得不夠專業想改成「謝謝您」。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">第 14 頁的 800 字「順手」分成兩頁（自己拆段、自己加副標），結尾「謝謝聆聽」順手改成「謝謝您」。原撰稿人事後翻簡報，發現第 14 頁多了一個她沒寫的副標、結尾被改了。她不知道您改了什麼、為什麼改、改的是誰的決定——下次再合作，她會逐字鎖死讓您不敢動，協作信任斷裂。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">第 14 頁保持原文不動。立即發退回給 CS2-01 撰稿人：「第 14 頁原文 800 字超出單頁版型上限（最多 500 字）約 60%，建議三條路：(A) 拆成兩頁但拆點需您決定 (B) 縮減至 500 字 (C) 改用圖表頁版型把要點視覺化。請您選擇。」結尾「謝謝聆聽」維持原文，不順手改。等對方回覆後再實作。撰稿人感覺被尊重，下次合作時更願意接受您對視覺的建議——因為您證明了不會越權。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          「順手改」是平面設計組與撰稿端最容易斷裂的紅線。從視覺工作者的角度，改個字看起來無傷大雅；從撰稿人的角度，她字斟句酌的選擇被推翻而且還不知情。對的紀律不是「能不能改」（答案永遠是不能），而是「能不能在發現問題時清楚溝通」。退回的功夫看起來慢，但建立的協作信任長遠加速所有後續合作。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER B: 進階 ============= -->
+<section class="tier-section" data-t="b" id="tier-b">
+  <div class="tier-header">
+    <div class="tier-number">02</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">進階 · Intermediate</h2>
+      <p class="tier-subtitle">系統內的創作——資訊視覺化、圖示家族、活動主視覺</p>
+    </div>
+  </div>
+
+  <!-- B1 -->
+  <details class="project" id="b1">
+    <summary class="project-header">
+      <div class="project-code">B1</div>
+      <div class="project-title-block">
+        <h3>資訊圖表設計</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">把數據或框架轉為圖表。第一個問題永遠是「核心比較關係是什麼」（趨勢、組成、排名、分布、流程），圖表類型由關係決定、不由美觀偏好決定。強調色只用在視線該落的位置——其他位置用灰階維持背景感。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：Figma 或 Adobe Illustrator 做圖表繪製；tGenie 做資料分析與圖表類型建議。</li>
+            <li><strong>準備素材</strong>：原始資料（CSV、表格、文字描述都可）、溝通目的（讓讀者得到什麼結論／做什麼決定）、發布通路（簡報內頁／海報／報告）。</li>
+            <li><strong>先回答一題</strong>：讀者看完這張圖，您希望他立刻得到的一句話結論是什麼？這決定了整張圖的視覺重心。</li>
+            <li><strong>辨識比較關係</strong>：本資料的核心比較關係是哪一種：趨勢（時間）／組成（部分對整體）／排名（高到低）／分布（多筆數值的散落）／流程（步驟）。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 平面設計組的資訊視覺化顧問，熟悉「圖表類型由比較關係決定」原則。
+您建議圖表類型與視覺強調，不替我繪製。
+
+我有以下資料需要視覺化，需要您協助規劃。
+
+【原始資料】
+（將資料完整貼入。可以是 CSV、表格、或文字描述）
+
+【溝通目的】（一句話結論）
+（您希望讀者看完得到的結論。例如「Q2 違規通報數較 Q1 下降 35%」）
+
+【核心比較關係】
+（填入五選一：趨勢／組成／排名／分布／流程）
+
+【發布通路】
+（填入：簡報內頁／海報／報告／單張獨立分享）
+
+【強調目標】
+（讀者的視線應該優先落在資料的哪個部分？例如「最近三個月的下降趨勢」）
+
+請給我四件事:
+（一）建議的圖表類型（一種主選＋一種備選），附選擇理由；
+（二）視覺強調策略——強調色用在哪、其他元素用什麼色、視線動線如何引導；
+（三）標籤與註釋——軸標題、資料標籤、註釋說明的建議內容；
+（四）需要捨棄的元素——資料中哪些部分對結論無貢獻、可以省略。
+
+請遵守：圖表類型由比較關係決定，不由美觀偏好；
+強調色只用在視線該落的位置；
+不建議裝飾性元素（無功能的陰影、漸層、3D 效果）；
+顏色引用品牌色票 token，不肉眼挑色。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本。原始資料越完整越好——AI 看不到的資料就無法考慮。</li>
+            <li>送出。等待約 30-60 秒。</li>
+            <li>讀（一）圖表類型。對照您事先判斷的「核心比較關係」確認 AI 同意。<em>不同意時</em>：回覆「您建議的 [類型 X] 與我認為的 [類型 Y] 不同，請解釋差別」。</li>
+            <li>讀（二）強調策略。確認強調點與您的「溝通目的一句話」一致。</li>
+            <li>讀（三）標籤建議。判斷標籤密度——過多會干擾、過少會讓讀者猜。</li>
+            <li>讀（四）捨棄清單。判斷哪些是「資料中有但對結論無貢獻」的內容，這些可省。</li>
+            <li>在 Figma 開新檔，依（一）建議類型繪製圖表骨架。資料點先用灰階填，全部畫好後再加強調色。</li>
+            <li>完成後做「3 秒測試」——把圖給沒看過資料的人看 3 秒，問他看到什麼。如果看到的不是您的「一句話結論」，回到（二）重整強調策略。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 建議三種以上圖表類型</strong>：回覆「請只給主選與備選兩種，選擇困難會延誤決策」。</li>
+            <li><strong>強調色被建議用在多個位置</strong>：回覆「強調色只能用在一個視覺位置，請重新給單一強調點的策略」。</li>
+            <li><strong>AI 沒提到捨棄清單</strong>：回覆「請列出資料中對結論無貢獻、可省略的元素，至少 3 項」。</li>
+            <li><strong>繪製後發現太複雜</strong>：可能不是一張圖能表達。考慮拆成兩張圖（一張總覽、一張細節），或回頭重新定義「溝通目的一句話」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要為 Q2 季度報告做一張圖表，呈現「過去 6 個月各區域違規通報數」。原始資料：6 個月 × 4 個區域 × 通報數＋類型分類。溝通目的是讓主管看出「最近 3 個月所有區域都下降」。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">選了堆疊長條圖，6 個月並列、每月分 4 個區域、每個區域內再分通報類型。顏色用了 4 種飽和色（一區一色）＋每個區內 3 種漸層（一類型一階）。結果：讀者要看 24 個色塊、12 個漸層、6 個時間點，視線無從聚焦。主管看完問：「所以重點是什麼？」——資料完整呈現了但結論被淹沒。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">選了單線折線圖，4 條線代表 4 個區域，X 軸 6 個月。前 3 個月的線段用灰階（背景化），後 3 個月的下降段用強調色（品牌青綠）。資料標籤只標出最近 3 個月的數值，前 3 個月不標。X 軸下方加一行註釋：「Q2 起所有區域通報數穩定下降，平均降幅 35%」。捨棄了通報類型細分（改放附錄）。讀者一眼看到強調色集中在右半的下降段，視線自然落在「最近 3 個月下降」這個結論。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          資訊圖表的紀律是「圖服從於結論」，不是「圖呈現所有資料」。劣稿的錯誤是把「完整」當成目標——讀者得到的不是結論，是負擔。佳稿做了三件事：用色彩區分主從（強調色＋灰階）、用標籤密度引導視線（只標關鍵點）、用註釋直接說出結論（不讓讀者猜）。「一張圖一句結論」不是限制，是讓圖能被記住的基本功。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B2 -->
+  <details class="project" id="b2">
+    <summary class="project-header">
+      <div class="project-code">B2</div>
+      <div class="project-title-block">
+        <h3>自製 SVG 圖示集</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">以幾何原型（圓、線、弧、多邊形）為一個主題建一組 6 至 10 個圖示。練的是家族一致性：統一線寬、統一網格、統一視覺重量，讓十個圖示像同一隻手畫的。原則：不引用任何 icon library，所有圖示從幾何原型自製。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：Figma 做 SVG 繪製；tGenie 做主題拆解與構圖建議。</li>
+            <li><strong>準備素材</strong>：主題與用途（這組圖示要解決什麼溝通問題）、要涵蓋的概念清單（6-10 個）、發布尺寸範圍（最小到最大）。</li>
+            <li><strong>定義家族參數</strong>：線寬（建議 1.5pt 或 2pt）、網格（建議 24×24 或 32×32）、視覺重量（細／中／粗，選一）。</li>
+            <li><strong>先草繪一個</strong>：在紙上手繪一個概念草圖——這是您校準 AI 建議的尺。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 平面設計組的圖示設計顧問，遵守「幾何原型構成、不引用 icon library」原則。
+您建議構圖與幾何元素組合，不替我繪製 SVG 碼。
+
+我要為以下主題設計圖示集，需要您協助規劃。
+
+【主題與用途】
+（描述：例如 為 GPS 安全文化季的 8 個單元主題各設計一個圖示）
+
+【概念清單】（6-10 個）
+1. （概念名稱）—（一句話描述這個概念的核心）
+2. （...）
+...
+
+【家族參數】
+- 線寬：（填入：1.5pt / 2pt / 2.5pt）
+- 網格：（填入：24×24 / 32×32 / 48×48）
+- 視覺重量：（填入：細／中／粗）
+
+【發布尺寸範圍】
+- 最小：（填入，例如 16px 行內小圖示）
+- 最大：（填入，例如 96px 海報重點圖示）
+
+請給我三件事:
+（一）每個概念的構圖建議——使用哪幾個幾何原型（圓、線、弧、多邊形）、組合方式、視覺隱喻；
+（二）家族一致性檢查——這 6-10 個圖示是否共享 3 個以上共通特徵（例如都用圓角、都從中心擴散），列出共通點；
+（三）需要二次討論的概念——哪些概念難以用幾何原型表達、可能需要重新定義或拆分。
+
+請遵守：絕對不引用 Lucide、Heroicons、Material Icons 等任何 icon library 的圖示名稱；
+所有圖示須能從圓、線、弧、多邊形組合而成；
+家族一致性優先於單個圖示的「漂亮」——寧可整組樸素但一致，不要每個都美但風格各異。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本。概念清單一定要寫清楚——每個概念配一句描述。</li>
+            <li>送出。等待約 60-90 秒（多概念請求耗時較長）。</li>
+            <li>讀（一）每概念構圖。對照您手繪的草圖判斷方向是否一致。<em>差異大</em>：回覆「我手繪的版本是 [描述]，請就此方向重新給構圖建議」。</li>
+            <li>讀（二）家族一致性檢查。確認共通點至少 3 個。<em>共通點不足</em>：回覆「請補充家族一致性策略，目標至少 3 個共通特徵」。</li>
+            <li>讀（三）需二次討論的概念。逐個判斷：是概念本身難畫，還是 AI 建議不到位。<em>是概念難畫</em>：回頭與用途方討論能否拆分或替換概念。</li>
+            <li>開啟 Figma，建立一個 24×24 或 32×32 的網格框架。</li>
+            <li>依（一）建議逐個繪製。先畫第一個，確認線寬、網格對齊、視覺重量都符合家族參數，然後其他 5-9 個照這套參數複製繪製。</li>
+            <li>全部畫完後，把 6-10 個圖示並排檢視——是否看起來像「同一隻手畫的」？任何一個感覺風格不同，回頭修。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 建議使用某個 icon library 的圖示</strong>：立即回覆「請從建議中移除所有 icon library 的指涉。本組所有圖示自製」。這條紅線無例外。</li>
+            <li><strong>某個概念怎麼畫都不像</strong>：可能是抽象概念與視覺表達的鴻溝。考慮（A）改用文字替代圖示（B）用兩個圖示組合表達。</li>
+            <li><strong>家族一致性沒達到</strong>：從線寬與留白下手——這兩個是最容易統一的家族參數。線寬不一致是家族感最大破口。</li>
+            <li><strong>發布尺寸範圍太大（如 16px 到 96px）</strong>：可能需要做兩組——小尺寸版（簡化細節）與大尺寸版（保留細節）。在 16px 看得清的圖示，在 96px 通常太簡。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要為「GPS 安全文化季 8 個單元」設計 8 個圖示。8 個單元分別是：門禁、人臉識別、訪客動線、緊急疏散、設備檢核、夜間巡邏、跨廠協作、年度總覽。發布範圍從手機 24px 到海報 80px。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">圖示來源混雜：「門禁」用 Lucide 的 lock 圖示稍微改色、「緊急疏散」找了 Heroicons 的 alert-triangle、「夜間巡邏」用 Material Icons 的 nightlight。雖然都改成品牌色，但 8 個圖示來自 3 個不同的設計系統——線寬不一致（1pt 到 2.5pt 都有）、視覺重量飄忽、有些圓角有些直角。並排看時，8 個圖示像是 8 家公司分別貢獻的，沒有家族感。且因為都是公開 library，外部觀者可能識別出這些圖示來自哪裡，稀釋了品牌的獨特感。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">8 個圖示全部從圓、線、弧、多邊形自製。家族參數統一：32×32 網格、2pt 線寬、圓角統一 r=2、線條收尾統一 round cap。視覺策略：每個圖示都「以圓為主、輔以線條方向引導」——「門禁」是一個帶豁口的圓加一條斜線、「夜間巡邏」是一個半填充的圓加幾個小點。並排檢視時，8 個圖示明顯像同一隻手畫的——共享圓形主體、共享 2pt 線寬、共享中性留白。外部觀者看到只能說「這是 GPS 的圖示系統」，無法把任一個追溯到任何 icon library。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          自製 SVG 的紀律不是「不准用 library」這條規則本身，是這條規則背後的判斷：品牌的視覺資產應該專屬於品牌，不能與任何 SaaS 產品共用識別。從進階層級開始，每張圖示都從幾何原型起手——這個訓練不只是設計能力，是品牌獨立性的根本。家族一致性的測試很簡單：8 個圖示並排，沒有共通特徵就是失敗。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B3 -->
+  <details class="project" id="b3">
+    <summary class="project-header">
+      <div class="project-code">B3</div>
+      <div class="project-title-block">
+        <h3>活動主視覺（KV）開發</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">為一檔活動從零開發主視覺。流程固定三段：生成工具做方向探索（僅內部討論）、定案方向以品牌元素重新製作、延展至全通路。探索可以野，定稿必須準——探索素材一律加「內部討論用」標記並隔離存放，永不對外。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：Midjourney 或 DALL-E 做方向探索（標明內部用途）；tGenie 做概念發想；Figma 做定稿製作。</li>
+            <li><strong>準備素材</strong>：活動主題、活動目的、目標受眾、情緒基調（想讓參與者感受到什麼）、品牌色票範圍。</li>
+            <li><strong>先寫一句</strong>：如果只能用一句話描述這個活動的視覺氣質，那句話是什麼？這是後續所有判斷的錨點。</li>
+            <li><strong>劃定紅線</strong>：確認對外不會出現任何生成素材的元素——所有對外用視覺由 CS2-02 以品牌元素重製。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 平面設計組的活動主視覺策劃顧問，遵守「探索可野、定稿必準」與「探索素材永不對外」原則。
+
+我要為以下活動開發主視覺，需要您協助規劃。
+
+【活動主題】
+（填入：例如 2026 安全文化季）
+
+【活動目的】（一段，100-200 字）
+（描述活動要解決的問題、預期成效、與其他活動的區別）
+
+【目標受眾】
+（填入：例如 全體安全管理人員＋廠區同仁）
+
+【情緒基調】（一句話）
+（填入：例如「踏實的歸屬感，不是激昂的口號」）
+
+【品牌色票範圍】
+（列出可用的色票 token，例如 turquoise-primary、copper-light、warm-grey）
+
+請給我四件事:
+（一）3 個視覺方向概念——每個方向描述視覺隱喻（例如「以光的方向感表達守護」）、主色票應用、適合的圖像類型；
+（二）每個方向的生成工具探索指南——給 Midjourney 的 prompt 結構建議（不替我寫完整 prompt，給結構），讓我自己探索；
+（三）定稿原則——當我從 3 個方向選定一個後，如何用品牌元素重製，包含色票引用、字體選擇、版型結構；
+（四）延展策略——選定的主視覺如何延展至海報、社群、簡報、實體物等通路。
+
+請遵守：所有生成工具探索素材標明「內部討論用」並隔離存放；
+對外定稿視覺一律走品牌色票與模板，不引用任何生成素材；
+情緒基調是 GPS 體貼節制的延伸，避免戲劇化、煽情化視覺語言。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本。情緒基調這欄寫不清，AI 給的方向會散——投入時間把這欄寫到精確。</li>
+            <li>送出。等待約 60-90 秒。</li>
+            <li>讀（一）3 個方向概念。判斷哪 1-2 個方向值得探索。<em>3 個都不對</em>：回覆「請就以下情緒重新給 3 個方向：[您的補充情緒描述]」。</li>
+            <li>讀（二）生成工具探索指南。為您打算探索的 1-2 個方向，在 Midjourney 或 DALL-E 各做 3-5 次嘗試（單次成本 30 秒）。</li>
+            <li>把所有探索結果存到「內部討論用」資料夾，檔名前加「INT-」標記。<em>任何探索素材都不放到對外資料夾</em>。</li>
+            <li>與用途方（活動主辦組）開 30 分鐘對焦會，並排展示 2-3 個探索方向，請對方選定方向（不是選定圖）。</li>
+            <li>依（三）定稿原則，用 Figma 以品牌色票與字體重製選定方向的主視覺。一條紀律：不複製探索素材的具體構圖，只取走「方向」。</li>
+            <li>依（四）延展策略，將主視覺延展至活動需要的所有通路尺寸。每延展一張，回頭對照主視覺確認家族感維持。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 給的 3 個方向都偏激昂</strong>：回覆「情緒基調是『踏實的歸屬感』，請給更節制的方向，避免大型字體、強對比、煽情的視覺隱喻」。</li>
+            <li><strong>探索素材中有一張很想直接用</strong>：停下來，問自己：這張的「方向」是什麼？把方向取出來，用品牌元素重做。直接用探索素材會破壞「探索與定稿物理隔離」這條紀律。</li>
+            <li><strong>用途方選不出方向</strong>：可能是 3 個方向太接近。回頭請 AI 給「光譜更寬」的 3 個方向（一個保守、一個中性、一個大膽）。</li>
+            <li><strong>延展時某通路尺寸怎麼排都不行</strong>：可能是主視覺的核心元素不適合該尺寸。考慮為該通路單獨設計變體（保留色票與字體不變、構圖適度調整）。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要為「2026 安全文化季」開發主視覺，將延展至海報、社群圖、簡報封面、實體桌牌、活動 T-shirt 等通路。情緒基調：「踏實的歸屬感」。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">探索階段用 Midjourney 生成了 30 張不同方向的圖，挑了一張「光線穿過樹葉灑在地上」的圖直接修一下顏色就當主視覺用。延展時把這張圖縮放到各通路——T-shirt 上印了高度寫實的光影、社群圖也用同一張。問題：（1）該圖的具體構圖是 AI 生成的，可能與其他公司用過的素材撞題（2）寫實光影風格與品牌幾何節制的視覺語言不一致（3）對外通路出現生成素材違反共通底座第 6 節。活動結束後品牌管理組（CS2-05）做年度審計時發現，回頭追究來源已是事後。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">探索階段用 Midjourney 生成 20 張圖，所有檔案前加「INT-」標記、存到內部討論資料夾。從這 20 張中提煉出 3 個視覺方向：「光的方向感」「節制的紋理」「人的存在」。與活動主辦組對焦會選定「光的方向感」這個方向（不是選定任何一張具體圖）。回到 Figma，用品牌青綠色票、Noto Sans 字體、幾何元素自製一張主視覺：上方一條 30 度斜向光柱（純色帶＋低透明度漸層），下方主標「2026 安全文化季」與副標。延展時：T-shirt 印同樣的光柱＋小尺寸主標、社群圖用方形重排但保留光柱方向、簡報封面用淺色變體。整套視覺自製、可追溯到品牌元素、家族感維持。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          活動主視覺開發的核心紀律是「探索與定稿物理隔離」——這不是文書紀律，是品牌資產獨立性的根本。探索可以野（用任何生成工具、任何風格）是為了打開可能性；定稿必須準（用品牌元素重製）是為了維持資產獨立。「直接用探索素材」看起來省時間，實際是把品牌獨立性換成短期效率——一年內可能不出事，三年後做年度審計時整套要重做。「INT-」標記與物理隔離資料夾是這條紀律的執行手段，不是裝飾。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER C: 高階 ============= -->
+<section class="tier-section" data-t="c" id="tier-c">
+  <div class="tier-header">
+    <div class="tier-number">03</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">高階 · Advanced</h2>
+      <p class="tier-subtitle">擴充系統本身——新模板、實體物、視覺一致性審計</p>
+    </div>
+  </div>
+
+  <!-- C1 -->
+  <details class="project" id="c1">
+    <summary class="project-header">
+      <div class="project-code">C1</div>
+      <div class="project-title-block">
+        <h3>新模板開發</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">當既有模板無法承載新內容型態時，高階層級評估「新增模板 vs 一次性特例」。前者走模板系統新增流程：設計、文件化、納入目錄、教學。一次特例會稀釋系統，一套新模板會壯大系統——關鍵是判斷哪個情境會重複出現。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：Figma 做模板繪製；tGenie 做新增評估與適用情境分析。</li>
+            <li><strong>準備素材</strong>：觸發需求的具體案例（哪個專案的哪個情境發現既有模板不夠用）、可能重複出現的頻率預估、現有模板目錄。</li>
+            <li><strong>先回答一題</strong>：這個情境一年會重複出現幾次？少於 3 次走特例，多於 5 次走模板。3-5 次之間需要進一步討論。</li>
+            <li><strong>查既有目錄</strong>：確認現有 32 個模板中真的沒有可承載這個情境的——許多「新需求」其實是現有模板的變體用法。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 平面設計組的模板系統架構師，遵守「一次特例會稀釋系統、一套新模板會壯大系統」原則。
+您協助評估新增模板的必要性，不替我繪製模板。
+
+我遇到一個既有模板似乎無法承載的新內容型態，需要您協助評估。
+
+【觸發案例描述】（一段，200-300 字）
+（描述：哪個專案、哪個情境、為何既有模板不夠用、嘗試過哪幾個既有模板分別有何不足）
+
+【既有模板目錄摘要】
+（列出您認為最接近的 3-5 個既有模板及其用途）
+
+【預估重複頻率】
+（填入：一年可能出現幾次同類情境）
+
+【影響範圍】
+（填入：僅本組使用／跨組使用／對外發布）
+
+請給我四件事:
+（一）新增評估——建議「新增模板」或「一次性特例」或「現有模板變體用法」，附判斷依據；
+（二）若建議新增模板：適用情境邊界（哪些情境用它、哪些情境不該用它）、與現有模板的區隔點；
+（三）若建議特例或變體：如何標記與隔離特例素材、避免被誤當模板套用；
+（四）新增模板的最小可行版本——若決定新增，第一版該包含哪些必選欄位、哪些選用欄位、文件化的最低要求。
+
+請遵守：新增模板必須能回答「哪些情境用它、哪些情境不該用它」——無法明確劃界的就不該新增；
+特例素材必須有明確標記與隔離，避免被當模板套用；
+新增模板須走模板系統的完整流程（設計→文件化→目錄→教學），跳任一步就是稀釋系統。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本。「觸發案例描述」與「嘗試過哪幾個既有模板」要寫具體——AI 無法判斷您沒寫的細節。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）新增評估建議。對照您事先估的重複頻率判斷。<em>建議與您直覺相反</em>：回覆「我直覺認為應該 [新增/特例]，請說明您建議相反方向的具體理由」。</li>
+            <li>若建議新增模板，繼續讀（二）適用邊界。確認「哪些不該用它」這項清楚——這是模板系統不被濫用的關鍵。</li>
+            <li>若建議特例，繼續讀（三）標記與隔離方法。確認您能執行這套標記紀律。</li>
+            <li>若決定新增，讀（四）最小可行版本。<em>必選欄位超過 5 個</em>：回覆「請壓縮必選欄位到 5 個以內，其餘改為選用」。</li>
+            <li>開 30 分鐘會議與其他組長對焦——新模板會跨組使用，須其他組同意這個新增是必要的。</li>
+            <li>對焦同意後進入完整流程：Figma 繪製→文件化（含適用情境與反例）→納入 Brand Hub 目錄→寫 5 分鐘教學影片或教材。任一步省略就退回。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 建議新增但您覺得是「現有模板的變體用法」</strong>：回覆「請就現有的 [模板 X] 給變體用法的具體方案——能否透過調整某些選用欄位達到我的需求」。</li>
+            <li><strong>您決定新增但 AI 建議特例</strong>：可能是 AI 對重複頻率判斷偏保守。回覆「我已經統計過去 18 個月此情境出現 6 次，請以此頻率重新評估」。</li>
+            <li><strong>適用邊界寫不清</strong>：通常代表新增模板的決定不成熟。回退一步，再多累積 3-5 個觸發案例再評估。</li>
+            <li><strong>跨組對焦會議有人反對</strong>：認真聽反對理由——通常反對者看到了您沒看到的下游影響。可能要修改設計或回退到特例方案。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          Q2 連續三次有區域主管要求做「跨多個 KPI 的儀表板式總覽頁」，但既有的「圖表頁」模板一頁只能放 1 個圖、「雙欄對照頁」只能放 2 個對照。您評估是否新增「儀表板頁」模板。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">做了一個「儀表板頁」模板，包含 6 個可選的圖表欄位、3 個可選的指標數字欄位、2 個可選的趨勢線欄位、上方可選的標題欄位。新增到 Brand Hub 目錄後，其他組看到「11 個欄位都可選」覺得很彈性，開始把這個模板用在各種情境——有人放 2 個圖表＋1 個指標當成簡化版圖表頁、有人放 11 個欄位塞得密密麻麻當資料堆放區。三個月後審視，「儀表板頁」變成最被濫用的模板。問題：適用邊界模糊（什麼情境用、什麼不該用沒講清）、必選欄位太少（彈性過高就失去模板的「下限」功能）、文件化未說明反例。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">評估後決定新增「KPI 儀表板頁」模板，但嚴格設計：必選欄位 5 個——主標題（限 12 字內）、4 個 KPI 卡位置（固定 2×2 排列）；選用欄位 2 個——副標題、底部說明列。適用邊界明確：適用於「並列呈現 4 個獨立 KPI 的整體狀態」；不適用於「呈現一個 KPI 隨時間變化的趨勢」（這應該用圖表頁）、不適用於「呈現多個 KPI 互相比較」（這應該用對照頁）。文件化包含 3 個正範例與 3 個反例。新增前與其他組長對焦同意這個新增有必要。上線後 6 個月，使用次數 12 次全部符合適用邊界——模板達到設計目的。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          高階層級的模板開發紀律是「給彈性等於放棄品質」。新模板的價值在於它劃定的邊界——什麼情境用它、什麼不該用——這個邊界越清楚，模板越能維持品質下限。「11 個欄位都可選」看起來彈性，實際是把判斷成本轉嫁給使用者；每個使用者各自詮釋，模板變成沒有共識的容器。對的新增是緊的——必選欄位明確、適用情境窄、反例文件化。「窄」不是限制，是讓模板能被信任的基礎。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C2 -->
+  <details class="project" id="c2">
+    <summary class="project-header">
+      <div class="project-code">C2</div>
+      <div class="project-title-block">
+        <h3>實體物與禮品設計</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">徽章、證書、活動禮品、環境布置物。實體物是品牌最持久的載體——一個徽章會被別在識別證上一整年。材質、工藝公差、印刷色差都是新變數，高階層級需與採購端協作打樣，確認電腦螢幕上的色與實體成品色一致。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：Figma 做設計；tGenie 做材質與工藝建議；採購端的供應商提供材質樣本。</li>
+            <li><strong>準備素材</strong>：用途（哪個情境、誰會收到、會用多久）、預算上限、預計數量、交付期限。</li>
+            <li><strong>先回答兩題</strong>：（1）這個實體物會被使用幾次？一次性活動贈品 vs 長期佩戴徽章紀律不同。（2）失敗的色差容忍範圍多大？徽章 0%、活動禮品可能 5%。</li>
+            <li><strong>查色票印刷對應</strong>：螢幕顯示的 RGB 色與印刷的 CMYK 或 Pantone 對應——這是螢幕色與實體色一致的關鍵。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 平面設計組的實體物設計顧問，熟悉「實體物是品牌最持久的載體」原則。
+您協助規劃材質、工藝、色彩管理，不替我做最終設計。
+
+我要設計以下實體物，需要您協助規劃。
+
+【實體物類型】
+（填入：徽章／證書／活動禮品／環境布置物／其他）
+
+【用途與情境】（一段）
+（描述：哪個情境使用、誰會收到、預計使用週期）
+
+【預算上限】（單件）
+（填入：例如 NT$ 150 / 件）
+
+【預計數量】
+（填入：例如 200 件）
+
+【交付期限】
+（填入：例如 6 週後活動當天）
+
+【色彩管理嚴格度】
+（填入三選一：
+ [極嚴] 徽章、長期佩戴物——色差容忍 0%
+ [嚴] 對外贈品、識別物——色差容忍 5% 以內
+ [中] 一次性活動禮品——色差容忍 10% 以內）
+
+請給我四件事:
+（一）材質建議——適合此用途、預算、數量、期限的材質選項（2-3 種），各附優缺點；
+（二）工藝建議——印刷、雷射、刺繡、燙金等工藝的適用情境與成本影響；
+（三）色彩管理建議——從螢幕設計到實體成品的色彩傳遞流程，包含 RGB→CMYK 或 Pantone 對應、打樣次數、終驗條件；
+（四）採購協作節點——設計階段、打樣階段、量產階段各有哪些必要的協作節點與時程預估。
+
+請遵守：實體物的紀律比平面更嚴——失敗的徽章戴在識別證上一整年，無法回收；
+色彩管理必須走 RGB→CMYK 或 Pantone 對應，不可只憑螢幕設計直接量產；
+打樣是必要成本，不是可省的步驟。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本。「用途與情境」「色彩嚴格度」這兩欄決定後面所有建議——必須清楚。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）材質建議。對照預算與數量判斷可行性。<em>建議的材質超出預算</em>：回覆「請就 [預算] 內提供 2 種替代材質方案」。</li>
+            <li>讀（二）工藝建議。確認工藝與材質相容——例如刺繡適合織品、雷射適合金屬。</li>
+            <li>讀（三）色彩管理。<em>對品牌色不熟</em>：先回到 Brand Hub 查品牌色的 Pantone 對應碼，這是溝通給供應商的標準語言。</li>
+            <li>讀（四）採購協作節點。把節點寫進專案時程，從交付日往回排——通常需要至少 6-8 週的前置期。</li>
+            <li>與採購端確認 1-2 家有合作經驗的供應商，發出設計初稿與材質規格請求初步報價。</li>
+            <li>報價合理後進入打樣——這一步不可省。收到打樣品後與螢幕設計並排比對色差，若超出嚴格度範圍則要求重新打樣（成本由設計品質決定，不省這一步）。</li>
+            <li>打樣通過後簽核進入量產。量產期間每週與供應商確認進度。</li>
+            <li>成品交付時做抽驗——按比例抽 5-10% 檢查色差、工藝瑕疵。發現瑕疵立刻聯繫供應商處理。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>打樣色差超出嚴格度</strong>：不要妥協。要求供應商重新打樣，附「螢幕色 vs 樣品色差 X%」的具體證據。妥協一次就會妥協第二次。</li>
+            <li><strong>交期太緊無法打樣</strong>：回頭調整交期或調整嚴格度。趕工省打樣的成品幾乎不會達到品質——寧可延期一週，不要交付失敗的成品。</li>
+            <li><strong>AI 建議的工藝太複雜</strong>：回覆「請就 [預算] 內提供更單純的工藝方案」。複雜工藝的失敗率高、品質難控。</li>
+            <li><strong>供應商說「這個色印不出來」</strong>：認真聽。供應商的經驗值得尊重。回頭與 CS2-05 討論該品牌色是否需要新增印刷友好的替代版本。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要為今年「年度 Showcase」活動設計獲獎者徽章，預計 30 位獲獎者各拿一枚。徽章會別在識別證上長期佩戴。預算 NT$ 200/件，交期 6 週。色彩嚴格度：極嚴。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">沒打樣直接量產。在 Figma 螢幕上設計徽章用品牌青綠色（#26A7B0），給供應商 PNG 檔，請其按 RGB 印刷。成品交付：30 枚徽章的青綠色偏向藍色（接近 #1A8AA0），且 5 枚有明顯的色差不一致（同批次顏色深淺不同）。獲獎者戴上徽章，配同色品牌物品時明顯不對稱。已量產的 30 枚無法回收——下次活動只能新做，但這批徽章已分發出去，未來一整年會被佩戴。問題：（1）跳過打樣（2）用 RGB 印刷而非 Pantone 對應（3）沒抽驗成品就分發。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">依完整流程執行：前 1 週與採購討論材質——選定金屬底（適合長期佩戴）＋琺瑯色（色彩飽和度高）。第 2 週做色彩對應——把品牌青綠 #26A7B0 對應到 Pantone 7717 C，與供應商確認此 Pantone 碼有對應的琺瑯色。第 3 週收到第一次打樣（5 件樣品）——比對螢幕色發現偏差 8%，要求重新打樣。第 4 週收到第二次打樣——偏差 2%，在極嚴範圍內，簽核進入量產。第 5-6 週量產 30 枚，交付前抽驗 6 枚色差均在 3% 內，分發。獲獎者佩戴一年無色差問題，配品牌物時顏色一致。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          實體物的紀律比平面嚴格——平面有問題可以改檔重發，實體物分發後無法回收。「螢幕看起來對」不等於「實體出來會對」——RGB 到 CMYK 或 Pantone 的轉換是工藝層面的必要動作，不是可省的形式。打樣的成本看起來是延長交期，實際是把可能的失敗成本擋在量產前。極嚴的色彩管理（徽章、長期佩戴物）容不下任何妥協——一次妥協會形成下次妥協的先例，最後品質基準集體下滑。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C3 -->
+  <details class="project" id="c3">
+    <summary class="project-header">
+      <div class="project-code">C3</div>
+      <div class="project-title-block">
+        <h3>視覺一致性審計</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">對既有素材庫做年度視覺審計：色票漂移、字級混亂、icon library 滲入、模板外野生版型，逐項列冊並提修復優先序。審計報告分三級：通過、警示、阻擋。審計與修復必須分離——審計者列冊、修復者依冊執行，避免「邊看邊改」漏失系統性問題。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：Figma 或 Sketch 做素材審視；tGenie 做違規模式分析；試算表做素材清冊。</li>
+            <li><strong>準備素材</strong>：本季或本年度所有對外署名素材清單（連結或檔案）、品牌 canon 文件（色票、字級、模板目錄）。</li>
+            <li><strong>劃定範圍</strong>：本次審計覆蓋哪些通路、哪段時間區間。範圍過大會耗時、過小會錯失模式。一季 30-50 件是合理區間。</li>
+            <li><strong>準備分類框架</strong>：預期會出現的違規類型清單：色票漂移、字級混亂、icon library 滲入、模板外版型、留白規則破壞、文字越權修改。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 平面設計組的視覺一致性審計顧問，遵守「審計與修復分離」原則。
+您協助識別系統性違規模式，不替我做修復。
+
+我要對本季對外署名素材執行視覺一致性審計，需要您協助。
+
+【審計範圍】
+- 時間區間：（填入，例如 2026 Q2）
+- 通路：（填入，例如 對外電子報、社群圖、簡報、海報）
+
+【素材清單】
+（將素材逐項貼入：素材編號、通路、發布日期、原作者組別、可訪問連結或檔案描述）
+
+【違規分類框架】
+- 色票漂移：使用品牌色以外的相近色
+- 字級混亂：使用品牌字級階梯以外的字級
+- icon library 滲入：使用 Lucide / Heroicons / Material Icons 等第三方圖示
+- 模板外野生版型：脫離 Brand Hub 模板的自創版型
+- 留白規則破壞：留白被擠壓至模板規範以下
+- 文字越權修改：平面組擅自修改 CS2-01 定稿的文字
+
+請給我四件事:
+（一）違規案例清單——逐件列出：素材編號、違規類型、具體位置（哪頁、哪個元素）、嚴重程度（通過／警示／阻擋）；
+（二）系統性模式分析——將違規分為 3-5 個重複出現的類型，每類型給出共同特徵、出現頻率、可能成因；
+（三）修復優先序——將違規分為「阻擋（立即修復或下架）」「警示（30 天內修復）」「通過（記錄不修復）」三級；
+（四）給其他組長的回饋——若違規呈現某組的系統性習慣，整理為可匿名執行的回饋建議。
+
+請遵守：審計只列冊不修復——「邊看邊改」會漏失系統性問題；
+不評論個別寫作者；
+所有違規須附具體位置（哪頁哪個元素），不能是空泛指控；
+「阻擋」級違規須對應對外署名素材，內部素材可降為警示。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本。素材清單越完整越好——AI 無法審計未列入的素材。</li>
+            <li>送出。等待時間視素材量而定，30 件約 3-5 分鐘。</li>
+            <li>讀（一）違規案例清單。逐件對照素材檔案確認違規屬實。<em>有誤判</em>：回覆「以下幾件 [編號] 我認為不算違規（理由：[您的觀察]），請從清單中移除並重新生成（二）模式分析」。</li>
+            <li>讀（二）系統性模式。每個模式至少要有 3 個案例才能成立。<em>樣本不足</em>：回覆「以下模式 [編號] 只有 2 個案例，請判斷合併到其他模式或暫緩本次提案」。</li>
+            <li>讀（三）修復優先序。<em>阻擋級項目過多（超過 5 項）</em>：與 CS2-05 對焦，可能需要分批處理。</li>
+            <li>讀（四）給其他組長的回饋。確認措辭可匿名執行——不點名個別作者。</li>
+            <li>整理為正式審計報告：摘要（一頁）＋違規案例清單（含截圖）＋系統性模式分析＋修復優先序＋給組長的回饋。</li>
+            <li>與 CS2-05（品牌管理組）討論報告——他們是分散式治理的系統稽核者，本組的審計結果是他們的輸入。</li>
+            <li>確認阻擋級項目的修復責任歸屬（原作者組／本組），並排入 30 天內的工作清單。修復完成後做驗證審計，確認問題真的解決。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 把所有素材都標為有問題</strong>：回覆「請降低標記門檻——明顯違規才算違規，風格性的小差異不算。重新生成（一），預期通過率應在 70% 以上」。</li>
+            <li><strong>AI 沒識別出某個明顯的違規模式</strong>：回覆「我注意到 [具體案例] 有 [類型] 違規，似乎不只一件，請就此類型重新掃描清單」。</li>
+            <li><strong>修復責任不清</strong>：通常落在原作者組（誰做的誰修）。若是模板問題（多人都犯同樣錯）則由本組統一處理（修模板而非修個別案例）。</li>
+            <li><strong>某組對審計結果反彈</strong>：認真聽。可能是審計範圍與該組的實際情境有偏差。回頭調整審計範圍或審計標準，不死守規則。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          Q2 結束，您對本季 38 件對外署名素材做視覺審計。完成後發現 12 件有 icon library 滲入（多數來自某個組過去 3 個月的快速產出）、5 件有色票漂移、3 件有字級混亂。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">審計報告寫為：「本季多件素材有違規，請各組加強視覺一致性意識。具體案例詳列附件。」報告交給 CS2-05 後，CS2-05 不知道哪些是阻擋級、哪些是警示級、哪些可以放著。三個月過去，附件中列的問題大半沒處理——因為沒有人被指派、沒有截止日、沒有驗證機制。下季再做審計，發現同類型違規（icon library 滲入）變成 16 件，更糟。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">審計報告分四段：（1）摘要：38 件素材中 20 件有違規（53%），最大宗為 icon library 滲入（12 件，占違規 60%），集中在 4-5 月。（2）違規案例清單：每件附素材編號、截圖、違規類型、嚴重程度。20 件中 3 件阻擋（對外重點宣傳素材）、9 件警示、8 件通過。（3）系統性模式分析：icon library 滲入的成因是 4 月某個快速產出專案缺乏設計組支援，產出者自行用 Lucide 補位。建議系統性修復：（A）為快速產出專案建立「應急圖示包」（5 個自製 SVG 含使用情境）（B）建立「圖示求助」機制，讓非設計者能 30 分鐘內取得替代方案。（4）給其他組長的匿名回饋：「圖示求援」機制的需求是分散式治理下的真實 gap。報告交給 CS2-05 後，3 個阻擋級素材 1 週內修復或下架、9 個警示級素材 30 天內全部處理完成、應急圖示包 6 週內建立。下季審計顯示同類型違規從 12 件降至 2 件。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          審計的價值不在「找出多少問題」，在「找出系統性原因並提出可執行的修復方案」。劣稿的失敗是「列冊但不分級、不分析、不負責任歸屬」——這種審計只是把問題重新攤開，不能改變任何事。佳稿做了四件事：分級（阻擋／警示／通過讓修復有優先序）、分析（找系統性原因而非批評個案）、分配（明確修復責任）、驗證（下季再審看是否真的好轉）。「審計與修復分離」不只是流程要求——分離才能客觀，「邊看邊改」會把審計者變成修復者，系統性問題從此被個別小修掩蓋。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+</main>
+
+<footer>
+  <p>CS2-02 平面設計組 · Toolkit v1.0 · 資訊更新 2026-06 · 由現任主理人擬定</p>
+  <p>上游 · GPS 內容推廣制度導讀 · 工作公約 · 共通底座</p>
+  <p class="brand-tagline">Before you need it. · 在您需要之前。</p>
+</footer>
+
+<script>
+  (function() {
+    // ===== Copy buttons =====
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();  // prevent parent summary toggle
+        e.preventDefault();
+        const pre = btn.parentElement.querySelector('pre');
+        if (!pre) return;
+        const text = pre.textContent;
+        const showCopied = () => {
+          const labelSpan = btn.querySelector('span');
+          if (labelSpan) labelSpan.textContent = '已複製';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            if (labelSpan) labelSpan.textContent = '複製';
+            btn.classList.remove('copied');
+          }, 2000);
+        };
+        const fallbackCopy = () => {
+          const ta = document.createElement('textarea');
+          ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          try { document.execCommand('copy'); showCopied(); }
+          catch (e) { console.error('Copy failed:', e); }
+          document.body.removeChild(ta);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(showCopied).catch(fallbackCopy);
+        } else { fallbackCopy(); }
+      });
+    });
+
+    // ===== Expand / Collapse all =====
+    const expandAllBtn = document.getElementById('expand-all');
+    const collapseAllBtn = document.getElementById('collapse-all');
+    if (expandAllBtn) {
+      expandAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = true);
+      });
+    }
+    if (collapseAllBtn) {
+      collapseAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = false);
+      });
+    }
+
+    // ===== Side index / top nav clicks → expand target =====
+    document.querySelectorAll('.side-index a, .top-nav a').forEach(a => {
+      a.addEventListener('click', () => {
+        const href = a.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        const target = document.getElementById(href.slice(1));
+        if (target && target.tagName === 'DETAILS') {
+          target.open = true;
+        }
+      });
+    });
+
+    // ===== Auto-expand on hash change / initial hash =====
+    function expandFromHash() {
+      const hash = window.location.hash;
+      if (!hash) return;
+      const target = document.getElementById(hash.slice(1));
+      if (target && target.tagName === 'DETAILS') {
+        target.open = true;
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      }
+    }
+    window.addEventListener('hashchange', expandFromHash);
+    if (window.location.hash) setTimeout(expandFromHash, 100);
+
+    // ===== Print: expand all temporarily =====
+    let printStates = [];
+    window.addEventListener('beforeprint', () => {
+      printStates = Array.from(document.querySelectorAll('details')).map(d => ({ el: d, was: d.open }));
+      printStates.forEach(s => s.el.open = true);
+    });
+    window.addEventListener('afterprint', () => {
+      printStates.forEach(s => s.el.open = s.was);
+      printStates = [];
+    });
+
+    // ===== Side index active state =====
+    const links = document.querySelectorAll('.side-index a');
+    if (!links.length) return;
+    const linkMap = {};
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      linkMap[id] = a;
+    });
+    const sections = document.querySelectorAll('section[id], article[id], details[id]');
+    let activeId = null;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activeId = entry.target.id;
+        }
+      });
+      if (activeId && linkMap[activeId]) {
+        links.forEach(a => a.classList.remove('active'));
+        linkMap[activeId].classList.add('active');
+      }
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  })();
+</script>
+
+</body>
+</html>

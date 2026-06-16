@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CS2-06 服務體驗組 · Toolkit</title>
+<style>
+  :root {
+    --turquoise:#26A7B0;
+    --turquoise-50:#ECF7F8;
+    --turquoise-100:#D0EDEF;
+    --turquoise-700:#1F8A92;
+    --copper-light:#CAC3D2;
+    --copper-deep:#6E5F7C;
+    --purple:#7086BA;
+    --green:#6BB57E;
+    --orange:#ED7442;
+    --warn:#E5993E;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a4a;
+    --ink-mute:#8a8580;
+    --paper:#fdfcfa;
+    --paper-soft:#f5f3ef;
+    --paper-warm:#faf7f0;
+    --line:#e5e2db;
+    --line-strong:#cfc9bf;
+    --tier-a:var(--turquoise);
+    --tier-b:var(--purple);
+    --tier-c:var(--copper-deep);
+    --bad:#c9624b;
+    --good:#5ba373;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.78;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    background:linear-gradient(135deg,#9387A6 0%,#766988 100%);
+    color:#fff;
+    padding:56px 24px 44px;
+  }
+  .hero-inner { max-width:960px; margin:0 auto; }
+  .hero-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:12px;
+    opacity:0.85;
+    margin-bottom:12px;
+  }
+  .hero-code {
+    font-family:Georgia,serif;
+    font-size:13px;
+    background:rgba(255,255,255,0.18);
+    padding:4px 12px;
+    border-radius:4px;
+    letter-spacing:0.08em;
+    display:inline-block;
+    margin-bottom:14px;
+  }
+  .hero h1 {
+    font-size:34px;
+    font-weight:700;
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+    line-height:1.3;
+  }
+  .hero-tagline {
+    font-size:16px;
+    opacity:0.92;
+    margin:0 0 22px;
+    line-height:1.7;
+  }
+  .hero-rule {
+    background:rgba(255,255,255,0.10);
+    border-left:3px solid rgba(255,255,255,0.5);
+    padding:14px 18px;
+    border-radius:0 4px 4px 0;
+    font-size:14.5px;
+    line-height:1.75;
+    max-width:720px;
+    margin:0;
+  }
+  .hero-rule-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    opacity:0.8;
+    margin-bottom:4px;
+  }
+  .hero-update {
+    font-size:12px;
+    opacity:0.75;
+    margin-top:22px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    letter-spacing:0.08em;
+  }
+
+  /* Layout */
+  main { max-width:960px; margin:0 auto; padding:48px 24px 64px; }
+
+  /* Side index */
+  .side-index {
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    width:188px;
+    background:rgba(253,252,250,0.94);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 10px;
+    font-size:13px;
+    z-index:40;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+    display:none;
+    max-height:80vh;
+    overflow-y:auto;
+  }
+  .side-index-title {
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--ink-mute);
+    padding:2px 8px 8px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:6px;
+  }
+  .side-index ul { list-style:none; padding:0; margin:0; }
+  .side-index a {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 8px;
+    border-radius:5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background .15s,color .15s;
+    line-height:1.4;
+    font-size:12.5px;
+  }
+  .side-index a:hover { background:var(--paper-soft); color:var(--ink); }
+  .side-index a.active {
+    background:var(--turquoise-50);
+    color:var(--turquoise-700);
+    font-weight:600;
+  }
+  .side-index .code {
+    font-family:Georgia,serif;
+    font-size:11px;
+    color:var(--ink-mute);
+    flex:0 0 18px;
+  }
+  .side-index a.active .code { color:var(--turquoise-700); }
+  .side-index-divider {
+    height:1px;
+    background:var(--line);
+    margin:6px 8px 6px;
+  }
+  .side-index-tier-label {
+    font-size:10px;
+    color:var(--ink-mute);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:6px 8px 4px;
+    font-weight:600;
+  }
+  .side-index-tier-label[data-t="a"] { color:var(--tier-a); }
+  .side-index-tier-label[data-t="b"] { color:var(--tier-b); }
+  .side-index-tier-label[data-t="c"] { color:var(--tier-c); }
+
+  /* Top nav */
+  .top-nav {
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(253,252,250,0.96);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+    margin:0 -24px 32px;
+  }
+  .top-nav-inner {
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+  }
+  .top-nav a {
+    flex:0 0 auto;
+    padding:8px 12px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    border-radius:4px;
+    white-space:nowrap;
+    transition:all .15s;
+  }
+  .top-nav a:hover { background:var(--paper-soft); color:var(--ink); }
+
+  /* Intro */
+  .intro {
+    margin-bottom:48px;
+  }
+  .intro-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:11px;
+    color:var(--turquoise);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .intro h2 {
+    font-size:24px;
+    font-weight:700;
+    margin:0 0 12px;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .intro > p {
+    font-size:15px;
+    color:var(--ink-soft);
+    line-height:1.8;
+    margin:0 0 12px;
+    max-width:720px;
+  }
+
+  /* Four voices */
+  .voices {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:24px;
+  }
+  .voice {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:20px 22px;
+    border-left:4px solid var(--v-color);
+  }
+  .voice[data-v="1"] { --v-color:var(--turquoise); }
+  .voice[data-v="2"] { --v-color:var(--green); }
+  .voice[data-v="3"] { --v-color:var(--copper-deep); }
+  .voice[data-v="4"] { --v-color:var(--orange); }
+  .voice-header {
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .voice-num {
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.06em;
+  }
+  .voice h4 {
+    margin:0;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .voice-when {
+    margin:0 0 12px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .voice-when strong { color:var(--ink); }
+  .voice-example {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:12px 14px;
+    margin:0;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+    border-left:2px solid var(--v-color);
+  }
+  .voice-example-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .voice-example em {
+    display:block;
+    margin-top:6px;
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tier section */
+  .tier-section {
+    margin-bottom:64px;
+    scroll-margin-top:24px;
+  }
+  .tier-header {
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    padding-bottom:14px;
+    margin-bottom:24px;
+    border-bottom:2px solid var(--tier-color);
+  }
+  .tier-section[data-t="a"] { --tier-color:var(--tier-a); }
+  .tier-section[data-t="b"] { --tier-color:var(--tier-b); }
+  .tier-section[data-t="c"] { --tier-color:var(--tier-c); }
+  .tier-number {
+    font-family:Georgia,serif;
+    font-size:32px;
+    font-weight:600;
+    color:var(--tier-color);
+    line-height:1;
+  }
+  .tier-name-block { flex:1 1 auto; }
+  .tier-name {
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin:0;
+    line-height:1.3;
+  }
+  .tier-name-en {
+    font-size:11px;
+    color:var(--ink-mute);
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+  .tier-subtitle {
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0;
+    font-style:italic;
+  }
+
+  /* Project */
+  .project {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    margin-bottom:28px;
+    overflow:hidden;
+    scroll-margin-top:72px;
+  }
+  .project-header {
+    background:var(--paper-warm);
+    padding:20px 24px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .project-code {
+    flex:0 0 auto;
+    background:var(--tier-color);
+    color:#fff;
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    padding:6px 10px;
+    border-radius:4px;
+    letter-spacing:0.04em;
+  }
+  .project-title-block { flex:1 1 auto; }
+  .project-title-block h3 {
+    margin:0;
+    font-size:19px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .project-body { padding:26px 28px; }
+
+  /* Fields */
+  .field { margin-bottom:30px; }
+  .field:last-child { margin-bottom:0; }
+  .field-label {
+    font-size:11px;
+    font-weight:600;
+    color:var(--tier-color);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .field-direction {
+    font-size:15px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+  }
+
+  /* AI workflow sub-fields */
+  .workflow-sub {
+    margin-bottom:20px;
+  }
+  .workflow-sub:last-child { margin-bottom:0; }
+  .workflow-sub-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .workflow-sub-num {
+    background:var(--tier-color);
+    color:#fff;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+    flex:0 0 22px;
+  }
+
+  /* Prep list */
+  .prep-list {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .prep-list li {
+    position:relative;
+    padding:4px 0 4px 22px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .prep-list li::before {
+    content:"";
+    position:absolute;
+    left:6px;
+    top:14px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--tier-color);
+    opacity:0.7;
+  }
+  .prep-list strong { color:var(--ink); }
+
+  /* Prompt block */
+  .field-prompt {
+    background:var(--paper-soft);
+    border-left:3px solid var(--tier-color);
+    border-radius:0 4px 4px 0;
+    padding:16px 18px;
+    font-family:"SF Mono","Consolas","Menlo","Noto Sans TC",monospace;
+    font-size:13px;
+    color:var(--ink);
+    line-height:1.75;
+    margin:0;
+    white-space:pre-wrap;
+    overflow-x:auto;
+    position:relative;
+  }
+  .field-prompt::before {
+    content:"提示詞範本 · 完整複製";
+    display:block;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:10px;
+    font-weight:600;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    padding-bottom:8px;
+    border-bottom:1px dashed var(--line-strong);
+  }
+
+  /* Operation steps */
+  .op-steps {
+    counter-reset:opstep;
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .op-steps > li {
+    counter-increment:opstep;
+    position:relative;
+    padding:10px 0 10px 36px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+    border-bottom:1px solid var(--line);
+  }
+  .op-steps > li:last-child { border-bottom:none; padding-bottom:4px; }
+  .op-steps > li::before {
+    content:counter(opstep);
+    position:absolute;
+    left:0;
+    top:12px;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:transparent;
+    color:var(--tier-color);
+    border:1.5px solid var(--tier-color);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+  }
+  .op-steps em {
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tips */
+  .tips-list {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .tips-list li {
+    position:relative;
+    padding:5px 0 5px 0;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .tips-list li strong {
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+  .tips-list li::before {
+    content:"→";
+    color:var(--tier-color);
+    margin-right:8px;
+    font-weight:600;
+  }
+
+  /* Case study */
+  .case-scenario {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0 0 16px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+  .case-scenario strong {
+    display:block;
+    font-size:11px;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  .case-compare {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-bottom:16px;
+  }
+  .case-panel {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+    position:relative;
+  }
+  .case-panel.bad { border-left:4px solid var(--bad); }
+  .case-panel.good { border-left:4px solid var(--good); }
+  .case-panel-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+  }
+  .case-panel.bad .case-panel-label { color:var(--bad); }
+  .case-panel.good .case-panel-label { color:var(--good); }
+  .case-panel-label-icon {
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:11px;
+    font-weight:700;
+    color:#fff;
+  }
+  .case-panel.bad .case-panel-label-icon { background:var(--bad); }
+  .case-panel.good .case-panel-label-icon { background:var(--good); }
+  .case-content {
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.85;
+    margin:0;
+    font-style:italic;
+  }
+  .case-content::before { content:"「"; }
+  .case-content::after { content:"」"; }
+
+  .case-takeaway {
+    background:var(--turquoise-50);
+    border-radius:6px;
+    padding:14px 18px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+    border-left:3px solid var(--turquoise);
+  }
+  .case-takeaway strong {
+    display:block;
+    font-size:11px;
+    color:var(--turquoise-700);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  /* Footer */
+  footer {
+    background:var(--paper-soft);
+    border-top:1px solid var(--line);
+    padding:32px 24px;
+    text-align:center;
+  }
+  footer p {
+    margin:4px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  footer .brand-tagline {
+    font-size:14px;
+    color:var(--turquoise-700);
+    font-weight:500;
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+
+  /* Draft notice */
+  .draft-notice {
+    background:#fff7e8;
+    border:1px solid #f0d99f;
+    border-radius:6px;
+    padding:14px 18px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .draft-notice-icon {
+    flex:0 0 18px;
+    color:var(--warn);
+    margin-top:2px;
+  }
+  .draft-notice strong { color:#a86b14; }
+
+  /* Print */
+  @media print {
+    .top-nav, .side-index, .draft-notice { display:none !important; }
+    .hero { background:#fff; color:var(--ink); border-bottom:2px solid var(--turquoise); }
+    .hero h1, .hero-tagline, .hero-eyebrow, .hero-update, .hero-code, .hero-rule { color:var(--ink); opacity:1; }
+    .hero-code, .hero-rule { background:var(--paper-soft); }
+    .project, .tier-section { break-inside:avoid; page-break-inside:avoid; }
+  }
+
+  /* Responsive */
+  @media (min-width: 1320px) {
+    .side-index { display:block; }
+    .top-nav { display:none; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding:42px 20px 32px; }
+    .hero h1 { font-size:26px; }
+    .hero-tagline { font-size:15px; }
+    main { padding:32px 20px 48px; }
+    .top-nav { margin:0 -20px 24px; }
+    .top-nav-inner { padding:0 20px; }
+    .tier-header { flex-wrap:wrap; }
+    .tier-number { font-size:24px; }
+    .tier-name { font-size:19px; }
+    .project-header { padding:18px 20px; gap:12px; }
+    .project-body { padding:20px; }
+    .field-prompt { font-size:12px; padding:14px 16px; }
+  }
+
+  /* ============ v1.2 additions ============ */
+  /* Controls bar */
+  .controls-bar { display:flex; justify-content:flex-end; gap:8px; margin-bottom:28px; }
+  .control-btn {
+    background:transparent; border:1px solid var(--line-strong); color:var(--ink-soft);
+    padding:7px 14px; border-radius:5px; font-size:12px;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:6px; font-weight:500;
+  }
+  .control-btn:hover { background:var(--paper-soft); border-color:var(--ink-soft); color:var(--ink); }
+  .control-btn svg { width:12px; height:12px; }
+
+  /* Collapsible details/summary */
+  details summary { list-style:none; cursor:pointer; user-select:none; }
+  details summary::-webkit-details-marker { display:none; }
+  details summary::marker { display:none; }
+  .summary-chevron {
+    flex:0 0 16px; color:var(--tier-color, var(--ink-mute));
+    transition:transform .25s; margin-left:auto;
+  }
+  details[open] > summary .summary-chevron { transform:rotate(180deg); }
+
+  /* Voice section collapsible */
+  details.intro-collapse {
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    overflow:hidden; margin-bottom:32px;
+  }
+  details.intro-collapse > summary {
+    background:var(--paper-warm); padding:18px 22px;
+    display:flex; align-items:center; gap:14px;
+    font-size:15px; font-weight:700; color:var(--ink);
+  }
+  details.intro-collapse[open] > summary { border-bottom:1px solid var(--line); }
+  details.intro-collapse > summary .summary-chevron { color:var(--turquoise); }
+  details.intro-collapse > summary span:first-of-type {
+    display:flex; align-items:center; gap:10px;
+  }
+  details.intro-collapse > summary .intro-code {
+    font-family:Georgia,serif; font-size:12px; color:var(--turquoise-700);
+    background:var(--turquoise-50); padding:3px 9px; border-radius:3px;
+    letter-spacing:0.06em;
+  }
+  .intro-collapse-body { padding:26px 28px; }
+
+  /* Copy button */
+  .prompt-block { position:relative; }
+  .copy-btn {
+    position:absolute; top:10px; right:10px; z-index:5;
+    background:#fff; border:1px solid var(--tier-color); color:var(--tier-color);
+    padding:5px 12px; border-radius:4px;
+    font-size:11px; font-weight:600; letter-spacing:0.04em;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:5px;
+  }
+  .copy-btn:hover { background:var(--tier-color); color:#fff; }
+  .copy-btn.copied { background:var(--good); border-color:var(--good); color:#fff; }
+  .copy-btn svg { width:11px; height:11px; }
+
+  /* Old prompt label removed — outer label + copy btn replace it */
+  .field-prompt::before { display:none; }
+  .field-prompt { padding-top:38px; }
+
+  /* Print: expand all */
+  @media print {
+    details > summary .summary-chevron { display:none; }
+    details > *:not(summary) { display:block !important; }
+    .controls-bar, .copy-btn { display:none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">GPS 內容推廣 · 組別工具手冊</div>
+    <span class="hero-code">CS2-06</span>
+    <h1>服務體驗組 Toolkit</h1>
+    <p class="hero-tagline">場域觀察、旅程地圖、服務腳本、體驗改造、研究主導——三級九專案，每案附完整提示詞、操作步驟與正反案例對照。</p>
+    <div class="hero-rule">
+      <span class="hero-rule-label">全組鐵則</span>
+      觀察是一切工作的原料——任何改造提案都要回到場域的真實證據，不從會議室裡的想像出發。方法學底座是 CPTED 加品牌行為四原則：先說明後執行、先問候再驗證、預先準備不適時刻、視每個場域為某人的第一天。結論的每一步都要能被追問「你怎麼知道」——說不出證據的，就不是發現。
+    </div>
+    <div class="hero-update">資訊更新 2026-06 · v1.0</div>
+  </div>
+</header>
+
+<aside class="side-index" aria-label="快速索引">
+  <div class="side-index-title">CS2-06 索引</div>
+  <ul>
+    <li><a href="#intro"><span class="code">§ 0</span>三道閘門</a></li>
+    <li class="side-index-divider"></li>
+    <li class="side-index-tier-label" data-t="a">基礎 · Foundational</li>
+    <li><a href="#a1"><span class="code">A1</span>服務接觸點觀察紀錄</a></li>
+    <li><a href="#a2"><span class="code">A2</span>同仁回饋蒐集與整理（VOC）</a></li>
+    <li><a href="#a3"><span class="code">A3</span>體驗檢核表執行</a></li>
+    <li class="side-index-tier-label" data-t="b">進階 · Intermediate</li>
+    <li><a href="#b1"><span class="code">B1</span>旅程地圖繪製</a></li>
+    <li><a href="#b2"><span class="code">B2</span>服務腳本設計</a></li>
+    <li><a href="#b3"><span class="code">B3</span>工作坊協作引導</a></li>
+    <li class="side-index-tier-label" data-t="c">高階 · Advanced</li>
+    <li><a href="#c1"><span class="code">C1</span>服務體驗改造提案</a></li>
+    <li><a href="#c2"><span class="code">C2</span>使用者研究計畫主導</a></li>
+    <li><a href="#c3"><span class="code">C3</span>跨域體驗標準制定</a></li>
+  </ul>
+</aside>
+
+<nav class="top-nav" aria-label="導覽">
+  <div class="top-nav-inner">
+    <a href="#intro">三道閘門</a>
+    <a href="#tier-a">基礎層級 A</a>
+    <a href="#tier-b">進階層級 B</a>
+    <a href="#tier-c">高階層級 C</a>
+  </div>
+</nav>
+
+<main>
+
+<div class="draft-notice">
+  <div class="draft-notice-icon" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="9" cy="9" r="7.5"/>
+      <path d="M9 5 L9 10" stroke-linecap="round"/>
+      <circle cx="9" cy="12.5" r="0.8" fill="currentColor"/>
+    </svg>
+  </div>
+  <div>
+    <strong>v1.0 草稿 · 待組長校稿</strong>——案例皆為自帶情境的劣稿／佳稿對照，
+    不假設讀者看過任何過往作品；提示詞拆為「準備 → 範本 → 操作步驟 → 常見調整」四段。
+    待 CS2-06 組長就位後將進入正式校稿與案例庫迭代。
+  </div>
+</div>
+
+<div class="controls-bar">
+  <button class="control-btn" type="button" id="expand-all" aria-label="展開所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 L6 10 M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部展開
+  </button>
+  <button class="control-btn" type="button" id="collapse-all" aria-label="收合所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部收合
+  </button>
+</div>
+
+<!-- ============= INTRO ============= -->
+<details class="intro-collapse" id="intro">
+  <summary>
+    <span><span class="intro-code">§ 0</span>看見體驗的眼睛</span>
+    <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </summary>
+  <div class="intro-collapse-body">
+  <div class="intro-eyebrow">§ 0 · 動手前的判斷</div>
+  <h2>看見體驗的眼睛</h2>
+  <p>動手設計或提案前先過三道閘門——服務體驗組的失敗不是「想得不夠周到」，是「沒看見就先設計」。每個判斷都要回答：是否用第一天的眼睛看過、是否有證據支撐、是否整合了環境與流程。三題都對才動手。</p>
+  <div class="voices">
+  <div class="voice" data-v="1">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 01</span>
+        <h4>第一天視角閘門 · First-Day Lens</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何要評估或設計一個場域體驗時。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼用第一天的眼睛</span>
+        熟悉一個場域的人看不見它的問題——你每天走的動線、你早就知道的指引位置，對「某人的第一天」是全然陌生的。品牌憲章的場景標尺很具體：踏入暗室時燈有沒有亮、詢問台的笑容有沒有出現。
+        <em>常見破口：「這裡很清楚啊」、「大家都知道要往那邊走」——說這話的人是熟悉場域的內部人，不是第一天來的訪客。內部人的「清楚」正是看不見問題的盲點。</em>
+        <em>對的做法：刻意用「某人的第一天」視角走場域：在哪裡會遲疑、哪裡找不到指引、哪個瞬間感到被歡迎或被冷落。找的就是「燈有沒有亮、笑容有沒有出現」的具體瞬間及其缺席的位置。</em>
+      </div>
+    </div>
+  <div class="voice" data-v="2">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 02</span>
+        <h4>證據優先閘門 · Evidence First</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何要下結論、做判斷、提改造方案時。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼要證據</span>
+        服務體驗的改造若從「我覺得」出發，會把個人偏好誤當成使用者需求。本組所有結論都要回到場域證據——觀察紀錄、VOC（同仁的聲音）、旅程地圖。結論的每一步都要能被追問「你怎麼知道」。
+        <em>常見破口：「我覺得這樣比較好」、「應該大家都希望這樣」——個人直覺與想像不是證據。沒有觀察、沒有 VOC 支撐的判斷，是把自己的偏好強加給使用者。</em>
+        <em>對的做法：每個結論都要對應具體證據：這個痛點來自哪次觀察、哪則 VOC、旅程地圖的哪個環節。說不出證據的判斷，先回場域補觀察，不靠想像補完。</em>
+      </div>
+    </div>
+  <div class="voice" data-v="3">
+      <div class="voice-header">
+        <span class="voice-num">GATE · 03</span>
+        <h4>CPTED 整合閘門 · CPTED Integration</h4>
+      </div>
+      <p class="voice-when"><strong>什麼時候用——</strong>任何要設計改造方案時。</p>
+      <div class="voice-example">
+        <span class="voice-example-label">為什麼整合三層</span>
+        服務體驗組是唯一以真實場域為畫布的組——問題不只在話術或流程，常常在物理空間本身。CPTED（透過環境設計預防的視角）讓改造涵蓋環境、流程、話術三層，而非只改一層。改一句話術救不了一個動線設計錯誤的大廳。
+        <em>常見破口：「改個指引牌就好」、「教同仁講得客氣一點就行」——只改單層的方案治標不治本。動線錯誤靠話術補、空間壓迫靠流程繞，都是把問題推給下游。</em>
+        <em>對的做法：改造方案整合三層：環境（CPTED 視角的空間與指引設計）、流程（步驟順序與等候設計）、話術（服務腳本）。先問這個痛點的根源在哪一層，再決定三層各做什麼。</em>
+      </div>
+    </div>
+  </div>
+  </div>
+</details>
+
+<!-- ============= TIER A: 基礎 ============= -->
+<section class="tier-section" data-t="a" id="tier-a">
+  <div class="tier-header">
+    <div class="tier-number">01</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">基礎 · Foundational</h2>
+      <p class="tier-subtitle">看見體驗的眼睛——場域觀察、VOC 整理、檢核執行</p>
+    </div>
+  </div>
+
+  <!-- A1 -->
+  <details class="project" id="a1">
+    <summary class="project-header">
+      <div class="project-code">A1</div>
+      <div class="project-title-block">
+        <h3>服務接觸點觀察紀錄</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">以「某人的第一天」視角走一遍指定場域（大廳、訪客動線、門禁口），記錄每個接觸點的真實體驗：哪裡會遲疑、哪裡找不到指引、哪個瞬間感到被歡迎。觀察是本組一切工作的原料——觀察的品質決定後面所有分析、設計、改造的上限。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：紙筆或手機備忘錄做現場記錄；相機拍接觸點（注意場域授權，避開敏感細節）；tGenie 做觀察清單規劃與紀錄整理。</li>
+            <li><strong>準備素材</strong>：指定觀察場域、場域平面圖、預計觀察的接觸點清單、觀察時段（不同時段體驗不同，尖峰與離峰各觀察一次）。</li>
+            <li><strong>先換眼睛</strong>：刻意忘掉你對這個場域的熟悉——假裝這是你第一天來。你不知道指引在哪、不知道該往哪走、不知道規矩。</li>
+            <li><strong>定觀察標尺</strong>：找的是具體瞬間：哪裡會遲疑、哪裡找不到指引、哪個瞬間被歡迎或被冷落——燈有沒有亮、笑容有沒有出現。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 服務體驗組的場域觀察顧問，熟悉「以某人的第一天視角觀察」原則。
+
+我要對一個場域做服務接觸點觀察，需要您協助規劃觀察清單與整理紀錄。
+
+【觀察場域】
+（填入：例如 廠區大廳與訪客報到區）
+
+【場域接觸點】
+（列出這個場域的主要接觸點：例如 入口、指引牌、詢問台、報到櫃檯、等候區、門禁閘口）
+
+【觀察對象視角】
+（填入：以哪類使用者的第一天視角觀察——外部訪客／新進同仁／差旅同仁）
+
+【觀察時段】
+（填入：例如 上午尖峰報到時段）
+
+請給我四件事:
+（一）觀察清單——每個接觸點要觀察的具體項目：指引是否清晰、首句問候是否到位、哪裡會遲疑、哪個瞬間被歡迎或被冷落；
+（二）「第一天視角」提問——一組幫助你用陌生人眼睛看的提問（我知道往哪走嗎？我感到被歡迎嗎？我遇到問題時知道找誰嗎？）；
+（三）紀錄格式——觀察到的體驗如何記錄：接觸點、觀察到的現象、是正面瞬間還是痛點、具體位置；
+（四）容易被忽略的觀察點——熟悉場域的人最容易視而不見的地方（背景指引、過渡空間、等候時的心理感受）。
+
+請遵守：觀察記錄具體現象，不寫評價結論（記「指引牌在轉角後方、走過頭才看到」，不寫「指引設計不良」）；
+以陌生人的第一天視角，不用熟悉者的「我知道」；
+正面瞬間與痛點都要記（哪裡燈亮了、哪裡笑容出現了，也是重要素材）；
+不在觀察階段就想解法——觀察只記錄，解法是後面的工作。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie，貼入提示詞範本，填入觀察場域與接觸點。</li>
+            <li>送出。等待約 30 秒。</li>
+            <li>讀（一）觀察清單。對照場域平面圖確認涵蓋所有接觸點。<em>有接觸點遺漏</em>：回覆「場域還有 [某接觸點]，請補入觀察清單」。</li>
+            <li>讀（二）第一天視角提問。把這組提問記下來——現場觀察時反覆問自己這些問題。</li>
+            <li>讀（三）紀錄格式。準備好記錄工具（紙筆或手機），依此格式記錄。</li>
+            <li>讀（四）容易忽略的觀察點。特別留意這些地方——它們正是熟悉場域者的盲點。</li>
+            <li>實地走場域。刻意用第一天的眼睛：在每個接觸點停下，問「我知道往哪走嗎？我感到被歡迎嗎？」記錄具體現象（不寫評價）。</li>
+            <li>不同時段再走一次（尖峰與離峰體驗不同）。尖峰時的等候、離峰時的冷清，都是不同的體驗素材。</li>
+            <li>觀察後整理紀錄——把現場記的現象依紀錄格式整理成可分析的觀察素材，交給後續的 VOC 整理與旅程地圖使用。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>觀察時忍不住想「這應該改成這樣」</strong>：先記下現象就好，解法留到後面。觀察階段就想解法會讓你只觀察「支持你解法的現象」，錯失其他。</li>
+            <li><strong>覺得「這場域我很熟，沒什麼好觀察」</strong>：這正是盲點。請一位真正第一次來的同事陪你走，看他在哪裡遲疑——他的遲疑就是你看不見的問題。</li>
+            <li><strong>只記錄了痛點沒記正面瞬間</strong>：正面瞬間同樣重要——哪裡的指引特別清楚、哪個同仁的問候特別到位，這些是「對的做法」的活樣本，未來改造時要複製。</li>
+            <li><strong>觀察記錄寫成了評價（「設計不良」）</strong>：改回具體現象（「指引牌在柱子後方、從入口看不到」）。評價無法行動，現象才能定位問題、指導改造。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要觀察廠區大廳與訪客報到區的服務體驗，以「外部訪客的第一天」視角。接觸點：入口、大廳指引、詢問台、報到櫃檯、等候區、門禁閘口。上午尖峰報到時段觀察。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">帶著「我每天經過這裡，很熟」的心態快速走一圈，記錄：「大廳整潔、指引清楚、櫃檯有人服務、整體動線順暢，體驗良好，無明顯問題。」問題：（1）用熟悉者的眼睛看，看不到第一天訪客的困惑；（2）記的是籠統評價（整潔、清楚、順暢）不是具體現象，無法定位問題也無法指導改造；（3）只看了「沒問題」的表面，沒去找遲疑、冷落的具體瞬間；（4）沒記任何正面瞬間的細節（哪裡做得好、為什麼好）。這份觀察對後續的旅程地圖與改造毫無素材價值。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">刻意用「第一天訪客」的眼睛，請一位沒來過的同事陪走，記錄具體現象：入口——「玻璃門無明顯推拉標示，陪走同事推了拉的那側、愣了兩秒」（痛點，位置：主入口）。大廳指引——「指引牌掛在右後方柱子上，從入口直視看不到，陪走同事站在大廳中央環顧 5 秒才找到」（痛點，位置：大廳中央）。詢問台——「詢問台同仁主動抬頭微笑說『早安，請問需要協助嗎』，陪走同事明顯放鬆」（正面瞬間，位置：詢問台，這是燈亮了的時刻）。報到櫃檯——「尖峰時 3 人排隊，無號碼或等候指引，陪走同事不確定是否排對隊、反覆看別人怎麼做」（痛點，位置：報到櫃檯）。等候區——「等候時無預估時間提示，陪走同事頻頻看錶、顯得焦慮」（痛點，位置：等候區）。門禁閘口——「閘口同仁說『證件給我一下，馬上好』後才伸手，陪走同事覺得被尊重」（正面瞬間，位置：門禁，先說明後執行的活樣本）。每筆都是具體現象＋位置＋正面或痛點，成為旅程地圖與改造的紮實素材。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          場域觀察的核心紀律是「用第一天的眼睛、記具體現象」——觀察是本組一切工作的原料，原料的品質決定後面所有分析與設計的上限。劣稿的失敗有三：用熟悉者的眼睛（看不到訪客的困惑）、記籠統評價（整潔、順暢，無法定位問題）、只看表面沒找具體瞬間。這種觀察對後續工作毫無價值。佳稿做了三件事：請陌生人陪走（借他的眼睛看見盲點）、記具體現象＋位置（可定位可行動）、正面瞬間與痛點都記（「燈亮了」的時刻是改造時要複製的活樣本）。「燈有沒有亮、笑容有沒有出現」是品牌憲章給的觀察標尺——找的就是這些具體瞬間，以及它們缺席的位置。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A2 -->
+  <details class="project" id="a2">
+    <summary class="project-header">
+      <div class="project-code">A2</div>
+      <div class="project-title-block">
+        <h3>同仁回饋蒐集與整理（VOC）</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">蒐集並整理同仁對安全服務的聲音（會後回饋、信箱意見、活動中的隨口提及），整理成可分析的素材卡：原話、情境、頻率。基礎層級只整理不詮釋——詮釋是進階層級的工作，但整理的品質決定詮釋的上限，而整理最關鍵的判斷是「用什麼軸分組」。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：VOC 素材卡（Notion 資料庫或試算表）；tGenie 做回饋整理與分組軸建議。</li>
+            <li><strong>準備素材</strong>：蒐集到的同仁回饋（會後回饋、信箱意見、隨口提及）、回饋來源與情境、現行的接觸點清單（作為分組軸選項）。</li>
+            <li><strong>確認只整理不詮釋</strong>：你的工作是把零散回饋整理成結構化素材卡，不是判斷「這代表什麼」——詮釋是進階層級的工作。</li>
+            <li><strong>先想分組軸</strong>：同一批回饋，依「正面／負面」分組看不出行動方向，依「接觸點」分組立刻浮現問題密度——分組軸的選擇就是方法。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 服務體驗組的 VOC 整理顧問，熟悉「只整理不詮釋、分組軸決定洞察」原則。
+
+我要整理一批同仁對安全服務的回饋，需要您協助結構化。
+
+【回饋素材】
+（將蒐集到的回饋逐則貼入，每則標明來源與情境）
+
+【回饋來源類型】
+（描述：會後回饋表／信箱意見／活動中隨口提及／其他）
+
+【可用的分組軸】
+- 依接觸點分組（訪客報到、門禁、詢問、等候等）
+- 依使用者類型分組（外部訪客、新進同仁、差旅同仁）
+- 依情緒分組（困惑、焦慮、被歡迎、被冷落）
+
+請給我四件事:
+（一）素材卡整理——把每則回饋整理成結構化素材卡：原話（保留同仁的原始用語）、情境（在什麼場合說的）、接觸點（指向哪個環節）；
+（二）分組軸建議——這批回饋最適合用哪個軸分組才能浮現行動方向，附理由（例如依接觸點分組能看出問題密度最高的環節）；
+（三）頻率統計——同一類問題出現幾次，標出高頻問題（高頻代表系統性，低頻可能是個案）；
+（四）整理品質檢查——確認整理保留了原話、沒有摻入詮釋（提醒：基礎層級只整理不詮釋）。
+
+請遵守：保留同仁的原話，不改寫成「正式」用語——原話的溫度與細節是素材的價值；
+只整理不詮釋——不寫「這代表訪客報到流程有問題」這類判斷（那是進階層級的工作）；
+分組軸的選擇要能浮現行動方向（依接觸點通常比依正負面更有用）；
+高頻與低頻分開標示——高頻是系統性問題，低頻可能是個案。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>彙整蒐集到的所有回饋，每則標明來源與情境。</li>
+            <li>開啟 tGenie，貼入提示詞範本與回饋素材。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）素材卡整理。確認原話被保留（沒被改寫成正式用語）。<em>原話被改寫</em>：回覆「請保留同仁的原始用語，不要改寫成正式說法——原話的細節是素材價值」。</li>
+            <li>讀（二）分組軸建議。判斷建議的軸是否能浮現行動方向。<em>軸選得不對</em>：回覆「請改用 [接觸點] 軸分組，看哪個環節的問題密度最高」。</li>
+            <li>讀（三）頻率統計。確認高頻與低頻分開標示。高頻問題是後續改造的優先目標。</li>
+            <li>讀（四）整理品質檢查。確認沒摻入詮釋。<em>摻了詮釋</em>：回覆「請移除『這代表⋯』這類判斷，只保留整理後的素材——詮釋是進階層級的工作」。</li>
+            <li>把整理好的 VOC 素材卡輸入資料庫（原話、情境、接觸點、頻率）。</li>
+            <li>以選定的分組軸呈現——讓問題密度最高的環節浮現出來，交給後續的旅程地圖與改造提案使用。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 把同仁原話改寫成正式用語</strong>：回覆「請保留原話——『報到櫃檯每次都要等很久很煩』不要改成『報到流程效率有待提升』，原話的情緒與細節才是價值」。</li>
+            <li><strong>AI 在整理時加了詮釋判斷</strong>：回覆「請只整理不詮釋——移除『這反映出⋯』『代表⋯』這類判斷句，那是進階層級的工作。基礎層級整理的品質決定詮釋的上限」。</li>
+            <li><strong>用了正面／負面當分組軸</strong>：回覆「請改用接觸點分組——正負面看不出行動方向，接觸點能立刻浮現『哪個環節怨言最多』」。</li>
+            <li><strong>高頻低頻沒分開</strong>：回覆「請標出每類問題的出現頻率，高頻（系統性問題）與低頻（可能是個案）分開——這影響後續改造的優先序」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          蒐集到 15 則同仁對安全服務的回饋，來自會後回饋表與信箱意見。內容五花八門：有人說報到等太久、有人稱讚門禁同仁親切、有人抱怨找不到訪客停車、有人說指引不清楚、有人提門禁查驗太繁瑣等。要整理成 VOC 素材。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">把 15 則回饋依「正面／負面」分成兩堆：正面堆（3 則）：門禁同仁親切、大廳乾淨、警衛有禮。負面堆（12 則）：報到等太久、找不到停車、指引不清、查驗繁瑣⋯⋯並且在整理時順手加了詮釋：「負面回饋偏多，顯示整體服務體驗有待加強，建議全面檢討。」還把同仁原話「報到每次都等到森氣」改寫成「報到等候時間過長」。問題：（1）正面／負面分組看不出該先改哪裡（12 則負面散在不同環節，不知優先處理什麼）；（2）摻入詮釋（建議全面檢討）越權，且「全面檢討」無從下手；（3）改寫原話丟失了情緒強度（「森氣」vs「過長」差很多）；（4）沒做頻率統計，分不清系統性問題與個案。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">把 15 則回饋依「接觸點」分組，保留原話、做頻率統計、不加詮釋：訪客報到（6 則，高頻）——「報到每次都等到森氣」「排隊不知道排對沒」「等的時候不知道還要多久」⋯⋯（問題密度最高的環節）。指引（3 則，中頻）——「找不到訪客停車在哪」「指引牌看不到」「不知道報到完往哪走」。門禁查驗（2 則，低頻）——「查驗手續有點繁瑣」「證件來回給有點麻煩」。正面瞬間（4 則，分散）——「門禁同仁很親切」「警衛主動問需不需要幫忙」（這些是對的做法的活樣本，標記保留）。每則保留原話（「森氣」不改成「過長」）。整理結論只到此為止，不加「建議全面檢討」這類詮釋。依接觸點分組後，「訪客報到」6 則的高密度立刻浮現——這是後續改造該優先處理的環節。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          VOC 整理的核心紀律是「只整理不詮釋、分組軸決定洞察」——整理的品質決定後續詮釋與改造的上限。劣稿犯了四個錯：用正負面分組（看不出優先序）、摻入詮釋（建議全面檢討，越權且無從下手）、改寫原話（丟失情緒強度）、沒做頻率統計（分不清系統性與個案）。佳稿做了三件事：用接觸點分組（讓問題密度最高的環節浮現）、保留原話（「森氣」的情緒是素材價值）、標頻率（高頻 = 系統性 = 優先改造）。「分組軸的選擇就是方法」——同一批回饋，依正負面分組是一堆無從下手的抱怨，依接觸點分組立刻指出「訪客報到」是該優先動手的環節。基礎層級整理時的這個判斷，決定了整批素材有沒有用。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A3 -->
+  <details class="project" id="a3">
+    <summary class="project-header">
+      <div class="project-code">A3</div>
+      <div class="project-title-block">
+        <h3>體驗檢核表執行</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">以行為四原則為基礎的標準檢核表，定期巡檢指定場域：指引是否清晰、首句問候是否到位、不適時刻（等候、查驗、退件）是否有預備的緩衝設計。基礎層級執行檢核並回報，檢核表本身由進階層級維護——巡檢就是核對「卡片上的承諾與現場的現實」之間的距離。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：標準檢核表（行為四原則為基礎）；SOP 卡片（現場對照用）；tGenie 做檢核紀錄整理與差距分析。</li>
+            <li><strong>準備素材</strong>：現行體驗檢核表、指定巡檢場域、SOP 卡片（標準動作）、上次巡檢紀錄（看問題是否改善）。</li>
+            <li><strong>確認檢核四原則</strong>：檢核表基於品牌行為四原則：先說明後執行、先問候再驗證、預先準備不適時刻、視場域為某人的第一天。</li>
+            <li><strong>確認檢核非評分</strong>：巡檢是核對「承諾與現實的距離」，找出落差供改善，不是給現場人員打分數——對事不對人。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 服務體驗組的體驗檢核顧問，熟悉「核對承諾與現實的距離、對事不對人」原則。
+
+我要用體驗檢核表巡檢一個場域，需要您協助整理檢核紀錄與分析差距。
+
+【巡檢場域】
+（填入：例如 訪客報到區）
+
+【體驗檢核表項目】（基於行為四原則）
+- 先說明後執行：動作前是否先說明（「證件給我一下，馬上好」）
+- 先問候再驗證：是否先問候再進入查驗
+- 預先準備不適時刻：等候、查驗、退件等不適時刻是否有緩衝設計
+- 視為某人的第一天：指引、歡迎是否考慮陌生訪客
+
+【SOP 卡片標準】
+（貼入相關接觸點的 SOP 卡片標準動作）
+
+【巡檢觀察】
+（將你巡檢時觀察到的現場實況逐項貼入）
+
+請給我四件事:
+（一）逐項檢核結果——每個檢核項目：現場是否符合標準、具體落差是什麼、發生在哪個接觸點；
+（二）承諾與現實的距離——SOP 卡片承諾的標準動作，與現場實際的差距有多大，具體在哪；
+（三）落差分類——是「人」的問題（執行不到位，可透過提醒改善）還是「設計」的問題（流程或環境本身缺陷，需改造），分類影響後續處理；
+（四）回報重點——這次巡檢最該回報的 2-3 個落差，附改善建議方向（人的問題給提醒、設計的問題給上報）。
+
+請遵守：檢核核對「承諾與現實的距離」，不評價現場人員——對事不對人；
+落差要具體（記「等候區無預估時間提示」，不記「等候體驗不佳」）；
+區分「人」的問題與「設計」的問題——前者提醒可改善，後者需上報改造；
+檢核表本身的缺漏也要回報（若發現檢核表沒涵蓋的重要項目，標記供進階維護檢核表）。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>帶著檢核表與 SOP 卡片到指定場域。</li>
+            <li>逐項巡檢，核對每個接觸點的現場實況與 SOP 卡片標準。把觀察記下。</li>
+            <li>開啟 tGenie，貼入提示詞範本與巡檢觀察。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）逐項檢核結果。確認落差記錄具體（位置＋現象）。</li>
+            <li>讀（二）承諾與現實的距離。確認每個落差都對應 SOP 卡片的具體承諾。</li>
+            <li>讀（三）落差分類。確認區分了「人」與「設計」的問題。<em>分類不清</em>：回覆「[某落差] 是執行不到位（人）還是流程缺陷（設計）？請明確分類，這影響後續處理」。</li>
+            <li>讀（四）回報重點。確認改善方向對應分類（人的問題給提醒、設計的問題給上報）。</li>
+            <li>整理巡檢回報——逐項結果、關鍵落差、改善方向。人的問題回饋給現場主管（對事不對人），設計的問題上報供改造。</li>
+            <li>若發現檢核表本身有缺漏（沒涵蓋的重要項目），標記供進階維護檢核表——檢核表是活的。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>檢核結果寫成了對人員的評價</strong>：改回核對承諾與現實——記「首句未問候即查驗（SOP 卡片要求先問候）」，不記「該員態度不佳」。對事不對人，落差才能被系統性改善。</li>
+            <li><strong>落差記得太籠統</strong>：改具體——「等候區無預估時間提示」可行動，「等候體驗不佳」無從下手。具體落差才能定位改造點。</li>
+            <li><strong>人的問題與設計的問題混在一起</strong>：分開——「同仁忘了先問候」是人的問題（提醒可改善）；「動線設計讓訪客必經查驗才能問路」是設計問題（需改造）。分類決定處理方式。</li>
+            <li><strong>發現檢核表漏項卻沒回報</strong>：回報。若巡檢中發現重要的體驗環節檢核表沒涵蓋，標記供進階維護——檢核表的完善靠第一線巡檢者的回饋。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          用體驗檢核表巡檢訪客報到區。SOP 卡片承諾：報到時先問候再查驗、等候時提供預估時間、退件時說明原因並引導。巡檢觀察到：報到櫃檯同仁直接說「證件」就伸手、等候區沒有任何時間提示、一位訪客資料有誤被退件時只說「資料不對」就請對方旁邊等。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">巡檢後回報：「報到區同仁服務態度需加強，櫃檯人員不夠親切、等候區管理不佳、退件處理生硬。建議加強人員教育訓練。整體評分：待改善。」問題：（1）寫成對人員的評價（態度需加強、不夠親切），對事變成對人，現場同仁會抗拒；（2）落差籠統（管理不佳、處理生硬），無法定位具體改造點；（3）沒區分人與設計的問題——「等候區沒時間提示」其實是設計問題（沒裝提示系統），卻和「同仁忘了問候」混為一談都歸到「人員態度」；（4）「加強教育訓練」這個建議對設計問題無效（裝個時間提示牌不是訓練能解決的）。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">巡檢後核對承諾與現實的距離，逐項回報、區分人與設計：逐項檢核：先問候再驗證——落差：櫃檯同仁直接說「證件」就伸手（SOP 卡片要求先問候再查驗）。位置：報到櫃檯。分類：人（執行不到位）。預先準備不適時刻——落差：等候區無任何預估時間提示（SOP 卡片承諾提供預估時間）。位置：等候區。分類：設計（缺乏提示系統）。退件處理——落差：訪客資料有誤被退件時只說「資料不對」未說明原因與引導（SOP 卡片要求說明原因並引導）。位置：報到櫃檯。分類：人（執行不到位）＋設計（無退件引導動線）。回報重點：「先問候」與「退件說明」是人的問題——回饋給現場主管，透過提醒與 SOP 卡片複習改善（對事不對人）。「等候區無時間提示」是設計問題——上報供改造（加裝預估時間顯示，非訓練能解決）。「退件無引導動線」是設計問題——上報，建議規劃退件後的引導路徑。另標記：檢核表可增列「退件動線」項目，供進階維護。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          體驗檢核的核心紀律是「核對承諾與現實的距離、區分人與設計」——巡檢不是給人打分數，是找出落差供系統性改善。劣稿犯了三個錯：寫成對人員的評價（對事變對人，引發抗拒）、落差籠統（無法定位改造點）、人與設計問題混為一談（導致「加強訓練」這個對設計問題無效的建議）。佳稿做了三件事：核對 SOP 承諾與現場現實的具體距離（對事不對人）、落差具體到位置與現象、區分人的問題（提醒可改善）與設計的問題（需改造）。「巡檢就是核對承諾與現實的距離」——SOP 卡片寫的是承諾，現場做的是現實，檢核找的是兩者的落差。而落差是「人」還是「設計」的判斷，決定了它該被提醒還是被改造——這個分類是檢核最關鍵的價值。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER B: 進階 ============= -->
+<section class="tier-section" data-t="b" id="tier-b">
+  <div class="tier-header">
+    <div class="tier-number">02</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">進階 · Intermediate</h2>
+      <p class="tier-subtitle">設計體驗的雙手——旅程地圖、服務腳本、工作坊引導</p>
+    </div>
+  </div>
+
+  <!-- B1 -->
+  <details class="project" id="b1">
+    <summary class="project-header">
+      <div class="project-code">B1</div>
+      <div class="project-title-block">
+        <h3>旅程地圖繪製</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">把一類使用者（外部訪客、新進同仁、差旅同仁）的完整旅程畫成地圖：階段、接觸點、行動、情緒曲線、痛點與亮點。地圖的價值不在美觀，在於讓跨組看見「同一個人」的連續經驗，而非各自負責的片段。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：旅程地圖工具（Figma 或專用模板）；tGenie 做旅程梳理；A1 觀察紀錄與 A2 的 VOC 素材作為依據。</li>
+            <li><strong>準備素材</strong>：目標使用者類型、該使用者的觀察紀錄（A1）、相關 VOC 素材（A2）、人物誌（若有，作為前置研究）。</li>
+            <li><strong>先有人物誌</strong>：旅程地圖的情緒曲線要有依據——先有「這是誰、他在意什麼」的人物誌，情緒曲線才不是憑空畫的。</li>
+            <li><strong>確認連續性</strong>：地圖的價值是讓跨組看見「同一個人」的完整經驗——不是把各接觸點拼起來，是呈現一個人從頭到尾的連續感受。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 服務體驗組的旅程地圖顧問，熟悉「呈現同一個人的連續經驗、情緒曲線要有證據」原則。
+
+我要為一類使用者繪製完整旅程地圖，需要您協助梳理。
+
+【目標使用者】
+（填入：例如 第一次來訪的外部供應商代表）
+
+【人物誌】（這是誰、他在意什麼）
+（描述：例如 一位趕著開會的供應商工程師，在意準時、不想在流程上卡關、希望被當成夥伴而非外人）
+
+【觀察紀錄】（來自 A1）
+（貼入這類使用者的場域觀察紀錄）
+
+【VOC 素材】（來自 A2）
+（貼入相關的同仁回饋素材）
+
+請給我四件事:
+（一）旅程階段劃分——把完整旅程分成幾個階段（如抵達前、抵達、報到、等候、進入、會議、離開），每階段的目標；
+（二）接觸點與行動——每階段的接觸點、使用者在該接觸點的行動、需要的資訊或協助；
+（三）情緒曲線——每個接觸點使用者的情緒（用觀察與 VOC 證據支撐，不憑空畫），標出情緒低谷（痛點）與高峰（亮點）；
+（四）跨組連續性提醒——這張地圖如何幫不同組看見「同一個人」的完整經驗，哪些痛點是跨接觸點累積的（不是單點問題）。
+
+請遵守：情緒曲線要有證據支撐（來自觀察與 VOC），不是憑感覺畫漂亮曲線；
+呈現「同一個人」的連續經驗——標出哪些痛點是前面的不順累積到後面爆發的；
+痛點與亮點都要標（亮點是體驗做對的地方，要保留）；
+地圖服務於「跨組看見完整經驗」，不追求視覺美觀。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>彙整目標使用者的人物誌、A1 觀察紀錄、A2 的 VOC 素材。</li>
+            <li>開啟 tGenie，貼入提示詞範本與這些素材。</li>
+            <li>送出。等待約 90 秒。</li>
+            <li>讀（一）旅程階段劃分。確認階段劃分完整（從抵達前到離開）。<em>階段有缺</em>：回覆「旅程還有 [某階段]，請補入」。</li>
+            <li>讀（二）接觸點與行動。確認每階段的接觸點與使用者行動對應 A1 觀察。</li>
+            <li>讀（三）情緒曲線。確認每個情緒點有觀察或 VOC 證據支撐。<em>情緒點沒證據</em>：回覆「[某接觸點] 的情緒判斷來自哪個觀察或 VOC？沒有證據的請標記為待驗證」。</li>
+            <li>讀（四）跨組連續性。特別看「累積型痛點」——哪些是前面不順累積到後面的。</li>
+            <li>在 Figma 或模板繪製旅程地圖：階段、接觸點、行動、情緒曲線、痛點亮點。</li>
+            <li>標出累積型痛點（用箭頭或連線顯示前後關聯）——這是地圖最有價值的部分，讓跨組看見單點看不到的問題。</li>
+            <li>完成後與相關組分享——讓各組看見自己負責的片段在「同一個人」完整經驗中的位置，理解單點改善可能不夠（需跨點協作）。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>情緒曲線畫得很漂亮但沒證據</strong>：回覆「請為每個情緒高低點標註證據來源（哪次觀察、哪則 VOC）——漂亮但無據的曲線會誤導改造方向」。</li>
+            <li><strong>地圖只是接觸點的羅列</strong>：回覆「請呈現連續性——標出哪些痛點是前面的不順累積到後面的，讓人看見『同一個人』的經驗如何疊加，而非各點獨立」。</li>
+            <li><strong>只標了痛點沒標亮點</strong>：回覆「請標出亮點——體驗做對的接觸點（如門禁同仁的問候讓訪客放鬆），這些是要保留與複製的，不能在改造中弄丟」。</li>
+            <li><strong>為了美觀犧牲了資訊</strong>：地圖服務於「跨組看懂完整經驗」，不是視覺作品。資訊清楚優先於版面漂亮——能讓跨組一眼看出累積痛點就是好地圖。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          為「第一次來訪的外部供應商工程師」繪製旅程地圖。人物誌：趕著開會、在意準時、希望被當夥伴。已有 A1 觀察紀錄（報到等候、指引不清等）與 A2 的 VOC（報到等太久密度最高）。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">畫了一張視覺精美的旅程地圖，情緒曲線是憑「感覺」畫的平滑波浪——抵達開心、報到稍降、會議愉快、離開滿意，整體偏正面。接觸點只是依序羅列（入口→詢問台→報到→等候→門禁→會議室），每個點獨立標示，沒有呈現關聯。只標了痛點（報到慢），沒標任何亮點。問題：（1）情緒曲線憑感覺畫（偏正面），與 A2 的 VOC 證據（報到怨言密度最高）矛盾——漂亮但失真；（2）接觸點羅列沒呈現連續性，看不出痛點如何累積；（3）沒標亮點（門禁同仁的問候其實是亮點），改造時可能弄丟；（4）這張地圖好看但誤導——讓人以為體驗偏正面，忽略了真正的問題。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">依人物誌、觀察、VOC 畫旅程地圖，情緒曲線有證據：階段與接觸點：抵達前（找停車）→抵達（入口、大廳指引）→報到（櫃檯、等候）→進入（門禁）→會議。情緒曲線（每點附證據）：找停車——情緒下降（VOC：「找不到訪客停車」）。大廳指引——情緒續降（A1 觀察：陪走同事環顧 5 秒才找到指引）。報到等候——情緒低谷（A2：報到怨言密度最高，「等到森氣」）。對趕時間的工程師，這是最痛的點。門禁——情緒回升（A1 觀察：門禁同仁「證件給我一下，馬上好」先說明後執行，訪客覺得被尊重）。標為亮點。會議——情緒平穩。跨組連續性：標出累積型痛點——「找停車不順（小挫折）→指引不清（再受挫）→報到久等（爆發）」，到報到時的情緒低谷其實是前面三個小挫折累積的結果。單獨改報到速度不夠，要連停車與指引一起改。亮點門禁的問候標記保留，改造時要複製到其他接觸點。這張地圖讓跨組看見：報到的痛不只是報到的問題，是整段旅程累積的。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          旅程地圖的核心紀律是「呈現同一個人的連續經驗、情緒曲線要有證據」——地圖的價值在讓跨組看見單點看不到的完整經驗。劣稿犯了三個錯：情緒曲線憑感覺畫（與 VOC 證據矛盾，漂亮但失真）、接觸點羅列沒呈現連續性（看不出痛點累積）、沒標亮點（改造時會弄丟好的設計）。視覺精美但誤導。佳稿做了三件事：情緒曲線每點附證據（來自觀察與 VOC）、標出累積型痛點（報到的痛是前面三個小挫折累積的）、標記亮點（門禁問候要保留複製）。「讓跨組看見同一個人的連續經驗」是地圖的核心價值——報到組只看到「報到慢」，但旅程地圖顯示那是停車、指引、報到三個環節累積的結果。看見連續性，才知道單點改善不夠，需要跨組協作。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B2 -->
+  <details class="project" id="b2">
+    <summary class="project-header">
+      <div class="project-code">B2</div>
+      <div class="project-title-block">
+        <h3>服務腳本設計</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">為第一線接觸點（詢問台、門禁、訪客報到）設計服務腳本：首句問候、常見情境的應對語、困難時刻（證件問題、未預約、情緒激動）的降溫語。腳本把「先問候再驗證」從原則變成每位值勤同仁說得出口的話——腳本不是新發明，是把已鎖定的價值觀翻譯成現場語言。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：服務腳本文件（卡片格式，現場可對照）；tGenie 做腳本撰寫；品牌價值「體貼用心」行為條目作為母源。</li>
+            <li><strong>準備素材</strong>：目標接觸點、該接觸點的常見情境（含困難時刻）、品牌價值行為條目、現場值勤同仁的實際用語習慣。</li>
+            <li><strong>確認母源</strong>：腳本的內容母源是品牌價值「體貼用心」的行為條目：先看見人再看見規則、用歡迎取代規定、不以「規定如此」結束對話。</li>
+            <li><strong>確認說得出口</strong>：腳本要是值勤同仁「說得出口」的話——不是書面語、不是官腔，是自然、得體、能在現場真的講出來的語言。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 服務體驗組的服務腳本顧問，熟悉「把價值觀翻譯成說得出口的現場語言」原則。
+
+我要為一個第一線接觸點設計服務腳本，需要您協助。
+
+【目標接觸點】
+（填入：例如 訪客報到櫃檯）
+
+【常見情境】
+（列出該接觸點的常見情境，含一般情境與困難時刻：例如 正常報到、未預約、證件不符、訪客情緒激動）
+
+【品牌價值行為條目】（腳本母源）
+- 先看見人再看見規則
+- 用歡迎取代規定
+- 不以「規定如此」結束對話
+- 先說明後執行、先問候再驗證
+
+【現場用語習慣】
+（描述現場同仁目前的實際說法，作為改善基準）
+
+請給我四件事:
+（一）首句問候——這個接觸點的標準開場白，體現「先問候再驗證」（如「早安，歡迎來訪，我來協助您報到」）；
+（二）常見情境應對語——每個一般情境的得體說法，體現「先看見人再看見規則」；
+（三）困難時刻降溫語——證件問題、未預約、情緒激動等困難時刻的應對，體現「用歡迎取代規定、不以規定如此結束對話」；
+（四）說得出口檢查——確認每句話是值勤同仁能在現場自然講出來的（不是書面語、不是官腔），太正式的標註並改口語版。
+
+請遵守：腳本內容母源是品牌價值行為條目——不是新發明，是把價值翻譯成現場語言；
+每句要「說得出口」——自然、得體、現場能真的講出來，不是書面語官腔；
+困難時刻不以「規定如此」結束對話——給說明、給選擇、給協助；
+保留同仁說話的自然感，不要求逐字照背（腳本是參考不是劇本，重點是體現的精神）。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>彙整目標接觸點的常見情境（含困難時刻）與品牌價值行為條目。</li>
+            <li>開啟 tGenie，貼入提示詞範本與這些素材。</li>
+            <li>送出。等待約 60 秒。</li>
+            <li>讀（一）首句問候。確認體現「先問候再驗證」、且自然。<em>太官腔</em>：回覆「首句太正式，請改成同仁能自然講出口的版本」。</li>
+            <li>讀（二）常見情境應對語。確認體現「先看見人再看見規則」。</li>
+            <li>讀（三）困難時刻降溫語。重點檢查——確認不以「規定如此」結束、有給說明選擇協助。<em>仍是冷硬拒絕</em>：回覆「[某情境] 仍是『規定不行』，請改成說明原因＋提供替代方案的版本」。</li>
+            <li>讀（四）說得出口檢查。把太正式的句子改成口語版。</li>
+            <li>把腳本做成現場可對照的卡片（每個接觸點一張，含首句、常見情境、困難時刻）。</li>
+            <li>找 2-3 位現場值勤同仁試讀——請他們唸出來，太彆扭的句子再調整（說得出口是檢驗標準）。</li>
+            <li>腳本上線後蒐集現場回饋——哪些情境腳本沒涵蓋、哪些說法現場覺得不自然，持續迭代（腳本是活的）。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 給的腳本像書面公告</strong>：回覆「請改成口語——『煩請出示相關證明文件以利查驗』改成『方便給我看一下證件嗎，我馬上幫您確認』。腳本要說得出口」。</li>
+            <li><strong>困難時刻仍是冷硬拒絕</strong>：回覆「[某情境] 不能以『規定不行』結束——請給說明（為什麼）＋替代方案（那可以怎麼辦）＋協助（我幫您）」。這是腳本最關鍵的部分。</li>
+            <li><strong>腳本要求逐字照背</strong>：回覆「腳本是參考不是劇本——重點是體現『先看見人』的精神，保留同仁說話的自然感，不必逐字背」。</li>
+            <li><strong>現場同仁覺得彆扭講不出口</strong>：認真聽，調整。講不出口的腳本等於沒有腳本——以現場同仁能自然說出的版本為準，這是『說得出口』的真正檢驗。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          為訪客報到櫃檯設計服務腳本。常見情境含：正常報到、訪客未預約、訪客證件與登記不符。品牌價值要求「用歡迎取代規定、不以規定如此結束對話」。現場同仁目前對未預約訪客的說法是「沒預約不能進，請先聯絡你要找的人」。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">設計的腳本充滿官腔與冷硬拒絕：首句：「您好，請出示證件並告知來訪事由以辦理登記手續。」未預約：「依本公司規定，未事先預約者恕無法受理，請自行聯繫受訪單位完成預約程序後再行來訪。」證件不符：「您的證件資訊與登記不符，依規定無法為您辦理，請確認後再來。」問題：（1）首句是書面語（出示證件、辦理登記手續），同仁講出來很僵硬；（2）未預約的應對以「依規定恕無法受理」結束對話，違反「不以規定如此結束」，把訪客推走；（3）證件不符同樣是「依規定無法辦理」的冷硬拒絕，沒給說明、選擇、協助；（4）整體是「規則優先」，違反「先看見人再看見規則」——訪客感覺被當成麻煩而非夥伴。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">把品牌價值翻譯成說得出口的腳本：首句（先問候再驗證、說得出口）：「早安，歡迎來訪～我來協助您報到。方便給我看一下證件嗎？馬上幫您確認。」未預約（用歡迎取代規定、不以規定如此結束、給協助）：「沒問題，我先幫您看看～請問您今天要找哪位同仁呢？我可以幫您聯繫，確認一下就能讓您進去了。」（不說「不能進」，而是「我幫您聯繫確認」——把拒絕變成協助）。證件不符（先看見人、給說明與選擇）：「我看一下喔⋯⋯這裡的資料跟系統上的有一點點對不起來，可能是登記時的小狀況。方便麻煩您再確認一下證件嗎？或我幫您打給受訪同仁確認一下，很快的。」（不說「無法辦理」，而是說明可能原因＋提供兩個解法）。說得出口檢查：全部用口語（「方便給我看一下」而非「請出示」、「馬上幫您確認」而非「辦理查驗」），找現場同仁試讀順暢。腳本卡片放在櫃檯，同仁參考精神、自然發揮，不逐字背。訪客即使未預約或證件有問題，感受到的是「有人在幫我解決」而非「被規定擋在門外」。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          服務腳本的核心紀律是「把價值觀翻譯成說得出口的現場語言、困難時刻不以規定如此結束」。劣稿的失敗是書面官腔＋冷硬拒絕——首句像公告（講不出口）、困難時刻以「依規定無法辦理」結束（把訪客推走），違反「先看見人、用歡迎取代規定」的品牌價值。佳稿做了三件事：用口語（說得出口）、困難時刻把拒絕變協助（「我幫您聯繫確認」而非「不能進」）、給說明與選擇（證件不符時說明可能原因＋兩個解法）。「腳本不是新發明，是把已鎖定的價值觀翻譯成現場語言」——品牌價值說「用歡迎取代規定」，腳本的工作就是把這句抽象的價值，變成同仁在面對未預約訪客時，真的能說出口的「我幫您聯繫確認」。價值是內核，腳本是讓價值落地的現場語言。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B3 -->
+  <details class="project" id="b3">
+    <summary class="project-header">
+      <div class="project-code">B3</div>
+      <div class="project-title-block">
+        <h3>工作坊協作引導</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">以人本設計方法（LUMA 方法體系）協同引導改善工作坊：利害關係人對照、玫瑰刺芽回顧、親和圖收斂。進階層級擔任副引導：管時間、顧小組動態、整理產出；主引導由進階層級擔任——成長路徑是從照配方執行，到能解釋每個方法為何放在那個位置。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：LUMA 方法卡與工作坊模板；計時器；便利貼或數位協作板；tGenie 做配方設計與流程規劃。</li>
+            <li><strong>準備素材</strong>：工作坊主題與目標、參與者背景與人數、可用時間、LUMA 方法配方（依挑戰類型選方法）、主引導的分工約定。</li>
+            <li><strong>確認副引導角色</strong>：你擔任副引導：管時間、顧小組動態、整理產出。主引導由進階帶——你的成長是從照配方執行到理解配方邏輯。</li>
+            <li><strong>先懂配方邏輯</strong>：LUMA 配方依挑戰類型、參與者、時間選方法並排序——別只照做，試著理解每個方法為何放在那個位置。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 服務體驗組的工作坊引導顧問，熟悉 LUMA 方法體系與「副引導管時間顧動態」原則。
+
+我要協同引導一場服務改善工作坊（擔任副引導），需要您協助設計流程與配方。
+
+【工作坊主題】
+（填入：例如 改善訪客報到體驗）
+
+【工作坊目標】（一句話）
+（例如「從訪客與同仁的視角，找出報到流程的痛點並產出 3 個改善方向」）
+
+【參與者】
+（填入：人數、背景，例如 8 人，含安全管理人員、詢問台同仁、曾來訪的內部夥伴）
+
+【可用時間】
+（填入：例如 2 小時）
+
+【可用 LUMA 方法】
+- 利害關係人對照（理解不同角色的需求）
+- 玫瑰刺芽回顧（盤點現況的好、壞、潛力）
+- 親和圖收斂（把零散想法歸納成主題）
+- 其他 LUMA 方法
+
+請給我四件事:
+（一）LUMA 配方——依主題、參與者、時間選擇方法並排序，每個方法附「為何放在這個位置」的理由（這是你的學習重點）；
+（二）時間表——每個方法的時間分配、轉場安排（副引導要管時間，這是你的核心職責）；
+（三）小組動態提醒——可能出現的動態問題（有人主導、有人沉默、離題）及副引導的應對方式；
+（四）產出整理方式——每個方法的產出如何即時整理，工作坊結束後如何彙整成可用的成果。
+
+請遵守：配方的每個方法都要有「為何放在這個位置」的理由——副引導的成長是從照做到理解；
+時間分配要實際（含轉場與緩衝），不要排得太滿（工作坊最常見的失敗是時間爆掉）；
+小組動態的應對是副引導的核心職責——管時間、顧動態、整理產出；
+主引導帶討論方向，副引導不搶主引導的角色，專注在流程與動態的支援。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>與主引導確認工作坊主題、目標、分工。</li>
+            <li>開啟 tGenie，貼入提示詞範本與工作坊資訊。</li>
+            <li>送出。等待約 90 秒。</li>
+            <li>讀（一）LUMA 配方。重點看每個方法「為何放在這個位置」的理由——這是你從照做到理解的學習。<em>理由不清</em>：回覆「請說明為何 [某方法] 要放在 [某方法] 之後，而非之前」。</li>
+            <li>讀（二）時間表。確認時間分配實際（含轉場緩衝）。<em>排太滿</em>：回覆「時間排太滿了，請加入轉場與緩衝，工作坊最常因時間爆掉而失敗」。</li>
+            <li>讀（三）小組動態提醒。把可能的動態問題與應對記下——這是副引導現場要處理的。</li>
+            <li>讀（四）產出整理方式。準備好即時整理的工具與方法。</li>
+            <li>工作坊前與主引導對齊配方與分工——主引導帶方向、你管時間顧動態整理產出。</li>
+            <li>工作坊中執行副引導職責：盯時間（到點提醒主引導轉場）、顧動態（有人主導時引入沉默者、離題時溫和拉回）、即時整理產出。</li>
+            <li>工作坊後彙整產出成可用成果，並與主引導復盤——哪些方法效果好、哪些動態處理可改善，累積你對配方邏輯的理解。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>配方只列方法沒給排序理由</strong>：回覆「請說明每個方法為何放在這個位置——例如『先利害關係人對照建立同理，再玫瑰刺芽盤點才有不同視角』。理解配方邏輯是副引導的成長關鍵」。</li>
+            <li><strong>時間表排得太滿</strong>：回覆「請每個環節加 5 分鐘緩衝、含轉場時間——工作坊最常見的失敗是時間爆掉，寧可少做一個方法也要留緩衝」。</li>
+            <li><strong>不確定怎麼處理有人主導全場</strong>：副引導可用「我們聽聽還沒發言的夥伴的想法」溫和引入沉默者，或用方法設計（如每人先寫便利貼再分享）讓發言更平均。</li>
+            <li><strong>想搶主引導的角色帶討論</strong>：守住副引導職責——管時間、顧動態、整理產出。主引導帶方向，你做流程支援。搶角色會讓工作坊失焦。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          協同引導「改善訪客報到體驗」工作坊，擔任副引導。8 人（含安全管理人員、詢問台同仁、曾來訪的內部夥伴），2 小時。目標：找出報到痛點並產出 3 個改善方向。主引導由進階層級擔任。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">配方設計成：直接做親和圖收斂（把大家想到的問題貼便利貼歸納）2 小時。沒有前置的同理或盤點，一上來就要大家「想問題」。時間表排滿滿：每 15 分鐘換一個方法，連做 8 個方法，沒有轉場緩衝。工作坊中，副引導只顧著自己也參與討論（搶了主引導的帶討論角色），沒在管時間（結果第一個方法就超時 20 分鐘、後面全亂）、沒顧動態（一位資深主管主導全場、詢問台同仁全程沒發言）。結果：時間爆掉只做完一半方法、產出是資深主管一個人的意見、詢問台同仁（最該發聲的第一線）沒貢獻。工作坊沒達成目標。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">配方設計有邏輯、時間留緩衝、副引導守職責：LUMA 配方（每個方法附排序理由）：① 利害關係人對照（20 分）——先建立「訪客、詢問台同仁、安全管理者各在意什麼」的同理，理由：後面找痛點時才有多元視角，不會只從單一角色看。② 玫瑰刺芽回顧（30 分）——盤點報到現況的好（玫瑰）、痛（刺）、潛力（芽），理由：在同理基礎上盤點，比直接想問題更全面。③ 親和圖收斂（40 分）——把刺與芽歸納成主題，理由：收斂在發散之後，才不會零散。④ 投票選 3 個改善方向（20 分）。含轉場與緩衝共 2 小時，不排滿。副引導執行：盯時間（玫瑰刺芽到 25 分時提醒主引導「還有 5 分鐘」）、顧動態（資深主管主導時，用「我們聽聽詢問台夥伴每天現場的觀察」引入第一線聲音；設計成每人先寫便利貼再分享，讓發言平均）、即時把便利貼整理分類。結果：8 人都有貢獻（尤其詢問台同仁的第一線觀察很關鍵）、準時產出 3 個有證據的改善方向、達成目標。副引導復盤時理解了「為何利害關係人對照要放最前面」——這是從照做到理解的成長。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          工作坊引導的核心紀律是「配方有邏輯、副引導守職責（管時間顧動態整理產出）」——以及從照做到理解配方邏輯的成長。劣稿犯了三個錯：配方沒邏輯（一上來就收斂，缺前置同理與盤點）、時間排太滿（爆掉）、副引導沒守職責（搶主引導角色、沒管時間、沒顧動態，導致資深主管主導全場、第一線沉默）。佳稿做了三件事：配方有排序邏輯（同理→盤點→收斂，每步有理由）、時間留緩衝（不排滿）、副引導守職責（盯時間、引入沉默者、整理產出）。「從照配方執行到能解釋每個方法為何放在那個位置」是副引導的成長路徑——佳稿不只執行了配方，還在復盤時理解了「為何利害關係人對照放最前面」。理解配方邏輯，才能從副引導成長為能設計配方的主引導。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER C: 高階 ============= -->
+<section class="tier-section" data-t="c" id="tier-c">
+  <div class="tier-header">
+    <div class="tier-number">03</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">高階 · Advanced</h2>
+      <p class="tier-subtitle">改造體驗的建築師——改造提案、研究主導、跨域標準</p>
+    </div>
+  </div>
+
+  <!-- C1 -->
+  <details class="project" id="c1">
+    <summary class="project-header">
+      <div class="project-code">C1</div>
+      <div class="project-title-block">
+        <h3>服務體驗改造提案</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">針對一個高痛點環節做端到端改造：以觀察、VOC、旅程地圖為證據，提出環境（CPTED 視角的空間與指引設計）、流程、話術三個層面的整合方案，含試行計畫與成效指標。這是本組產出鏈的頂點——前面所有專案都是它的素材，追求「一個痛點、三層解法、可試行可衡量」的完整性。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：改造提案文件；tGenie 做方案整合與試行設計；A1 觀察、A2 VOC、B1 旅程地圖作為證據基礎。</li>
+            <li><strong>準備素材</strong>：目標高痛點環節、該環節的觀察紀錄、VOC 素材、旅程地圖、CPTED 視角的空間評估。</li>
+            <li><strong>確認證據鏈</strong>：改造從證據出發，不從想像出發——這個痛點來自哪些觀察、哪些 VOC、旅程地圖的哪個低谷。</li>
+            <li><strong>確認三層整合</strong>：改造涵蓋環境（CPTED 空間指引）、流程（步驟等候）、話術（服務腳本）三層——先問痛點根源在哪層，再決定三層各做什麼。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 服務體驗組的改造提案顧問，熟悉「以證據出發、環境流程話術三層整合、可試行可衡量」原則。
+
+我要為一個高痛點環節做端到端改造提案，需要您協助整合方案。
+
+【目標高痛點環節】
+（填入：例如 訪客報到的等候體驗）
+
+【證據基礎】
+- 觀察紀錄（A1）：（貼入相關觀察）
+- VOC 素材（A2）：（貼入相關回饋）
+- 旅程地圖（B1）：（貼入該環節在旅程中的痛點與累積關係）
+
+【CPTED 空間評估】
+（描述該環節的物理空間現況：動線、指引、等候空間配置）
+
+請給我四件事:
+（一）痛點根源分析——這個痛點的根源在環境、流程、還是話術哪一層（或跨層）？用證據支撐分析；
+（二）三層整合方案——環境（CPTED 視角的空間與指引）、流程（步驟與等候設計）、話術（服務腳本）三層各做什麼，如何整合；
+（三）試行計畫——如何小範圍試行（試行範圍、期間、參與者），降低全面改造的風險；
+（四）成效指標——如何衡量改造是否有效（如等候焦慮的 VOC 減少、報到耗時、訪客滿意），指標要可測量。
+
+請遵守：方案從證據出發——每個改造點對應具體的觀察、VOC 或旅程地圖證據，不從想像出發；
+三層整合——不只改一層（改話術救不了動線設計錯誤），先找根源在哪層再決定三層各做什麼；
+含試行計畫——先小範圍試行降低風險，不直接全面改造；
+成效指標可測量——能驗證改造是否有效，不是「感覺變好」這種無法驗證的說法。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>彙整目標環節的 A1 觀察、A2 VOC、B1 旅程地圖、CPTED 空間評估。</li>
+            <li>開啟 tGenie，貼入提示詞範本與證據基礎。</li>
+            <li>送出。等待約 90-120 秒。</li>
+            <li>讀（一）痛點根源分析。確認根源分析有證據支撐、找對了層。<em>根源分析憑空</em>：回覆「請用具體證據支撐根源分析——這個痛點來自哪些觀察與 VOC」。</li>
+            <li>讀（二）三層整合方案。確認三層都有對應、且整合（不是只改一層）。<em>只改一層</em>：回覆「請補完三層——若根源在環境，光改話術不夠，環境與流程也要對應調整」。</li>
+            <li>讀（三）試行計畫。確認是小範圍試行（不直接全面改）。<em>直接全面改</em>：回覆「請先設計小範圍試行，降低全面改造的風險」。</li>
+            <li>讀（四）成效指標。確認指標可測量。<em>指標無法測量</em>：回覆「[某指標] 無法測量，請改為可量化的指標（如 VOC 怨言數、報到耗時）」。</li>
+            <li>把提案整合成完整文件：痛點根源（證據）、三層整合方案、試行計畫、成效指標。</li>
+            <li>提案經相關組與決策者審視後，先執行試行——小範圍驗證方案有效再全面推。</li>
+            <li>試行後依成效指標評估——有效則全面推、無效則回到證據重新分析（改造是迭代的）。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>方案從「我覺得」出發沒有證據</strong>：回覆「每個改造點請對應具體證據——這個改法是回應哪則 VOC、哪次觀察。沒有證據的改造是把個人偏好強加給使用者」。</li>
+            <li><strong>只改了一層（如只改話術）</strong>：回覆「請檢查根源在哪層——若是動線設計問題（環境），光改話術治標不治本。三層要整合，從根源那層下手」。</li>
+            <li><strong>直接提全面改造沒有試行</strong>：回覆「請先設計小範圍試行——全面改造風險高，試行能在小範圍驗證方案、降低風險、累積說服力」。</li>
+            <li><strong>成效指標是「感覺變好」</strong>：回覆「請用可測量的指標——『等候焦慮的 VOC 從每月 6 則降到 2 則』可驗證，『體驗變好』無法驗證。指標要能證明改造有效」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          為「訪客報到的等候體驗」做改造提案。證據：A2 顯示報到怨言密度最高（「等到森氣」「不知道還要多久」）、B1 旅程地圖顯示這是情緒低谷且是停車與指引不順累積的結果、CPTED 評估發現等候區無時間提示、排隊無動線引導。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">提案只改一層（話術）：「建議加強報到櫃檯同仁的服務態度，請同仁在訪客等候時多說『不好意思讓您久等』，並面帶微笑安撫情緒。預計能改善等候體驗。」沒有試行計畫，直接要全面實施。成效指標寫「提升訪客滿意度」。問題：（1）只改話術——但根源是設計問題（等候區無時間提示、排隊無引導），同仁再會說「不好意思」也改變不了「不知道還要等多久」的焦慮；（2）沒對應證據——VOC 說的是「不知道還要多久」（資訊缺失），不是「同仁不夠客氣」，改錯了方向；（3）沒試行直接全面推，風險高；（4）「提升滿意度」無法測量，驗證不了是否有效。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">從證據出發、三層整合、含試行與可測量指標：痛點根源分析（證據支撐）：等候焦慮的根源主要在環境與流程兩層——VOC「不知道還要多久」指向資訊缺失（環境：無時間提示）、「不知道排對沒」指向動線不清（環境：無排隊引導）、旅程地圖顯示這是停車指引累積的結果（流程：整段報到動線需順化）。話術是輔助層。三層整合方案：環境（CPTED）——等候區加裝預估等候時間顯示、報到櫃檯前加排隊動線標示與號碼牌。流程——優化報到步驟（前置線上預登減少現場填寫）、設置快速通道（已預登者）。話術——同仁在交付號碼牌時說「大約等 X 分鐘，螢幕上會顯示，您可以先坐著休息」（把時間資訊主動告知）。試行計畫：選一個廠區的報到區試行 1 個月，A/B 對照（試行區 vs 未改區），參與者涵蓋外部訪客。成效指標（可測量）：等候焦慮的 VOC 從每月 6 則降至 2 則以下、平均報到耗時減少、試行區訪客滿意度問卷對比未改區。試行有效再全面推。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          改造提案的核心紀律是「以證據出發、三層整合、可試行可衡量」——這是本組產出鏈的頂點，前面所有專案都是它的素材。劣稿犯了四個錯：只改話術（但根源是設計問題，治標不治本）、沒對應證據（VOC 說資訊缺失卻改成態度問題，改錯方向）、沒試行直接全面推（風險高）、指標無法測量（驗證不了有效性）。佳稿做了四件事：根源分析有證據（焦慮來自資訊缺失與動線不清，不是態度）、三層整合（環境裝時間提示＋流程優化＋話術主動告知）、小範圍試行（A/B 對照降風險）、可測量指標（VOC 怨言數、報到耗時）。「一個痛點、三層解法、可試行可衡量」是改造提案的完整性標準——找對根源在哪層（環境）、三層整合下手（不只改話術）、先試行驗證、用可測量指標證明有效。這種完整性，是把零散的觀察與 VOC 變成真正能改變體驗的行動。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C2 -->
+  <details class="project" id="c2">
+    <summary class="project-header">
+      <div class="project-code">C2</div>
+      <div class="project-title-block">
+        <h3>使用者研究計畫主導</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">主導一輪正式研究：定義研究問題、選方法（訪談、觀察、問卷的組合）、設計訪綱、督導執行、綜整成人物誌或機會點報告。高階層級守的是研究倫理與方法嚴謹——結論的每一步都可被追問「你怎麼知道」，每個結論都留有可追溯的中間產物。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：研究計畫文件；訪談、觀察、問卷工具；tGenie 做研究設計與方法選擇；人物誌地圖作為產出形態參照。</li>
+            <li><strong>準備素材</strong>：研究的觸發問題、研究範圍與資源、可用的研究方法、研究倫理規範（去識別化、知情同意）。</li>
+            <li><strong>先定研究問題</strong>：研究從清楚的研究問題出發——「想知道什麼」決定選什麼方法。研究問題模糊，方法選擇就會散。</li>
+            <li><strong>確認可追溯</strong>：結論的每一步都要可被追問「你怎麼知道」——從原始素材到結論的每個中間產物都要留存。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 服務體驗組的使用者研究顧問，熟悉「研究問題先行、方法嚴謹、結論可追溯」原則。
+
+我要主導一輪正式使用者研究，需要您協助設計研究計畫。
+
+【研究觸發問題】
+（描述：什麼問題促使這輪研究，例如 為何差旅同仁對返廠流程的滿意度偏低）
+
+【研究範圍與資源】
+（填入：研究對象、可用時間、可訪談人數、預算）
+
+【研究倫理要求】
+- 去識別化（不記錄可識別個人身份的資訊）
+- 知情同意（受訪者知道研究目的、自願參與）
+- 資料保護（研究素材妥善保管）
+
+請給我四件事:
+（一）研究問題定義——把觸發問題轉化為清晰、可研究的研究問題（具體、有範圍，不是「體驗好不好」這種空泛問題）；
+（二）方法選擇——依研究問題選擇方法組合（訪談、觀察、問卷各適合回答什麼，為何這樣組合），附理由；
+（三）執行設計——訪綱設計（問事不問感想、避免引導性問題）、觀察計畫、問卷設計，含研究倫理的落實；
+（四）結論可追溯設計——從原始素材到結論的中間產物如何留存（逐字稿、觀察筆記、編碼分類），讓每個結論都能被追問「你怎麼知道」。
+
+請遵守：研究問題要具體可研究，不是「體驗好不好」這種空泛問題；
+方法選擇要對應研究問題——不同方法回答不同問題，組合要有理由；
+落實研究倫理——去識別化、知情同意、資料保護；
+結論可追溯——每個結論都留有從原始素材到結論的中間產物，能回答「你怎麼知道」。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>釐清研究的觸發問題與可用資源。</li>
+            <li>開啟 tGenie，貼入提示詞範本與研究背景。</li>
+            <li>送出。等待約 90-120 秒。</li>
+            <li>讀（一）研究問題定義。確認研究問題具體可研究。<em>問題仍空泛</em>：回覆「研究問題還是太空泛，請聚焦——具體想知道差旅同仁在返廠流程的哪個環節、什麼樣的困難」。</li>
+            <li>讀（二）方法選擇。確認方法對應研究問題、組合有理由。</li>
+            <li>讀（三）執行設計。檢查訪綱是否「問事不問感想」、是否有引導性問題、研究倫理是否落實。<em>有引導性問題</em>：回覆「[某題] 是引導性問題，請改為中性提問」。</li>
+            <li>讀（四）結論可追溯設計。確認中間產物的留存規劃完整。</li>
+            <li>把研究計畫寫成完整文件：研究問題、方法組合、執行設計、倫理落實、可追溯規劃。</li>
+            <li>督導研究執行——訪談、觀察、問卷依計畫進行，全程落實倫理、留存中間產物。</li>
+            <li>綜整成人物誌或機會點報告——每個結論標註來源（哪次訪談、哪個觀察），確保能被追問「你怎麼知道」。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>研究問題太空泛（「體驗好不好」）</strong>：回覆「請聚焦研究問題——『差旅同仁返廠流程的滿意度低』要具體化為『差旅同仁在返廠的哪個環節遇到什麼困難』，具體問題才能設計方法」。</li>
+            <li><strong>訪綱有引導性問題</strong>：回覆「[某題] 預設了答案（如『您是不是覺得流程很麻煩？』），請改中性提問（『請您描述返廠時的完整流程』），讓受訪者自己說」。</li>
+            <li><strong>結論沒有中間產物可追溯</strong>：回覆「每個結論請標註來源——這個發現來自哪次訪談的哪段話、哪個觀察。沒有中間產物的結論無法回答『你怎麼知道』」。</li>
+            <li><strong>跳過倫理直接研究</strong>：別跳。去識別化、知情同意、資料保護是研究的底線——受訪者要知道研究目的且自願，素材要妥善保管。倫理是研究可信的基礎。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          主導一輪研究，觸發問題是「差旅同仁對返廠流程的滿意度偏低」。可訪談 8 位差旅同仁、觀察返廠現場、發問卷。要設計研究計畫並產出機會點報告。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">研究問題直接用觸發問題「返廠流程滿意度為何低」，沒有聚焦。方法隨意：只發一份問卷問「您對返廠流程滿意嗎？1-5 分」，沒有訪談或觀察。問卷有引導性問題：「您是不是覺得返廠流程太繁瑣？」沒做去識別化（問卷記了姓名與工號），沒說明研究目的。最後結論：「問卷顯示平均 2.8 分，滿意度確實偏低，建議簡化流程。」沒有任何中間產物說明「哪裡繁瑣、為何繁瑣」。問題：（1）研究問題空泛（只知道「低」不知道「為何低、哪裡低」）；（2）只用問卷無法回答「為什麼」（問卷適合測量廣度，不適合深挖原因）；（3）引導性問題（預設繁瑣）汙染了資料；（4）違反倫理（記姓名工號、沒說明目的）；（5）結論「簡化流程」沒有證據支撐（不知道簡化哪裡），無法追溯。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">研究問題聚焦、方法組合、落實倫理、結論可追溯：研究問題定義：「差旅同仁在返廠流程的哪些環節遇到困難？這些困難的具體性質是什麼？」（具體、可研究）。方法組合（附理由）：訪談 8 位差旅同仁（深挖「哪裡困難、為何困難」——質性方法回答 why）＋觀察返廠現場（看實際卡關點——觀察回答實況）＋問卷（驗證訪談發現的普遍性——量化回答廣度）。三方法回答不同層次，互相印證。執行設計：訪綱問事不問感想、中性提問（「請您描述上次返廠的完整流程」而非「是不是很麻煩」）；觀察計畫聚焦返廠動線的卡關點；問卷驗證訪談發現。落實倫理：去識別化（不記姓名工號）、知情同意（說明研究目的、自願參與）、資料保護。結論可追溯：訪談留逐字稿、觀察留筆記、發現編碼分類。機會點報告的每個結論標註來源（如「機會點 A：返廠的健康聲明填寫重複——來自 8 位中 6 位訪談提及，觀察證實現場需重填三次」）。結論能被追問「你怎麼知道」——答案是「6 位訪談＋現場觀察＋問卷 70% 印證」。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          使用者研究的核心紀律是「研究問題先行、方法嚴謹、結論可追溯」——高階層級守的是讓每個結論都能回答「你怎麼知道」。劣稿犯了五個錯：研究問題空泛（不知為何低）、只用問卷（無法回答 why）、引導性問題（汙染資料）、違反倫理（記姓名、沒說明目的）、結論無證據（簡化哪裡不知道，無法追溯）。佳稿做了四件事：研究問題具體（哪些環節、什麼困難）、方法組合互相印證（訪談挖原因＋觀察看實況＋問卷驗廣度）、落實倫理（去識別化、知情同意）、結論可追溯（每個機會點標註來源）。「結論的每一步都可被追問你怎麼知道」是研究嚴謹的核心——機會點報告的每個發現都能回溯到逐字稿、觀察筆記、問卷數據。研究的價值不在結論本身，在結論背後可追溯的證據鏈，這是它與「我覺得」的根本區別。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C3 -->
+  <details class="project" id="c3">
+    <summary class="project-header">
+      <div class="project-code">C3</div>
+      <div class="project-title-block">
+        <h3>跨域體驗標準制定</h3>
+      </div>
+      <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">把單一場域驗證過的體驗設計（指引系統、服務腳本、檢核表）升級為多廠區、多區域的共同標準：哪些是不可變的核心（品牌承諾層）、哪些開放在地調適（文化與法規層）。高階層級產出標準文件與導入計畫——標準是給區域的腳手架，不是枷鎖，沿用「同一骨架、在地血肉」的治理結構。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：標準文件與導入計畫；tGenie 做標準拆分與導入設計；單一場域的驗證成果（指引、腳本、檢核表）作為升級基礎。</li>
+            <li><strong>準備素材</strong>：已驗證的單一場域體驗設計、目標推廣的多廠區多區域、各區的文化與法規差異、區域窗口同仁。</li>
+            <li><strong>先拆核心與調適</strong>：哪些是不可變核心（品牌承諾層——如先問候再驗證的精神）、哪些開放在地調適（文化與法規層——如具體話術、流程細節）。</li>
+            <li><strong>確認腳手架非枷鎖</strong>：標準是給區域的腳手架（幫助落地），不是枷鎖（強制統一）——區域窗口擁有在地判斷權。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+          <div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 服務體驗組的跨域標準顧問，熟悉「同一骨架在地血肉、標準是腳手架不是枷鎖」原則。
+
+我要把一個單一場域驗證過的體驗設計升級為跨區共同標準，需要您協助。
+
+【已驗證的體驗設計】
+（描述：在單一場域成功的指引系統、服務腳本、檢核表——什麼設計、為何有效）
+
+【目標推廣範圍】
+（列出：要推廣到哪些廠區、區域，各區的規模與特性）
+
+【各區文化與法規差異】
+（描述已知的差異：溝通風格、在地法規、文化習慣）
+
+【區域窗口】
+（列出各區負責在地判斷的窗口同仁，若已知）
+
+請給我四件事:
+（一）核心與調適的拆分——哪些是不可變的核心（品牌承諾層，跨區一致），哪些開放在地調適（文化與法規層），附拆分理由；
+（二）標準文件結構——標準文件如何寫，讓區域既知道「不可變的核心是什麼」也知道「可以在地調適的空間在哪」；
+（三）導入計畫——標準如何導入各區（試點、培訓、區域窗口的角色），降低「總部強推」的反彈；
+（四）腳手架而非枷鎖的設計——如何讓區域窗口擁有在地判斷權（決定在地調適），而非被動執行總部標準。
+
+請遵守：核心（品牌承諾層）跨區一致，但在地血肉（文化法規層）充分開放調適；
+標準是腳手架（幫助區域落地）不是枷鎖（強制統一）——區域窗口有在地判斷權；
+不可變核心要少而精（只鎖真正不可變的品牌承諾），不要把細節也鎖死；
+導入尊重區域——區域窗口是在地判斷的擁有者，不是被動執行者。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>彙整單一場域的驗證成果（指引、腳本、檢核表）與目標推廣範圍。</li>
+            <li>開啟 tGenie，貼入提示詞範本與這些素材。</li>
+            <li>送出。等待約 90-120 秒。</li>
+            <li>讀（一）核心與調適的拆分。確認核心少而精（只鎖品牌承諾）、調適空間充分。<em>核心鎖太多</em>：回覆「核心鎖太多細節了——請只鎖真正不可變的品牌承諾（如先問候再驗證的精神），具體話術與流程開放在地調適」。</li>
+            <li>讀（二）標準文件結構。確認區域能清楚分辨「不可變」與「可調適」。</li>
+            <li>讀（三）導入計畫。確認有試點、培訓、區域窗口角色，不是總部強推。</li>
+            <li>讀（四）腳手架設計。確認區域窗口有在地判斷權。<em>窗口被當執行者</em>：回覆「請讓區域窗口擁有在地調適的判斷權，他們能決定在地血肉怎麼長，不只是執行總部標準」。</li>
+            <li>把標準寫成文件：不可變核心、可調適空間、導入計畫、區域窗口角色。</li>
+            <li>與各區窗口對焦——不是「下達標準」，是「邀請他們在共同核心下擁有各區的在地判斷」。聽他們對在地調適的意見。</li>
+            <li>先在一個區試點導入，驗證「核心一致、在地調適」可行，再推廣。導入後與各區窗口持續同步，讓標準在實踐中迭代。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>核心鎖了太多細節</strong>：回覆「請精簡不可變核心——只鎖真正的品牌承諾（先問候再驗證的精神），具體話術、流程細節、指引樣式都開放在地調適。鎖太多會變枷鎖」。</li>
+            <li><strong>標準文件沒分清不可變與可調適</strong>：回覆「請明確標示哪些是『不可變核心』、哪些是『可在地調適』——區域要能一眼分辨什麼必須遵守、什麼可以調整」。</li>
+            <li><strong>導入計畫是總部強推</strong>：回覆「請加入區域窗口的角色與試點機制——標準導入要尊重區域，不是總部下達。區域窗口參與才能真正落地」。</li>
+            <li><strong>把區域窗口當執行者</strong>：回覆「請讓區域窗口擁有在地判斷權——他們決定在地血肉怎麼長（如當地的具體話術、符合在地法規的流程），不只是執行總部標準。這是腳手架而非枷鎖的關鍵」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          把一個廠區驗證成功的「訪客報到體驗設計」（先問候再驗證的腳本、清晰指引系統、行為四原則檢核表）升級為多廠區多區域標準。涉及台灣、日本、美國廠區，文化與法規各異，各有區域窗口。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">把單一廠區的設計「原封不動」變成強制標準：標準文件規定：所有廠區的報到腳本必須逐字使用台灣版的中文話術（翻譯成當地語言）、指引牌必須用完全相同的版式與文字、檢核表照搬。把核心與細節全鎖死——連「首句問候要說早安」這種細節都規定統一。導入方式是總部下達：「各區於 X 月前完成導入，依標準執行。」沒有試點、沒有區域窗口參與。問題：（1）核心鎖太多（連具體話術細節都統一），變成枷鎖——日本的禮貌用語、美國的溝通風格被迫套用台灣版，水土不服；（2）沒分不可變與可調適，區域沒有在地調適空間；（3）總部強推沒有試點與窗口參與，引發各區反彈；（4）把區域窗口當執行者，剝奪在地判斷權——日本窗口知道當地該怎麼問候，卻被迫照搬台灣版。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">拆分核心與調適、標準是腳手架、區域窗口有判斷權：核心與調適拆分：不可變核心（品牌承諾層，少而精）——「先問候再驗證」的精神、「用歡迎取代規定」的價值、行為四原則的內核。這些跨區一致。可在地調適（文化法規層，充分開放）——具體話術（日本用當地禮貌用語、美國用當地溝通風格）、指引牌的語言與在地化設計、符合各區法規的流程細節、檢核表的在地項目。標準文件結構：明確標示「不可變核心」（如：報到必須先問候再查驗——精神不可變）與「可在地調適」（如：問候的具體說法由各區決定）。讓區域一眼分辨。導入計畫：先在日本廠區試點（驗證核心一致、在地調適可行）、各區窗口參與設計在地版本、培訓在地團隊。腳手架設計：區域窗口擁有在地判斷權——日本窗口決定當地的具體問候話術（符合「先問候」核心，但用日本得體的說法）、美國窗口決定符合當地法規的流程細節。總部提供核心框架（腳手架），區域填入在地血肉。結果：各區的報到體驗都體現「先問候再驗證」的品牌承諾（核心一致），但話術、指引、流程都在地化（血肉在地），區域窗口因擁有判斷權而積極落地。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          跨域標準的核心紀律是「同一骨架在地血肉、標準是腳手架不是枷鎖」——以及區域窗口擁有在地判斷權。劣稿的失敗是「原封不動強制統一」——連具體話術細節都鎖死（變枷鎖）、沒分不可變與可調適、總部強推沒有窗口參與、把區域窗口當執行者。結果是台灣版水土不服地套用到日本美國。佳稿做了三件事：核心少而精（只鎖品牌承諾的精神，不鎖細節）、明確分不可變與可調適（區域能分辨）、區域窗口有在地判斷權（決定在地血肉怎麼長）。「標準是給區域的腳手架，不是枷鎖」是這個專案的核心——不可變的是「先問候再驗證」的品牌承諾（骨架），可變的是日本怎麼問候、美國怎麼問候（血肉）。鎖對該鎖的（品牌承諾）、放開該放的（在地表達），讓核心一致與在地落地並存——這才是跨域標準的成熟設計。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+</main>
+
+<footer>
+  <p>CS2-06 服務體驗組 · Toolkit v1.0 · 資訊更新 2026-06 · 由現任主理人擬定</p>
+  <p>上游 · GPS 內容推廣制度導讀 · 工作公約 · 共通底座</p>
+  <p class="brand-tagline">Before you need it. · 在您需要之前。</p>
+</footer>
+
+<script>
+  (function() {
+    // ===== Copy buttons =====
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();  // prevent parent summary toggle
+        e.preventDefault();
+        const pre = btn.parentElement.querySelector('pre');
+        if (!pre) return;
+        const text = pre.textContent;
+        const showCopied = () => {
+          const labelSpan = btn.querySelector('span');
+          if (labelSpan) labelSpan.textContent = '已複製';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            if (labelSpan) labelSpan.textContent = '複製';
+            btn.classList.remove('copied');
+          }, 2000);
+        };
+        const fallbackCopy = () => {
+          const ta = document.createElement('textarea');
+          ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          try { document.execCommand('copy'); showCopied(); }
+          catch (e) { console.error('Copy failed:', e); }
+          document.body.removeChild(ta);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(showCopied).catch(fallbackCopy);
+        } else { fallbackCopy(); }
+      });
+    });
+
+    // ===== Expand / Collapse all =====
+    const expandAllBtn = document.getElementById('expand-all');
+    const collapseAllBtn = document.getElementById('collapse-all');
+    if (expandAllBtn) {
+      expandAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = true);
+      });
+    }
+    if (collapseAllBtn) {
+      collapseAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = false);
+      });
+    }
+
+    // ===== Side index / top nav clicks → expand target =====
+    document.querySelectorAll('.side-index a, .top-nav a').forEach(a => {
+      a.addEventListener('click', () => {
+        const href = a.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        const target = document.getElementById(href.slice(1));
+        if (target && target.tagName === 'DETAILS') {
+          target.open = true;
+        }
+      });
+    });
+
+    // ===== Auto-expand on hash change / initial hash =====
+    function expandFromHash() {
+      const hash = window.location.hash;
+      if (!hash) return;
+      const target = document.getElementById(hash.slice(1));
+      if (target && target.tagName === 'DETAILS') {
+        target.open = true;
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      }
+    }
+    window.addEventListener('hashchange', expandFromHash);
+    if (window.location.hash) setTimeout(expandFromHash, 100);
+
+    // ===== Print: expand all temporarily =====
+    let printStates = [];
+    window.addEventListener('beforeprint', () => {
+      printStates = Array.from(document.querySelectorAll('details')).map(d => ({ el: d, was: d.open }));
+      printStates.forEach(s => s.el.open = true);
+    });
+    window.addEventListener('afterprint', () => {
+      printStates.forEach(s => s.el.open = s.was);
+      printStates = [];
+    });
+
+    // ===== Side index active state =====
+    const links = document.querySelectorAll('.side-index a');
+    if (!links.length) return;
+    const linkMap = {};
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      linkMap[id] = a;
+    });
+    const sections = document.querySelectorAll('section[id], article[id], details[id]');
+    let activeId = null;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activeId = entry.target.id;
+        }
+      });
+      if (activeId && linkMap[activeId]) {
+        links.forEach(a => a.classList.remove('active'));
+        linkMap[activeId].classList.add('active');
+      }
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  })();
+</script>
+
+</body>
+</html>

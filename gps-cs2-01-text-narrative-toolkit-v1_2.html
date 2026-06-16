@@ -1,0 +1,2251 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CS2-01 文字敘事組 · Toolkit</title>
+<style>
+  :root {
+    --turquoise:#26A7B0;
+    --turquoise-50:#ECF7F8;
+    --turquoise-100:#D0EDEF;
+    --turquoise-700:#1F8A92;
+    --copper-light:#CAC3D2;
+    --copper-deep:#6E5F7C;
+    --purple:#7086BA;
+    --green:#6BB57E;
+    --orange:#ED7442;
+    --warn:#E5993E;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a4a;
+    --ink-mute:#8a8580;
+    --paper:#fdfcfa;
+    --paper-soft:#f5f3ef;
+    --paper-warm:#faf7f0;
+    --line:#e5e2db;
+    --line-strong:#cfc9bf;
+    --tier-a:var(--turquoise);
+    --tier-b:var(--purple);
+    --tier-c:var(--copper-deep);
+    --bad:#c9624b;
+    --good:#5ba373;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.78;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    background:linear-gradient(135deg,var(--turquoise) 0%,var(--turquoise-700) 100%);
+    color:#fff;
+    padding:56px 24px 44px;
+  }
+  .hero-inner { max-width:960px; margin:0 auto; }
+  .hero-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:12px;
+    opacity:0.85;
+    margin-bottom:12px;
+  }
+  .hero-code {
+    font-family:Georgia,serif;
+    font-size:13px;
+    background:rgba(255,255,255,0.18);
+    padding:4px 12px;
+    border-radius:4px;
+    letter-spacing:0.08em;
+    display:inline-block;
+    margin-bottom:14px;
+  }
+  .hero h1 {
+    font-size:34px;
+    font-weight:700;
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+    line-height:1.3;
+  }
+  .hero-tagline {
+    font-size:16px;
+    opacity:0.92;
+    margin:0 0 22px;
+    line-height:1.7;
+  }
+  .hero-rule {
+    background:rgba(255,255,255,0.10);
+    border-left:3px solid rgba(255,255,255,0.5);
+    padding:14px 18px;
+    border-radius:0 4px 4px 0;
+    font-size:14.5px;
+    line-height:1.75;
+    max-width:720px;
+    margin:0;
+  }
+  .hero-rule-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    opacity:0.8;
+    margin-bottom:4px;
+  }
+  .hero-update {
+    font-size:12px;
+    opacity:0.75;
+    margin-top:22px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    letter-spacing:0.08em;
+  }
+
+  /* Layout */
+  main { max-width:960px; margin:0 auto; padding:48px 24px 64px; }
+
+  /* Side index */
+  .side-index {
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    width:188px;
+    background:rgba(253,252,250,0.94);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 10px;
+    font-size:13px;
+    z-index:40;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+    display:none;
+    max-height:80vh;
+    overflow-y:auto;
+  }
+  .side-index-title {
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--ink-mute);
+    padding:2px 8px 8px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:6px;
+  }
+  .side-index ul { list-style:none; padding:0; margin:0; }
+  .side-index a {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 8px;
+    border-radius:5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background .15s,color .15s;
+    line-height:1.4;
+    font-size:12.5px;
+  }
+  .side-index a:hover { background:var(--paper-soft); color:var(--ink); }
+  .side-index a.active {
+    background:var(--turquoise-50);
+    color:var(--turquoise-700);
+    font-weight:600;
+  }
+  .side-index .code {
+    font-family:Georgia,serif;
+    font-size:11px;
+    color:var(--ink-mute);
+    flex:0 0 18px;
+  }
+  .side-index a.active .code { color:var(--turquoise-700); }
+  .side-index-divider {
+    height:1px;
+    background:var(--line);
+    margin:6px 8px 6px;
+  }
+  .side-index-tier-label {
+    font-size:10px;
+    color:var(--ink-mute);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:6px 8px 4px;
+    font-weight:600;
+  }
+  .side-index-tier-label[data-t="a"] { color:var(--tier-a); }
+  .side-index-tier-label[data-t="b"] { color:var(--tier-b); }
+  .side-index-tier-label[data-t="c"] { color:var(--tier-c); }
+
+  /* Top nav */
+  .top-nav {
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(253,252,250,0.96);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+    margin:0 -24px 32px;
+  }
+  .top-nav-inner {
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+  }
+  .top-nav a {
+    flex:0 0 auto;
+    padding:8px 12px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    border-radius:4px;
+    white-space:nowrap;
+    transition:all .15s;
+  }
+  .top-nav a:hover { background:var(--paper-soft); color:var(--ink); }
+
+  /* Intro */
+  .intro {
+    margin-bottom:48px;
+  }
+  .intro-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:11px;
+    color:var(--turquoise);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .intro h2 {
+    font-size:24px;
+    font-weight:700;
+    margin:0 0 12px;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .intro > p {
+    font-size:15px;
+    color:var(--ink-soft);
+    line-height:1.8;
+    margin:0 0 12px;
+    max-width:720px;
+  }
+
+  /* Four voices */
+  .voices {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:24px;
+  }
+  .voice {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:20px 22px;
+    border-left:4px solid var(--v-color);
+  }
+  .voice[data-v="1"] { --v-color:var(--turquoise); }
+  .voice[data-v="2"] { --v-color:var(--green); }
+  .voice[data-v="3"] { --v-color:var(--copper-deep); }
+  .voice[data-v="4"] { --v-color:var(--orange); }
+  .voice-header {
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .voice-num {
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.06em;
+  }
+  .voice h4 {
+    margin:0;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .voice-when {
+    margin:0 0 12px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .voice-when strong { color:var(--ink); }
+  .voice-example {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:12px 14px;
+    margin:0;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+    border-left:2px solid var(--v-color);
+  }
+  .voice-example-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    color:var(--v-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .voice-example em {
+    display:block;
+    margin-top:6px;
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tier section */
+  .tier-section {
+    margin-bottom:64px;
+    scroll-margin-top:24px;
+  }
+  .tier-header {
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    padding-bottom:14px;
+    margin-bottom:24px;
+    border-bottom:2px solid var(--tier-color);
+  }
+  .tier-section[data-t="a"] { --tier-color:var(--tier-a); }
+  .tier-section[data-t="b"] { --tier-color:var(--tier-b); }
+  .tier-section[data-t="c"] { --tier-color:var(--tier-c); }
+  .tier-number {
+    font-family:Georgia,serif;
+    font-size:32px;
+    font-weight:600;
+    color:var(--tier-color);
+    line-height:1;
+  }
+  .tier-name-block { flex:1 1 auto; }
+  .tier-name {
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin:0;
+    line-height:1.3;
+  }
+  .tier-name-en {
+    font-size:11px;
+    color:var(--ink-mute);
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+  .tier-subtitle {
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0;
+    font-style:italic;
+  }
+
+  /* Project */
+  .project {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    margin-bottom:28px;
+    overflow:hidden;
+    scroll-margin-top:72px;
+  }
+  .project-header {
+    background:var(--paper-warm);
+    padding:20px 24px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .project-code {
+    flex:0 0 auto;
+    background:var(--tier-color);
+    color:#fff;
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    padding:6px 10px;
+    border-radius:4px;
+    letter-spacing:0.04em;
+  }
+  .project-title-block { flex:1 1 auto; }
+  .project-title-block h3 {
+    margin:0;
+    font-size:19px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .project-body { padding:26px 28px; }
+
+  /* Fields */
+  .field { margin-bottom:30px; }
+  .field:last-child { margin-bottom:0; }
+  .field-label {
+    font-size:11px;
+    font-weight:600;
+    color:var(--tier-color);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .field-direction {
+    font-size:15px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+  }
+
+  /* AI workflow sub-fields */
+  .workflow-sub {
+    margin-bottom:20px;
+  }
+  .workflow-sub:last-child { margin-bottom:0; }
+  .workflow-sub-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .workflow-sub-num {
+    background:var(--tier-color);
+    color:#fff;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+    flex:0 0 22px;
+  }
+
+  /* Prep list */
+  .prep-list {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .prep-list li {
+    position:relative;
+    padding:4px 0 4px 22px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .prep-list li::before {
+    content:"";
+    position:absolute;
+    left:6px;
+    top:14px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--tier-color);
+    opacity:0.7;
+  }
+  .prep-list strong { color:var(--ink); }
+
+  /* Prompt block */
+  .field-prompt {
+    background:var(--paper-soft);
+    border-left:3px solid var(--tier-color);
+    border-radius:0 4px 4px 0;
+    padding:16px 18px;
+    font-family:"SF Mono","Consolas","Menlo","Noto Sans TC",monospace;
+    font-size:13px;
+    color:var(--ink);
+    line-height:1.75;
+    margin:0;
+    white-space:pre-wrap;
+    overflow-x:auto;
+    position:relative;
+  }
+  .field-prompt::before {
+    content:"提示詞範本 · 完整複製";
+    display:block;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:10px;
+    font-weight:600;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    padding-bottom:8px;
+    border-bottom:1px dashed var(--line-strong);
+  }
+
+  /* Operation steps */
+  .op-steps {
+    counter-reset:opstep;
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .op-steps > li {
+    counter-increment:opstep;
+    position:relative;
+    padding:10px 0 10px 36px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+    border-bottom:1px solid var(--line);
+  }
+  .op-steps > li:last-child { border-bottom:none; padding-bottom:4px; }
+  .op-steps > li::before {
+    content:counter(opstep);
+    position:absolute;
+    left:0;
+    top:12px;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:transparent;
+    color:var(--tier-color);
+    border:1.5px solid var(--tier-color);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+  }
+  .op-steps em {
+    color:var(--ink-mute);
+    font-size:13px;
+    font-style:normal;
+  }
+
+  /* Tips */
+  .tips-list {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0;
+    list-style:none;
+  }
+  .tips-list li {
+    position:relative;
+    padding:5px 0 5px 0;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+  .tips-list li strong {
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+  .tips-list li::before {
+    content:"→";
+    color:var(--tier-color);
+    margin-right:8px;
+    font-weight:600;
+  }
+
+  /* Case study */
+  .case-scenario {
+    background:var(--paper-warm);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0 0 16px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+  .case-scenario strong {
+    display:block;
+    font-size:11px;
+    color:var(--tier-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  .case-compare {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-bottom:16px;
+  }
+  .case-panel {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+    position:relative;
+  }
+  .case-panel.bad { border-left:4px solid var(--bad); }
+  .case-panel.good { border-left:4px solid var(--good); }
+  .case-panel-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+  }
+  .case-panel.bad .case-panel-label { color:var(--bad); }
+  .case-panel.good .case-panel-label { color:var(--good); }
+  .case-panel-label-icon {
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:11px;
+    font-weight:700;
+    color:#fff;
+  }
+  .case-panel.bad .case-panel-label-icon { background:var(--bad); }
+  .case-panel.good .case-panel-label-icon { background:var(--good); }
+  .case-content {
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.85;
+    margin:0;
+    font-style:italic;
+  }
+  .case-content::before { content:"「"; }
+  .case-content::after { content:"」"; }
+
+  .case-takeaway {
+    background:var(--turquoise-50);
+    border-radius:6px;
+    padding:14px 18px;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.8;
+    margin:0;
+    border-left:3px solid var(--turquoise);
+  }
+  .case-takeaway strong {
+    display:block;
+    font-size:11px;
+    color:var(--turquoise-700);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  /* Footer */
+  footer {
+    background:var(--paper-soft);
+    border-top:1px solid var(--line);
+    padding:32px 24px;
+    text-align:center;
+  }
+  footer p {
+    margin:4px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  footer .brand-tagline {
+    font-size:14px;
+    color:var(--turquoise-700);
+    font-weight:500;
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+
+  /* Draft notice */
+  .draft-notice {
+    background:#fff7e8;
+    border:1px solid #f0d99f;
+    border-radius:6px;
+    padding:14px 18px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .draft-notice-icon {
+    flex:0 0 18px;
+    color:var(--warn);
+    margin-top:2px;
+  }
+  .draft-notice strong { color:#a86b14; }
+
+  /* Print */
+  @media print {
+    .top-nav, .side-index, .draft-notice { display:none !important; }
+    .hero { background:#fff; color:var(--ink); border-bottom:2px solid var(--turquoise); }
+    .hero h1, .hero-tagline, .hero-eyebrow, .hero-update, .hero-code, .hero-rule { color:var(--ink); opacity:1; }
+    .hero-code, .hero-rule { background:var(--paper-soft); }
+    .project, .tier-section { break-inside:avoid; page-break-inside:avoid; }
+  }
+
+  /* Responsive */
+  @media (min-width: 1320px) {
+    .side-index { display:block; }
+    .top-nav { display:none; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding:42px 20px 32px; }
+    .hero h1 { font-size:26px; }
+    .hero-tagline { font-size:15px; }
+    main { padding:32px 20px 48px; }
+    .top-nav { margin:0 -20px 24px; }
+    .top-nav-inner { padding:0 20px; }
+    .tier-header { flex-wrap:wrap; }
+    .tier-number { font-size:24px; }
+    .tier-name { font-size:19px; }
+    .project-header { padding:18px 20px; gap:12px; }
+    .project-body { padding:20px; }
+    .field-prompt { font-size:12px; padding:14px 16px; }
+  }
+
+  /* ============ v1.2 additions ============ */
+  /* Controls bar */
+  .controls-bar { display:flex; justify-content:flex-end; gap:8px; margin-bottom:28px; }
+  .control-btn {
+    background:transparent; border:1px solid var(--line-strong); color:var(--ink-soft);
+    padding:7px 14px; border-radius:5px; font-size:12px;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:6px; font-weight:500;
+  }
+  .control-btn:hover { background:var(--paper-soft); border-color:var(--ink-soft); color:var(--ink); }
+  .control-btn svg { width:12px; height:12px; }
+
+  /* Collapsible details/summary */
+  details summary { list-style:none; cursor:pointer; user-select:none; }
+  details summary::-webkit-details-marker { display:none; }
+  details summary::marker { display:none; }
+  .summary-chevron {
+    flex:0 0 16px; color:var(--tier-color, var(--ink-mute));
+    transition:transform .25s; margin-left:auto;
+  }
+  details[open] > summary .summary-chevron { transform:rotate(180deg); }
+
+  /* Voice section collapsible */
+  details.intro-collapse {
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    overflow:hidden; margin-bottom:32px;
+  }
+  details.intro-collapse > summary {
+    background:var(--paper-warm); padding:18px 22px;
+    display:flex; align-items:center; gap:14px;
+    font-size:15px; font-weight:700; color:var(--ink);
+  }
+  details.intro-collapse[open] > summary { border-bottom:1px solid var(--line); }
+  details.intro-collapse > summary .summary-chevron { color:var(--turquoise); }
+  details.intro-collapse > summary span:first-of-type {
+    display:flex; align-items:center; gap:10px;
+  }
+  details.intro-collapse > summary .intro-code {
+    font-family:Georgia,serif; font-size:12px; color:var(--turquoise-700);
+    background:var(--turquoise-50); padding:3px 9px; border-radius:3px;
+    letter-spacing:0.06em;
+  }
+  .intro-collapse-body { padding:26px 28px; }
+
+  /* Copy button */
+  .prompt-block { position:relative; }
+  .copy-btn {
+    position:absolute; top:10px; right:10px; z-index:5;
+    background:#fff; border:1px solid var(--tier-color); color:var(--tier-color);
+    padding:5px 12px; border-radius:4px;
+    font-size:11px; font-weight:600; letter-spacing:0.04em;
+    font-family:"Noto Sans TC",sans-serif; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:5px;
+  }
+  .copy-btn:hover { background:var(--tier-color); color:#fff; }
+  .copy-btn.copied { background:var(--good); border-color:var(--good); color:#fff; }
+  .copy-btn svg { width:11px; height:11px; }
+
+  /* Old prompt label removed — outer label + copy btn replace it */
+  .field-prompt::before { display:none; }
+  .field-prompt { padding-top:38px; }
+
+  /* Print: expand all */
+  @media print {
+    details > summary .summary-chevron { display:none; }
+    details > *:not(summary) { display:block !important; }
+    .controls-bar, .copy-btn { display:none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">GPS 內容推廣 · 組別工具手冊</div>
+    <span class="hero-code">CS2-01</span>
+    <h1>文字敘事組 Toolkit</h1>
+    <p class="hero-tagline">寫作、編輯、翻譯、敘事採集——三級九專案，每案附完整提示詞、操作步驟與正反案例對照。</p>
+    <div class="hero-rule">
+      <span class="hero-rule-label">全組鐵則</span>
+      文字是品牌承諾在語言層面的延伸——「在您需要之前」不只在 logo，而在每一封信、每一則公告、每一段廣播。
+      不寫的時候比寫的時候重要，靜默處留給讀者；所有對外文字落入四種語氣之一，不在之外。
+    </div>
+    <div class="hero-update">資訊更新 2026-06 · v1.2</div>
+  </div>
+</header>
+
+<aside class="side-index" aria-label="快速索引">
+  <div class="side-index-title">CS2-01 索引</div>
+  <ul>
+    <li><a href="#intro"><span class="code">§ 0</span>四種語氣</a></li>
+    <li class="side-index-divider"></li>
+    <li class="side-index-tier-label" data-t="a">基礎 · Foundational</li>
+    <li><a href="#a1"><span class="code">A1</span>模板訊息撰寫</a></li>
+    <li><a href="#a2"><span class="code">A2</span>雙語對照排版</a></li>
+    <li><a href="#a3"><span class="code">A3</span>短訊息撰寫</a></li>
+    <li class="side-index-tier-label" data-t="b">進階 · Intermediate</li>
+    <li><a href="#b1"><span class="code">B1</span>訪談轉化敘事</a></li>
+    <li><a href="#b2"><span class="code">B2</span>中長文編輯</a></li>
+    <li><a href="#b3"><span class="code">B3</span>翻譯與校對</a></li>
+    <li class="side-index-tier-label" data-t="c">高階 · Advanced</li>
+    <li><a href="#c1"><span class="code">C1</span>敘事框架設計</a></li>
+    <li><a href="#c2"><span class="code">C2</span>Pod 文字統籌</a></li>
+    <li><a href="#c3"><span class="code">C3</span>語氣治理提案</a></li>
+  </ul>
+</aside>
+
+<nav class="top-nav" aria-label="導覽">
+  <div class="top-nav-inner">
+    <a href="#intro">四種語氣</a>
+    <a href="#tier-a">基礎層級 A</a>
+    <a href="#tier-b">進階層級 B</a>
+    <a href="#tier-c">高階層級 C</a>
+  </div>
+</nav>
+
+<main>
+
+<div class="draft-notice">
+  <div class="draft-notice-icon" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="9" cy="9" r="7.5"/>
+      <path d="M9 5 L9 10" stroke-linecap="round"/>
+      <circle cx="9" cy="12.5" r="0.8" fill="currentColor"/>
+    </svg>
+  </div>
+  <div>
+    <strong>v1.2 草稿 · 收合介面 + 一鍵複製</strong>——案例皆為自帶情境的劣稿／佳稿對照，
+    不假設讀者看過任何過往作品；提示詞拆為「準備 → 範本 → 操作步驟 → 常見調整」四段。
+    待 CS2-01 組長就位後將進入正式校稿與案例庫迭代。
+  </div>
+</div>
+
+<div class="controls-bar">
+  <button class="control-btn" type="button" id="expand-all" aria-label="展開所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 L6 10 M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部展開
+  </button>
+  <button class="control-btn" type="button" id="collapse-all" aria-label="收合所有內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6 L10 6" stroke-linecap="round"/></svg>
+    全部收合
+  </button>
+</div>
+
+<!-- ============= INTRO ============= -->
+<details class="intro-collapse" id="intro">
+  <summary>
+    <span><span class="intro-code">§ 0</span>四種語氣 · 一種態度</span>
+    <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </summary>
+  <div class="intro-collapse-body">
+  <div class="intro-eyebrow">§ 0 · 寫作前的座標</div>
+  <h2>四種語氣 · 一種態度</h2>
+  <p>
+    語氣不是裝飾——是品牌承諾在文字層面的延伸。
+    所有 GPS 對外文字皆應落入這四種之一，避免之外的口吻（命令式、行銷腔、戲劇化、戲謔）。
+    寫作前先選對語氣，等於把後面九成的功夫先省了一半。
+  </p>
+  <p>
+    每種語氣下方都附一個真實情境的範例——對照「常見寫法」與「品牌寫法」，看出差別在哪。
+  </p>
+
+  <div class="voices">
+    <div class="voice" data-v="1">
+      <div class="voice-header">
+        <span class="voice-num">VOICE · 01</span>
+        <h4>溫暖同理 · Warm empathy</h4>
+      </div>
+      <p class="voice-when">
+        <strong>什麼時候用</strong>——傳達壞消息、回應抱怨、宣布造成不便的調整、與家屬／受影響同仁溝通。
+      </p>
+      <div class="voice-example">
+        <span class="voice-example-label">情境</span>
+        週五下午要發一封信，告知下週的線上講座因講者臨時取消而延期。
+        <em>常見寫法：「茲因講者行程調整，原訂下週講座取消，敬請見諒造成不便。後續日期另行公告。」</em>
+        <em>品牌寫法：「我們知道很多人已經把下週四下午留給講座了，要先說聲抱歉——講者那邊行程出狀況，需要重排。新的日期一確認，會在下週三前再寫信給大家。如果您本來想藉這次取消的時間做別的，可以放心安排。」</em>
+      </div>
+    </div>
+
+    <div class="voice" data-v="2">
+      <div class="voice-header">
+        <span class="voice-num">VOICE · 02</span>
+        <h4>清楚不囉嗦 · Clear &amp; concise</h4>
+      </div>
+      <p class="voice-when">
+        <strong>什麼時候用</strong>——時間異動、會議邀請、操作說明、流程通知。
+      </p>
+      <div class="voice-example">
+        <span class="voice-example-label">情境</span>
+        通知下週活動改時間。
+        <em>常見寫法：「關於 5/30 即將舉辦之安全文化推廣活動，茲因配合廠區行事曆調整，特此通知本次活動將延後至 6/6（週五）下午 2:00 進行，地點維持不變，敬請週知並準時出席。」</em>
+        <em>品牌寫法：「5/30 的安全文化活動改到 6/6 週五下午 2 點，地點不變，原報名仍有效。」</em>
+      </div>
+    </div>
+
+    <div class="voice" data-v="3">
+      <div class="voice-header">
+        <span class="voice-num">VOICE · 03</span>
+        <h4>堅定不對立 · Firm without conflict</h4>
+      </div>
+      <p class="voice-when">
+        <strong>什麼時候用</strong>——說明限制、拒絕請求、宣布規範變更、處理紅線案件回覆。
+      </p>
+      <div class="voice-example">
+        <span class="voice-example-label">情境</span>
+        回覆同仁詢問是否可以用個人裝置存取某內部系統。
+        <em>常見寫法：「敬請依公司資安規定，使用公務設備存取本系統，請見諒。」</em>
+        <em>品牌寫法：「這個系統需要用公務筆電存取，因為涉及客戶資料的離線快取。如果您正在外出又急需查詢，可以走 IT 服務台申請臨時遠端代查，填表約 3 分鐘、回覆約 1 小時。系統本身不開放個人裝置直連是固定規則，無例外。」</em>
+      </div>
+    </div>
+
+    <div class="voice" data-v="4">
+      <div class="voice-header">
+        <span class="voice-num">VOICE · 04</span>
+        <h4>輕巧有節 · Light with rhythm</h4>
+      </div>
+      <p class="voice-when">
+        <strong>什麼時候用</strong>——節慶提醒、軟性敘事、輕鬆通知、年度收尾類訊息。
+      </p>
+      <div class="voice-example">
+        <span class="voice-example-label">情境</span>
+        年底發中秋連假提醒。
+        <em>常見寫法：「茲為配合國定假期，本公司中秋連假自 10/3 至 10/6 共四日。請各部門妥善安排業務交接，並注意辦公室門禁與設備關閉。」</em>
+        <em>品牌寫法：「今年中秋連假四天，10/3 到 10/6。離開前記得關空調、整理桌面，順手檢查一下不離身的東西。好假期見。」</em>
+      </div>
+    </div>
+  </div>
+</div>
+</details>
+
+<!-- ============= TIER A: 基礎 ============= -->
+<section class="tier-section" data-t="a" id="tier-a">
+  <div class="tier-header">
+    <div class="tier-number">01</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">基礎 · Foundational</h2>
+      <p class="tier-subtitle">寫的基本功——照模板、依清單、選對語氣</p>
+    </div>
+  </div>
+
+  <!-- A1 -->
+  <details class="project" id="a1">
+    <summary class="project-header">
+      <div class="project-code">A1</div>
+      <div class="project-title-block">
+        <h3>模板訊息撰寫</h3>
+      </div>
+          <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">
+          用既有句式完成定型內容（會議紀要摘要、活動公告、回應訊息）。
+          練的不是創意，是紀律——四種語氣之中選對的一種、不越界、不裝飾。
+          基礎層級先學會「在現有句式內精準」，不嘗試新句式。
+        </p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：tGenie 對話模式為首選；外部工具可選 Claude.ai。</li>
+            <li><strong>準備素材</strong>：手邊要有「您想寫的訊息原始資訊」（會議紀要、活動細節、要回覆的問題等）。</li>
+            <li><strong>釐清三件事</strong>：這則訊息給誰看（讀者）、發送通路（email／LINE／公告）、希望讀者收到後做什麼（行動）。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+<div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 內容推廣的文字編輯，熟悉 GPS 品牌的四種語氣：
+溫暖同理、清楚不囉嗦、堅定不對立、輕巧有節。
+
+我要請您協助撰寫一則訊息。
+
+【訊息類型】（填入：公告／回應／摘要 三選一）
+【讀者】（填入：例如 全體同仁／某區域主管／特定組別）
+【發送通路】（填入：email／LINE／公告欄／其他）
+【希望讀者讀完做什麼】（填入：例如 知道日期改了即可／點連結報名／回覆確認）
+
+【素材】
+（將您手邊的原始資訊貼在這裡，越完整越好）
+
+請給我三件事：
+（一）這則訊息適合哪一種品牌語氣，以及理由（兩句話）；
+（二）開頭第一句與結尾最後一句的草擬（各兩個版本供我選擇）；
+（三）就這個情境，需要避免的常見陳腔（列三條）。
+
+請遵守：不用驚嘆號堆疊；不用「敬請見諒」「煩請知悉」「茲因」等套話；
+不超過讀者在手機上一個畫面能完整讀完的篇幅（約 150 字以內）。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie 對話模式，新建一則對話。</li>
+            <li>將上方提示詞範本全文複製貼入對話框。</li>
+            <li>把範本中所有「（填入：...）」的位置替換為您的實際情況。逐個檢查，不要殘留任何方括號內的提示文字。</li>
+            <li>在「【素材】」下方貼入您的原始資訊。素材越完整，AI 越能給對的建議——寧可貼多不要漏。</li>
+            <li>送出。等待約 15-30 秒。</li>
+            <li>收到回覆後先讀（一）：AI 選的語氣是否合理。<em>如果不合理</em>：回覆「請改用 X 語氣（指定其中一種），因為 Y（您的理由）」要求重來。</li>
+            <li>如果（一）合理，把（二）的開頭與結尾從兩個版本中選一個，自己補上中段內容，組成完整訊息。</li>
+            <li>完整訊息出來後，對照（三）的陳腔清單逐條檢查——確認沒有命中任何一條。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 給的開頭太正式</strong>：回覆「請去掉所有客套，第一句就講重點」。</li>
+            <li><strong>AI 給的中段建議過於展開</strong>：回覆「請把中段壓到三行以內，把可以讓讀者自己問的細節刪掉」。</li>
+            <li><strong>AI 一直加 emoji 或 emphasis 符號</strong>：回覆「整則訊息不要使用 emoji 或粗體，純文字呈現」。</li>
+            <li><strong>語氣明顯不對</strong>：直接指出「您寫的這版偏行銷腔，請回到溫暖同理的範圍」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          下週要發一則公告，告知新版的「值班輪替表」上線了，請大家上系統確認自己這個月的班別。讀者是全體安全管理人員，通路是內部 LINE 群與部門 email 同時發出。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">親愛的安全管理人員夥伴們，茲因應本月度排班作業更新，新版值班輪替表已正式上線！！請所有同仁務必於本週內登入系統確認您的班別資訊，並於確認後回覆主管知悉，敬請務必準時完成，以免影響後續排班作業。如有任何疑問，敬請洽詢您的所屬主管，謝謝您的配合！</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">這個月的值班輪替表已經更新上線，請進系統確認您這個月的班別。看完不用回信，系統上會顯示您已查看。如果發現班別需要調換，直接在系統內提出，主管會收到通知。連結附在下方。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          劣稿的問題不是長——是每句話都在做沒必要的事：「親愛的夥伴們」是裝飾、「!!」搶注意、「務必」「敬請」是預設讀者不會配合所以加重語氣、結尾道謝是把讀者當成在幫忙完成 KPI。佳稿沒有這些：直接告知事實、清楚下一步、移除一個多餘動作（回信給主管，系統已經會記錄了）。讀者讀完知道要做什麼、能在 20 秒內處理完。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A2 -->
+  <details class="project" id="a2">
+    <summary class="project-header">
+      <div class="project-code">A2</div>
+      <div class="project-title-block">
+        <h3>雙語對照排版</h3>
+      </div>
+          <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">
+          把同一段訊息以雙語並排呈現（中英 / 中日 / 繁簡），確保排版規則一致：
+          中文用全形標點、英文用半形、語意不漂移、長度不失衡。
+          雙語並非字對字——是把品牌語氣移植到另一種語言的鏡像表達。
+        </p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：tGenie 為主。Claude.ai 在處理較長段落時可作備用。</li>
+            <li><strong>準備素材</strong>：定稿的中文原文（已經完整、不會再改的版本——半成品翻起來會浪費功夫）。</li>
+            <li><strong>確認術語</strong>：原文中若有 GPS 內部術語（例如組別代號、活動名稱），先準備好對應的雙語譯法。</li>
+            <li><strong>決定排版方式</strong>：並列雙欄／上下對照／段落交錯——依發送通路決定。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+<div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 內容推廣的雙語編輯。我要請您將以下中文訊息翻譯為英文，並做雙語對照排版。
+
+GPS 品牌的四種語氣是：溫暖同理、清楚不囉嗦、堅定不對立、輕巧有節。
+翻譯時請保留原文的語氣，不要轉成標準翻譯腔。
+
+【中文原文】
+（將定稿的中文貼在這裡）
+
+【保留不譯的專有名詞】
+（列出原文中需保留中文或固定譯法的詞，例如：CS2-01、AI Talent Plan、tGenie 等）
+
+【目標讀者】
+（填入：例如 海外子公司 IT 同仁／非台籍工程師／供應鏈合作夥伴）
+
+【排版方式】
+（填入：並列雙欄／上下對照／段落交錯 三選一）
+
+請給我三件事：
+（一）英文翻譯版（保留品牌語氣，避免翻譯腔）；
+（二）並排格式範例（用您建議的排版方式呈現一段）；
+（三）翻譯選擇註解——哪些用語為何選此譯法、哪些保留原文、哪些是值得我與原作者確認的疑義。
+
+請遵守：中文標點全形（，。「」：；）、英文標點半形（, . " " : ;）；
+專有名詞首次出現使用「中文（English）」格式；
+不擅自加入原文未有的修辭或解釋。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie 對話模式。</li>
+            <li>將提示詞範本完整貼入。</li>
+            <li>替換所有方括號內容。特別注意「保留不譯的專有名詞」這一欄不能空——空了 AI 會自行翻譯所有內部術語，事後校對成本很高。</li>
+            <li>送出。等待約 30-60 秒（翻譯比一般文字耗時較長）。</li>
+            <li>收到回覆後，先讀（三）翻譯選擇註解——這是判斷整篇翻譯品質的最快路徑。<em>如果註解空泛或沒提到值得討論的選擇</em>，代表 AI 翻得很表面，回覆「請就以下三個用語逐項說明您的譯法選擇與替代方案：[列出 3 個關鍵詞]」。</li>
+            <li>然後讀（一）英文翻譯版。對照原文一段一段檢查——語氣是否一致、有沒有漏譯、有沒有不該添加的修飾。</li>
+            <li>讀（二）排版範例。確認標點全半形正確、專有名詞格式正確、段落長度沒有一邊過長一邊過短。</li>
+            <li>整體確認後，把（一）的翻譯與（二）的排版套用到完整文件上。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>英文版充滿被動語態</strong>：回覆「請改用主動語態為主，被動語態只用在強調對象本身而非動作來源時」。</li>
+            <li><strong>內部術語被翻成不認得的英文</strong>：回覆「以下術語請保留原文：[列出]，並用括號附英文簡釋」。</li>
+            <li><strong>翻譯過度在地化（加入原文沒有的口語）</strong>：回覆「請貼近原文密度，不要為了流暢而添加原文沒有的轉折詞」。</li>
+            <li><strong>中英文長度懸殊（一邊三行一邊一行）</strong>：回覆「請調整英文版的繁簡程度，使兩段視覺長度接近，並排排版時不會頭重腳輕」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要在內部資安公告中說明一條新規定。原文：「自下月起，所有對外送出的客戶相關檔案需先經 DLP 系統檢核，請各位將檔案放入指定資料夾後再對外發送。」需翻譯為英文，發給海外子公司同仁。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">Starting from next month, all customer-related files that are sent to external parties shall be checked by DLP system first. Please put your files into the designated folder before sending them externally. Thank you for your cooperation!!</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">Starting next month, any customer-related file going to external recipients must pass through the DLP scan first. Drop the file into the designated folder (path in the link below) — the system handles the scan and forwards it. The whole step adds about 30 seconds before sending.</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          劣稿的問題是中翻英常見的三個陷阱同時出現：被動語態堆疊（all files...shall be checked）讓動作主體模糊、字對字翻譯（put your files into the designated folder）變成沒有語氣的指令、結尾「Thank you for your cooperation!!」是把中文的「敬請配合」直接搬到英文——英語讀者讀到只覺得突兀。佳稿用主動語態（the system handles）讓步驟清楚、補上一個原文沒有但讀者需要知道的具體資訊（多花 30 秒），讓「為什麼這條規定不會造成負擔」直接被看到。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- A3 -->
+  <details class="project" id="a3">
+    <summary class="project-header">
+      <div class="project-code">A3</div>
+      <div class="project-title-block">
+        <h3>短訊息撰寫</h3>
+      </div>
+          <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">
+          為 LINE、email 主旨、公告標題等高密度載體撰寫短訊息。
+          每則只承載一個主題、第一句決定開不開、不超過行動裝置一個畫面。
+          短不是少寫——是把該說的濃縮到讀者願意停下來看的密度。
+        </p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：tGenie 對話模式。</li>
+            <li><strong>準備素材</strong>：完整版的訊息來源（活動詳情、系統公告原文、會議紀要等）——讓 AI 幫您濃縮，不是讓您先濃縮再給 AI。</li>
+            <li><strong>確定一件事</strong>：這則短訊息「最重要的一個資訊」是什麼。如果讀者只看到第一行就關掉，他必須先得到這件事。</li>
+            <li><strong>決定行動</strong>：希望讀者讀完後做什麼（點連結／回覆／記下時間／不做任何事）。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+<div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 內容推廣的短訊息編輯，熟悉行動裝置閱讀邏輯：
+第一行 15 字內決定開不開、整則不超過手機一個畫面、結尾只給一個行動。
+
+我要請您為以下情境撰寫一則 LINE 推播。
+
+【完整素材】
+（將原始資訊完整貼入，由您濃縮而非由我先濃縮）
+
+【最重要的一個資訊】
+（一句話，例如：「9/15 之前要完成 XX 系統的密碼更新」）
+
+【希望讀者讀完做什麼】
+（填入：點連結／回覆訊息／記下時間／純粹知會 等）
+
+【發送時間】
+（填入：例如 週三上午 9:00）
+
+請給我三件事：
+（一）開頭第一行（15 字內，三個版本供我選擇，每個版本後附選擇理由）；
+（二）完整推播文案（一個畫面內，使用我選定的開頭重寫）；
+（三）兩個替代版本（一個更輕、一個更正式），讓我依當下氛圍選擇。
+
+請遵守：不用「緊急」「必看」「最後機會」等促迫詞；
+品牌語氣是體貼的提醒，不是搶注意力；
+emoji 一則最多一個，置於開頭或結尾，不在中段穿插；
+結尾的行動連結用一行獨立呈現，前面用 → 或冒號帶出。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie 對話模式。</li>
+            <li>貼入提示詞範本，替換所有方括號內容。「最重要的一個資訊」這欄不能含糊——如果您自己都說不清，AI 也寫不出好開頭。</li>
+            <li>送出。等待約 15-20 秒。</li>
+            <li>讀（一）三個開頭，挑一個。<em>三個都不滿意時</em>：回覆「請就以下角度再給三個版本：[您的角度，例如『從讀者的擔心切入』『從具體時間切入』]」。</li>
+            <li>讀（二）完整推播文案。整則是否在手機一個畫面內讀完（約 5-7 行）。<em>過長</em>：回覆「請壓到 5 行以內，把次要的細節刪掉，讀者需要時可以點連結看詳情」。</li>
+            <li>讀（三）兩個替代版本。判斷今天的情況更適合哪個調性。</li>
+            <li>送出前自己念一遍：第一行有沒有勾住注意力？整則有沒有重複的資訊？結尾的行動是不是一個明確動作？三個都過，才送出。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>第一行像新聞標題</strong>：回覆「請把第一行改為直接對讀者說的口吻，不要用標題式陳述」。</li>
+            <li><strong>整則塞了三個主題</strong>：回覆「請只保留一個主題（指定哪個），其他兩個分開發或拿掉」。</li>
+            <li><strong>結尾有兩個以上的行動連結</strong>：回覆「結尾只留最重要的一個連結，其餘移到內文或下一則訊息」。</li>
+            <li><strong>太過輕鬆失了分寸</strong>：回覆「這則涉及資安規定，請回到清楚不囉嗦的語氣，但不要走向命令式」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          IT 通知明天早上 8:00-9:00 系統會做維護，期間無法存取內部公告與差勤系統。需要在今晚 6 點透過 LINE 群發提醒。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">⚠️【緊急通知】⚠️ 親愛的同仁您好！明天（5/30）早上 8:00-9:00 系統將進行例行維護！期間內部公告系統及差勤系統皆無法使用！請各位務必提前完成相關作業，以免影響今日業務！如有任何問題請聯繫 IT 部門！感謝您的配合！✨</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">明早 8:00-9:00 系統維護，內部公告與差勤系統會暫停一小時。如果您明早第一件事是打卡或查公告，建議今晚先處理掉。其他時段不受影響。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          劣稿的問題是「想引起注意」變成「搶注意力」：兩個⚠️＋括號＋驚嘆號＋「緊急」三個字＋「務必」——把一件小事包裝成大事，讀者反而看不出真正該做什麼。佳稿開門見山說事實（時間＋影響範圍）、補上一句針對「明早第一件事是查公告的人」的具體建議、最後給一個讓多數人安心的訊息（其他時段不受影響）。讀完讀者知道：要不要動作、什麼時候動作、自己屬不屬於需要動作的那一群人。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER B: 進階 ============= -->
+<section class="tier-section" data-t="b" id="tier-b">
+  <div class="tier-header">
+    <div class="tier-number">02</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">進階 · Intermediate</h2>
+      <p class="tier-subtitle">寫的編排能力——統合素材、編輯他人、跨語言移植</p>
+    </div>
+  </div>
+
+  <!-- B1 -->
+  <details class="project" id="b1">
+    <summary class="project-header">
+      <div class="project-code">B1</div>
+      <div class="project-title-block">
+        <h3>訪談轉化敘事</h3>
+      </div>
+          <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">
+          把同仁訪談、現場觀察、會後反饋這類原始素材轉化為可讀的敘事。
+          練的是「保留語氣與情緒，但去掉冗餘與重複」——不是改寫成標準官方體。
+          受訪者的原話是敘事的證據，越多保留越可信。
+        </p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：tGenie 對話模式。長訪談稿（超過 3000 字）建議分段處理。</li>
+            <li><strong>準備素材</strong>：訪談逐字稿，已去識別化（移除姓名、職稱、可辨識的部門細節）。</li>
+            <li><strong>標出三句</strong>：自己先在逐字稿中標出三句最有情緒、最具體、最值得保留的原話。這是 AI 改寫的「不可動區域」。</li>
+            <li><strong>釐清敘事用途</strong>：這篇要發在哪（內部通訊／對外文章／培訓素材），讀者讀完應該感受到什麼。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+<div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 內容推廣的敘事編輯，熟悉「保留語氣與情緒、去掉冗餘與重複」的訪談改寫原則。
+您不會把受訪者的話改寫成標準官方體；您讓敘事流暢但不犧牲受訪者的真實聲音。
+
+我要請您將以下訪談逐字稿轉化為敘事稿件。
+
+【訪談逐字稿】
+（將去識別化的逐字稿完整貼入）
+
+【必須保留的原話】（不可改寫、不可省略）
+1.「（貼入原話一）」
+2.「（貼入原話二）」
+3.「（貼入原話三）」
+
+【敘事用途】
+（填入：例如 內部季度通訊／培訓案例／對外文章）
+
+【目標讀者】
+（填入：例如 GPS 全體同仁／新進安全管理人員／供應鏈夥伴）
+
+【目標字數】
+（填入：建議 800-1200 字）
+
+請給我三件事：
+（一）敘事稿件初版（保留三句原話的原貌，自然嵌入敘事）；
+（二）改寫策略說明——您如何決定哪些段落保留、哪些濃縮、哪些刪除，列出三個關鍵判斷；
+（三）疑義清單——稿件中哪些地方您不確定改寫是否符合受訪者本意，需要我回頭確認。
+
+請遵守：保留原話時，引號內一字不易；
+場景描寫具體到「在哪個門口、什麼時間、誰先開口」這種顆粒度；
+不為敘事流暢而虛構不存在的細節；
+不替受訪者「整理」想法成更系統的版本——他們原本說的就算邏輯不工整也保留。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie 對話模式。</li>
+            <li>貼入提示詞範本。「必須保留的原話」三句一定要填——這是 AI 改寫的硬約束，沒有這個 AI 容易把所有語氣抹平。</li>
+            <li>送出。等待約 30-60 秒（長文耗時較久）。</li>
+            <li>收到回覆後，先讀（三）疑義清單——這告訴您 AI 在哪些地方做了沒把握的判斷。把每一條都標記下來，準備之後與受訪者確認。</li>
+            <li>讀（二）改寫策略說明。判斷 AI 的取捨是否合您意。<em>策略明顯偏離</em>：回覆「您過於壓縮了 [某段] 的細節，請重新處理該段，保留以下要素：[列出]」。</li>
+            <li>讀（一）敘事稿件初版。逐段對照逐字稿——確認三句原話完整保留、確認場景顆粒度足夠、確認沒有虛構細節。</li>
+            <li>初版確認方向正確後，自己再做一次精修：把您熟悉的內部脈絡（AI 不知道的）補進去、把過度修飾的形容詞刪掉。</li>
+            <li>定稿前回頭問受訪者一次——把改寫稿與您標記的疑義一起發給對方，確認他願意以這個版本出現。這一步不可省。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 把受訪者寫得太「正面」</strong>：回覆「請保留原文中受訪者的猶豫、抱怨、矛盾——這些是真實感的來源，不要為敘事好看而修飾」。</li>
+            <li><strong>三句原話被改寫了</strong>：回覆「【必須保留的原話】是硬約束，請逐字檢查，引號內任何更動都不行」。</li>
+            <li><strong>敘事流暢但失去細節</strong>：回覆「請補回原文中的具體細節（時間、地點、對話對象）。場景越具體越可信」。</li>
+            <li><strong>結尾下了 AI 自己的總結</strong>：回覆「請刪除結尾的總結段。敘事的結論留給讀者自己得出，不要替讀者下判斷」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          訪談一位資深的廠區值班同仁，談他三年前一次處理深夜入侵警報的經驗。逐字稿中有一段他說：「那時候我真的有點怕，因為螢幕上的人影是真的在動，不是訊號雜訊。我打給隔壁班的時候手是抖的。但是我們的 SOP 寫得很清楚，照著做就對了。」要把這段轉化為一段敘事，發在內部年度回顧。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">三年前的某個深夜，值班同仁面對突發的入侵警報，展現了高度的專業素養。雖然當下情況緊張，但他憑藉著紮實的 SOP 訓練，沉著應對，迅速通報相關單位，成功處理了這次事件。這個案例彰顯了標準作業流程的重要性，也展現了 GPS 安全管理人員的專業能力。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">三年前一個深夜，值班同仁從監控螢幕上看到一個人影在外牆邊移動——不是訊號雜訊，是真的在動。「那時候我真的有點怕。我打給隔壁班的時候手是抖的。」他在訪談中這樣說。當下他做的事情很簡單：打開 SOP，照著上面的順序撥電話、通報、調度。「但是我們的 SOP 寫得很清楚，照著做就對了。」事後回看，他覺得讓他撐過那一刻的不是膽量，是那份文件。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          劣稿的問題是把一個真實的人變成「展現專業素養的案例」——讀者讀完不認識這個人、不知道他害怕過、不知道 SOP 是怎麼幫到他的。所有的具體都被「彰顯」「展現」「沉著」這類抽象詞蓋掉了。佳稿把受訪者三句原話（手是抖的／SOP 寫得很清楚／照著做就對了）原封保留、加上具體場景（外牆邊的人影、深夜、打電話的動作）、結尾不下總結而是讓讀者看見受訪者自己事後的反思。這篇出來，廠區看過的同仁讀完會點頭——因為他們認得這個瞬間。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B2 -->
+  <details class="project" id="b2">
+    <summary class="project-header">
+      <div class="project-code">B2</div>
+      <div class="project-title-block">
+        <h3>中長文編輯</h3>
+      </div>
+          <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">
+          為他人撰寫的中長文（報告、案例、文章）做編輯：結構調整、語氣校準、刪除冗餘、強化重點。
+          練的是「動結構不動立場」——讓作者的論點更清楚，不是把作者的話改成編輯的話。
+          編輯的成功標準：作者讀完說「這就是我想說的」，而不是「謝謝你的潤色」。
+        </p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：tGenie 對話模式。長稿（超過 5000 字）建議分章節處理。</li>
+            <li><strong>準備素材</strong>：待編輯稿件全文，最好是 Word 或 Markdown 格式。</li>
+            <li><strong>釐清立場</strong>：作者寫這篇的核心論點是什麼？最不希望被誤解的地方是哪段？編輯時這兩件事不能動。</li>
+            <li><strong>確認用途</strong>：稿件最終用在哪（對外文章／內部報告／培訓教材）。用途決定編輯尺度。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+<div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 內容推廣的編輯，遵守「動結構不動立場」原則——讓作者的論點更清楚，
+而不是把作者的話改成編輯的話。您給建議，不直接重寫。
+
+我要請您協助編輯以下稿件。
+
+【稿件全文】
+（將待編輯稿件貼入）
+
+【作者的核心論點】（編輯時不可動搖、不可弱化）
+（一句話描述）
+
+【作者最不希望被誤解的段落】
+（指出段落位置與原因）
+
+【最終用途】
+（填入：例如 對外發表的觀點文章／內部年度報告／新人培訓教材）
+
+【目標讀者】
+（填入）
+
+請給我四件事：
+（一）結構建議——章節順序、是否需新增或合併段落、哪些章節之間的銜接不夠流暢，逐項給出具體建議；
+（二）語氣校準——標出與品牌四種語氣偏離的句子（給出原句與建議改法），但只標不改；
+（三）冗餘清單——重複出現的論點、可刪段落、可合併段落，給出刪改理由；
+（四）需與作者討論的疑義——您不確定的編輯判斷，列出原文與您的疑問。
+
+請遵守：不直接重寫稿件，給建議而非改稿；
+判斷不確定時保留原句並標示「建議與作者討論」；
+不擅自加入作者未提及的論點或案例；
+不為「結構工整」而犧牲作者本意的細節。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie 對話模式。</li>
+            <li>貼入提示詞範本，完整填寫所有方括號。「作者的核心論點」與「最不希望被誤解的段落」這兩欄是編輯紀律的基石，必填且要精確。</li>
+            <li>送出。等待 30-60 秒。</li>
+            <li>收到回覆後，先讀（四）疑義清單。如果 AI 沒列出任何疑義，代表它太自信了——回覆「請就以下三個段落，提出您在編輯判斷上的不確定處：[列出段落]」。</li>
+            <li>讀（一）結構建議。判斷 AI 的調整是否符合作者本意。<em>結構建議過於激進</em>：回覆「請降低調整幅度，優先處理銜接問題，章節順序維持作者的安排」。</li>
+            <li>讀（二）語氣校準。把 AI 標出的偏離句一條條判斷——有些可能是作者刻意的選擇。<em>過度標記</em>：回覆「請只保留明顯偏離品牌四種語氣的句子，作者風格性的表達不算偏離」。</li>
+            <li>讀（三）冗餘清單。判斷哪些確實該刪、哪些其實是作者刻意的強調。</li>
+            <li>整理 AI 的建議成一份「給作者的編輯回饋」——分為「建議調整」與「與您討論」兩部分，逐項附原因。把這份發給作者，由作者決定是否接受。</li>
+            <li>不論作者接受多少，最終定稿由作者自己改。編輯的角色是給看法，不是改稿。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 直接重寫了某段</strong>：回覆「您違反了不直接重寫的原則，請就剛才重寫的段落，改為列出三個編輯建議讓我帶給作者」。</li>
+            <li><strong>建議空泛</strong>：回覆「請每條建議都附上具體位置（第幾段第幾句）與替代方案的範例」。</li>
+            <li><strong>把作者的個人風格標為偏離</strong>：回覆「作者的語氣特色（如愛用問句、句子較短）不算偏離。請只標品牌四種語氣以外的口吻（命令式、行銷腔、戲劇化、戲謔）」。</li>
+            <li><strong>沒有任何疑義</strong>：回覆「編輯永遠有判斷不確定的地方。請就最有判斷分量的三處給出您的疑慮」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          某位區域安全主管寫了一篇五千字的內部報告，談他帶領團隊從「逐件審查」轉為「分散式治理」的兩年歷程。文中有一段他坦承第一年的失敗：「老實說，第一年我們是錯的。我們以為放權就是不審查，結果三個月內出了兩起對外素材的紅線違規。我那時候很想收回成命。」您要協助編輯這篇報告，準備在內部年度回顧發表。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿編輯建議</div>
+            <p class="case-content">建議將「第一年我們是錯的」修改為「第一年的推動過程中遇到一些挑戰」，並將「我那時候很想收回成命」刪除，因為這類個人情緒性表述不適合出現在正式報告中。整段建議重寫為：「在分散式治理的初期推動階段，團隊面臨了一些調適上的挑戰，包含對授權邊界的認知差異，導致了少數素材品質的疑慮。透過及時的滾動修正，這些議題得以妥善處理。」</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿編輯建議</div>
+            <p class="case-content">建議保留原段不動。「第一年我們是錯的」與「我那時候很想收回成命」是這整篇報告最有重量的兩句——它們把「分散式治理」從一個漂亮的概念，變成一個有失敗有反思的真實歷程。這也是這位主管願意寫這篇報告的根本原因（讀者讀完應該感受到「這個人是真的走過」）。建議只在這段後面加一個過渡句連接到下一段（「但兩起違規之後，我們沒有收回授權，而是換了一個方法」），讓敘事節奏不被打斷。其他結構性建議我另外列在文件後段。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          劣稿編輯的核心錯誤是「把作者的話改成編輯的話」——「個人情緒性表述不適合正式報告」這個判斷本身就是編輯把自己的標準套在作者身上。改寫後的版本（在「初期推動階段」「調適上的挑戰」「妥善處理」）讀起來像所有公司報告長一樣的官腔，而原作者的真實經驗被完全抽走。佳稿編輯做的事相反：先理解作者為什麼寫這段（這是他願意寫整篇的根本），然後判斷這段不能動。編輯的工作不是讓文章符合某種「正式」的想像，是讓作者原本想說的事更清楚地被聽見。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- B3 -->
+  <details class="project" id="b3">
+    <summary class="project-header">
+      <div class="project-code">B3</div>
+      <div class="project-title-block">
+        <h3>翻譯與校對</h3>
+      </div>
+          <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">
+          為對外溝通內容做翻譯與校對（中→英 / 英→中 / 繁→簡 / 中→日）。
+          翻譯不只是字對字——是把品牌語氣移植到目標語言。
+          校對是翻譯的最後一道閘門：抓的不只是錯字，是不該漂移的意思。
+        </p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：tGenie 為主。長文或技術性較高的內容可搭配 Claude.ai 交叉驗證。</li>
+            <li><strong>準備素材</strong>：定稿的源語言原文（半成品翻起來會浪費功夫）。</li>
+            <li><strong>準備術語表</strong>：列出原文中的 GPS 內部術語、鎖定語句、不可動的關鍵詞，附上對應的目標語言譯法（或標明「保留原文」）。</li>
+            <li><strong>確認目標讀者</strong>：翻給誰看（海外子公司同仁／供應鏈夥伴／公開受眾）——讀者背景決定在地化深度。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+<div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 內容推廣的雙語編輯，遵守「翻譯語氣優先於字面對應」原則。
+您把品牌語氣移植到目標語言，而不是字對字翻譯。
+鎖定語句（例如 Before you need it. / 在您需要之前。）一字不易。
+
+我要請您協助翻譯與校對。
+
+【源語言】（填入：中文／英文／日文 等）
+【目標語言】（填入）
+
+【源語言原文】
+（將定稿原文貼入）
+
+【術語對照表】（必填，不可空）
+- 「GPS Promotion Team」→「GPS 內容推廣」
+- 「主理人」→「Lead Convener」（或保留原文加註）
+- （列出所有相關術語）
+
+【鎖定語句】（一字不易、不得意譯）
+- 「Before you need it. / 在您需要之前。」
+- （列出所有鎖定語句）
+
+【目標讀者】
+（填入）
+
+【在地化深度】
+（填入三選一：
+ [輕度] 用語在地化，結構保留原文
+ [中度] 用語與句式在地化，段落結構保留
+ [深度] 全面在地化，句式與段落結構皆按目標語言邏輯重排）
+
+請給我四件事：
+（一）翻譯初版；
+（二）翻譯選擇註解——三到五個關鍵用語的譯法選擇與理由（哪些字面譯、哪些意譯、哪些保留原文）；
+（三）疑義清單——您不確定的譯法判斷，列出原句與替代方案，待我與原作者確認；
+（四）校對備註——翻譯過程中發現原文有疑慮的地方（用詞不準、邏輯不通、與其他段落矛盾等）。
+
+請遵守：術語對照表優先於通用譯法；
+鎖定語句一字不易；
+不為「順暢」而漂移原意；
+目標語言的標點與排版規則嚴格遵守（中文全形、英文半形等）；
+不為填充而添加原文沒有的修飾。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie 對話模式。</li>
+            <li>貼入提示詞範本。【術語對照表】這欄不能空，越完整越好——AI 沒有的話會自行翻譯所有專有名詞，事後校對成本是寫術語表的十倍。</li>
+            <li>送出。等待 30-90 秒（取決於長度）。</li>
+            <li>收到回覆後，先讀（三）疑義清單與（四）校對備註——這兩個告訴您 AI 在哪些地方做了沒把握的判斷。</li>
+            <li>讀（二）翻譯選擇註解。判斷 AI 的取捨理由是否合理。<em>註解空泛</em>：回覆「請就以下五個關鍵詞，逐個說明您的譯法選擇、替代方案、為何選此而非彼：[列出]」。</li>
+            <li>讀（一）翻譯初版。對照原文逐段檢查：鎖定語句是否一字不易、術語對照表是否完整執行、語氣是否保留。</li>
+            <li>把（四）校對備註的原文疑慮整理出來，回頭與原作者確認——這常常是 AI 翻譯的副產品價值，比翻譯本身還重要。</li>
+            <li>最終定稿前，找一位目標語言的母語使用者（或熟悉該語言的同事）讀一遍——AI 翻譯能達到 90% 正確，但最後 10% 的語感落差通常要母語讀者才看得出。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>內部術語被翻成不認得的詞</strong>：回覆「【術語對照表】要求保留原文的詞，您都翻譯了，請重新處理並嚴格遵守對照表」。</li>
+            <li><strong>翻譯過於字面，失去語氣</strong>：回覆「請提升在地化深度到 [中度/深度]，這次優先保留語氣，句式可依目標語言慣用法調整」。</li>
+            <li><strong>翻譯過度在地化，加入了原文沒有的轉折</strong>：回覆「請降低在地化深度到 [輕度/中度]，貼近原文密度，不要為流暢而添加原文沒有的詞」。</li>
+            <li><strong>沒有疑義清單</strong>：回覆「翻譯永遠有不確定的地方。請就最有判斷分量的三處給出您的疑慮」。</li>
+            <li><strong>鎖定語句被改寫了</strong>：回覆「鎖定語句是硬約束，請逐句檢查，任何更動都不允許——重新給我一個確保鎖定語句一字不易的版本」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          要把 GPS 對全球子公司發出的一段品牌核心訊息翻譯為英文。中文原文：「真正的安全，不是把人擋在門外，而是讓對的人在對的時間順利進來。我們相信安全感不是來自圍籬，是來自您每次踏進門時的那份『被認識』。」術語：「安全感」翻為 "sense of security"；鎖定語句「Before you need it. / 在您需要之前。」一字不易。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿</div>
+            <p class="case-content">True security is not about blocking people outside the door, but about letting the right people enter smoothly at the right time. We believe that the sense of security does not come from fences, but from the "being recognized" feeling every time you step inside the door.</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿</div>
+            <p class="case-content">True security isn't about keeping people out. It's about letting the right people through, at the right moment, without friction. We believe a real sense of security doesn't come from the fence at the perimeter — it comes from the small moment when you walk in and feel recognized.</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          劣稿是典型的字對字翻譯陷阱：「把人擋在門外」翻成 "blocking people outside the door" 是字面正確但英文讀者不會這樣表達；「順利進來」翻成 "enter smoothly" 失去了原文「不卡關」的意思；「那份『被認識』」翻成 "the 'being recognized' feeling" 引號加得突兀且不自然。佳稿做了三件事：用 "keeping people out" 替代字面翻譯但保留「擋」的意思；用 "without friction" 補強「順利」的隱含義；把「那份被認識」處理成 "the small moment when you walk in and feel recognized"——保留原文的詩意，但用英語母語者能自然讀懂的句式。語氣完整保留，但讀者不會察覺這是翻譯來的。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+<!-- ============= TIER C: 高階 ============= -->
+<section class="tier-section" data-t="c" id="tier-c">
+  <div class="tier-header">
+    <div class="tier-number">03</div>
+    <div class="tier-name-block">
+      <h2 class="tier-name">高階 · Advanced</h2>
+      <p class="tier-subtitle">敘事系統設計——建框架、領 Pod、守治理</p>
+    </div>
+  </div>
+
+  <!-- C1 -->
+  <details class="project" id="c1">
+    <summary class="project-header">
+      <div class="project-code">C1</div>
+      <div class="project-title-block">
+        <h3>敘事框架設計</h3>
+      </div>
+          <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">
+          為一條新的內容線（新系列影集字幕、新季度通訊主題、新培訓內容）建立寫作規範：
+          語氣選擇、結構模板、用詞邊界、檢核清單。
+          目標是讓接手的基礎層級與進階層級能照框架產出——框架沒寫對，後續所有產出都會偏。
+        </p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：tGenie 對話模式或 Claude.ai。框架設計通常需要多輪對話迭代。</li>
+            <li><strong>準備素材</strong>：內容線的定位文件、目標讀者描述、已有的範本內容（如果是延續既有內容線）、可參考的同類成功案例（最多三個）。</li>
+            <li><strong>釐清範圍</strong>：這個框架適用的時間跨度（一季／一年／長期）、覆蓋的產出類型（單一形式／跨形式）、預期使用者（誰會照這個框架寫）。</li>
+            <li><strong>準備正反案例</strong>：自己先想出兩個未來照這個框架可能產出的虛擬範例——一個您認為「應該長這樣」，一個「絕對不該這樣」。這是您校準 AI 框架建議的尺。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+<div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 內容推廣的敘事架構師，熟悉品牌四種語氣（溫暖同理、清楚不囉嗦、堅定不對立、輕巧有節）
+與品牌核心信念（以作品與貢獻肯認取代 KPI、賦能不是表演、靜默處留給讀者）。
+您設計的框架要簡到一頁可貼牆上，不留模糊地帶。
+
+我要請您為以下新內容線設計寫作框架。
+
+【內容線名稱】
+（填入）
+
+【內容線定位】（一段，100-200 字）
+（描述：這條內容線存在的理由、要解決的溝通問題、與其他內容線的區別）
+
+【目標讀者】
+（描述：身份、所在情境、讀到這條內容時的心理狀態）
+
+【預期產出形式】
+（填入：例如 每月一篇電子報／每集 3 分鐘短影音字幕／單張海報文案）
+
+【適用時間跨度】
+（填入：例如 一季／一年／長期）
+
+【框架使用者】
+（填入：哪一級的成員會照這個框架寫——基礎層級？進階層級？混合？）
+
+請給我四件事：
+（一）四種語氣中的主要語氣（一種）與次要語氣（一種），附選擇理由；
+（二）結構模板——每篇/每集的固定結構（章節順序、每段的功能、典型篇幅），以可視化的方式呈現；
+（三）用詞邊界——推薦詞清單（5-10 個）、避免詞清單（5-10 個）、術語對照（如有）；
+（四）三道檢核問題——使用者交付前自查的問題（每題一句話，回答 Yes/No）。
+
+請遵守：框架應簡到一頁可貼牆上（總字數 600 字以內）；
+不留模糊地帶——「視情況」「適度」「酌情」這類詞不允許出現；
+所有規範須對應到第（二）（三）（四）的具體條目，不要泛泛而談；
+每個用詞邊界附簡短理由（為什麼推薦／為什麼避免）。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie 或 Claude.ai。框架設計建議用對話深度較好的工具。</li>
+            <li>貼入提示詞範本，完整填寫所有方括號。「內容線定位」是整個框架的根，這欄寫不清，下面四件事都會偏。</li>
+            <li>送出。等待 60-120 秒（這是相對複雜的請求）。</li>
+            <li>收到第一版後，立刻用您事先準備的「兩個虛擬範例」對照——這個框架能否產出您認為「應該長這樣」的版本？能否擋住您認為「絕對不該這樣」的版本？兩題都 Yes，框架方向對；任一 No，需要調整。</li>
+            <li><em>需要調整時</em>：精確指出哪部分。例如「您給的（一）語氣選擇我同意，但（二）結構模板缺少一個處理『讀者讀到一半失去耐心』的段落設計，請補上」。</li>
+            <li>第二輪修訂後，再用兩個虛擬範例對照一次。通常需要 3-5 輪對話才能收斂。</li>
+            <li>框架定型後，自己寫一個真實範例——把這條內容線的第一篇照框架寫出來。寫得順，框架可用；寫到一半發現某個欄位不夠用或多餘，回頭修框架。</li>
+            <li>把定型框架做成一頁文件（建議用組內共用的模板），標題加上版本號（v1.0、v1.1 等），存到組內共用空間，並寫一段「使用備註」說明設計邏輯。</li>
+            <li>發給三位進階層級試用一個月。期間收集回饋，月底盤點哪些條目被遵守、哪些被忽略——被忽略的條目要嘛太苛要嘛沒必要，是 v1.1 的修訂依據。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>框架過於原則性，沒有可執行細節</strong>：回覆「請把每個原則對應到具體可勾選的動作或具體可數的指標（字數、段落數、用詞數）」。</li>
+            <li><strong>用詞邊界給的是抽象類別而非實際詞</strong>：回覆「請給實際詞而非詞類。例如不要寫『避免命令式動詞』，要寫『避免「務必」「應」「需」這三個詞』」。</li>
+            <li><strong>結構模板太多必選欄位</strong>：回覆「請把必選欄位壓到 5 個以內，其餘改為選用——必選太多會讓使用者抗拒採用框架」。</li>
+            <li><strong>檢核問題不是 Yes/No</strong>：回覆「三道檢核問題請改為純 Yes/No 形式，避免『是否充分』『是否適當』這類需要主觀判斷的措辭」。</li>
+            <li><strong>框架沒有舉例</strong>：回覆「每個用詞邊界與結構欄位請各附一個正反範例（推薦寫法 vs 應避免寫法），讓使用者一眼看出差別」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          您要為「GPS 月度安全提醒」這條新內容線設計寫作框架。這條內容線將由不同組員輪流撰寫、每月一則、發給全體安全管理人員、目的是在不增加焦慮的前提下提醒當月該注意的事。AI 第一輪給了兩個版本的「用詞邊界」設計，您要選一個。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿框架（用詞邊界部分）</div>
+            <p class="case-content">用詞邊界：本內容線應避免使用過於強烈的警示性詞彙，以維持親切感；同時應避免過於輕浮的表達方式，以維持專業性。建議採用適度的提醒語氣，視情況使用引導性的句式。文章長度應控制在合理範圍內，不宜過長或過短。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿框架（用詞邊界部分）</div>
+            <p class="case-content">推薦詞（5 個）：注意一下、可以、建議、如果、不急——這五個詞共同特徵是「給選擇權」。避免詞（5 個）：務必、嚴禁、立即、緊急、千萬——這五個詞共同特徵是「不留選擇」。篇幅：300-450 字之間，逾此區間需在交付時說明原因。結構：開場一句陳述事實、中段三條具體提醒（每條一行）、結尾一句留給讀者自己判斷的話。每則只談一個主題，跨主題分則處理。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          劣稿的失敗不是說錯話——是每句話都正確但都不可執行：「適度」「合理範圍」「視情況」這類詞讓使用者無從照辦。同樣寫了五十字的規範，使用者讀完不知道到底什麼能寫什麼不能寫。佳稿做了三件具體的事：第一，把「避免警示詞」改為「避免這五個具體詞」並附共同特徵說明；第二，把「合理長度」改為「300-450 字並說明逾此原因」；第三，把整個結構拆成可逐項對照的四個動作（開場、中段、結尾、主題收斂）。同一條規範，劣稿版本三個月後使用者各寫各的；佳稿版本三個月後內容線會長出一致的調性。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C2 -->
+  <details class="project" id="c2">
+    <summary class="project-header">
+      <div class="project-code">C2</div>
+      <div class="project-title-block">
+        <h3>跨組 Pod 文字統籌</h3>
+      </div>
+          <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">
+          在跨組 Pod 中擔任文字統籌：統一全 Pod 文字語氣、管理時程、收斂多人撰寫的內容、最終定稿。
+          練的是「統合而非主導」——讓其他組的專業仍以他們的口吻呈現，
+          但全 Pod 對外像同一個聲音。改太多會壓住成員的專業色彩，改太少對外像拼貼。
+        </p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：tGenie 為主。Pod 統籌通常涉及多份不同文體的素材，需要對話深度。</li>
+            <li><strong>準備素材</strong>：Pod 各成員已交付或計畫交付的所有文字片段、Pod 整體交付物的最終形式（影片字幕／系列文章／一份報告）。</li>
+            <li><strong>確認分工</strong>：誰負責哪一段、各段預期長度、各段在最終交付物中的位置。</li>
+            <li><strong>標出風格基準</strong>：在所有素材中，挑一段您認為「最接近 Pod 整體應該長的樣子」當作基準範例。其他段落向這段靠攏，但不抹平。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+<div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 內容推廣的 Pod 文字統籌，遵守「統合不主導」原則——
+讓其他組的專業以他們的口吻呈現，但全 Pod 對外像同一個聲音。
+您不替成員重寫文字，您給統合建議與時程安排。
+
+我要請您協助一個跨組 Pod 的文字統籌。
+
+【Pod 主題】
+（填入：例如 2026 安全文化季度活動）
+
+【最終交付物】
+（填入：例如 5 分鐘宣傳影片＋活動官網著陸頁＋3 則社群推播）
+
+【Pod 成員與分工】
+（列出每位成員的姓名/角色與負責的文字段落）
+
+【各成員已交付/計畫交付的文字】
+（將所有文字片段貼入，每段註明作者與位置）
+
+【風格基準範例】（不可動）
+（指出哪一段是基準，並說明它好在哪——其他段向這段靠攏的方向）
+
+【總交付時程】
+（填入：定稿日期、發布日期、是否有不可動的關鍵節點）
+
+請給我四件事：
+（一）統籌時程表——倒推回去每位成員的文字交付時點、您（統籌）接收後的處理時間、跨成員協作的會議或回饋節點；
+（二）語氣統合指引（一頁）——列出 Pod 整體語氣的三條原則、Pod 內部不同段落的語氣差異如何協調（哪些可以保留差異、哪些必須統一），用清單形式呈現可貼給全 Pod 看；
+（三）逐段建議——對每位成員的文字給出統合建議（不重寫，只給方向），標明哪些建議是必要、哪些是建議考慮；
+（四）統籌定稿前的三道閘門——交付給您自己的最終檢查清單。
+
+請遵守：不替成員重寫，給建議而非改稿；
+風格差異不等於風格錯誤——保留成員專業色彩；
+所有跨成員的協調建議都列為公開項，不暗自處理；
+時程倒推要留至少 20% 的緩衝給意外。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie 對話模式。</li>
+            <li>貼入提示詞範本。「風格基準範例」這欄是統合工作的核心錨點，必須挑得精準——挑錯了會把整個 Pod 帶偏。</li>
+            <li>送出。等待 60-120 秒。</li>
+            <li>讀（一）統籌時程表。對照您自己估的時程——AI 通常會給較緊的版本。<em>時程太緊</em>：回覆「請每個節點加 20% 緩衝，並標出哪些節點是 Pod 全員必到、哪些是雙人核對即可」。</li>
+            <li>讀（二）語氣統合指引。判斷這份是否能直接發給 Pod 成員看。<em>太長太複雜</em>：回覆「請壓到一頁、五條以內，每條一句話，總字數 200 字以下」。</li>
+            <li>讀（三）逐段建議。逐個成員檢查——AI 是否誤把某個成員的專業色彩標為錯誤？<em>有誤判</em>：回覆「[某成員] 的這段是他的專業特色，請從建議中移除針對風格的修改，只保留針對 Pod 整體一致性的協調」。</li>
+            <li>讀（四）三道閘門。這是您自己交付前要過的——不要省。</li>
+            <li>整理 AI 的（二）語氣統合指引發給全 Pod 召開一次 30 分鐘對焦會議——讓所有成員一起看這份指引，當場討論不一致處。這一步不可省，書面共識會在執行時鬆動。</li>
+            <li>對焦會議後，把（三）逐段建議分別發給各成員（不公開比較），請各成員自己決定接受多少。您不替他們改。</li>
+            <li>定稿日前 24 小時，跑一次（四）三道閘門。不過閘的延後發布，不強行送出。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 給的建議偏向「全部統一」</strong>：回覆「請區分『一致性問題』與『風格差異』——只給針對一致性問題的建議，風格差異即使存在也保留」。</li>
+            <li><strong>逐段建議中夾帶重寫</strong>：回覆「您直接重寫了 [某段]。請改為列出三個方向建議，由作者自己決定如何修改」。</li>
+            <li><strong>時程表沒有給 Pod 成員協作節點</strong>：回覆「請補上跨成員的協作節點——例如哪一刻 A 完成後 B 才能開始、哪一刻 Pod 全員需要一起看一次草稿」。</li>
+            <li><strong>三道閘門過於主觀</strong>：回覆「三道閘門請改為可勾選的具體檢查項，每項回答 Done/Not yet，避免『是否充分』『是否到位』這類措辭」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          您擔任一個三人 Pod 的文字統籌：A 來自平面設計組（負責海報文案）、B 來自動態攝影組（負責影片字幕）、C 來自社群互動組（負責 LINE 推播）。Pod 的主題是「年度資安週」，三人各自寫了草稿。您發現 A 的文案偏正式厚重、B 的字幕節奏明快、C 的推播口語親切。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿統合做法</div>
+            <p class="case-content">您把三人的文字都改寫成中間調性——A 的厚重感被軟化、B 的明快節奏被拉慢、C 的口語親切被收緊——最後出來的版本「看起來都像 Pod 統籌寫的」，三位成員讀完都覺得自己的專業沒被尊重，但又說不出哪裡不對勁。對外發布後，海報、影片、推播三個通路語氣高度一致但失去活力，受眾感受到「這是統一文案」而非「三種專業對同一件事的呈現」。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿統合做法</div>
+            <p class="case-content">您召集三人開 30 分鐘對焦會，當場列出三個 Pod 共同點（共用的關鍵詞「資安週」、共用的核心訊息「您的每一次警覺都算數」、共用的行動引導「點連結看完整資訊」）。三個共同點之外，A 保留她的厚重（海報需要分量感）、B 保留他的明快（影片字幕需要節奏）、C 保留她的親切（推播需要溫度）。對外發布後，三個通路在共同點上對齊（讀者看到「您的每一次警覺都算數」出現在三處能聯想），但各自保有專業色彩（讀海報、看影片、收推播都感覺自然）。Pod 三人事後說：「這次協作很舒服。」</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          劣稿的失敗是把「一致性」誤解為「同一個聲音說話」。Pod 的目的不是讓三人寫得像一個人——是讓三種專業在共同主題下不互相打架。劣稿統合做法的後果有兩層：受眾感受變淡（一致 = 沒有個性 = 廣告感）、Pod 成員感受變差（被改寫 = 沒被尊重 = 下次不想再來 Pod）。佳稿統合做法的關鍵在於兩件事：第一，明確區分「必須對齊」（共同點）與「應該保留」（各自專業）；第二，所有對齊都在公開會議上討論而非統籌私下處理。Pod 統合的好壞看一個指標就夠：Pod 成員下次還願不願意被您找來組 Pod。
+        </p>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- C3 -->
+  <details class="project" id="c3">
+    <summary class="project-header">
+      <div class="project-code">C3</div>
+      <div class="project-title-block">
+        <h3>語氣治理與術語裁定提案</h3>
+      </div>
+          <svg class="summary-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="project-body">
+
+      <div class="field">
+        <div class="field-label">方向</div>
+        <p class="field-direction">
+          守住「四種語氣」的邊界——識別哪些對外文字偏離了品牌語氣，分析原因，
+          向品牌管理組（CS2-05）提交裁定提案。
+          練的是「為偏離找系統性原因」，不是逐件糾正。
+          逐件糾正是基礎層級做的事，系統性提案才能根治。
+        </p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">使用 AI 完成這項工作</div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">1</span>使用前準備
+          </div>
+          <ul class="prep-list">
+            <li><strong>選擇工具</strong>：tGenie 對話模式。處理批量案例可考慮 Claude.ai。</li>
+            <li><strong>準備素材</strong>：本季所有對外署名素材的清單（連結或文字內容），至少 20 件以上才能看出模式。</li>
+            <li><strong>釐清範圍</strong>：這次治理盤點的時間區間（一季／半年）、覆蓋的通路（哪幾個對外通路）。</li>
+            <li><strong>準備分類框架</strong>：先想好您預期可能會出現的偏離類型（例如「過度行銷化」「過度官腔化」「過度戲謔」）——這是 AI 分類時的對照基準。</li>
+          </ul>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">2</span>提示詞範本
+          </div>
+<div class="prompt-block"><button class="copy-btn" type="button"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8 L2 2 L8 2"/></svg><span>複製</span></button><pre class="field-prompt">您是 GPS 內容推廣的語氣治理顧問，熟悉品牌四種語氣
+（溫暖同理、清楚不囉嗦、堅定不對立、輕巧有節）的邊界。
+您的工作是為偏離找系統性原因，不是逐件糾正。
+您提出的修訂提案要可執行、有具體建議、不空泛。
+
+我要請您協助一次語氣治理盤點。
+
+【盤點時間區間】
+（填入：例如 2026 Q2）
+
+【盤點通路】
+（填入：例如 全球同仁電子報、LINE 群推播、廠區公告、社群貼文）
+
+【待盤點素材】
+（將素材清單貼入。每筆註明：通路、發布日期、原作者組別、完整文字）
+
+【四種語氣的邊界界定】
+（這部分由我提供以利您準確判斷偏離。內容如下：
+ - 溫暖同理：以同理取代規則。先承認對方處境，再說我們能做什麼。
+ - 清楚不囉嗦：能用一句說完就不用兩句。專有名詞首次出現附簡釋。
+ - 堅定不對立：不能做的事說得明確，但不擺架子。理由給足夠。
+ - 輕巧有節：節慶提醒、軟性敘事用此。輕鬆但不油滑，有節制不放任。）
+
+請給我四件事：
+（一）偏離案例清單——逐件列出：素材編號、原句（直接引用）、偏離了哪種語氣（具體說明）、應落入哪種語氣；
+（二）模式分析——將偏離案例分為 3-5 個系統性類型（例如「過度行銷化」「過度官腔化」），每類型給出共同特徵、出現頻率、可能的成因（寫作者個人習慣／某類情境共同陷阱／現有規範灰色地帶）；
+（三）給 CS2-05 的修訂提案——針對每個系統性類型，提出具體可執行的修訂建議（修訂教材某章節／新增禁用詞／調整檢核清單某項，等等），每項提案附預期效果與成本估計；
+（四）執行優先順序——將提案分為「立即處理」「下季處理」「長期觀察」三類，附判斷依據。
+
+請遵守：只處理對外署名素材，內部素材不在此範圍；
+不評論個別寫作者（提案要可匿名執行）；
+所有建議須對應到具體文件、章節、清單，不能是「加強教育」這類空泛動作；
+不誇大問題嚴重性——一次偏離不算趨勢，三次以上同類偏離才算系統性。</pre></div>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">3</span>操作步驟
+          </div>
+          <ol class="op-steps">
+            <li>開啟 tGenie 對話模式。長素材建議分批處理（每批 10-15 件）。</li>
+            <li>貼入提示詞範本。【待盤點素材】要完整貼入文字而非僅給連結——AI 無法瀏覽外部連結。</li>
+            <li>送出。等待時間視素材量而定，20 件約 2-3 分鐘。</li>
+            <li>讀（一）偏離案例清單。逐件對照原素材檢查——AI 標的是否真的偏離？<em>有誤判</em>：回覆「以下幾件 [編號] 我認為符合語氣不算偏離，請從清單中移除並重新生成（二）模式分析」。</li>
+            <li>讀（二）模式分析。每個系統性類型至少要有三個案例才能成立——只有一兩個案例的「模式」可能是巧合。<em>類型樣本不足</em>：回覆「以下類型 [編號] 只有兩個案例，請判斷是否合併到其他類型或從本次提案中暫緩」。</li>
+            <li>讀（三）修訂提案。逐項判斷：成本是否合理？預期效果是否可驗證？<em>提案過於宏大</em>：回覆「請把這項提案拆成最小可執行單元，每單元 1-2 週內可完成」。</li>
+            <li>讀（四）執行優先順序。判斷 AI 的分類是否符合 GPS 當下的資源狀況。</li>
+            <li>整理為一份正式提案文件，發給 CS2-05 組長進行裁定討論。文件結構：盤點摘要（一頁）＋詳細模式分析（三到五頁）＋修訂提案表（每項一頁）。</li>
+            <li>與 CS2-05 共同決定執行項目後，三個月回頭做一次驗證盤點——同類型偏離是否減少？沒減少代表提案沒打中根本原因，需要 v2 提案。</li>
+          </ol>
+        </div>
+
+        <div class="workflow-sub">
+          <div class="workflow-sub-label">
+            <span class="workflow-sub-num">4</span>常見調整
+          </div>
+          <ul class="tips-list">
+            <li><strong>AI 把所有素材都標為有問題</strong>：回覆「請降低標記門檻——明顯偏離才算偏離，風格性的小差異不算。重新生成（一），預期通過率應在 80% 以上」。</li>
+            <li><strong>模式分析過於籠統</strong>：回覆「請為每個系統性類型給出更具體的特徵——例如不要寫『過度正式』，要寫『句首使用「茲因」「謹此」等套話的頻率』」。</li>
+            <li><strong>修訂提案是「加強教育」「提升意識」這類空話</strong>：回覆「每項提案請對應到具體可執行動作：要修訂哪份文件的哪一節、要新增哪些禁用詞、要調整哪份檢核清單的哪一項」。</li>
+            <li><strong>沒有區分立即/長期</strong>：回覆「請強制將提案分到三個優先級，並說明每個立即項為何不能延後、每個長期項為何不需立即」。</li>
+            <li><strong>提案中夾帶對個別寫作者的評論</strong>：回覆「請移除所有對個別寫作者的指涉。提案應可匿名執行，不應有人因此被點名」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">案例對照</div>
+        <div class="case-scenario">
+          <strong>情境</strong>
+          您完成本季語氣治理盤點，發現一個系統性偏離：本季 23 件對外推播中，有 9 件在說明新規定或新流程時，結尾出現「敬請配合」「煩請見諒」「謝謝您的配合」這類套話。您要向 CS2-05 提交修訂提案。
+        </div>
+        <div class="case-compare">
+          <div class="case-panel bad">
+            <div class="case-panel-label"><span class="case-panel-label-icon">×</span>劣稿提案</div>
+            <p class="case-content">提案：建議加強寫作教育，提升同仁對品牌四種語氣的認知，並請各組在發布對外內容前更仔細地檢視語氣使用。具體做法包括：在組內定期舉辦寫作研討、邀請資深同仁分享經驗、強化檢核流程等。預期能逐步改善對外文字的品牌一致性。執行時程：建議下半年度開始推動。</p>
+          </div>
+          <div class="case-panel good">
+            <div class="case-panel-label"><span class="case-panel-label-icon">✓</span>佳稿提案</div>
+            <p class="case-content">提案：在禁用詞清單（CS2-05 維護）新增「敬請配合」「煩請見諒」「謝謝您的配合」三詞為對外署名素材的禁用結尾。同時在交付前三道閘門檢核表的「語氣」欄新增一條：『結尾是否使用禁用套話？』回答 Yes 則無法通過閘門。配套提供替代寫法卡：給予三組具體替代句式（「具體下一步」「告知時程」「不需動作即說明」），由 CS2-01 撰寫範例貼附於檢核表後。預期效果：下季同類偏離應降至 1-2 件以下。成本：禁用詞新增 1 工時、閘門檢核表更新 2 工時、替代寫法卡撰寫 4 工時，總計 7 工時。執行優先：立即處理（下個發布週期前完成）。驗證：下季底重做同範圍盤點，若同類偏離未降至 2 件以下，提案視為失敗需 v2。</p>
+          </div>
+        </div>
+        <p class="case-takeaway">
+          <strong>看出差別在哪</strong>
+          劣稿提案的問題是「看起來在解決問題，實際上沒做任何具體事」：「加強教育」「強化檢核」「逐步改善」這類詞讓提案無法被執行也無法被驗證。三個月後回頭看，沒人知道這個提案算不算成功，也沒人能說出做了什麼。佳稿提案做了四件具體的事：第一，把抽象的「教育」變成可立刻動手的兩個動作（新增禁用詞、修訂檢核表）；第二，配套提供替代寫法（不只說不能怎麼寫，還告訴使用者該怎麼寫）；第三，明確的成本估計（7 工時，CS2-05 組長能立刻判斷要不要做）；第四，預設驗證標準（下季降至 2 件以下，否則 v2）。語氣治理的成熟度看一個指標：提案三個月後能否回頭驗證，能驗證的才是真提案。
+        </p>
+      </div>
+
+    </div>
+  </details>
+</section>
+
+</main>
+
+<footer>
+  <p>CS2-01 文字敘事組 · Toolkit v1.2 · 資訊更新 2026-06 · 由現任主理人擬定</p>
+  <p>上游 · GPS 內容推廣制度導讀 · 工作公約 · 共通底座</p>
+  <p class="brand-tagline">Before you need it. · 在您需要之前。</p>
+</footer>
+
+<script>
+  (function() {
+    // ===== Copy buttons =====
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();  // prevent parent summary toggle
+        e.preventDefault();
+        const pre = btn.parentElement.querySelector('pre');
+        if (!pre) return;
+        const text = pre.textContent;
+        const showCopied = () => {
+          const labelSpan = btn.querySelector('span');
+          if (labelSpan) labelSpan.textContent = '已複製';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            if (labelSpan) labelSpan.textContent = '複製';
+            btn.classList.remove('copied');
+          }, 2000);
+        };
+        const fallbackCopy = () => {
+          const ta = document.createElement('textarea');
+          ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          try { document.execCommand('copy'); showCopied(); }
+          catch (e) { console.error('Copy failed:', e); }
+          document.body.removeChild(ta);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(showCopied).catch(fallbackCopy);
+        } else { fallbackCopy(); }
+      });
+    });
+
+    // ===== Expand / Collapse all =====
+    const expandAllBtn = document.getElementById('expand-all');
+    const collapseAllBtn = document.getElementById('collapse-all');
+    if (expandAllBtn) {
+      expandAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = true);
+      });
+    }
+    if (collapseAllBtn) {
+      collapseAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('details').forEach(d => d.open = false);
+      });
+    }
+
+    // ===== Side index / top nav clicks → expand target =====
+    document.querySelectorAll('.side-index a, .top-nav a').forEach(a => {
+      a.addEventListener('click', () => {
+        const href = a.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        const target = document.getElementById(href.slice(1));
+        if (target && target.tagName === 'DETAILS') {
+          target.open = true;
+        }
+      });
+    });
+
+    // ===== Auto-expand on hash change / initial hash =====
+    function expandFromHash() {
+      const hash = window.location.hash;
+      if (!hash) return;
+      const target = document.getElementById(hash.slice(1));
+      if (target && target.tagName === 'DETAILS') {
+        target.open = true;
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      }
+    }
+    window.addEventListener('hashchange', expandFromHash);
+    if (window.location.hash) setTimeout(expandFromHash, 100);
+
+    // ===== Print: expand all temporarily =====
+    let printStates = [];
+    window.addEventListener('beforeprint', () => {
+      printStates = Array.from(document.querySelectorAll('details')).map(d => ({ el: d, was: d.open }));
+      printStates.forEach(s => s.el.open = true);
+    });
+    window.addEventListener('afterprint', () => {
+      printStates.forEach(s => s.el.open = s.was);
+      printStates = [];
+    });
+
+    // ===== Side index active state =====
+    const links = document.querySelectorAll('.side-index a');
+    if (!links.length) return;
+    const linkMap = {};
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      linkMap[id] = a;
+    });
+    const sections = document.querySelectorAll('section[id], article[id], details[id]');
+    let activeId = null;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activeId = entry.target.id;
+        }
+      });
+      if (activeId && linkMap[activeId]) {
+        links.forEach(a => a.classList.remove('active'));
+        linkMap[activeId].classList.add('active');
+      }
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  })();
+</script>
+
+</body>
+</html>
