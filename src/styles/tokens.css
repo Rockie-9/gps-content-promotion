@@ -1,0 +1,56 @@
+/* ============================================================
+   GPS 內容推廣 · 設計 Token v2.0
+   單一真相，所有組件引用此檔
+   ============================================================ */
+
+:root {
+  /* ===== 主色 ===== */
+  --turquoise: #26A7B0;
+  --turquoise-700: #1F8A92;
+  --turquoise-50: #E3F0F1;
+  --copper-deep: #574A63;
+  --copper-medium: #766988;
+  --copper-light: #9387A6;
+
+  /* ===== 六組 accent ===== */
+  --accent-cs01: #26A7B0;  /* CS2-01 文字敘事 */
+  --accent-cs02: #7086BA;  /* CS2-02 平面設計 */
+  --accent-cs03: #ED7442;  /* CS2-03 動態攝影 */
+  --accent-cs04: #6BB57E;  /* CS2-04 社群互動 */
+  --accent-cs05: #6E5F7C;  /* CS2-05 品牌管理 */
+  --accent-cs06: #9387A6;  /* CS2-06 服務體驗 */
+  --accent-gov: #26A7B0;   /* 治理文件 */
+
+  /* ===== 文字 ===== */
+  --ink: #2B2A33;
+  --ink-soft: #574A63;
+  --muted: #9D90AD;
+
+  /* ===== 介面 ===== */
+  --paper: #FAFAFB;
+  --surface: #FFFFFF;
+  --line: #E5E3EA;
+  --line-soft: #EFEDF2;
+  --highlight: #FCEFA8;
+
+  /* ===== 字體 ===== */
+  --font-cjk: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --font-mono: "SF Mono", "Cascadia Mono", Consolas, monospace;
+
+  /* ===== 尺寸 ===== */
+  --container: 1180px;
+  --container-doc: 860px;
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  /* ===== 陰影 ===== */
+  --shadow-sm: 0 2px 12px rgba(43, 42, 51, .05);
+  --shadow: 0 6px 24px rgba(43, 42, 51, .08);
+  --shadow-lg: 0 12px 28px rgba(43, 42, 51, .12);
+  --shadow-hero: 0 8px 30px rgba(43, 42, 51, .1);
+
+  /* ===== 過渡 ===== */
+  --transition: .16s ease;
+  --transition-slow: .24s ease;
+}

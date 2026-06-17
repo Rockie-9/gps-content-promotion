@@ -1,0 +1,97 @@
+---
+export interface Props {
+  num: string;
+  name: string;
+  nameEn: string;
+  when: string;
+  scenarioLabel: string;
+  scenario: string;
+  common: string;
+  right: string;
+}
+
+const { num, name, nameEn, when, scenarioLabel, scenario, common, right } = Astro.props;
+const whenParts = when.split('——');
+---
+
+<div class="gate">
+  <div class="gate-header">
+    <span class="gate-num">GATE · {num}</span>
+    <h4 class="gate-name">{name} · {nameEn}</h4>
+  </div>
+  <p class="gate-when"><strong>{whenParts[0]}——</strong>{whenParts[1] || ''}</p>
+  <div class="gate-scenario">
+    <span class="gate-scenario-label">{scenarioLabel}</span>
+    <p>{scenario}</p>
+    <p class="gate-em">常見破口:{common}</p>
+    <p class="gate-em">對的做法:{right}</p>
+  </div>
+</div>
+
+<style>
+.gate {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin: 12px 0;
+}
+.gate-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.gate-num {
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: var(--turquoise);
+  background: var(--turquoise-50);
+  padding: 3px 9px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.gate-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.gate-when {
+  font-size: .9rem;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+.gate-when strong {
+  font-weight: 700;
+  color: var(--turquoise-700);
+}
+.gate-scenario {
+  background: var(--paper);
+  border-left: 3px solid var(--turquoise);
+  padding: 12px 16px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.gate-scenario-label {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.gate-scenario p {
+  font-size: .9rem;
+  line-height: 1.7;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.gate-em {
+  color: var(--copper-deep) !important;
+  font-style: italic;
+  font-weight: 500;
+}
+</style>

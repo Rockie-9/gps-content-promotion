@@ -1,0 +1,399 @@
+---
+import DocNav from './DocNav.astro';
+import Gate from './Gate.astro';
+import Project from './Project.astro';
+
+export interface Props {
+  code: string;
+  name: string;
+  nameEn: string;
+  tagline: string;
+  heroFrom: string;
+  heroTo: string;
+  groundRule: string;
+  gateGroup: {
+    title: string;
+    intro: string;
+    gates: Array<{
+      num: string;
+      name: string;
+      nameEn: string;
+      when: string;
+      scenarioLabel: string;
+      scenario: string;
+      common: string;
+      right: string;
+    }>;
+  };
+  tiers: Array<{
+    label: string;
+    labelEn: string;
+    subtitle: string;
+    accent: string;
+    projects: Array<any>;
+  }>;
+  version?: string;
+  draftNotice?: string;
+}
+
+const {
+  code, name, nameEn, tagline, heroFrom, heroTo,
+  groundRule, gateGroup, tiers,
+  version = 'v1.0', draftNotice
+} = Astro.props;
+
+const tierColors = {
+  foundational: '#26A7B0',
+  intermediate: '#7086BA',
+  advanced: '#6E5F7C',
+};
+---
+
+<DocNav title={name} code={code} subtitle={nameEn} />
+
+<article class="toolkit">
+  <header class="toolkit-hero" style={`background: linear-gradient(135deg, ${heroFrom} 0%, ${heroTo} 100%);`}>
+    <div class="toolkit-hero-inner">
+      <div class="toolkit-eyebrow">GPS 內容推廣 · 組別工具手冊</div>
+      <span class="toolkit-code-badge">{code}</span>
+      <h1 class="toolkit-title">{name} Toolkit</h1>
+      <p class="toolkit-tagline">{tagline}</p>
+      <div class="toolkit-rule">
+        <span class="toolkit-rule-label">全組鐵則</span>
+        <p>{groundRule}</p>
+      </div>
+      <div class="toolkit-meta">資訊更新 2026-06 · {version}</div>
+    </div>
+  </header>
+
+  <main id="main" class="toolkit-body">
+    {draftNotice && (
+      <div class="draft-notice">
+        <div class="draft-notice-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="9" cy="9" r="7.5"/>
+            <path d="M9 5 L9 10" stroke-linecap="round"/>
+            <circle cx="9" cy="12.5" r="0.8" fill="currentColor"/>
+          </svg>
+        </div>
+        <div set:html={draftNotice} />
+      </div>
+    )}
+
+    <div class="controls no-print">
+      <button type="button" id="expand-all" class="control-btn">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2 V12 M2 7 H12" stroke-linecap="round"/></svg>
+        全部展開
+      </button>
+      <button type="button" id="collapse-all" class="control-btn">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7 H12" stroke-linecap="round"/></svg>
+        全部收合
+      </button>
+    </div>
+
+    <section class="gate-group">
+      <details class="gate-collapse" id="intro">
+        <summary class="gate-collapse-header">
+          <span class="gate-collapse-num">§ 0</span>
+          <h2 class="gate-collapse-title">{gateGroup.title}</h2>
+          <svg class="gate-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="gate-collapse-body">
+          <div class="gate-eyebrow">§ 0 · 動手前的判斷</div>
+          <p class="gate-intro">{gateGroup.intro}</p>
+          <div class="gates">
+            {gateGroup.gates.map((g) => <Gate {...g} />)}
+          </div>
+        </div>
+      </details>
+    </section>
+
+    {tiers.map((tier, idx) => (
+      <section class="tier" style={`--tier-accent: ${tier.accent}`}>
+        <div class="tier-header">
+          <div class="tier-num">{String(idx + 1).padStart(2, '0')}</div>
+          <div class="tier-title-block">
+            <h2 class="tier-name">{tier.label} · {tier.labelEn}</h2>
+            <p class="tier-subtitle">{tier.subtitle}</p>
+          </div>
+        </div>
+        <div class="tier-projects">
+          {tier.projects.map((p) => <Project {...p} />)}
+        </div>
+      </section>
+    ))}
+
+    <slot />
+  </main>
+
+  <footer class="toolkit-footer">
+    <p>{code} {name} · Toolkit {version} · 資訊更新 2026-06 · 由現任主理人擬定</p>
+    <p>上游 · GPS 內容推廣制度導讀 · 工作公約 · 共通底座</p>
+    <p class="brand-tagline">Before you need it. · 在您需要之前。</p>
+  </footer>
+</article>
+
+<style>
+.toolkit-hero {
+  color: #fff;
+  padding: 56px 40px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.toolkit-hero::after {
+  content: "";
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .06);
+}
+.toolkit-hero-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.toolkit-eyebrow {
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: .82;
+  margin-bottom: 14px;
+}
+.toolkit-code-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, .15);
+  border: 1px solid rgba(255, 255, 255, .25);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  margin-bottom: 16px;
+}
+.toolkit-title {
+  font-size: 2.15rem;
+  font-weight: 800;
+  letter-spacing: -.015em;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.toolkit-tagline {
+  font-size: 1.02rem;
+  opacity: .93;
+  max-width: 760px;
+  margin-bottom: 22px;
+}
+.toolkit-rule {
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  max-width: 880px;
+}
+.toolkit-rule-label {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  margin-bottom: 6px;
+  opacity: .82;
+}
+.toolkit-rule p {
+  font-size: .9rem;
+  line-height: 1.72;
+}
+.toolkit-meta {
+  margin-top: 22px;
+  font-size: .8rem;
+  opacity: .72;
+}
+
+.toolkit-body {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.draft-notice {
+  display: flex;
+  gap: 12px;
+  background: #FDF8E8;
+  border: 1px solid #F5E5A8;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: .88rem;
+  line-height: 1.7;
+}
+.draft-notice-icon {
+  color: var(--copper-deep);
+  flex-shrink: 0;
+}
+.draft-notice strong {
+  color: var(--copper-deep);
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+}
+.control-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: .82rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: background var(--transition);
+}
+.control-btn:hover {
+  background: var(--line-soft);
+}
+
+.gate-group {
+  margin-bottom: 30px;
+}
+.gate-collapse {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.gate-collapse-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  cursor: pointer;
+  list-style: none;
+}
+.gate-collapse-header::-webkit-details-marker { display: none; }
+.gate-collapse-num {
+  font-size: .82rem;
+  font-weight: 800;
+  color: var(--turquoise);
+  background: var(--turquoise-50);
+  padding: 4px 11px;
+  border-radius: 5px;
+}
+.gate-collapse-title {
+  flex: 1;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.gate-chevron {
+  color: var(--muted);
+  transition: transform var(--transition);
+}
+.gate-collapse[open] .gate-chevron { transform: rotate(180deg); }
+.gate-collapse-body {
+  padding: 8px 26px 26px;
+  border-top: 1px solid var(--line-soft);
+}
+.gate-eyebrow {
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 18px 0 4px;
+}
+.gate-intro {
+  font-size: .95rem;
+  line-height: 1.78;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.tier {
+  margin: 36px 0;
+  padding-top: 8px;
+}
+.tier-header {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 6px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--tier-accent);
+}
+.tier-num {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--tier-accent);
+  letter-spacing: -.01em;
+}
+.tier-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+.tier-subtitle {
+  font-size: .88rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.toolkit-footer {
+  max-width: var(--container);
+  margin: 50px auto 0;
+  padding: 30px 40px 50px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.toolkit-footer p {
+  font-size: .82rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.brand-tagline {
+  font-weight: 600;
+  color: var(--turquoise-700);
+  margin-top: 10px !important;
+}
+
+@media (max-width: 720px) {
+  .toolkit-hero { padding: 40px 22px 36px; }
+  .toolkit-title { font-size: 1.7rem; }
+  .toolkit-body { padding: 30px 22px; }
+}
+</style>
+
+<script is:inline>
+  (function setupControls() {
+    function attach() {
+      var expandBtn = document.getElementById('expand-all');
+      var collapseBtn = document.getElementById('collapse-all');
+      if (expandBtn) {
+        expandBtn.addEventListener('click', function() {
+          document.querySelectorAll('details').forEach(function(d) { d.open = true; });
+        });
+      }
+      if (collapseBtn) {
+        collapseBtn.addEventListener('click', function() {
+          document.querySelectorAll('details').forEach(function(d) { d.open = false; });
+        });
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', attach);
+    } else {
+      attach();
+    }
+  })();
+</script>

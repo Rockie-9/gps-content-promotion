@@ -1,0 +1,114 @@
+---
+// CopyButton — wraps a code/text block with one-click copy.
+// Renders the slot content inside a <pre>, with a copy button overlay.
+---
+
+<div class="copy-block">
+  <button class="copy-btn" type="button" aria-label="複製內容">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="3" y="3" width="7" height="7" rx="1"/>
+      <path d="M2 8 L2 2 L8 2"/>
+    </svg>
+    <span>複製</span>
+  </button>
+  <pre class="copy-content"><slot /></pre>
+</div>
+
+<style>
+.copy-block {
+  position: relative;
+  background: #2B2A33;
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+.copy-content {
+  color: #E8E6EC;
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  padding-right: 80px;
+}
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .15);
+  color: #fff;
+  font-size: .74rem;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+.copy-btn:hover {
+  background: rgba(255, 255, 255, .15);
+  border-color: rgba(255, 255, 255, .3);
+}
+.copy-btn.copied {
+  background: var(--turquoise);
+  border-color: var(--turquoise);
+}
+.copy-btn svg {
+  width: 11px;
+  height: 11px;
+}
+</style>
+
+<script is:inline>
+  (function setupCopyButtons() {
+    function attach() {
+      document.querySelectorAll('.copy-btn').forEach(function(btn) {
+        if (btn.dataset.bound) return;
+        btn.dataset.bound = '1';
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var block = btn.parentElement;
+          var pre = block.querySelector('.copy-content');
+          if (!pre) return;
+          var text = pre.textContent;
+          var labelSpan = btn.querySelector('span');
+          function showCopied() {
+            if (labelSpan) labelSpan.textContent = '已複製';
+            btn.classList.add('copied');
+            setTimeout(function() {
+              if (labelSpan) labelSpan.textContent = '複製';
+              btn.classList.remove('copied');
+            }, 2000);
+          }
+          function fallbackCopy() {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            try { document.execCommand('copy'); showCopied(); }
+            catch (err) { console.error('Copy failed:', err); }
+            document.body.removeChild(ta);
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(showCopied).catch(fallbackCopy);
+          } else {
+            fallbackCopy();
+          }
+        });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', attach);
+    } else {
+      attach();
+    }
+  })();
+</script>

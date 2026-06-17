@@ -1,0 +1,177 @@
+/* ============================================================
+   PDF 列印樣式 — 給 Playwright PDF 生成用
+   ============================================================ */
+
+@page {
+  size: A4 portrait;
+  margin: 18mm 16mm 20mm 16mm;
+
+  @top-left {
+    content: string(doc-title);
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 9pt;
+    color: #574A63;
+  }
+  @top-right {
+    content: string(chapter-name);
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 9pt;
+    color: #574A63;
+  }
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 9pt;
+    color: #9D90AD;
+  }
+}
+
+/* Cover page — no header/footer */
+@page :first {
+  margin: 0;
+  @top-left { content: none; }
+  @top-right { content: none; }
+  @bottom-center { content: none; }
+}
+
+/* ===== Reset for print ===== */
+body {
+  background: #fff !important;
+  color: #2B2A33 !important;
+  font-size: 10pt;
+  line-height: 1.55;
+}
+
+/* Hide all interactive UI */
+.no-print,
+.viewer,
+.search-box,
+.search-wrap,
+.search-results,
+.copy-btn,
+.controls,
+nav.side-index,
+.pagefind-ui {
+  display: none !important;
+}
+
+/* Make all details open */
+details {
+  display: block !important;
+}
+details > summary {
+  list-style: none;
+  cursor: default;
+}
+details > summary::-webkit-details-marker,
+details > summary::marker {
+  display: none;
+}
+
+/* Page break controls */
+.pdf-cover {
+  page-break-after: always;
+  break-after: page;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #26A7B0 0%, #1F8A92 55%, #574A63 130%);
+  color: #fff;
+  padding: 40mm;
+}
+.pdf-cover h1 {
+  font-size: 32pt;
+  font-weight: 800;
+  margin-bottom: 12pt;
+  letter-spacing: -.02em;
+}
+.pdf-cover .tagline {
+  font-size: 14pt;
+  opacity: .92;
+  margin-bottom: 28pt;
+}
+.pdf-cover .meta {
+  font-size: 10pt;
+  opacity: .75;
+  letter-spacing: .12em;
+}
+
+.pdf-toc {
+  page-break-after: always;
+  break-after: page;
+}
+.pdf-toc h2 {
+  font-size: 22pt;
+  margin-bottom: 18pt;
+  color: #26A7B0;
+}
+.pdf-toc ol {
+  list-style: none;
+  padding: 0;
+}
+.pdf-toc li {
+  padding: 6pt 0;
+  border-bottom: 1px dotted #E5E3EA;
+  font-size: 11pt;
+}
+.pdf-toc a {
+  color: #2B2A33;
+  text-decoration: none;
+}
+
+.pdf-section {
+  page-break-before: always;
+  break-before: page;
+  string-set: doc-title content();
+}
+
+h1 { string-set: doc-title content(); }
+h2 { string-set: chapter-name content(); }
+
+h1, h2, h3, h4 {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+p, li {
+  orphans: 3;
+  widows: 3;
+}
+
+/* Hero shrunk for print */
+.toolkit-hero {
+  padding: 24pt 0 !important;
+  margin-bottom: 18pt;
+}
+
+/* Side-by-side case comparison stays side-by-side in print */
+.case-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12pt;
+  page-break-inside: avoid;
+}
+
+/* Project cards keep together */
+.project {
+  page-break-inside: avoid;
+  margin-bottom: 12pt;
+}
+
+/* Pre/code blocks */
+pre, code {
+  font-size: 8.5pt;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  page-break-inside: avoid;
+}
+
+/* Links — show URL inline for off-screen reading */
+.pdf-show-urls a[href^="http"]::after {
+  content: " (" attr(href) ")";
+  font-size: 8pt;
+  color: #9D90AD;
+}

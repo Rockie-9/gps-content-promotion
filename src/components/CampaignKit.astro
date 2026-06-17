@@ -1,0 +1,434 @@
+---
+import CopyButton from './CopyButton.astro';
+import { creativeDirection, antiPatterns, scenes, kvSystem, posters, assetMatrix } from '../data/campaign.ts';
+---
+
+<section class="campaign" id="campaign">
+  <div class="campaign-banner">
+    <div class="campaign-banner-eyebrow">品牌戰役視覺套件 · Brand Campaign Visual Kit</div>
+    <h2 class="campaign-banner-title">五幕場景 · 主視覺 · 海報</h2>
+    <p class="campaign-banner-desc">
+      此套件原為獨立 Prompt Suite,現歸建至本組——平面設計組是品牌視覺的<strong>主場（master）</strong>。
+      所有影像、海報、主視覺 prompt 集中於此維護;<strong>動態攝影組的影片簡報承襲本節的視覺基調與場景參考</strong>。
+      創意概念:GPS 是您身旁那位靜心從旁守候的同行者——專注而從容,需要時在場,不需要時隱形。
+    </p>
+  </div>
+
+  <!-- 創意方向 -->
+  <details class="campaign-collapse" id="campaign-direction">
+    <summary class="campaign-collapse-header">
+      <span class="campaign-collapse-tag">i</span>
+      <h3 class="campaign-collapse-title">創意方向 · Creative Direction</h3>
+      <svg class="campaign-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="campaign-collapse-body">
+      <div class="cd-block">
+        <span class="cd-label">概念 · Concept</span>
+        <p>{creativeDirection.concept}</p>
+      </div>
+      <div class="cd-block">
+        <span class="cd-label">受眾應感受到</span>
+        <p>{creativeDirection.audienceFeel}</p>
+      </div>
+      <div class="cd-block">
+        <span class="cd-label">在場規則 · Presence Rule</span>
+        <p>{creativeDirection.presenceRule}</p>
+      </div>
+      <div class="cd-grid">
+        {creativeDirection.references.map((r) => (
+          <div class="cd-card">
+            <div class="cd-card-label">{r.label}</div>
+            <div class="cd-card-en">{r.labelEn}</div>
+            <p>{r.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </details>
+
+  <!-- 禁忌清單 -->
+  <details class="campaign-collapse" id="campaign-anti">
+    <summary class="campaign-collapse-header">
+      <span class="campaign-collapse-tag">ii</span>
+      <h3 class="campaign-collapse-title">禁忌清單 · Anti-Patterns</h3>
+      <svg class="campaign-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="campaign-collapse-body">
+      <p class="anti-intro">AI 影像生成器預設會掉進企業保全的陳腔濫調。以下每則 prompt 都帶明確的負面指令——自訂 prompt 時也請複製這些。</p>
+      <ul class="anti-list">
+        {antiPatterns.map((a) => (
+          <li><span class="anti-x">×</span>{a}</li>
+        ))}
+      </ul>
+    </div>
+  </details>
+
+  <!-- 五幕場景 -->
+  <details class="campaign-collapse" id="campaign-scenes" open>
+    <summary class="campaign-collapse-header">
+      <span class="campaign-collapse-tag">iii</span>
+      <h3 class="campaign-collapse-title">五幕場景影像 · Image Prompts</h3>
+      <svg class="campaign-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="campaign-collapse-body">
+      <p class="scenes-intro">五幕場景橫跨全生活安全地圖:<strong>歸 · 行 · 候 · 聚 · 啟</strong>。每幕提供 Midjourney 與 Gemini 兩種變體——平行執行、每幕挑最強輸出。</p>
+      {scenes.map((s) => (
+        <div class="scene">
+          <div class="scene-header">
+            <span class="scene-num">{s.num}</span>
+            <div class="scene-title-block">
+              <h4 class="scene-title">{s.title}</h4>
+              <span class="scene-title-en">{s.titleEn}</span>
+            </div>
+            <div class="scene-ratios">
+              {s.ratios.map((r) => <span class="scene-ratio">{r}</span>)}
+            </div>
+          </div>
+          <p class="scene-concept">{s.concept}</p>
+          <div class="scene-prompt-label">Midjourney</div>
+          <CopyButton>{s.mj}</CopyButton>
+          <div class="scene-prompt-label">Gemini / Imagen</div>
+          <CopyButton>{s.gemini}</CopyButton>
+        </div>
+      ))}
+    </div>
+  </details>
+
+  <!-- 16:9 主視覺系統 -->
+  <details class="campaign-collapse" id="campaign-kv">
+    <summary class="campaign-collapse-header">
+      <span class="campaign-collapse-tag">iv</span>
+      <h3 class="campaign-collapse-title">16:9 主視覺系統 · Key Visual</h3>
+      <svg class="campaign-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="campaign-collapse-body">
+      <p class="kv-intro">{kvSystem.intro}</p>
+      <div class="kv-grid">
+        {kvSystem.useCases.map((u) => (
+          <div class="kv-card">
+            <div class="kv-card-letter">{u.label}</div>
+            <div class="kv-card-context">{u.context}</div>
+            <div class="kv-card-context-en">{u.contextEn}</div>
+            <p class="kv-card-desc">{u.desc}</p>
+            <div class="kv-card-source">{u.source}</div>
+          </div>
+        ))}
+      </div>
+      <div class="kv-spec">
+        <pre>{kvSystem.typeSpec}</pre>
+      </div>
+    </div>
+  </details>
+
+  <!-- Canva 海報 -->
+  <details class="campaign-collapse" id="campaign-posters">
+    <summary class="campaign-collapse-header">
+      <span class="campaign-collapse-tag">v</span>
+      <h3 class="campaign-collapse-title">Canva A1 海報簡報 · Poster Briefs</h3>
+      <svg class="campaign-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="campaign-collapse-body">
+      <p class="posters-intro">Canva 適合結構化簡報而非自由 prompt。三款海報各對應不同部署情境。用對應場景的影像輸出作為主視覺,再疊上文字系統。</p>
+      {posters.map((p) => (
+        <div class="poster">
+          <div class="poster-header">
+            <span class="poster-id">海報 {p.id}</span>
+            <div class="poster-context-block">
+              <span class="poster-context">{p.context}</span>
+              <span class="poster-context-en">{p.contextEn}</span>
+            </div>
+            <span class="poster-ratio">{p.ratio}</span>
+          </div>
+          <CopyButton>{p.brief}</CopyButton>
+        </div>
+      ))}
+    </div>
+  </details>
+
+  <!-- 素材對應交付物矩陣 -->
+  <details class="campaign-collapse" id="campaign-matrix">
+    <summary class="campaign-collapse-header">
+      <span class="campaign-collapse-tag">vi</span>
+      <h3 class="campaign-collapse-title">素材對應交付物矩陣 · Asset Matrix</h3>
+      <svg class="campaign-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="campaign-collapse-body">
+      <div class="matrix-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr><th>場景</th><th>生成比例</th><th>餵給這些交付物</th><th>工具優先</th></tr>
+          </thead>
+          <tbody>
+            {assetMatrix.map((m) => (
+              <tr>
+                <td class="matrix-scene">{m.scene}</td>
+                <td class="matrix-ratios">{m.ratios}</td>
+                <td>{m.deliverables}</td>
+                <td class="matrix-tool">{m.tool}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="matrix-note"><strong>生成順序建議:</strong>先生成場景 01 與 03(最高槓桿:網站主視覺+大型集會主視覺+兩款海報),場景 05 次之(機構莊重感),場景 02 與 04 最後(家人延伸專用)。每幕在優先工具約生成 30 張、挑 1–2 張定稿,全套估約 150–200 張。</p>
+    </div>
+  </details>
+</section>
+
+<style>
+.campaign {
+  margin: 44px 0 0;
+  padding-top: 8px;
+}
+.campaign-banner {
+  background: linear-gradient(135deg, #7086BA 0%, #5269A0 100%);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.campaign-banner::after {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .07);
+}
+.campaign-banner-eyebrow {
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: .85;
+  margin-bottom: 10px;
+  position: relative;
+}
+.campaign-banner-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -.01em;
+  position: relative;
+}
+.campaign-banner-desc {
+  font-size: .9rem;
+  line-height: 1.75;
+  opacity: .95;
+  max-width: 820px;
+  position: relative;
+}
+.campaign-banner-desc strong { font-weight: 700; }
+
+.campaign-collapse {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.campaign-collapse-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 22px;
+  cursor: pointer;
+  list-style: none;
+}
+.campaign-collapse-header::-webkit-details-marker { display: none; }
+.campaign-collapse-header:hover { background: var(--line-soft); }
+.campaign-collapse-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  font-size: .82rem;
+  font-weight: 800;
+  font-style: italic;
+  color: #5269A0;
+  background: rgba(112, 134, 186, .12);
+  border-radius: 6px;
+}
+.campaign-collapse-title {
+  flex: 1;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.campaign-chevron { color: var(--muted); transition: transform var(--transition); }
+.campaign-collapse[open] .campaign-chevron { transform: rotate(180deg); }
+.campaign-collapse-body {
+  padding: 8px 26px 26px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.cd-block { margin: 16px 0; }
+.cd-label {
+  display: block;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: #5269A0;
+  margin-bottom: 5px;
+}
+.cd-block p { font-size: .9rem; line-height: 1.75; color: var(--ink); }
+.cd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.cd-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.cd-card-label { font-size: .85rem; font-weight: 700; color: var(--ink); }
+.cd-card-en { font-size: .72rem; color: var(--muted); font-style: italic; margin-bottom: 8px; }
+.cd-card p { font-size: .84rem; line-height: 1.65; color: var(--ink-soft); }
+
+.anti-intro { font-size: .88rem; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.7; }
+.anti-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.anti-list li {
+  display: flex;
+  gap: 10px;
+  font-size: .88rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: #FCF0EE;
+  border: 1px solid #F3D5CF;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+.anti-x { color: #B8463A; font-weight: 800; flex-shrink: 0; }
+
+.scenes-intro, .kv-intro, .posters-intro { font-size: .9rem; color: var(--ink-soft); margin-bottom: 18px; line-height: 1.7; }
+.scene {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  background: var(--paper);
+}
+.scene-header { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; flex-wrap: wrap; }
+.scene-num {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #5269A0;
+  background: rgba(112, 134, 186, .12);
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.scene-title-block { flex: 1; }
+.scene-title { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin: 0; }
+.scene-title-en { font-size: .76rem; color: var(--muted); font-style: italic; }
+.scene-ratios { display: flex; gap: 5px; }
+.scene-ratio {
+  font-size: .68rem;
+  font-weight: 700;
+  color: #5269A0;
+  border: 1px solid #B8C3DE;
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+.scene-concept { font-size: .88rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: 12px; font-style: italic; }
+.scene-prompt-label {
+  font-size: .74rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 10px 0 0;
+  letter-spacing: .04em;
+}
+
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.kv-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  background: var(--paper);
+}
+.kv-card-letter {
+  width: 30px; height: 30px;
+  background: #5269A0;
+  color: #fff;
+  font-weight: 800;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.kv-card-context { font-size: .92rem; font-weight: 700; color: var(--ink); }
+.kv-card-context-en { font-size: .72rem; color: var(--muted); font-style: italic; margin-bottom: 8px; }
+.kv-card-desc { font-size: .84rem; line-height: 1.65; color: var(--ink-soft); margin-bottom: 10px; }
+.kv-card-source { font-size: .74rem; color: #5269A0; font-weight: 600; padding-top: 8px; border-top: 1px dashed var(--line); }
+.kv-spec pre, .matrix-note {
+  white-space: pre-wrap;
+}
+.kv-spec pre {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 3px solid #7086BA;
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  font-family: var(--font-cjk);
+  font-size: .84rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.poster {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  background: var(--paper);
+}
+.poster-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.poster-id {
+  font-size: .8rem;
+  font-weight: 800;
+  color: #5269A0;
+  background: rgba(112, 134, 186, .12);
+  padding: 4px 11px;
+  border-radius: 6px;
+}
+.poster-context-block { flex: 1; }
+.poster-context { font-size: .95rem; font-weight: 700; color: var(--ink); }
+.poster-context-en { font-size: .72rem; color: var(--muted); font-style: italic; display: block; }
+.poster-ratio { font-size: .72rem; color: var(--ink-soft); font-weight: 600; }
+
+.matrix-wrap { overflow-x: auto; margin-bottom: 14px; }
+.matrix-table { width: 100%; border-collapse: collapse; font-size: .82rem; min-width: 600px; }
+.matrix-table th {
+  background: #5269A0;
+  color: #fff;
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 700;
+  font-size: .78rem;
+}
+.matrix-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); color: var(--ink); line-height: 1.55; vertical-align: top; }
+.matrix-scene { font-weight: 700; color: #5269A0; white-space: nowrap; }
+.matrix-ratios { font-family: var(--font-mono); font-size: .76rem; color: var(--ink-soft); white-space: nowrap; }
+.matrix-tool { white-space: nowrap; color: var(--ink-soft); }
+.matrix-note { font-size: .85rem; line-height: 1.7; color: var(--ink-soft); background: #FDF8E8; border: 1px solid #F5E5A8; border-radius: var(--radius); padding: 14px 16px; }
+.matrix-note strong { color: var(--copper-deep); }
+</style>

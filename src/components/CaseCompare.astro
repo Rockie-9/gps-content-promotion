@@ -1,0 +1,118 @@
+---
+export interface Props {
+  scenario: string;
+  bad: string;
+  good: string;
+  takeaway: string;
+}
+
+const { scenario, bad, good, takeaway } = Astro.props;
+---
+
+<div class="case-block">
+  <div class="case-scenario">
+    <strong>情境</strong>
+    <p>{scenario}</p>
+  </div>
+  <div class="case-compare">
+    <div class="case-panel case-bad">
+      <div class="case-panel-label"><span class="case-icon">×</span>劣稿</div>
+      <p>{bad}</p>
+    </div>
+    <div class="case-panel case-good">
+      <div class="case-panel-label"><span class="case-icon">✓</span>佳稿</div>
+      <p>{good}</p>
+    </div>
+  </div>
+  <p class="case-takeaway">
+    <strong>看出差別在哪</strong>
+    {takeaway}
+  </p>
+</div>
+
+<style>
+.case-block {
+  margin: 18px 0 6px;
+}
+.case-scenario {
+  background: var(--turquoise-50);
+  border-left: 3px solid var(--turquoise);
+  padding: 12px 16px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 12px;
+}
+.case-scenario strong {
+  display: block;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--turquoise-700);
+  margin-bottom: 4px;
+}
+.case-scenario p {
+  font-size: .9rem;
+  color: var(--ink);
+  margin: 0;
+}
+.case-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 720px) {
+  .case-compare { grid-template-columns: 1fr; }
+}
+.case-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  background: var(--surface);
+}
+.case-panel-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+}
+.case-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: .85rem;
+}
+.case-bad .case-panel-label { color: #B8463A; }
+.case-bad .case-icon { background: #FEE; color: #B8463A; }
+.case-good .case-panel-label { color: #3D8A52; }
+.case-good .case-icon { background: #E6F2EA; color: #3D8A52; }
+.case-panel p {
+  font-size: .88rem;
+  line-height: 1.72;
+  color: var(--ink);
+  margin: 0;
+}
+.case-takeaway {
+  background: #FDF8E8;
+  border: 1px solid #F5E5A8;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-top: 14px;
+  font-size: .9rem;
+  line-height: 1.72;
+  color: var(--ink);
+}
+.case-takeaway strong {
+  display: block;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--copper-deep);
+  margin-bottom: 4px;
+}
+</style>

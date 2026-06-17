@@ -1,0 +1,84 @@
+---
+export interface Props {
+  title: string;
+  code?: string;
+  subtitle?: string;
+}
+
+const { title, code, subtitle } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<header class="doc-nav no-print">
+  <div class="doc-nav-inner">
+    <a href={baseUrl} class="doc-nav-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M10 3 L5 8 L10 13" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      返回總集
+    </a>
+    <div class="doc-nav-title">
+      {code && <div class="doc-nav-code">{code}{subtitle && ` · ${subtitle}`}</div>}
+      <div class="doc-nav-name">{title}</div>
+    </div>
+  </div>
+</header>
+
+<style>
+.doc-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.doc-nav-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.doc-nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: .86rem;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 9px;
+  text-decoration: none;
+  transition: background var(--transition), border-color var(--transition);
+}
+.doc-nav-back:hover {
+  background: var(--line-soft);
+  border-color: var(--muted);
+}
+.doc-nav-title {
+  flex: 1;
+  min-width: 0;
+}
+.doc-nav-code {
+  font-size: .7rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+.doc-nav-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 720px) {
+  .doc-nav-inner { padding: 10px 14px; gap: 10px; }
+  .doc-nav-name { font-size: .9rem; }
+}
+</style>

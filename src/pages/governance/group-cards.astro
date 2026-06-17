@@ -1,0 +1,1017 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DocNav from '../../components/DocNav.astro';
+
+const title = "六組導覽卡";
+const titleEn = "Six Groups Guide";
+const description = "六個內容小組的職能總覽：什麼時候找哪一組、各組的三級難度路徑、如何協作。跨組協作的入口。";
+
+const bodyHtml = `<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">GPS 內容推廣 · 六組前頁卡</div>
+    <h1>六個內容小組 · 我們什麼時候找誰</h1>
+    <p class="hero-sub">
+      這是六個內容小組的快速入口。
+      想知道某件事該找哪一組、想看這組怎麼分級成長、
+      想直接進入該組的完整 toolkit——都從這裡開始。
+    </p>
+    <div class="hero-update">資訊更新 2026-06</div>
+  </div>
+</header>
+
+<section class="priority">
+  <div class="priority-inner">
+    <div class="priority-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="16" cy="16" r="11"/>
+        <path d="M16 5 L18 14 L27 16 L18 18 L16 27 L14 18 L5 16 L14 14 Z" fill="currentColor" opacity="0.15"/>
+        <path d="M16 5 L18 14 L27 16 L18 18 L16 27 L14 18 L5 16 L14 14 Z"/>
+      </svg>
+    </div>
+    <div class="priority-body">
+      <h2>怎麼用這份</h2>
+      <p>
+        每張前頁卡告訴您：<strong style="color:var(--copper-deep)">這組做什麼、我們什麼時候找這組、這組的成長路徑長什麼樣</strong>。
+        需要實際動手時，從卡片底部進入該組完整 toolkit。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Side index -->
+<aside class="side-index" aria-label="快速索引">
+  <div class="side-index-title">六組索引</div>
+  <ul>
+    <li><a href="#cs2-01"><span class="dot"></span><span class="code">01</span>文字敘事</a></li>
+    <li><a href="#cs2-02"><span class="dot"></span><span class="code">02</span>平面設計</a></li>
+    <li><a href="#cs2-03"><span class="dot"></span><span class="code">03</span>動態攝影</a></li>
+    <li><a href="#cs2-04"><span class="dot"></span><span class="code">04</span>社群互動</a></li>
+    <li><a href="#cs2-05"><span class="dot"></span><span class="code">05</span>品牌管理</a></li>
+    <li><a href="#cs2-06"><span class="dot"></span><span class="code">06</span>服務體驗</a></li>
+  </ul>
+</aside>
+
+<!-- Top nav (mobile) -->
+<nav class="top-nav" aria-label="六組導覽">
+  <div class="top-nav-inner">
+    <a href="#cs2-01"><span class="code">01</span>文字敘事</a>
+    <a href="#cs2-02"><span class="code">02</span>平面設計</a>
+    <a href="#cs2-03"><span class="code">03</span>動態攝影</a>
+    <a href="#cs2-04"><span class="code">04</span>社群互動</a>
+    <a href="#cs2-05"><span class="code">05</span>品牌管理</a>
+    <a href="#cs2-06"><span class="code">06</span>服務體驗</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- Intro -->
+<section class="intro" id="intro">
+  <div class="intro-eyebrow">前言 · 六組共構</div>
+  <h2>六組是我們協作的橫向夥伴</h2>
+  <p>
+    每組由高階層級的組長帶領，是這門手藝的守護者——而非發派工作的主管。
+    我們的工作流不是「上而下」的指派，而是「議題來了，找對的組或組合」。
+    對外作品由跨至少兩組的 Pod 完成，內部小產出單組可行。
+  </p>
+  <p>
+    主理人負責整體議題分派、Memo 寄送、新血評估、爭議裁定，與六位組長協作而非凌駕。
+    每張前頁卡都會點出該組的鐵則、我們常見的合作場景、三級成長階段，
+    並指向該組的完整 toolkit。
+  </p>
+</section>
+
+<!-- ============== CS2-01 文字敘事組 ============== -->
+<article class="group-card" data-c="1" id="cs2-01">
+  <header class="gc-header">
+    <div class="gc-code-block">
+      <div class="gc-code">CS2-01</div>
+    </div>
+    <div class="gc-title-block">
+      <h3>文字敘事組</h3>
+      <p class="gc-tagline">寫作、編輯、翻譯、敘事採集</p>
+    </div>
+    <div class="gc-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M8 8 L26 8 L26 28 L8 28 Z"/>
+        <path d="M12 14 L22 14 M12 18 L22 18 M12 22 L18 22" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </header>
+  <div class="gc-body">
+    <div class="rule-quote">
+      <span class="rule-quote-label">全組鐵則</span>
+      文字是品牌承諾在語言層面的延伸——「在您需要之前」不只在 logo，而在每一封信、每一則公告、每一段廣播。
+      不寫的時候比寫的時候重要，靜默處留給讀者。
+    </div>
+
+    <div class="gc-block">
+      <h4>我們什麼時候找這組</h4>
+      <ul class="scenarios">
+        <li>需要對外溝通文案（公告、電子報、報告、信件）</li>
+        <li>需要把英文素材在地化為繁中（或反向）</li>
+        <li>需要採集同仁故事、場域敘事、訪談轉化</li>
+        <li>需要審閱長文稿件的語氣與品牌一致性</li>
+      </ul>
+    </div>
+
+    <div class="gc-block">
+      <h4>三級成長</h4>
+      <div class="tier-strip">
+        <div class="tier-cell">
+          <div class="tier-label">基礎</div>
+          <div class="tier-label-en">Foundational</div>
+          <div class="tier-do">照模板撰寫定型內容，依清單核查語氣與用字。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">進階</div>
+          <div class="tier-label-en">Intermediate</div>
+          <div class="tier-do">獨立負責一條內容線，改寫他人稿件，帶一名基礎層級同仁。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">高階</div>
+          <div class="tier-label-en">Advanced</div>
+          <div class="tier-do">建立新的敘事框架與寫作規範，帶領跨組 Pod。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pending-notice">
+      <div class="pending-notice-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="9" cy="9" r="7.5"/>
+          <path d="M9 5 L9 10" stroke-linecap="round"/>
+          <circle cx="9" cy="12.5" r="0.8" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <strong>CS2-01 完整 toolkit 製作中</strong>——目前以本前頁卡為入口，
+        實際工作以該組組長與主理人個別協調為主。完整 toolkit 預計 2026 Q3 釋出。
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ============== CS2-02 平面設計組 ============== -->
+<article class="group-card" data-c="2" id="cs2-02">
+  <header class="gc-header">
+    <div class="gc-code-block">
+      <div class="gc-code">CS2-02</div>
+    </div>
+    <div class="gc-title-block">
+      <h3>平面設計組</h3>
+      <p class="gc-tagline">平面、版型、品牌應用、圖示系統、實體物設計</p>
+    </div>
+    <div class="gc-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4">
+        <rect x="6" y="8" width="14" height="20" rx="1"/>
+        <rect x="22" y="14" width="8" height="14" rx="1"/>
+        <circle cx="13" cy="14" r="1.5" fill="currentColor"/>
+      </svg>
+    </div>
+  </header>
+  <div class="gc-body">
+    <div class="rule-quote">
+      <span class="rule-quote-label">全組鐵則</span>
+      視覺 canon 的單一真相源是色彩系統與 Brand Hub 模板。生成影像與 icon library 採條件式使用——對外署名素材一律禁止；定稿視覺走品牌色票與模板，圖示一律自製 SVG。
+    </div>
+
+    <div class="gc-block">
+      <h4>我們什麼時候找這組</h4>
+      <ul class="scenarios">
+        <li>需要對外海報、公告、簡報視覺（單張或系列）</li>
+        <li>需要把一張視覺改製為多通路尺寸（直式、橫式、方形）</li>
+        <li>需要新的圖示、徽章、實體物（識別牌、簡報模板）</li>
+        <li>需要審視既有素材的視覺一致性</li>
+      </ul>
+    </div>
+
+    <div class="gc-block">
+      <h4>三級成長</h4>
+      <div class="tier-strip">
+        <div class="tier-cell">
+          <div class="tier-label">基礎</div>
+          <div class="tier-label-en">Foundational</div>
+          <div class="tier-do">模板內熟練——海報套用、多尺寸改製、簡報整備。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">進階</div>
+          <div class="tier-label-en">Intermediate</div>
+          <div class="tier-do">系統改造——新增模板變體、新增圖示族系、跨案維護。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">高階</div>
+          <div class="tier-label-en">Advanced</div>
+          <div class="tier-do">識別擴張——新場域識別設計、實體物系統、視覺治理。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolkit-pointer">
+      <div class="toolkit-pointer-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4">
+          <rect x="3" y="5" width="16" height="12" rx="1"/>
+          <path d="M11 9 L11 13 M7 11 L15 11" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <strong>完整 toolkit</strong>——三級九專案、提示詞範本、可循案例庫，
+        由 CS2-02 組長維護。實際動手前請翻 toolkit 完整版。
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ============== CS2-03 動態攝影組 ============== -->
+<article class="group-card" data-c="3" id="cs2-03">
+  <header class="gc-header">
+    <div class="gc-code-block">
+      <div class="gc-code">CS2-03</div>
+    </div>
+    <div class="gc-title-block">
+      <h3>動態攝影組</h3>
+      <p class="gc-tagline">攝影、錄影、剪輯、生成影音、系列影集</p>
+    </div>
+    <div class="gc-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4">
+        <rect x="5" y="10" width="20" height="14" rx="1"/>
+        <circle cx="15" cy="17" r="3.5"/>
+        <path d="M25 14 L31 11 L31 23 L25 20 Z"/>
+      </svg>
+    </div>
+  </header>
+  <div class="gc-body">
+    <div class="rule-quote">
+      <span class="rule-quote-label">全組鐵則</span>
+      腳本未過品牌檢核，拍攝與生成一律不啟動——影音返工成本是文字的數十倍，檢核壓在最便宜的前段。
+      廠區畫面一律使用授權實拍或抽象化處理，可辨識的敏感場域細節零出現。
+    </div>
+
+    <div class="gc-block">
+      <h4>我們什麼時候找這組</h4>
+      <ul class="scenarios">
+        <li>需要紀錄活動、訪談、儀式（攝影或錄影）</li>
+        <li>需要產出短影音（推播用、培訓用、社群用）</li>
+        <li>需要剪輯既有素材為精華片或回顧片</li>
+        <li>需要設計或執行系列影集（持續性敘事）</li>
+      </ul>
+    </div>
+
+    <div class="gc-block">
+      <h4>三級成長</h4>
+      <div class="tier-strip">
+        <div class="tier-cell">
+          <div class="tier-label">基礎</div>
+          <div class="tier-label-en">Foundational</div>
+          <div class="tier-do">紀錄基本功——活動攝影、手機短影音、既有素材精華剪輯。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">進階</div>
+          <div class="tier-label-en">Intermediate</div>
+          <div class="tier-do">敘事編排——多機位拍攝統籌、生成影音整合、系列單集執行。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">高階</div>
+          <div class="tier-label-en">Advanced</div>
+          <div class="tier-do">系列概念——影集主軸設計、視覺風格定義、外部夥伴協作。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolkit-pointer">
+      <div class="toolkit-pointer-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4">
+          <rect x="3" y="5" width="16" height="12" rx="1"/>
+          <path d="M11 9 L11 13 M7 11 L15 11" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <strong>完整 toolkit</strong>——三級九專案、提示詞範本、可循案例庫，
+        由 CS2-03 組長維護。實際動手前請翻 toolkit 完整版。
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ============== CS2-04 社群互動組 ============== -->
+<article class="group-card" data-c="4" id="cs2-04">
+  <header class="gc-header">
+    <div class="gc-code-block">
+      <div class="gc-code">CS2-04</div>
+    </div>
+    <div class="gc-title-block">
+      <h3>社群互動組</h3>
+      <p class="gc-tagline">推播營運、互動學習、活動場控、自動化流程、社群數據</p>
+    </div>
+    <div class="gc-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4">
+        <circle cx="11" cy="14" r="4"/>
+        <circle cx="22" cy="14" r="4"/>
+        <circle cx="16" cy="24" r="4"/>
+        <path d="M11 18 L16 20 M22 18 L16 20" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </header>
+  <div class="gc-body">
+    <div class="rule-quote">
+      <span class="rule-quote-label">全組鐵則</span>
+      推播寧少勿擾——「在您需要之前」不等於「隨時打擾您」。
+      自動化啟用前必經測試帳號完整演練；憑證與 token 永不寫入對話、檔案或工作流註解。
+      組長兼任通路節奏守門人。
+    </div>
+
+    <div class="gc-block">
+      <h4>我們什麼時候找這組</h4>
+      <ul class="scenarios">
+        <li>需要推播 LINE 訊息、電子報、公告（單發或排程）</li>
+        <li>需要設計互動學習題、活動報名與提醒旅程</li>
+        <li>需要建立自動化流程（n8n、零接觸排程）</li>
+        <li>需要分析社群數據、推播效益、互動軌跡</li>
+      </ul>
+    </div>
+
+    <div class="gc-block">
+      <h4>三級成長</h4>
+      <div class="tier-strip">
+        <div class="tier-cell">
+          <div class="tier-label">基礎</div>
+          <div class="tier-label-en">Foundational</div>
+          <div class="tier-do">營運基本功——LINE 推播、互動題擴充、活動訊息旅程。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">進階</div>
+          <div class="tier-label-en">Intermediate</div>
+          <div class="tier-do">體驗設計——多通路整合、自動化流程建構、活動場控。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">高階</div>
+          <div class="tier-label-en">Advanced</div>
+          <div class="tier-do">系統與數據——通路節奏治理、數據儀表設計、跨平台架構。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolkit-pointer">
+      <div class="toolkit-pointer-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4">
+          <rect x="3" y="5" width="16" height="12" rx="1"/>
+          <path d="M11 9 L11 13 M7 11 L15 11" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <strong>完整 toolkit</strong>——三級九專案、提示詞範本、可循案例庫，
+        由 CS2-04 組長維護。實際動手前請翻 toolkit 完整版。
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ============== CS2-05 品牌管理組 ============== -->
+<article class="group-card" data-c="5" id="cs2-05">
+  <header class="gc-header">
+    <div class="gc-code-block">
+      <div class="gc-code">CS2-05</div>
+    </div>
+    <div class="gc-title-block">
+      <h3>品牌管理組</h3>
+      <p class="gc-tagline">品牌守護、術語治理、審計、教育、canon 流程</p>
+    </div>
+    <div class="gc-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M18 5 L29 10 L29 18 C29 24 24 28 18 31 C12 28 7 24 7 18 L7 10 Z"/>
+        <path d="M14 18 L17 21 L23 14" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </header>
+  <div class="gc-body">
+    <div class="rule-quote">
+      <span class="rule-quote-label">本組權力邊界</span>
+      是 canon 的守護者與流程管理者，不是 canon 的擁有者——對 canon 的權限是「攔下違規」與「提交候選」，永不自行定稿。
+      是紅線守門人＋系統稽核者，不是逐件審查的吞吐關卡。
+    </div>
+
+    <div class="gc-block">
+      <h4>我們什麼時候找這組</h4>
+      <ul class="scenarios">
+        <li>看見對外署名素材有禁用詞或鎖定語句變動——立即通報</li>
+        <li>不確定某詞、某做法、某素材是否合規——前置諮詢</li>
+        <li>需要新術語裁定或既有術語修訂——提案窗口</li>
+        <li>需要素材歸檔、版本登錄、活躍／封存／除役管理</li>
+      </ul>
+    </div>
+
+    <div class="gc-block">
+      <h4>三級成長</h4>
+      <div class="tier-strip">
+        <div class="tier-cell">
+          <div class="tier-label">基礎</div>
+          <div class="tier-label-en">Foundational</div>
+          <div class="tier-do">守門基本功——抽樣稽核、素材登錄、品牌知識問答。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">進階</div>
+          <div class="tier-label-en">Intermediate</div>
+          <div class="tier-do">系統維護——檢核清單修訂、術語裁定提案、案例庫建構。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">高階</div>
+          <div class="tier-label-en">Advanced</div>
+          <div class="tier-do">治理設計——分散式治理體制演進、跨組教育、canon 流程設計。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolkit-pointer">
+      <div class="toolkit-pointer-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4">
+          <rect x="3" y="5" width="16" height="12" rx="1"/>
+          <path d="M11 9 L11 13 M7 11 L15 11" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <strong>完整 toolkit</strong>——三級九專案、提示詞範本、可循案例庫，
+        由 CS2-05 組長維護。實際動手前請翻 toolkit 完整版。
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ============== CS2-06 服務體驗組 ============== -->
+<article class="group-card" data-c="6" id="cs2-06">
+  <header class="gc-header">
+    <div class="gc-code-block">
+      <div class="gc-code">CS2-06</div>
+    </div>
+    <div class="gc-title-block">
+      <h3>服務體驗組</h3>
+      <p class="gc-tagline">接觸點觀察、旅程設計、服務腳本、工作坊引導、體驗標準</p>
+    </div>
+    <div class="gc-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M6 18 L12 13 L18 22 L24 12 L30 18" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="6" cy="18" r="2" fill="currentColor"/>
+        <circle cx="18" cy="22" r="2" fill="currentColor"/>
+        <circle cx="30" cy="18" r="2" fill="currentColor"/>
+      </svg>
+    </div>
+  </header>
+  <div class="gc-body">
+    <div class="rule-quote">
+      <span class="rule-quote-label">全組鐵則</span>
+      六組中唯一以「真實場域」為畫布的組——產出不是素材，是同仁與訪客在大廳、門禁、差旅、訓練中的真實感受。
+      方法學底座：CPTED 環境設計哲學＋品牌行為四原則（先說明後執行、先問候再驗證、預先準備不適時刻、視每個場域為某人的第一天）。
+    </div>
+
+    <div class="gc-block">
+      <h4>我們什麼時候找這組</h4>
+      <ul class="scenarios">
+        <li>需要重新設計大廳、門禁、訪客動線等真實接觸點</li>
+        <li>需要蒐集並整理同仁的真實聲音（VOC）</li>
+        <li>需要設計或執行體驗工作坊、跨組共學</li>
+        <li>需要建立服務腳本、體驗檢核、品質標準</li>
+      </ul>
+    </div>
+
+    <div class="gc-block">
+      <h4>三級成長</h4>
+      <div class="tier-strip">
+        <div class="tier-cell">
+          <div class="tier-label">基礎</div>
+          <div class="tier-label-en">Foundational</div>
+          <div class="tier-do">觀察的眼睛——接觸點觀察、VOC 整理、體驗檢核執行。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">進階</div>
+          <div class="tier-label-en">Intermediate</div>
+          <div class="tier-do">體驗實作——旅程地圖製作、服務腳本撰寫、工作坊執行。</div>
+        </div>
+        <div class="tier-cell">
+          <div class="tier-label">高階</div>
+          <div class="tier-label-en">Advanced</div>
+          <div class="tier-do">體系設計——體驗標準建構、跨場域治理、與營運端共構介面。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolkit-pointer">
+      <div class="toolkit-pointer-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4">
+          <rect x="3" y="5" width="16" height="12" rx="1"/>
+          <path d="M11 9 L11 13 M7 11 L15 11" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <strong>完整 toolkit</strong>——三級九專案、提示詞範本、可循案例庫，
+        由 CS2-06 組長維護。實際動手前請翻 toolkit 完整版。
+      </div>
+    </div>
+  </div>
+</article>
+
+</main>
+
+<footer>
+  <p>GPS 內容推廣 · 六組前頁卡 · 資訊更新 2026-06 · 由現任主理人擬定</p>
+  <p class="brand-tagline">Before you need it. · 在您需要之前。</p>
+</footer>
+
+`;
+---
+<BaseLayout title={`${title} · GPS 內容推廣`} description={description}>
+  <DocNav title={title} subtitle={titleEn} />
+  <div class="gov-html-doc" set:html={bodyHtml} />
+</BaseLayout>
+
+<style is:global>
+
+  :root {
+    --turquoise:#26A7B0;
+    --turquoise-50:#ECF7F8;
+    --turquoise-100:#D0EDEF;
+    --turquoise-700:#1F8A92;
+    --copper-light:#CAC3D2;
+    --copper-deep:#6E5F7C;
+    --purple:#7086BA;
+    --green:#6BB57E;
+    --orange:#ED7442;
+    --warn:#E5993E;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a4a;
+    --ink-mute:#8a8580;
+    --paper:#fdfcfa;
+    --paper-soft:#f5f3ef;
+    --paper-warm:#faf7f0;
+    --line:#e5e2db;
+    --line-strong:#cfc9bf;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.75;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    background:linear-gradient(135deg,var(--turquoise) 0%,var(--turquoise-700) 100%);
+    color:#fff;
+    padding:60px 24px 48px;
+  }
+  .hero-inner { max-width:960px; margin:0 auto; }
+  .hero-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:12px;
+    opacity:0.85;
+    margin-bottom:14px;
+  }
+  .hero h1 {
+    font-size:34px;
+    font-weight:700;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+    line-height:1.3;
+  }
+  .hero-sub {
+    font-size:17px;
+    opacity:0.95;
+    margin:0 0 24px;
+    max-width:720px;
+    line-height:1.7;
+  }
+  .hero-update {
+    font-size:12px;
+    opacity:0.75;
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    letter-spacing:0.08em;
+  }
+
+  /* Operating priority */
+  .priority {
+    background:var(--paper-warm);
+    border-bottom:1px solid var(--line);
+    padding:28px 24px;
+  }
+  .priority-inner {
+    max-width:960px;
+    margin:0 auto;
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+  }
+  .priority-icon {
+    flex:0 0 32px;
+    color:var(--copper-deep);
+    margin-top:4px;
+  }
+  .priority-body h2 {
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    margin:0 0 6px;
+    color:var(--copper-deep);
+    font-weight:600;
+  }
+  .priority-body p {
+    margin:0;
+    font-size:15px;
+    color:var(--ink-soft);
+    line-height:1.75;
+  }
+
+  /* Layout */
+  main { max-width:960px; margin:0 auto; padding:48px 24px 64px; }
+
+  /* Intro section */
+  .intro {
+    margin-bottom:48px;
+  }
+  .intro-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:11px;
+    color:var(--turquoise);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .intro h2 {
+    font-size:26px;
+    font-weight:700;
+    margin:0 0 12px;
+    color:var(--ink);
+    line-height:1.35;
+  }
+  .intro p {
+    font-size:15px;
+    color:var(--ink-soft);
+    line-height:1.8;
+    margin:0 0 12px;
+    max-width:720px;
+  }
+
+  /* Floating side index */
+  .side-index {
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    width:180px;
+    background:rgba(253,252,250,0.94);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 10px;
+    font-size:13px;
+    z-index:40;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+    display:none;
+  }
+  .side-index-title {
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--ink-mute);
+    padding:2px 8px 8px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:6px;
+  }
+  .side-index ul { list-style:none; padding:0; margin:0; }
+  .side-index a {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:7px 8px;
+    border-radius:5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background .15s,color .15s;
+    line-height:1.4;
+  }
+  .side-index a:hover { background:var(--paper-soft); color:var(--ink); }
+  .side-index a.active {
+    background:var(--turquoise-50);
+    color:var(--turquoise-700);
+    font-weight:600;
+  }
+  .side-index .dot {
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--line-strong);
+    flex:0 0 6px;
+    transition:background .15s,transform .15s;
+  }
+  .side-index a.active .dot {
+    background:var(--turquoise);
+    transform:scale(1.3);
+  }
+  .side-index .code {
+    font-family:Georgia,serif;
+    font-size:11px;
+    color:var(--ink-mute);
+    margin-right:4px;
+    letter-spacing:0.04em;
+  }
+
+  /* Top nav (mobile) */
+  .top-nav {
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(253,252,250,0.96);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+    margin:0 -24px 36px;
+  }
+  .top-nav-inner {
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .top-nav a {
+    flex:0 0 auto;
+    padding:8px 14px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    border-radius:4px;
+    white-space:nowrap;
+    transition:all .15s;
+  }
+  .top-nav a:hover { background:var(--paper-soft); color:var(--ink); }
+  .top-nav .code {
+    font-family:Georgia,serif;
+    font-size:11px;
+    color:var(--ink-mute);
+    margin-right:4px;
+  }
+
+  /* Group cards */
+  .group-card {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    margin-bottom:32px;
+    overflow:hidden;
+    border-top:4px solid var(--card-accent,var(--turquoise));
+    scroll-margin-top:72px;
+  }
+  .group-card[data-c="1"] { --card-accent:var(--turquoise); }
+  .group-card[data-c="2"] { --card-accent:var(--purple); }
+  .group-card[data-c="3"] { --card-accent:var(--orange); }
+  .group-card[data-c="4"] { --card-accent:var(--green); }
+  .group-card[data-c="5"] { --card-accent:var(--copper-deep); }
+  .group-card[data-c="6"] { --card-accent:var(--copper-light); }
+
+  .gc-header {
+    padding:26px 28px 22px;
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    border-bottom:1px solid var(--line);
+    background:var(--paper-warm);
+  }
+  .gc-code-block {
+    flex:0 0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+  }
+  .gc-code {
+    background:var(--card-accent);
+    color:#fff;
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:4px;
+    letter-spacing:0.06em;
+  }
+  .gc-title-block { flex:1 1 auto; }
+  .gc-title-block h3 {
+    margin:0 0 4px;
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .gc-tagline {
+    margin:0;
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .gc-icon {
+    flex:0 0 36px;
+    color:var(--card-accent);
+    opacity:0.8;
+  }
+
+  .gc-body { padding:24px 28px 28px; }
+
+  .rule-quote {
+    background:var(--paper-soft);
+    border-left:3px solid var(--card-accent);
+    padding:14px 18px;
+    margin:0 0 22px;
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.75;
+    border-radius:0 4px 4px 0;
+  }
+  .rule-quote-label {
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    color:var(--card-accent);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:4px;
+  }
+
+  .gc-block { margin-bottom:22px; }
+  .gc-block:last-child { margin-bottom:0; }
+  .gc-block h4 {
+    margin:0 0 8px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--card-accent);
+    letter-spacing:0.02em;
+  }
+  .gc-block p {
+    margin:0;
+    font-size:14.5px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+
+  /* Scenario list (when we find this group) */
+  .scenarios {
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:grid;
+    gap:8px;
+  }
+  .scenarios li {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:11px 16px 11px 38px;
+    position:relative;
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.65;
+  }
+  .scenarios li::before {
+    content:"";
+    position:absolute;
+    left:14px;
+    top:18px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--card-accent);
+    opacity:0.7;
+  }
+
+  /* Three tiers strip */
+  .tier-strip {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:8px;
+  }
+  .tier-cell {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:14px 16px;
+    border-top:3px solid var(--card-accent);
+  }
+  .tier-label {
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+  .tier-label-en {
+    font-size:10px;
+    color:var(--ink-mute);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .tier-do {
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  /* Toolkit pointer */
+  .toolkit-pointer {
+    background:linear-gradient(135deg,var(--paper-warm) 0%,var(--paper-soft) 100%);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:14px 18px;
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.65;
+  }
+  .toolkit-pointer-icon {
+    flex:0 0 22px;
+    color:var(--card-accent);
+  }
+  .toolkit-pointer strong {
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  /* Pending notice (CS2-01 placeholder) */
+  .pending-notice {
+    background:#fff7e8;
+    border:1px solid #f0d99f;
+    border-radius:6px;
+    padding:14px 18px;
+    margin-top:18px;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.7;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .pending-notice-icon {
+    flex:0 0 18px;
+    color:var(--warn);
+    margin-top:2px;
+  }
+  .pending-notice strong { color:#a86b14; }
+
+  /* Footer */
+  footer {
+    background:var(--paper-soft);
+    border-top:1px solid var(--line);
+    padding:32px 24px;
+    text-align:center;
+  }
+  footer p {
+    margin:4px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  footer .brand-tagline {
+    font-size:14px;
+    color:var(--turquoise-700);
+    font-weight:500;
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+
+  /* Print */
+  @media print {
+    .top-nav, .side-index { display:none !important; }
+    .hero { background:#fff; color:var(--ink); border-bottom:2px solid var(--turquoise); }
+    .hero h1, .hero-sub, .hero-eyebrow, .hero-update { color:var(--ink); opacity:1; }
+    .group-card { break-inside:avoid; page-break-inside:avoid; }
+  }
+
+  /* Responsive */
+  @media (min-width: 1280px) {
+    .side-index { display:block; }
+    .top-nav { display:none; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding:44px 20px 36px; }
+    .hero h1 { font-size:26px; }
+    .hero-sub { font-size:15px; }
+    main { padding:32px 20px 48px; }
+    .intro h2 { font-size:22px; }
+    .gc-header { padding:22px 20px 18px; gap:14px; flex-direction:column; align-items:flex-start; }
+    .gc-icon { display:none; }
+    .gc-title-block h3 { font-size:19px; }
+    .gc-body { padding:20px; }
+    .tier-strip { grid-template-columns:1fr; }
+    .top-nav { margin:0 -20px 28px; }
+    .top-nav-inner { padding:0 20px; }
+  }
+
+</style>

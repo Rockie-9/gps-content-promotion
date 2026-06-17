@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Toolkit from '../../components/Toolkit.astro';
+import CampaignKit from '../../components/CampaignKit.astro';
+import CampaignFilm from '../../components/CampaignFilm.astro';
+
+export async function getStaticPaths() {
+  const toolkits = await getCollection('toolkits');
+  return toolkits.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const data = entry.data;
+const slug = entry.slug;
+---
+
+<BaseLayout title={`${data.code} ${data.name} · Toolkit`} description={data.tagline}>
+  <Toolkit {...data}>
+    {slug === 'cs02' && <CampaignKit />}
+    {slug === 'cs03' && <CampaignFilm />}
+  </Toolkit>
+</BaseLayout>

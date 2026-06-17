@@ -1,0 +1,215 @@
+---
+import CopyButton from './CopyButton.astro';
+import { videoBrief } from '../data/campaign.ts';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<section class="campaign-film" id="campaign-film">
+  <div class="film-banner">
+    <div class="film-banner-eyebrow">品牌戰役影片 · Brand Campaign Film</div>
+    <h2 class="film-banner-title">Quietly Beside · 始終在側</h2>
+    <p class="film-banner-desc">
+      60 秒品牌影片的製作簡報與六段分鏡。本影片是品牌戰役視覺的<strong>下游（secondary）</strong>——
+      動畫化所依據的視覺基調、五場景影像參考、禁忌清單,全部承襲自平面設計組的視覺主場。
+    </p>
+  </div>
+
+  <!-- 主場引用卡 -->
+  <a href={`${baseUrl}toolkits/cs02/#campaign`} class="master-ref">
+    <div class="master-ref-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M4 11 L18 11 M13 6 L18 11 L13 16" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="master-ref-text">
+      <strong>動態製作前,請先讀視覺主場</strong>
+      影片的視覺 DNA、五幕場景影像 prompt（Midjourney + Gemini）、禁忌清單,集中維護於
+      <span class="master-ref-target">CS2-02 平面設計組 · 品牌戰役視覺套件</span>。
+      本組依該節的場景影像作為動畫參考——若視覺基調有疑義,以平面設計組為準。
+    </div>
+    <svg class="master-ref-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9 H13 M9 5 L13 9 L9 13" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+
+  <!-- Manus 主簡報 -->
+  <details class="campaign-collapse" id="film-master" open>
+    <summary class="campaign-collapse-header">
+      <span class="campaign-collapse-tag">M</span>
+      <h3 class="campaign-collapse-title">Manus 主簡報 · Master Brief</h3>
+      <svg class="campaign-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="campaign-collapse-body">
+      <p class="film-intro">作為主要指令貼入 Manus。各段落會依分鏡腳本,使用 CS2-02 的 Midjourney 場景 prompt 作為視覺參考,派發給底層生成器（Runway / Kling / Sora）。</p>
+      <CopyButton>{videoBrief.masterBrief}</CopyButton>
+    </div>
+  </details>
+
+  <!-- 分鏡腳本 -->
+  <details class="campaign-collapse" id="film-treatment" open>
+    <summary class="campaign-collapse-header">
+      <span class="campaign-collapse-tag">T</span>
+      <h3 class="campaign-collapse-title">分鏡腳本 · Treatment</h3>
+      <svg class="campaign-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="campaign-collapse-body">
+      <div class="treatment">
+        {videoBrief.treatment.map((seg) => (
+          <div class="treatment-seg">
+            <div class="treatment-time">{seg.time}</div>
+            <div class="treatment-content">
+              <div class="treatment-visual">
+                <span class="treatment-tag">VISUAL</span>
+                <p>{seg.visual}</p>
+              </div>
+              <div class="treatment-vo">
+                <span class="treatment-tag">VOICEOVER</span>
+                <p>{seg.vo}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </details>
+</section>
+
+<style>
+.campaign-film {
+  margin: 44px 0 0;
+  padding-top: 8px;
+}
+.film-banner {
+  background: linear-gradient(135deg, #ED7442 0%, #D85A2A 100%);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.film-banner::after {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .08);
+}
+.film-banner-eyebrow {
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: .85;
+  margin-bottom: 10px;
+  position: relative;
+}
+.film-banner-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -.01em;
+  position: relative;
+}
+.film-banner-desc { font-size: .9rem; line-height: 1.75; opacity: .95; max-width: 820px; position: relative; }
+.film-banner-desc strong { font-weight: 700; }
+
+.master-ref {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: linear-gradient(135deg, #F4F0F5 0%, #EAEEF6 100%);
+  border: 1px solid #7086BA;
+  border-left: 4px solid #5269A0;
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.master-ref:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(82, 105, 160, .16);
+}
+.master-ref-icon {
+  color: #5269A0;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.master-ref-text { flex: 1; font-size: .88rem; line-height: 1.7; color: var(--ink-soft); }
+.master-ref-text strong { display: block; color: #5269A0; font-size: .95rem; margin-bottom: 4px; }
+.master-ref-target { color: #5269A0; font-weight: 700; }
+.master-ref-arrow { color: #5269A0; flex-shrink: 0; margin-top: 4px; transition: transform var(--transition); }
+.master-ref:hover .master-ref-arrow { transform: translate(3px, 0); }
+
+.campaign-collapse {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.campaign-collapse-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 22px;
+  cursor: pointer;
+  list-style: none;
+}
+.campaign-collapse-header::-webkit-details-marker { display: none; }
+.campaign-collapse-header:hover { background: var(--line-soft); }
+.campaign-collapse-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: .82rem;
+  font-weight: 800;
+  color: #D85A2A;
+  background: rgba(237, 116, 66, .12);
+  border-radius: 6px;
+}
+.campaign-collapse-title { flex: 1; font-size: 1.08rem; font-weight: 700; color: var(--ink); margin: 0; }
+.campaign-chevron { color: var(--muted); transition: transform var(--transition); }
+.campaign-collapse[open] .campaign-chevron { transform: rotate(180deg); }
+.campaign-collapse-body { padding: 8px 26px 26px; border-top: 1px solid var(--line-soft); }
+.film-intro { font-size: .9rem; color: var(--ink-soft); margin-bottom: 16px; line-height: 1.7; }
+
+.treatment { display: flex; flex-direction: column; gap: 12px; }
+.treatment-seg {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  background: var(--paper);
+}
+.treatment-time {
+  font-size: .8rem;
+  font-weight: 800;
+  color: #D85A2A;
+  font-family: var(--font-mono);
+}
+.treatment-content { display: flex; flex-direction: column; gap: 10px; }
+.treatment-tag {
+  display: inline-block;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.treatment-visual p, .treatment-vo p { font-size: .86rem; line-height: 1.65; color: var(--ink); margin: 0; }
+.treatment-vo { border-top: 1px dashed var(--line); padding-top: 8px; }
+.treatment-vo p { color: #D85A2A; font-weight: 500; }
+
+@media (max-width: 720px) {
+  .treatment-seg { grid-template-columns: 1fr; gap: 8px; }
+}
+</style>

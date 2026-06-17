@@ -1,0 +1,22 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# generated files (regenerated each build)
+.pdf-tmp/
+src/env.d.ts
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# logs
+*.log
+npm-debug.log*

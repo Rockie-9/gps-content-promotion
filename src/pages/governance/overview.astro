@@ -1,0 +1,1074 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DocNav from '../../components/DocNav.astro';
+
+const title = "制度導讀";
+const titleEn = "Operating Model Overview";
+const description = "內容推廣的運作藍圖：橫切守門、以作品與貢獻肯認、分散式治理、跨組 Pod、四個建構塊。新成員理解整體制度的起點。";
+
+const bodyHtml = `<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">GPS 內容推廣 · 制度導讀</div>
+    <h1>一個說故事的 Taskforce<br/>用身份、能見度、成長路徑驅動同仁的自願投入</h1>
+    <p class="hero-sub">
+      這份是給大家的入門讀本——說明我們怎麼一起工作、為什麼這麼做。
+      寫這份的時候想到的是已經在六組裡的您，也想的是還在考慮要不要加入的朋友。
+      日常實作翻工作公約與口袋卡，這份讀一次就好。
+    </p>
+    <span class="hero-tag">2026 信任 · 建立感受</span>
+    <div class="hero-update">資訊更新 2026-06</div>
+  </div>
+</header>
+
+<!-- Side index (desktop ≥ 1280) -->
+<aside class="side-index" aria-label="快速索引">
+  <div class="side-index-title">快速索引</div>
+  <ul>
+    <li><a href="#beliefs"><span class="dot"></span>核心信念</a></li>
+    <li><a href="#blocks"><span class="dot"></span>四個建構塊</a></li>
+    <li><a href="#issues"><span class="dot"></span>議題地圖</a></li>
+    <li><a href="#groups"><span class="dot"></span>六個組</a></li>
+    <li><a href="#tiers"><span class="dot"></span>成長路徑</a></li>
+    <li><a href="#cadence"><span class="dot"></span>全年節奏</a></li>
+    <li><a href="#recognition"><span class="dot"></span>能見度機制</a></li>
+    <li><a href="#foundation"><span class="dot"></span>共通底座</a></li>
+    <li><a href="#daily"><span class="dot"></span>日常使用</a></li>
+  </ul>
+</aside>
+
+<!-- Top nav (mobile/tablet) -->
+<nav class="top-nav" aria-label="章節導覽">
+  <div class="top-nav-inner">
+    <a href="#beliefs">核心信念</a>
+    <a href="#blocks">建構塊</a>
+    <a href="#issues">議題地圖</a>
+    <a href="#groups">六個組</a>
+    <a href="#tiers">成長路徑</a>
+    <a href="#cadence">全年節奏</a>
+    <a href="#recognition">能見度</a>
+    <a href="#foundation">共通底座</a>
+    <a href="#daily">日常使用</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- =========== § 01 BELIEFS =========== -->
+<section class="section" id="beliefs">
+  <div class="section-eyebrow">§ 01 · 為什麼是這份制度</div>
+  <h2>四個核心信念</h2>
+  <p class="section-lede">
+    這四件事決定了下方所有的具體規則。記住這四件事，整套制度的形狀會自然展開。
+  </p>
+
+  <div class="belief-grid">
+    <div class="belief" data-c="1">
+      <div class="belief-num">信念 一</div>
+      <h3>以作品與貢獻肯認，取代 KPI 加分</h3>
+      <p>
+        本職已有 KPI 壓力。在這裡，用<strong>身份、能見度、成長路徑</strong>驅動自願投入——不再加考核。
+      </p>
+    </div>
+    <div class="belief" data-c="2">
+      <div class="belief-num">信念 二</div>
+      <h3>分散式治理取代集中審查</h3>
+      <p>
+        各組自己把關，品牌組抽查。<strong>守的是紅線與例外，不是每一件</strong>。能力長在各組身上，不長在守門員身上。
+      </p>
+    </div>
+    <div class="belief" data-c="3">
+      <div class="belief-num">信念 三</div>
+      <h3>對外作品由跨組小隊完成</h3>
+      <p>
+        對外發布的內容，必須由跨至少兩組的小隊（Pod）共同完成，否則不掛名。
+        <strong>內部小產出單組可獨力完成</strong>。
+      </p>
+    </div>
+    <div class="belief" data-c="4">
+      <div class="belief-num">信念 四</div>
+      <h3>沉默的守護同等可貴</h3>
+      <p>
+        攔下一次違規、改善一條動線、用自動化省下的人時——<strong>看不見，不代表不重要</strong>。
+        年度投入與貢獻獎就是制度對這件事的明確表態。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== § 02 BUILDING BLOCKS =========== -->
+<section class="section" id="blocks">
+  <div class="section-eyebrow">§ 02 · 制度的構成</div>
+  <h2>四個建構塊</h2>
+  <p class="section-lede">
+    制度由四個建構塊組成。前三塊是系統性規則，第四塊是每位成員的個人選擇。
+    四個一起運作，缺一不可。
+  </p>
+
+  <div class="block-grid">
+    <div class="block" data-c="1">
+      <div class="block-tag">01</div>
+      <h3>共通底座</h3>
+      <p>
+        模型路由、注入區塊、分散式治理。所有 SOP 卡片建立於此，兩者衝突時以底座為準。
+      </p>
+      <div class="block-meta">CS2-00 · 共十節 · 底座 → 議題</div>
+    </div>
+    <div class="block" data-c="2">
+      <div class="block-tag">02</div>
+      <h3>議題地圖</h3>
+      <p>
+        依組織議題分派工作，不靠組別硬湊內容。八個議題各自標明主責、支援與典型專案。
+      </p>
+      <div class="block-meta">8 議題 · 主支分明 · 議題 → 節奏</div>
+    </div>
+    <div class="block" data-c="3">
+      <div class="block-tag">03</div>
+      <h3>全年節奏</h3>
+      <p>
+        週、月、季、年四層節奏。頻率高的事輕、頻率低的事正式。
+      </p>
+      <div class="block-meta">每週 · 每月 · 每季 · 每年 · 規則 → 選擇</div>
+    </div>
+    <div class="block" data-c="4">
+      <div class="block-tag">04</div>
+      <h3>工作公約</h3>
+      <p>
+        十二條可貼牆上的句子，每位成員的精神底盤。詳見《工作公約》與七張口袋卡。
+      </p>
+      <div class="block-meta">12 條 · 個人承擔 · 對外發佈版</div>
+    </div>
+  </div>
+
+  <div class="crosscut">
+    <div class="crosscut-icon" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M14 4 L14 24 M4 14 L24 14"/>
+        <circle cx="14" cy="14" r="9"/>
+      </svg>
+    </div>
+    <div>
+      <h4>橫切守門</h4>
+      <p>
+        內容推廣是品牌基準（canon）的<strong>執行者</strong>，永不自行重新定義它。
+        任何鎖定語句、禁用詞、視覺規範的更動，一律無權自行核准，必須循品牌治理流程上呈——
+        這條紀律保護的不是流程，而是品牌在十年尺度上的一致與完整。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== § 03 ISSUE MAP =========== -->
+<section class="section" id="issues">
+  <div class="section-eyebrow">§ 03 · 工作從哪裡來</div>
+  <h2>八個核心議題</h2>
+  <p class="section-lede">
+    內容推廣在 2026 信任階段的工作落點。每個議題標明主責組——
+    出事找誰、出彩誰掛第一作者。
+  </p>
+
+  <div class="issue-grid">
+    <div class="issue">
+      <span class="issue-num">議題 01</span>
+      <h3>品牌轉型與治理</h3>
+      <p>三年弧線執行與守護。</p>
+      <span class="issue-owner">主責 · 品牌管理組</span>
+    </div>
+    <div class="issue">
+      <span class="issue-num">議題 02</span>
+      <h3>AI 素養與文化建構</h3>
+      <p>全體安全管理人員的 AI 能力。</p>
+      <span class="issue-owner">主責 · 社群互動組</span>
+    </div>
+    <div class="issue">
+      <span class="issue-num">議題 03</span>
+      <h3>內部溝通與訊息對齊</h3>
+      <p>對的訊息送到對的人。</p>
+      <span class="issue-owner">主責 · 文字敘事組</span>
+    </div>
+    <div class="issue">
+      <span class="issue-num">議題 04</span>
+      <h3>變革管理與敘事</h3>
+      <p>從管制到支持力量。</p>
+      <span class="issue-owner">主責 · 文字 ＋ 動態</span>
+    </div>
+    <div class="issue">
+      <span class="issue-num">議題 05</span>
+      <h3>跨域跨時區協作</h3>
+      <p>多區域訊息對齊。</p>
+      <span class="issue-owner">主責 · 文字敘事組</span>
+    </div>
+    <div class="issue">
+      <span class="issue-num">議題 06</span>
+      <h3>服務體驗與旅程</h3>
+      <p>真實場域的感受。</p>
+      <span class="issue-owner">主責 · 服務體驗組</span>
+    </div>
+    <div class="issue">
+      <span class="issue-num">議題 07</span>
+      <h3>學習與人才培訓</h3>
+      <p>師徒培育＋同仁培訓。</p>
+      <span class="issue-owner">主責 · 服務 ＋ 社群</span>
+    </div>
+    <div class="issue">
+      <span class="issue-num">議題 08</span>
+      <h3>數位產品與工具</h3>
+      <p>互動工具＋自動化。</p>
+      <span class="issue-owner">主責 · 社群互動組</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========== § 04 SIX GROUPS =========== -->
+<section class="section" id="groups">
+  <div class="section-eyebrow">§ 04 · 由誰來執行</div>
+  <h2>六個組</h2>
+  <p class="section-lede">
+    每組由高階層級的組長帶領。組長是這門手藝的守護者，不是發派工作的主管——
+    這裡看重的是作品的好壞，不是產出的數量。
+    主理人負責整體議題分派、Memo 寄送、新血評估、爭議裁定，
+    與六位組長協作而非凌駕——主理人是一個會傳承的角色，本份由現任主理人撰寫，未來會隨繼任者重新校準。
+    每組的完整工具手冊（含三級九專案、提示詞與可循案例）見各組 toolkit。
+  </p>
+
+  <div class="group-grid">
+    <div class="group" data-c="1">
+      <div class="group-code">CS2-01</div>
+      <h3>文字敘事組</h3>
+      <p>寫作、編輯、翻譯、敘事採集。</p>
+    </div>
+    <div class="group" data-c="2">
+      <div class="group-code">CS2-02</div>
+      <h3>平面設計組</h3>
+      <p>平面、版型、圖示、實體物。</p>
+    </div>
+    <div class="group" data-c="3">
+      <div class="group-code">CS2-03</div>
+      <h3>動態攝影組</h3>
+      <p>攝影、錄影、剪輯、系列影集。</p>
+    </div>
+    <div class="group" data-c="4">
+      <div class="group-code">CS2-04</div>
+      <h3>社群互動組</h3>
+      <p>推播、互動學習、場控、自動化。</p>
+    </div>
+    <div class="group" data-c="5">
+      <div class="group-code">CS2-05</div>
+      <h3>品牌管理組</h3>
+      <p>守門、術語、抽樣稽核、品牌流程。</p>
+    </div>
+    <div class="group" data-c="6">
+      <div class="group-code">CS2-06</div>
+      <h3>服務體驗組</h3>
+      <p>觀察、旅程、腳本、工作坊。</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== § 05 TIERS =========== -->
+<section class="section" id="tiers">
+  <div class="section-eyebrow">§ 05 · 怎麼成長</div>
+  <h2>三級成長路徑</h2>
+  <p class="section-lede">
+    晉級不靠年資，靠作品。預期投入時數是參考校準，不是硬性考核——
+    讓人按自己能投入的程度選位置。
+  </p>
+
+  <div class="tier-grid">
+    <div class="tier" data-c="1">
+      <div class="tier-name">基礎層級</div>
+      <div class="tier-name-en">Foundational</div>
+      <p class="tier-do">
+        照著工具卡操作。本職忙碌的季度不會被制度懲罰，初級是真正人人都能參與的一層。
+      </p>
+      <div class="tier-load">每月 4–6 小時 · 年度 2 件作品</div>
+    </div>
+    <div class="tier" data-c="2">
+      <div class="tier-name">進階層級</div>
+      <div class="tier-name-en">Intermediate</div>
+      <p class="tier-do">
+        能修改工具卡——找出缺陷、提出修訂、帶一名基礎層級同仁，並獨立負責一條內容線。
+      </p>
+      <div class="tier-load">每月 8–12 小時 · 年度 4 件＋帶人</div>
+    </div>
+    <div class="tier" data-c="3">
+      <div class="tier-name">高階層級</div>
+      <div class="tier-name-en">Advanced</div>
+      <p class="tier-do">
+        能新建工具卡——獨立設計新卡並教會基礎層級同仁。把這件事當成第二專業，帶領跨組小隊、參與治理。
+      </p>
+      <div class="tier-load">每月 12–16 小時 · 帶小隊＋教學兩場</div>
+    </div>
+  </div>
+
+  <div class="pointer">
+    <strong>需要喘息或退出時的做法</strong>——任何成員可至少提前一季提議休一季喘息，
+    不降階、不除名、回來不需要重新證明自己。退出與轉籍也走同樣的預告與交接流程。
+    <strong>程序見口袋卡 3 與卡 6。</strong>
+  </div>
+</section>
+
+<!-- =========== § 06 CADENCE =========== -->
+<section class="section" id="cadence">
+  <div class="section-eyebrow">§ 06 · 怎麼運作</div>
+  <h2>全年四層節奏</h2>
+  <p class="section-lede">
+    頻率越高的事越輕、越非同步，頻率越低的事越正式、越實體。
+    某一層被忽略，下一層的成本立刻升高。
+  </p>
+
+  <div class="cadence-grid">
+    <div class="cadence">
+      <div class="cadence-when">每週 · 輕量同步</div>
+      <div class="cadence-what">站會 15 分鐘只同步，作品牆每週五前更新。</div>
+    </div>
+    <div class="cadence">
+      <div class="cadence-when">每月 · 廠區巡訪</div>
+      <div class="cadence-what">月初公布通路行事曆；月中作品、手藝、交流三段。</div>
+    </div>
+    <div class="cadence">
+      <div class="cadence-when">每季 · 治理結算</div>
+      <div class="cadence-what">評議會、Memo、Toolkit 檢視、稽核回報、階梯盤點。</div>
+    </div>
+    <div class="cadence">
+      <div class="cadence-when">每年 · 兩高峰一演練</div>
+      <div class="cadence-what">年中閉門會、年底 Showcase、第四季換手演練。</div>
+    </div>
+  </div>
+
+  <div class="pointer">
+    <strong>週站會的具體議程與時間規則</strong>——詳見口袋卡 5。
+    <strong>季度貢獻 Memo 的固定欄位與寄送流程</strong>——詳見口袋卡 4。
+  </div>
+</section>
+
+<!-- =========== § 07 RECOGNITION =========== -->
+<section class="section" id="recognition">
+  <div class="section-eyebrow">§ 07 · 怎麼被看見</div>
+  <h2>三個能見度機制</h2>
+  <p class="section-lede">
+    這套制度的承重牆。「付出被看見」的解法不是獎品，是訊息流——
+    三個機制必須一起運轉。
+  </p>
+
+  <div class="recog-grid">
+    <div class="recog">
+      <div class="recog-num">機制 一</div>
+      <h3>掛名制 Byline</h3>
+      <p>
+        對外產出具體掛名，不寫「團隊製作」。
+        把名字印出來是最古老、最便宜、最強的榮譽機制。
+      </p>
+    </div>
+    <div class="recog">
+      <div class="recog-num">機制 二</div>
+      <h3>季度貢獻 Memo</h3>
+      <p>
+        每季主理人具名向您的直屬主管寄出貢獻摘要。
+        榮譽必須能進入績效對話才有實質意義。
+      </p>
+    </div>
+    <div class="recog">
+      <div class="recog-num">機制 三</div>
+      <h3>年度 Showcase Day</h3>
+      <p>
+        年底由處長親臨，作品集發表會而非頒獎大會。
+        並設投入與貢獻獎——表彰不上鏡的守護。
+      </p>
+    </div>
+  </div>
+
+  <div class="crosscut" style="margin-top:24px;">
+    <div class="crosscut-icon" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="14" cy="14" r="10"/>
+        <path d="M14 8 L14 14 L18 17" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <h4>不患寡而患不均</h4>
+      <p>
+        上述三個機制天然偏向「可展示的作品」——形象片很亮眼，動線重設沒人看到。
+        <strong>投入與貢獻獎是制度的均勻補正</strong>，確保不上鏡的守護不被低估。
+        Showcase 並保留敘事段，由這類貢獻者親述「您沒看到的、但每天在發生的改變」。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== § 08 FOUNDATION =========== -->
+<section class="section" id="foundation">
+  <div class="section-eyebrow">§ 08 · 共通底座骨架</div>
+  <h2>六組的生產規則</h2>
+  <p class="section-lede">
+    本導讀僅標示骨架。詳細條款見 CS2-00 共通底座文件。
+  </p>
+
+  <div class="foundation-list">
+    <div class="foundation-item">
+      <strong>模型路由與工具邊界</strong>
+      <span>在守得住品質的前提下，選用最省力的模型與投入檔位 · 機密資料僅進內部工具 · 工具與原則分開維護。</span>
+    </div>
+    <div class="foundation-item">
+      <strong>Canon 注入區塊（兩個版本）</strong>
+      <span>完整版用於對外與長文，精簡版用於短文與高頻任務 · 品牌一致性靠輸入端守住，事後校對只是最後一道防線。</span>
+    </div>
+    <div class="foundation-item">
+      <strong>來源紀律</strong>
+      <span>每個事實宣稱須能上溯一手出處 · 二手分析可作線索但需指回一手 · 維基百科不作引用。</span>
+    </div>
+    <div class="foundation-item">
+      <strong>分散式品質治理</strong>
+      <span>各組自我認證三道閘門 · 品牌組抽樣稽核 · 升級處理灰色地帶 · 紅線即時攔截不待週期。</span>
+    </div>
+    <div class="foundation-item">
+      <strong>SOP 卡規格</strong>
+      <span>固定六欄位：觸發情境 · 工具與 effort · 步驟含提示詞 · 檢核點 · 升級條件 · 版本歷程。</span>
+    </div>
+    <div class="foundation-item">
+      <strong>能力階梯通用定義</strong>
+      <span>基礎照卡 · 進階改卡 · 高階建卡 · 各組 toolkit 將通用階梯落到具體任務。</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========== § 09 DAILY USE =========== -->
+<section class="section" id="daily">
+  <div class="section-eyebrow">§ 09 · 日常使用</div>
+  <h2>需要做某件事時，翻什麼</h2>
+  <p class="section-lede">
+    這份導讀是制度的「為什麼」與「怎麼組成」。日常實作另有兩份文件，內容請翻它們。
+  </p>
+
+  <div class="block-grid">
+    <div class="block" data-c="1">
+      <div class="block-tag">日常</div>
+      <h3>工作公約</h3>
+      <p>
+        十二條可貼牆上的做事方式，加上口袋卡七張的程序展開版（Pod 成立、紅線攔截、喘息、貢獻 Memo、週站會、退出、加入）。
+      </p>
+      <div class="block-meta">釘在桌面、瀏覽器、手機——隨時翻一翻</div>
+    </div>
+    <div class="block" data-c="2">
+      <div class="block-tag">手藝</div>
+      <h3>各組 toolkit</h3>
+      <p>
+        六本 CS2 toolkit（CS2-01 到 06），每組三級九專案，附提示詞與可循案例。
+        需要做某項具體手藝時的查閱依據。
+      </p>
+      <div class="block-meta">由各組組長維護，季度檢視更新</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>GPS 內容推廣 · 制度導讀 · 資訊更新 2026-06 · 由現任主理人擬定</p>
+  <p class="brand-tagline">Before you need it. · 在您需要之前。</p>
+</footer>
+
+`;
+---
+<BaseLayout title={`${title} · GPS 內容推廣`} description={description}>
+  <DocNav title={title} subtitle={titleEn} />
+  <div class="gov-html-doc" set:html={bodyHtml} />
+</BaseLayout>
+
+<style is:global>
+
+  :root {
+    --turquoise:#26A7B0;
+    --turquoise-50:#ECF7F8;
+    --turquoise-100:#D0EDEF;
+    --turquoise-700:#1F8A92;
+    --copper-light:#CAC3D2;
+    --copper-deep:#6E5F7C;
+    --purple:#7086BA;
+    --green:#6BB57E;
+    --orange:#ED7442;
+    --warn:#E5993E;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a4a;
+    --ink-mute:#8a8580;
+    --paper:#fdfcfa;
+    --paper-soft:#f5f3ef;
+    --paper-warm:#faf7f0;
+    --line:#e5e2db;
+    --line-strong:#cfc9bf;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.8;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    background:linear-gradient(135deg,var(--turquoise) 0%,var(--turquoise-700) 100%);
+    color:#fff;
+    padding:72px 24px 56px;
+  }
+  .hero-inner { max-width:960px; margin:0 auto; }
+  .hero-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:12px;
+    opacity:0.85;
+    margin-bottom:14px;
+  }
+  .hero h1 {
+    font-size:38px;
+    font-weight:700;
+    margin:0 0 16px;
+    letter-spacing:-0.01em;
+    line-height:1.25;
+  }
+  .hero-sub {
+    font-size:18px;
+    opacity:0.95;
+    margin:0 0 24px;
+    max-width:720px;
+    line-height:1.7;
+  }
+  .hero-tag {
+    display:inline-block;
+    margin-top:6px;
+    padding:6px 14px;
+    background:rgba(255,255,255,0.18);
+    border-radius:20px;
+    font-size:13px;
+    letter-spacing:0.04em;
+  }
+  .hero-update {
+    font-size:12px;
+    opacity:0.75;
+    margin-top:24px;
+    padding-top:18px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    letter-spacing:0.08em;
+  }
+
+  /* Layout */
+  main { max-width:960px; margin:0 auto; padding:56px 24px 64px; }
+
+  /* Section */
+  .section {
+    margin-bottom:72px;
+    scroll-margin-top:24px;
+  }
+  .section-eyebrow {
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:11px;
+    color:var(--turquoise);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .section h2 {
+    font-size:28px;
+    font-weight:700;
+    margin:0 0 12px;
+    color:var(--ink);
+    letter-spacing:-0.005em;
+    line-height:1.35;
+  }
+  .section-lede {
+    font-size:16px;
+    color:var(--ink-soft);
+    margin:0 0 32px;
+    max-width:720px;
+    line-height:1.75;
+  }
+
+  /* Floating side index (desktop only) */
+  .side-index {
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    width:180px;
+    background:rgba(253,252,250,0.94);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 10px;
+    font-size:13px;
+    z-index:40;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+    display:none;
+  }
+  .side-index-title {
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--ink-mute);
+    padding:2px 8px 8px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:6px;
+  }
+  .side-index ul { list-style:none; padding:0; margin:0; }
+  .side-index a {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:7px 8px;
+    border-radius:5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background .15s,color .15s;
+    line-height:1.4;
+  }
+  .side-index a:hover {
+    background:var(--paper-soft);
+    color:var(--ink);
+  }
+  .side-index a.active {
+    background:var(--turquoise-50);
+    color:var(--turquoise-700);
+    font-weight:600;
+  }
+  .side-index .dot {
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--line-strong);
+    flex:0 0 6px;
+    transition:background .15s,transform .15s;
+  }
+  .side-index a.active .dot {
+    background:var(--turquoise);
+    transform:scale(1.3);
+  }
+
+  /* Top sticky nav (mobile/tablet) */
+  .top-nav {
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(253,252,250,0.96);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+  }
+  .top-nav-inner {
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .top-nav a {
+    flex:0 0 auto;
+    padding:8px 14px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    border-radius:4px;
+    white-space:nowrap;
+    transition:all .15s;
+  }
+  .top-nav a:hover { background:var(--paper-soft); color:var(--ink); }
+
+  /* Belief grid (4 core beliefs) */
+  .belief-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+  }
+  .belief {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:24px;
+    position:relative;
+    border-top:3px solid var(--belief-color,var(--turquoise));
+  }
+  .belief[data-c="1"] { --belief-color:var(--turquoise); }
+  .belief[data-c="2"] { --belief-color:var(--purple); }
+  .belief[data-c="3"] { --belief-color:var(--orange); }
+  .belief[data-c="4"] { --belief-color:var(--green); }
+  .belief-num {
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--belief-color);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .belief h3 {
+    margin:0 0 10px;
+    font-size:18px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .belief p {
+    margin:0;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .belief p strong { color:var(--ink); }
+
+  /* Block grid (4 building blocks) */
+  .block-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  .block {
+    background:var(--paper-soft);
+    border-radius:8px;
+    padding:20px 22px;
+    border-left:3px solid var(--block-color,var(--turquoise));
+  }
+  .block[data-c="1"] { --block-color:var(--turquoise); }
+  .block[data-c="2"] { --block-color:var(--purple); }
+  .block[data-c="3"] { --block-color:var(--green); }
+  .block[data-c="4"] { --block-color:var(--orange); }
+  .block-tag {
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+    color:var(--block-color);
+    letter-spacing:0.08em;
+    margin-bottom:4px;
+  }
+  .block h3 {
+    margin:0 0 6px;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .block p {
+    margin:0 0 8px;
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .block-meta {
+    font-size:12px;
+    color:var(--ink-mute);
+    letter-spacing:0.03em;
+  }
+
+  /* Issue map (8 issues) */
+  .issue-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+  .issue {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px 18px;
+    transition:border-color .15s;
+  }
+  .issue:hover { border-color:var(--turquoise); }
+  .issue-num {
+    display:inline-block;
+    background:var(--turquoise-50);
+    color:var(--turquoise-700);
+    font-family:Georgia,serif;
+    font-size:11px;
+    font-weight:600;
+    padding:2px 8px;
+    border-radius:3px;
+    margin-bottom:8px;
+    letter-spacing:0.04em;
+  }
+  .issue h3 {
+    margin:0 0 4px;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1.45;
+  }
+  .issue p {
+    margin:0 0 8px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.65;
+  }
+  .issue-owner {
+    display:inline-block;
+    font-size:12px;
+    color:var(--copper-deep);
+    background:var(--paper-warm);
+    padding:2px 8px;
+    border-radius:3px;
+    letter-spacing:0.02em;
+  }
+
+  /* Six groups */
+  .group-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  .group {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:20px 22px;
+    border-top:4px solid var(--g-color,var(--turquoise));
+  }
+  .group[data-c="1"] { --g-color:var(--turquoise); }
+  .group[data-c="2"] { --g-color:var(--purple); }
+  .group[data-c="3"] { --g-color:var(--orange); }
+  .group[data-c="4"] { --g-color:var(--green); }
+  .group[data-c="5"] { --g-color:var(--copper-deep); }
+  .group[data-c="6"] { --g-color:var(--copper-light); }
+  .group-code {
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+    color:var(--g-color);
+    letter-spacing:0.08em;
+  }
+  .group h3 {
+    margin:4px 0 6px;
+    font-size:17px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .group p {
+    margin:0;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.65;
+  }
+
+  /* Tier grid (growth path) */
+  .tier-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:20px;
+  }
+  .tier {
+    background:var(--paper-soft);
+    border-radius:8px;
+    padding:20px;
+    text-align:center;
+    border-top:3px solid var(--t-color);
+  }
+  .tier[data-c="1"] { --t-color:var(--turquoise); }
+  .tier[data-c="2"] { --t-color:var(--purple); }
+  .tier[data-c="3"] { --t-color:var(--copper-deep); }
+  .tier-name {
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:4px;
+  }
+  .tier-name-en {
+    font-size:11px;
+    color:var(--ink-mute);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .tier-do {
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.65;
+    margin-bottom:10px;
+  }
+  .tier-load {
+    font-size:12px;
+    color:var(--t-color);
+    font-weight:600;
+    padding-top:10px;
+    border-top:1px solid var(--line);
+  }
+
+  /* Cadence (4 rhythm layers) — compact */
+  .cadence-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+  }
+  .cadence {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:16px 14px;
+    border-top:3px solid var(--copper-deep);
+    text-align:center;
+  }
+  .cadence-when {
+    font-size:13px;
+    font-weight:700;
+    color:var(--copper-deep);
+    margin-bottom:6px;
+    letter-spacing:0.04em;
+  }
+  .cadence-what {
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.55;
+  }
+
+  /* Recognition */
+  .recog-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+  }
+  .recog {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:18px 20px;
+    border-left:3px solid var(--green);
+  }
+  .recog-num {
+    font-family:Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+    color:var(--green);
+    letter-spacing:0.12em;
+  }
+  .recog h3 {
+    margin:4px 0 6px;
+    font-size:15px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .recog p {
+    margin:0;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.65;
+  }
+
+  /* Foundation rules */
+  .foundation-list {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .foundation-item {
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:14px 18px;
+    border-left:3px solid var(--orange);
+    font-size:14.5px;
+    line-height:1.7;
+  }
+  .foundation-item strong {
+    display:block;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+  .foundation-item span {
+    color:var(--ink-soft);
+    font-size:13.5px;
+  }
+
+  /* Crosscut callout */
+  .crosscut {
+    background:linear-gradient(135deg,var(--paper-warm) 0%,var(--paper-soft) 100%);
+    border:1px solid var(--line-strong);
+    border-radius:8px;
+    padding:22px 26px;
+    margin:32px 0;
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+  }
+  .crosscut-icon {
+    flex:0 0 28px;
+    color:var(--copper-deep);
+    margin-top:4px;
+  }
+  .crosscut h4 {
+    margin:0 0 6px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--copper-deep);
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+  }
+  .crosscut p {
+    margin:0;
+    font-size:14.5px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+
+  /* Pointer to A-set */
+  .pointer {
+    background:var(--turquoise-50);
+    border:1px solid var(--turquoise-100);
+    border-radius:8px;
+    padding:18px 22px;
+    margin-top:16px;
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .pointer strong { color:var(--turquoise-700); }
+
+  /* Footer */
+  footer {
+    background:var(--paper-soft);
+    border-top:1px solid var(--line);
+    padding:36px 24px;
+    text-align:center;
+  }
+  footer p {
+    margin:4px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  footer .brand-tagline {
+    font-size:14px;
+    color:var(--turquoise-700);
+    font-weight:500;
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+
+  /* Print */
+  @media print {
+    .top-nav, .side-index { display:none !important; }
+    .hero { background:#fff; color:var(--ink); border-bottom:2px solid var(--turquoise); }
+    .hero h1, .hero-sub, .hero-eyebrow, .hero-tag, .hero-update { color:var(--ink); opacity:1; }
+    .hero-tag { background:var(--paper-soft); }
+    .section, .belief, .block, .group, .tier { break-inside:avoid; page-break-inside:avoid; }
+  }
+
+  /* Responsive */
+  @media (min-width: 1280px) {
+    .side-index { display:block; }
+    .top-nav { display:none; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding:52px 20px 40px; }
+    .hero h1 { font-size:28px; }
+    .hero-sub { font-size:15px; }
+    main { padding:36px 20px 48px; }
+    .section { margin-bottom:56px; }
+    .section h2 { font-size:23px; }
+    .belief-grid, .block-grid, .issue-grid, .group-grid, .recog-grid { grid-template-columns:1fr; }
+    .tier-grid { grid-template-columns:1fr; }
+    .cadence-grid { grid-template-columns:repeat(2,1fr); }
+    .crosscut { flex-direction:column; gap:10px; padding:18px 20px; }
+  }
+
+</style>

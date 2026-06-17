@@ -1,0 +1,229 @@
+---
+import CopyButton from './CopyButton.astro';
+import CaseCompare from './CaseCompare.astro';
+
+export interface Props {
+  id: string;
+  code: string;
+  title: string;
+  direction: string;
+  prep: Array<{ label: string; desc: string }>;
+  prompt: string;
+  steps: string[];
+  tips: Array<{ problem: string; solution: string }>;
+  caseScenario: string;
+  caseBad: string;
+  caseGood: string;
+  caseTakeaway: string;
+}
+
+const { id, code, title, direction, prep, prompt, steps, tips, caseScenario, caseBad, caseGood, caseTakeaway } = Astro.props;
+---
+
+<details class="project" id={id}>
+  <summary class="project-header">
+    <div class="project-code">{code}</div>
+    <h3 class="project-title">{title}</h3>
+    <svg class="project-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M3 6 L8 11 L13 6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </summary>
+  <div class="project-body">
+    <section class="project-field">
+      <div class="field-label">方向</div>
+      <p class="field-direction">{direction}</p>
+    </section>
+
+    <section class="project-field">
+      <div class="field-label">使用 AI 完成這項工作</div>
+
+      <div class="workflow-sub">
+        <div class="workflow-sub-label">
+          <span class="workflow-sub-num">1</span>使用前準備
+        </div>
+        <ul class="prep-list">
+          {prep.map((item) => (
+            <li><strong>{item.label}</strong>:{item.desc}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="workflow-sub">
+        <div class="workflow-sub-label">
+          <span class="workflow-sub-num">2</span>提示詞範本
+        </div>
+        <CopyButton>{prompt}</CopyButton>
+      </div>
+
+      <div class="workflow-sub">
+        <div class="workflow-sub-label">
+          <span class="workflow-sub-num">3</span>操作步驟
+        </div>
+        <ol class="op-steps">
+          {steps.map((step) => <li set:html={step} />)}
+        </ol>
+      </div>
+
+      <div class="workflow-sub">
+        <div class="workflow-sub-label">
+          <span class="workflow-sub-num">4</span>常見調整
+        </div>
+        <ul class="tips-list">
+          {tips.map((tip) => (
+            <li><strong>{tip.problem}</strong>:{tip.solution}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="project-field">
+      <div class="field-label">案例對照</div>
+      <CaseCompare
+        scenario={caseScenario}
+        bad={caseBad}
+        good={caseGood}
+        takeaway={caseTakeaway}
+      />
+    </section>
+  </div>
+</details>
+
+<style>
+.project {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  margin: 14px 0;
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+.project[open] {
+  box-shadow: var(--shadow);
+}
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.project-header::-webkit-details-marker { display: none; }
+.project-header:hover {
+  background: var(--line-soft);
+}
+.project-code {
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  color: var(--tier-accent, var(--turquoise));
+  background: color-mix(in srgb, var(--tier-accent, var(--turquoise)) 12%, white);
+  padding: 5px 11px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.project-title {
+  flex: 1;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.project-chevron {
+  color: var(--muted);
+  transition: transform var(--transition);
+  flex-shrink: 0;
+}
+.project[open] .project-chevron {
+  transform: rotate(180deg);
+}
+.project-body {
+  padding: 8px 26px 26px;
+  border-top: 1px solid var(--line-soft);
+}
+.project-field {
+  margin-top: 22px;
+}
+.field-label {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--turquoise-700);
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--turquoise-50);
+}
+.field-direction {
+  font-size: .95rem;
+  line-height: 1.78;
+  color: var(--ink);
+  margin: 0;
+}
+.workflow-sub {
+  margin: 14px 0;
+}
+.workflow-sub-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.workflow-sub-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--turquoise);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+}
+.prep-list, .tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.prep-list li, .tips-list li {
+  padding-left: 18px;
+  position: relative;
+  font-size: .9rem;
+  line-height: 1.72;
+  margin-bottom: 7px;
+  color: var(--ink);
+}
+.prep-list li::before, .tips-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: .65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--turquoise);
+}
+.prep-list li strong, .tips-list li strong {
+  font-weight: 700;
+  color: var(--turquoise-700);
+}
+.op-steps {
+  padding-left: 22px;
+  margin: 0;
+}
+.op-steps li {
+  font-size: .9rem;
+  line-height: 1.72;
+  margin-bottom: 7px;
+  color: var(--ink);
+}
+.op-steps li em {
+  font-style: italic;
+  color: var(--copper-medium);
+  font-weight: 500;
+}
+</style>

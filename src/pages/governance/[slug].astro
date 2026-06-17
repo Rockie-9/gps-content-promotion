@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DocNav from '../../components/DocNav.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('governance');
+  return docs.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const data = entry.data;
+---
+
+<BaseLayout title={`${data.title} · GPS 內容推廣`} description={data.description}>
+  <DocNav title={data.title} subtitle={data.titleEn} />
+  <article class="gov-doc">
+    <Content />
+  </article>
+</BaseLayout>
+
+<style>
+.gov-doc {
+  max-width: var(--container-doc);
+  margin: 0 auto;
+  padding: 48px 32px;
+  background: var(--surface);
+  min-height: 100vh;
+}
+.gov-doc :global(h1) {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--turquoise);
+  margin: 0 0 8px;
+  letter-spacing: -.01em;
+}
+.gov-doc :global(h2) {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--turquoise-700);
+  margin: 38px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--turquoise-50);
+}
+.gov-doc :global(h3) {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 26px 0 10px;
+}
+.gov-doc :global(h4) {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--copper-deep);
+  margin: 20px 0 8px;
+}
+.gov-doc :global(p) { margin: 0 0 13px; font-size: .95rem; }
+.gov-doc :global(ul) { margin: 0 0 16px; padding-left: 0; list-style: none; }
+.gov-doc :global(li) {
+  margin: 0 0 9px;
+  padding-left: 22px;
+  position: relative;
+  font-size: .93rem;
+}
+.gov-doc :global(li::before) {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: .7em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--turquoise);
+}
+.gov-doc :global(hr) {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 34px 0;
+}
+.gov-doc :global(strong) { font-weight: 700; color: var(--turquoise); }
+.gov-doc :global(em) { font-style: normal; color: var(--copper-medium); font-weight: 600; }
+.gov-doc :global(code) {
+  font-family: var(--font-mono);
+  font-size: .85em;
+  background: var(--turquoise-50);
+  color: var(--turquoise-700);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.gov-doc :global(pre) {
+  background: #2B2A33;
+  color: #E8E6EC;
+  padding: 16px 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  line-height: 1.6;
+  margin: 0 0 16px;
+  white-space: pre-wrap;
+}
+.gov-doc :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-size: .88rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.gov-doc :global(thead) {
+  background: var(--turquoise);
+}
+.gov-doc :global(th) {
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+  padding: 11px 14px;
+  font-size: .84rem;
+  letter-spacing: .02em;
+}
+.gov-doc :global(td) {
+  padding: 11px 14px;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.gov-doc :global(tbody tr:nth-child(even)) {
+  background: var(--paper);
+}
+.gov-doc :global(tbody tr:hover) {
+  background: var(--turquoise-50);
+}
+.gov-doc :global(td:first-child) {
+  font-weight: 600;
+  color: var(--turquoise-700);
+  white-space: nowrap;
+}
+</style>

@@ -1,0 +1,28 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  bodyClass?: string;
+}
+
+const { title, description = 'GPS 內容推廣文件總集 — 五份治理文件加六本組別 Toolkit', bodyClass = '' } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
+</head>
+<body class={bodyClass}>
+  <a href="#main" class="skip-link">跳至主要內容</a>
+  <slot />
+</body>
+</html>
