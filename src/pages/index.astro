@@ -46,28 +46,6 @@ const tkCards = toolkits.map(t => ({
       <div id="search" class="search-mount"></div>
     </section>
 
-    <section class="pdf-section">
-      <h2 class="section-title">下載 PDF</h2>
-      <p class="section-hint">螢幕閱讀版（字型不 embed，檔案輕量）。需要列印請使用全集版。</p>
-      <div class="pdf-grid">
-        <a href={`${baseUrl}pdf/full-set.pdf`} class="pdf-tile" download>
-          <div class="pdf-tile-label">全集</div>
-          <div class="pdf-tile-desc">五份治理 + 六本 Toolkit 合一</div>
-          <div class="pdf-tile-meta">11 份 · 全本</div>
-        </a>
-        <a href={`${baseUrl}pdf/governance.pdf`} class="pdf-tile" download>
-          <div class="pdf-tile-label">治理文件</div>
-          <div class="pdf-tile-desc">制度導讀、章程、導覽卡、公約、口袋卡</div>
-          <div class="pdf-tile-meta">5 份</div>
-        </a>
-        <a href={`${baseUrl}pdf/toolkits.pdf`} class="pdf-tile" download>
-          <div class="pdf-tile-label">組別 Toolkit</div>
-          <div class="pdf-tile-desc">CS2-01 文字敘事至 CS2-06 服務體驗</div>
-          <div class="pdf-tile-meta">6 本</div>
-        </a>
-      </div>
-    </section>
-
     <section class="upstream-section">
       <div class="upstream-header">
         <span class="upstream-badge">
@@ -141,6 +119,30 @@ const tkCards = toolkits.map(t => ({
         ))}
       </div>
     </section>
+
+    <details class="pdf-mini">
+      <summary class="pdf-mini-summary">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M7 2 L7 10 M3 7 L7 11 L11 7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="pdf-mini-title">下載 PDF</span>
+        <span class="pdf-mini-meta">11 份文件可離線使用</span>
+      </summary>
+      <div class="pdf-mini-grid">
+        <a href={`${baseUrl}pdf/full-set.pdf`} class="pdf-mini-tile" download>
+          <span class="pdf-mini-label">全集</span>
+          <span class="pdf-mini-desc">五份治理 + 六本 Toolkit · 11 份</span>
+        </a>
+        <a href={`${baseUrl}pdf/governance.pdf`} class="pdf-mini-tile" download>
+          <span class="pdf-mini-label">治理文件</span>
+          <span class="pdf-mini-desc">制度導讀、章程、導覽卡、公約、口袋卡 · 5 份</span>
+        </a>
+        <a href={`${baseUrl}pdf/toolkits.pdf`} class="pdf-mini-tile" download>
+          <span class="pdf-mini-label">組別 Toolkit</span>
+          <span class="pdf-mini-desc">CS2-01 至 CS2-06 · 6 本</span>
+        </a>
+      </div>
+    </details>
   </main>
 
   <footer class="site-footer">
@@ -256,60 +258,86 @@ main {
   border: 1px solid var(--line);
 }
 
-.pdf-section {
-  margin-bottom: 44px;
-  padding: 26px 28px;
+/* ===== 下載 PDF（精簡摺疊版，置於頁底） ===== */
+.pdf-mini {
+  margin: 36px 0 8px;
+  padding: 0;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color var(--transition);
 }
-.section-title {
-  font-size: 1.05rem;
-  font-weight: 800;
+.pdf-mini[open] {
+  border-color: var(--turquoise);
+}
+.pdf-mini-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-size: .88rem;
   color: var(--ink);
-  margin-bottom: 4px;
+  list-style: none;
+  user-select: none;
+  transition: background var(--transition);
 }
-.section-hint {
-  font-size: .82rem;
+.pdf-mini-summary::-webkit-details-marker { display: none; }
+.pdf-mini-summary:hover {
+  background: var(--paper);
+}
+.pdf-mini-summary svg {
+  width: 14px;
+  height: 14px;
+  color: var(--turquoise-700);
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+.pdf-mini[open] .pdf-mini-summary svg {
+  transform: rotate(180deg);
+}
+.pdf-mini-title {
+  font-weight: 700;
+  color: var(--ink);
+}
+.pdf-mini-meta {
+  font-size: .76rem;
   color: var(--muted);
-  margin-bottom: 18px;
+  margin-left: auto;
 }
-.pdf-grid {
+.pdf-mini-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  padding: 0 12px 12px;
 }
-.pdf-tile {
+.pdf-mini-tile {
   display: block;
-  padding: 18px 20px;
+  padding: 12px 14px;
   background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 8px;
   text-decoration: none;
   color: var(--ink);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: border-color var(--transition), transform var(--transition);
 }
-.pdf-tile:hover {
-  transform: translateY(-2px);
+.pdf-mini-tile:hover {
   border-color: var(--turquoise);
-  box-shadow: var(--shadow);
+  transform: translateY(-1px);
 }
-.pdf-tile-label {
-  font-size: 1rem;
-  font-weight: 800;
+.pdf-mini-label {
+  display: block;
+  font-size: .86rem;
+  font-weight: 700;
   color: var(--turquoise-700);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
-.pdf-tile-desc {
-  font-size: .85rem;
-  color: var(--ink-soft);
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-.pdf-tile-meta {
-  font-size: .72rem;
+.pdf-mini-desc {
+  display: block;
+  font-size: .74rem;
   color: var(--muted);
-  letter-spacing: .05em;
+  line-height: 1.45;
 }
 
 /* ===== 上游引用區塊 ===== */
